@@ -3,8 +3,6 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Linq;
 
-using Quartz;
-
 using Colin.Lottery.Collectors;
 using Colin.Lottery.Models;
 using Colin.Lottery.Utils;
@@ -83,6 +81,24 @@ namespace Colin.Lottery.Analyzers
          * 若计划员号码重复度X>=80%则分数为 _REPETITION*X
          */
 
+        /*
+        * 连挂结束跟投策略
+        * 
+        * 假定有效连挂(距离当前期最近的已经结束的连挂)次数为N
+        * 1.N >= _START_GUA_TIME
+        * 2.有效连挂基础分算法
+        *   N >= _KEEP_GUA_TIME 时基础分满分_GU
+        *   N < _KEEP_GUA_TIME 时基础分按照 (_KEEP_GUA_TIME-N)*_DELTA_REDUCE 递减
+        * 3.段位分递减算法
+        *   我们认为连挂N段后，可以安全跟投N+1段，因为结束连挂已经过了一段，所以还可以安全跟投 N 次，结束连挂后的第二段段位分不减
+        *   每多跟投一段安全性降低一点，所以段位分随着跟投段位递减，假定当前为第 M 次跟投(1< M <= N+1) 段位分递减公式为
+        *   (M-2)*_DELTA_REDUCE*_GUA
+        * 4.有效连挂之前的历史记录中每出现一个挂记录记为_GUA_BASE分，过期有效挂视为普通挂
+        * 
+        */
+
+        #region 评分参数
+
         /// <summary>
         /// 单挂分数
         /// </summary>
@@ -108,18 +124,45 @@ namespace Colin.Lottery.Analyzers
         /// </summary>
         private const int _BET_CHASE = 50;
 
+
         /// <summary>
-        /// 挂 权重
+        /// 起投连挂次数
+        /// </summary>
+        private const int _START_GUA_TIME = 1;
+        /// <summary>
+        /// 几次有效连挂以上为满分挂
+        /// </summary>
+        private const int _KEEP_GUA_TIME = 3;
+        /// <summary>
+        /// 有效挂递减比例
+        /// </summary>
+        private const float _DELTA_REDUCE = 0.1f;
+
+
+        /// <summary>
+        /// 挂 权重(出现挂优先)
         /// </summary>
         private const float PG = 0.45f;
         /// <summary>
-        /// 重复号码 权重
+        /// 重复号码 权重(出现挂优先)
         /// </summary>
         private const float PR = 0.35f;
         /// <summary>
-        /// 追号 权重
+        /// 追号 权重(出现挂优先)
         /// </summary>
         private const float PC = 0.2f;
+        /// <summary>
+        /// 挂 权重(结束挂优先)
+        /// </summary>
+        private const float PGB = 0.7f;
+        /// <summary>
+        /// 重复号码 权重(结束挂优先)
+        /// </summary>
+        private const float PRB = 0.2f;
+        /// <summary>
+        /// 追号 权重(结束挂优先)
+        /// </summary>
+        private const float PCB = 0.1f;
         /// <summary>
         /// 计划员最小胜率
         /// </summary>
@@ -129,7 +172,9 @@ namespace Colin.Lottery.Analyzers
         /// </summary>
         private const float MAX_PRPBABILITY = 0.9f;
 
-        public override void CalcuteScore(ref (IForcastPlanModel Plan1, IForcastPlanModel Plan2) plans, bool startWhenBreakGua)
+        #endregion
+
+        public override void CalcuteScore(ref (IForcastPlanModel Plan1, IForcastPlanModel Plan2) plans, bool startWhenBreakGua = false)
         {
             (IForcastPlanModel Plan1, IForcastPlanModel Plan2) = plans;
             var p1Forcast = Plan1.ForcastData.LastOrDefault();
@@ -137,24 +182,44 @@ namespace Colin.Lottery.Analyzers
 
             var repetition = CalcuteRepetition(p1Forcast.ForcastNo, p2Forcast.ForcastNo);
             var gua1 = CalcuteGua(Plan1.ForcastData, startWhenBreakGua, out int keepGuaCnt1, out int keepHisGuaCnt1);
-            var gua2 = CalcuteGua(Plan1.ForcastData, startWhenBreakGua, out int keepGuaCnt2, out int keepHisGuaCnt2);
+            var gua2 = CalcuteGua(Plan2.ForcastData, startWhenBreakGua, out int keepGuaCnt2, out int keepHisGuaCnt2);
             var chase1 = CalcuteBetChase(p1Forcast.ChaseTimes);
-            var chase2 = CalcuteBetChase(p1Forcast.ChaseTimes);
+            var chase2 = CalcuteBetChase(p2Forcast.ChaseTimes);
 
             var rp = _REPETITION * 0.8;
-            if (keepGuaCnt1 > 1 || repetition > rp)
-                Plan1.Score = 100;
-            else
+            if (!startWhenBreakGua)
             {
-                var s1 = (gua1 * PG + repetition * PR + chase1 * PC) * (Plan1.WinProbability - MIN_PRPBABILITY) / (MAX_PRPBABILITY - MIN_PRPBABILITY);
-                Plan1.Score = repetition >= rp ? repetition : s1;
+                if (keepGuaCnt1 > 1 || repetition >= rp)
+                    Plan1.Score = 100;
+                else
+                {
+                    var s1 = (gua1 * PG + repetition * PR + chase1 * PC) * (Plan1.WinProbability - MIN_PRPBABILITY) / (MAX_PRPBABILITY - MIN_PRPBABILITY);
+                    Plan1.Score = repetition >= rp ? repetition : s1;
+                }
+                if (keepGuaCnt2 > 1 || repetition >= rp)
+                    Plan2.Score = 100;
+                else
+                {
+                    var s2 = (gua2 * PG + repetition * PR + chase2 * PC) * (Plan2.WinProbability - MIN_PRPBABILITY) / (MAX_PRPBABILITY - MIN_PRPBABILITY);
+                    Plan2.Score = repetition >= rp ? repetition : s2;
+                }
             }
-            if (keepGuaCnt2 > 1 || repetition > rp)
-                Plan2.Score = 100;
             else
             {
-                var s2 = (gua2 * PG + repetition * PR + chase2 * PC) * (Plan2.WinProbability - MIN_PRPBABILITY) / (MAX_PRPBABILITY - MIN_PRPBABILITY);
-                Plan2.Score = repetition >= rp ? repetition : s2;
+                if (gua1 >= 90 || repetition >= rp)
+                    Plan1.Score = 100;
+                else
+                {
+                    var s1 = (gua1 * PGB + repetition * PRB + chase1 * PCB) * (Plan1.WinProbability - MIN_PRPBABILITY) / (MAX_PRPBABILITY - MIN_PRPBABILITY);
+                    Plan1.Score = repetition >= rp ? repetition : s1;
+                }
+                if (gua2 >= 90 || repetition >= rp)
+                    Plan2.Score = 100;
+                else
+                {
+                    var s2 = (gua2 * PGB + repetition * PRB + chase2 * PCB) * (Plan2.WinProbability - MIN_PRPBABILITY) / (MAX_PRPBABILITY - MIN_PRPBABILITY);
+                    Plan2.Score = repetition >= rp ? repetition : s2;
+                }
             }
 
             Plan1.KeepGuaCnt = keepGuaCnt1;
@@ -162,6 +227,7 @@ namespace Colin.Lottery.Analyzers
             Plan2.KeepGuaCnt = keepGuaCnt2;
             Plan2.KeepHisGuaCnt = keepHisGuaCnt2;
         }
+
 
         /// <summary>
         /// 计算"挂"分数 (出现挂优先)
@@ -223,35 +289,6 @@ namespace Colin.Lottery.Analyzers
             return total > 100 ? 100 : total;
         }
 
-        /*
-        * 连挂结束跟投策略
-        * 
-        * 假定有效连挂(距离当前期最近的已经结束的连挂)次数为N
-        * 1.N >= _START_GUA_TIME
-        * 2.有效连挂基础分算法
-        *   N >= _KEEP_GUA_TIME 时基础分满分_GU
-        *   N < _KEEP_GUA_TIME 时基础分按照 (_KEEP_GUA_TIME-N)*_DELTA_REDUCE 递减
-        * 3.段位分递减算法
-        *   我们认为连挂N段后，可以安全跟投N+1段，因为结束连挂已经过了一段，所以还可以安全跟投 N 次，
-        *   每多跟投一段安全性降低一点，所以段位分随着跟头段位递减，假定当前为第 M 次跟投(1< M <= N+1)公式为
-        *   
-        * 
-        * 
-        */
-
-        /// <summary>
-        /// 起投连挂次数
-        /// </summary>
-        private const int _START_GUA_TIME = 1;
-
-        /// <summary>
-        /// 几次有效连挂以上为满分挂
-        /// </summary>
-        private const int _KEEP_GUA_TIME = 3;
-        /// <summary>
-        /// 有效挂递减比例
-        /// </summary>
-        private const float _DELTA_REDUCE = 0.1f;
 
         /// <summary>
         /// 计算"挂"分数 (结束挂优先)
@@ -286,12 +323,13 @@ namespace Colin.Lottery.Analyzers
             if (validGua >= _START_GUA_TIME && firstValidWrongIndex > 0 && firstValidWrongIndex <= validGua)
             {
                 var baseScore = validGua >= _KEEP_GUA_TIME ? _GUA : (1 - (_KEEP_GUA_TIME - validGua) * _DELTA_REDUCE) * _GUA;
-                total += baseScore - ((validGua - firstValidWrongIndex) - 2) * _DELTA_REDUCE * _GUA;
+                total += baseScore - (firstValidWrongIndex - 1) * _DELTA_REDUCE * _GUA;
             }
+            //过期有效果视为普通挂
+            if (firstValidWrongIndex > validGua)
+                normalGua += validGua;
             if (normalGua > 0)
-            {
                 total += _GUA_BASE * normalGua;
-            }
 
             return total;
         }

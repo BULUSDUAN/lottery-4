@@ -8,10 +8,15 @@ namespace Colin.Lottery.ConsoleTest
     {
         static void Main(string[] args)
         {
-            //GetForcastData();
-            //JinMaAnalyzer.Instance.Start();
+            CalcuteSocreTest();
 
             Console.ReadKey();
+        }
+
+        static async void CalcuteSocreTest()
+        {
+            var plans = await JinMaAnalyzer.Instance.GetForcastData();
+            JinMaAnalyzer.Instance.CalcuteScore(ref plans, true);
         }
 
         static async void GetForcastData()
