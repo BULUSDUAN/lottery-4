@@ -18,11 +18,11 @@ namespace Colin.Lottery.StrategyService
         {
             //TODO:根据彩种完善Cron表达式
 
-            var _pk10Trigger = QuartzUtil.CreateTrigger($"{LotteryType.PK10}", "JinMaTrigger", "", DateTime.Today.AddHours(9).AddMinutes(5));
-            var _sscTrigger = QuartzUtil.CreateTrigger($"{LotteryType.PK10}", "JinMaTrigger", "", DateTime.Today.AddHours(10));
+            _pk10Trigger = QuartzUtil.CreateTrigger($"{LotteryType.PK10}", "JinMaTrigger", "", DateTime.Today.AddHours(9).AddMinutes(5));
+            _sscTrigger = QuartzUtil.CreateTrigger($"{LotteryType.PK10}", "JinMaTrigger", "", DateTime.Today.AddHours(10));
         }
 
-        public async override void Start()
+        public async override Task Start()
         {
             await StartPK10Champion();
         }
@@ -97,7 +97,6 @@ namespace Colin.Lottery.StrategyService
 
         async Task StartPK10Champion(bool startWhenBreakGua = false)
         {
-
             var job = QuartzUtil.CreateSimpleJob($"{LotteryType.PK10}{PK10Rule.Champion}", $"{LotteryType.PK10}", async () =>
                {
                    var plans = await JinMaAnalyzer.Instance.GetForcastData();

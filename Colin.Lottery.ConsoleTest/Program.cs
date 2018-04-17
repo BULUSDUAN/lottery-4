@@ -15,7 +15,7 @@ namespace Colin.Lottery.ConsoleTest
 
         static async void CalcuteSocreTest()
         {
-            var plans = await JinMaAnalyzer.Instance.GetForcastData();
+            var plans = await JinMaAnalyzer.Instance.GetForcastData(LotteryType.PK10, (int)PK10Rule.Second);
             JinMaAnalyzer.Instance.CalcuteScore(ref plans, true);
         }
 

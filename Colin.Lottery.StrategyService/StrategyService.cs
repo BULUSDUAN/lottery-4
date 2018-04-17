@@ -1,5 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+
 using Colin.Lottery.Models;
 
 namespace Colin.Lottery.StrategyService
@@ -8,7 +9,7 @@ namespace Colin.Lottery.StrategyService
         : Singleton<T>, IStrategyService
         where T : StrategyService<T>, new()
     {
-        public abstract void Start();
+        public abstract Task Start();
 
         public abstract void Start(Dictionary<LotteryType, List<int>> typeRules);
     }

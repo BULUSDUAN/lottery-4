@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using System.Threading.Tasks;
 using Colin.Lottery.Models;
 
 namespace Colin.Lottery.StrategyService
@@ -10,7 +10,7 @@ namespace Colin.Lottery.StrategyService
         /// <summary>
         /// 开始数据分析（默认为北京赛车冠军定位胆）
         /// </summary>
-        void Start();
+        Task Start();
 
         /// <summary>
         /// 开始数据分析
