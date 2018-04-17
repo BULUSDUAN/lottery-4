@@ -5,6 +5,7 @@
     <TargetFramework>netcoreapp2.0</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' " />
   <ItemGroup>
     <ProjectReference Include="..\Colin.Lottery.Analyzers\Colin.Lottery.Analyzers.csproj" />
     <ProjectReference Include="..\Colin.Lottery.Models\Colin.Lottery.Models.csproj" />
