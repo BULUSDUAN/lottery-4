@@ -4,10 +4,6 @@
     <TargetFramework>netcoreapp2.0</TargetFramework>
   </PropertyGroup>
 
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <IntermediateOutputPath></IntermediateOutputPath>
-    <DebugSymbols>true</DebugSymbols>
-  </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\Colin.Lottery.Collectors\Colin.Lottery.Collectors.csproj" />
     <ProjectReference Include="..\Colin.Lottery.Models\Colin.Lottery.Models.csproj" />
