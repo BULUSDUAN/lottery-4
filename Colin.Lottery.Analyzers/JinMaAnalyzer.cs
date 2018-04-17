@@ -58,103 +58,6 @@ namespace Colin.Lottery.Analyzers
 
         #endregion
 
-        ITrigger _pk10Trigger, _sscTrigger;
-        public JinMaAnalyzer()
-        {
-            //var _pk10Trigger = QuartzUtil.CreateTrigger($"{LotteryType.PK10}", "JinMaTrigger", "", DateTime.Today.AddHours(9).AddMinutes(5));
-            //var _sscTrigger = QuartzUtil.CreateTrigger($"{LotteryType.PK10}", "JinMaTrigger", "", DateTime.Today.AddHours(10));
-        }
-
-        public async override void Start()
-        {
-            await AnalyzePK10Champion();
-        }
-
-        public override void Start(Dictionary<LotteryType, List<int>> typeRules)
-        {
-            if (typeRules == null)
-                return;
-
-            foreach (var type in typeRules.Keys)
-            {
-                switch (type)
-                {
-                    case LotteryType.CQSSC:
-                        typeRules[type].ForEach(r =>
-                        {
-                            switch ((CQSSCRule)r)
-                            {
-                                case CQSSCRule.OddOrEven:
-                                    break;
-                                case CQSSCRule.BigOrSmall:
-                                    break;
-                                case CQSSCRule.DragonOrTiger:
-                                    break;
-                                case CQSSCRule.Last2Group:
-                                    break;
-                                case CQSSCRule.Last3Group:
-                                    break;
-                                case CQSSCRule.OneOddOrEven:
-                                    break;
-                                case CQSSCRule.OneBigOrSmall:
-                                    break;
-                                case CQSSCRule.One:
-                                    break;
-                                default:
-                                    break;
-                            }
-                        });
-                        break;
-                    case LotteryType.PK10:
-                        typeRules[type].ForEach(async r =>
-                        {
-                            switch ((PK10Rule)r)
-                            {
-                                case PK10Rule.Champion:
-                                    await AnalyzePK10Champion();
-                                    break;
-                                case PK10Rule.Second:
-                                    break;
-                                case PK10Rule.Third:
-                                    break;
-                                case PK10Rule.Fourth:
-                                    break;
-                                case PK10Rule.BigOrSmall:
-                                    break;
-                                case PK10Rule.OddOrEven:
-                                    break;
-                                case PK10Rule.DragonOrTiger:
-                                    break;
-                                case PK10Rule.Sum:
-                                    break;
-                                default:
-                                    break;
-                            }
-                        });
-                        break;
-                    default:
-                        break;
-                }
-            }
-        }
-
-
-        async Task AnalyzePK10Champion(bool startWhenBreakGua = false)
-        {
-
-            //var job = QuartzUtil.CreateSimpleJob($"{LotteryType.PK10}{PK10Rule.Champion}", $"{LotteryType.PK10}", async () =>
-            //   {
-            //       var plans = await GetForcastData();
-            //       CalcuteScore(ref plans);
-            //       //TODO:分析数据分发
-            //   });
-
-            //QuartzUtil.GetScheduler().ScheduleJob(job, _pk10Trigger);
-
-            var plans = await GetForcastData();
-            CalcuteScore(ref plans, startWhenBreakGua);
-        }
-
         /*
          * 北京赛车 投注策略
          * 
@@ -226,7 +129,7 @@ namespace Colin.Lottery.Analyzers
         /// </summary>
         private const float MAX_PRPBABILITY = 0.9f;
 
-        void CalcuteScore(ref (IForcastPlanModel Plan1, IForcastPlanModel Plan2) plans, bool startWhenBreakGua)
+        public override void CalcuteScore(ref (IForcastPlanModel Plan1, IForcastPlanModel Plan2) plans, bool startWhenBreakGua)
         {
             (IForcastPlanModel Plan1, IForcastPlanModel Plan2) = plans;
             var p1Forcast = Plan1.ForcastData.LastOrDefault();
@@ -414,5 +317,6 @@ namespace Colin.Lottery.Analyzers
         /// <param name="chaseTime"></param>
         /// <returns></returns>
         int CalcuteBetChase(int chaseTime) => _BET_CHASE * (chaseTime - 1);
+
     }
 }

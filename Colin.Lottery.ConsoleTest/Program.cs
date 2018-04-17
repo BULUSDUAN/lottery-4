@@ -9,7 +9,7 @@ namespace Colin.Lottery.ConsoleTest
         static void Main(string[] args)
         {
             //GetForcastData();
-            JinMaAnalyzer.Instance.Start();
+            //JinMaAnalyzer.Instance.Start();
 
             Console.ReadKey();
         }
