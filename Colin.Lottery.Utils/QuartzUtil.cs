@@ -27,13 +27,15 @@ namespace Colin.Lottery.Utils
         /// <returns></returns>
         public static NameValueCollection BuildSchedulerProperties(string instanceName, int threadCount = 5)
         {
-            var properties = new NameValueCollection();
-            properties["quartz.scheduler.instanceName"] = instanceName;
+            var properties = new NameValueCollection
+            {
+                ["quartz.scheduler.instanceName"] = instanceName,
 
-            // 设置线程池
-            properties["quartz.threadPool.type"] = "Quartz.Simpl.SimpleThreadPool, Quartz";
-            properties["quartz.threadPool.threadCount"] = threadCount.ToString();
-            properties["quartz.threadPool.threadPriority"] = "Normal";
+                // 设置线程池
+                ["quartz.threadPool.type"] = "Quartz.Simpl.SimpleThreadPool, Quartz",
+                ["quartz.threadPool.threadCount"] = threadCount.ToString(),
+                ["quartz.threadPool.threadPriority"] = "Normal"
+            };
 
             return properties;
         }
@@ -43,7 +45,7 @@ namespace Colin.Lottery.Utils
         /// </summary>
         /// <param name="name">名称</param>
         /// <param name="group">分组</param>
-        /// <param name="execute">Job要执行的方法</param>
+        /// <param name="jobDelegate">Job要执行的方法</param>
         /// <returns></returns>
         public static IJobDetail CreateSimpleJob(string name, string group, Action jobDelegate)
         {
@@ -154,13 +156,13 @@ namespace Colin.Lottery.Utils
         /// <param name="nameKeyword">Job名称关键字</param>
         /// <param name="jobDelegate">Job内容</param>
         /// <param name="cron">Trigger Cron表达式</param>
-        public static async void ScheduleSimpleJob(string nameKeyword, Action jobDelegate, string cron)
+        public static async Task ScheduleSimpleJob(string nameKeyword, Action jobDelegate, string cron)
         {
             (string jobName, string jobGroup, string triggerName, string triggerGroup) = nameKeyword.JobAndTriggerNames();
-            await QuartzUtil.DeleteJob(jobName, jobGroup);
+            await DeleteJob(jobName, jobGroup);
 
-            var job = QuartzUtil.CreateSimpleJob(jobName, jobGroup, jobDelegate);
-            var trigger = QuartzUtil.CreateTrigger(triggerName, triggerGroup, cron);
+            var job = CreateSimpleJob(jobName, jobGroup, jobDelegate);
+            var trigger = CreateTrigger(triggerName, triggerGroup, cron);
             await GetScheduler().ScheduleJob(job, trigger);
         }
 
@@ -202,11 +204,11 @@ namespace Colin.Lottery.Utils
             return date.ToShortDateString();
         }
 
-        public static async void ModeifyTriggerTime(string triggerName, string triggerGroupName, string time)
+        public static async Task ModeifyTriggerTime(string triggerName, string triggerGroupName)
         {
-            IScheduler sched = GetScheduler();
+            var sched = GetScheduler();
             ITrigger trigger = await sched.GetTrigger(new TriggerKey(triggerName, triggerGroupName));
-            TriggerKey key = new TriggerKey(triggerName, triggerGroupName);
+            var key = new TriggerKey(triggerName, triggerGroupName);
             await sched.ResumeTrigger(key);
         }
     }
@@ -222,28 +224,23 @@ namespace Colin.Lottery.Utils
         }
         static Scheduler()
         {
-            var task = new StdSchedulerFactory(QuartzUtil.BuildSchedulerProperties("GlobleSchedulerClient")).GetScheduler();
-            task.Wait();
-            Singleton = task.Result;
-            Singleton.Start();
+            async void Initialize()
+            {
+                Singleton = await new StdSchedulerFactory(QuartzUtil.BuildSchedulerProperties("GlobleSchedulerClient")).GetScheduler();
+                await Singleton.Start();
+            }
+            Initialize();
         }
     }
 
     class SimpleJob : IJob
     {
-        //public void Execute(IJobExecutionContext context)
-        //{
-        //    var job = context.JobDetail.JobDataMap["jobDelegate"] as Action;
-        //    if (job == null)
-        //        return;
-
-        //    job.Invoke();
-        //}
-
-        public Task Execute(IJobExecutionContext context)
+        public async Task Execute(IJobExecutionContext context)
         {
-            var job = context.JobDetail.JobDataMap["jobDelegate"] as Action;
-            return new Task(job);
+            if (!(context.JobDetail.JobDataMap["jobDelegate"] is Action job))
+                return;
+
+            job.Invoke();
         }
     }
 }

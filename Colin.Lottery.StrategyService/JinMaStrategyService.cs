@@ -12,14 +12,19 @@ namespace Colin.Lottery.StrategyService
 {
     public class JinMaStrategyService : StrategyService<JinMaStrategyService>
     {
-        ITrigger _pk10Trigger, _sscTrigger;
+        readonly ITrigger _pk10Trigger;
+        readonly ITrigger _sscTrigger;
 
         public JinMaStrategyService()
         {
-            //TODO:根据彩种完善Cron表达式
-
-            _pk10Trigger = QuartzUtil.CreateTrigger($"{LotteryType.PK10}", "JinMaTrigger", "", DateTime.Today.AddHours(9).AddMinutes(5));
-            _sscTrigger = QuartzUtil.CreateTrigger($"{LotteryType.PK10}", "JinMaTrigger", "", DateTime.Today.AddHours(10));
+            /* 
+             * 北京赛车时间为每天9:00到23:50，每5分钟开一期，共179期
+             * 
+             * “0 1/5 9-23 * * ?”
+             * 每天9点到23点，每5分钟的第1分钟第0秒。如 9:01:00,9:06:00 ... 9:56:00 ... 23:51:00,23:56:00
+            */
+            _pk10Trigger = QuartzUtil.CreateTrigger($"{LotteryType.PK10}", "JinMaTrigger", "0 1/5 9-23 * * ?");
+            _sscTrigger = QuartzUtil.CreateTrigger($"{LotteryType.CQSSC}", "JinMaTrigger", "0/5 * * * * ? *");
         }
 
         public async override Task Start()
@@ -57,8 +62,6 @@ namespace Colin.Lottery.StrategyService
                                     break;
                                 case CQSSCRule.One:
                                     break;
-                                default:
-                                    break;
                             }
                         });
                         break;
@@ -84,12 +87,8 @@ namespace Colin.Lottery.StrategyService
                                     break;
                                 case PK10Rule.Sum:
                                     break;
-                                default:
-                                    break;
                             }
                         });
-                        break;
-                    default:
                         break;
                 }
             }
@@ -97,15 +96,40 @@ namespace Colin.Lottery.StrategyService
 
         async Task StartPK10Champion(bool startWhenBreakGua = false)
         {
-            var job = QuartzUtil.CreateSimpleJob($"{LotteryType.PK10}{PK10Rule.Champion}", $"{LotteryType.PK10}", async () =>
-               {
-                   var plans = await JinMaAnalyzer.Instance.GetForcastData();
-                   JinMaAnalyzer.Instance.CalcuteScore(ref plans, startWhenBreakGua);
+            //var scanJob = QuartzUtil.CreateSimpleJob($"{LotteryType.PK10}{PK10Rule.Champion}", $"{LotteryType.PK10}", () =>
+            //{
+            //    //var plans = await JinMaAnalyzer.Instance.GetForcastData();
+            //    //JinMaAnalyzer.Instance.CalcuteScore(ref plans, startWhenBreakGua);
 
-                   //TODO:分析数据分发
-               });
+            //    //TODO:分析数据分发
 
-            await QuartzUtil.GetScheduler().ScheduleJob(job, _pk10Trigger);
+            //    Console.WriteLine(DateTime.Now);
+            //});
+
+
+
+            //大管家Job，负责创建每期的扫水Job
+            var stewardJob = QuartzUtil.CreateSimpleJob($"Steward_{LotteryType.PK10}_Job", $"{LotteryType.PK10}_JobGroup", async () =>
+             {
+                 var timestamp = DateTime.Now;
+                 var tempJob = $"{timestamp}_Scan_{LotteryType.PK10}";
+                 var ng = tempJob.JobAndTriggerNames();
+
+                 await QuartzUtil.ScheduleSimpleJob(tempJob, async () =>
+                       {
+                          //扫水，扫到或超时自毁
+                          if ((DateTime.Now - timestamp).TotalMinutes > 5)
+                           {
+                               await QuartzUtil.DeleteJob(ng.JobName, ng.JobGroup);
+                           }
+
+
+                       }, "0/5 * * * * ? *");
+             });
+
+            await QuartzUtil.GetScheduler().ScheduleJob(stewardJob, _pk10Trigger);
         }
+
+
     }
 }
