@@ -5,7 +5,6 @@ using System.Linq;
 
 using Colin.Lottery.Collectors;
 using Colin.Lottery.Models;
-using Colin.Lottery.Utils;
 
 namespace Colin.Lottery.Analyzers
 {
@@ -342,7 +341,7 @@ namespace Colin.Lottery.Analyzers
         /// <returns></returns>
         float CalcuteRepetition(string no1, string no2)
         {
-            var repetition = no1.Split(' ').ToHashSet();
+            var repetition = new HashSet<string>(no1.Split(' '));
             var n2 = no2.Split(' ').ToList();
             n2.ForEach(n => repetition.Add(n));
 

@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Linq;
 
 using Quartz;
 
 using Colin.Lottery.Analyzers;
 using Colin.Lottery.Models;
 using Colin.Lottery.Utils;
+using Colin.Lottery.Common;
 
 namespace Colin.Lottery.StrategyService
 {
@@ -96,40 +98,34 @@ namespace Colin.Lottery.StrategyService
 
         async Task StartPK10Champion(bool startWhenBreakGua = false)
         {
-            //var scanJob = QuartzUtil.CreateSimpleJob($"{LotteryType.PK10}{PK10Rule.Champion}", $"{LotteryType.PK10}", () =>
-            //{
-            //    //var plans = await JinMaAnalyzer.Instance.GetForcastData();
-            //    //JinMaAnalyzer.Instance.CalcuteScore(ref plans, startWhenBreakGua);
-
-            //    //TODO:分析数据分发
-
-            //    Console.WriteLine(DateTime.Now);
-            //});
-
-
-
             //大管家Job，负责创建每期的扫水Job
             var stewardJob = QuartzUtil.CreateSimpleJob($"Steward_{LotteryType.PK10}_Job", $"{LotteryType.PK10}_JobGroup", async () =>
              {
                  var timestamp = DateTime.Now;
-                 var tempJob = $"{timestamp}_Scan_{LotteryType.PK10}";
+                 var periodNo = PK10Scheduler.Instance.GetPeriodNo(timestamp);
+                 var tempJob = $"{periodNo}_Scan_{LotteryType.PK10}";
                  var ng = tempJob.JobAndTriggerNames();
 
                  await QuartzUtil.ScheduleSimpleJob(tempJob, async () =>
-                       {
-                          //扫水，扫到或超时自毁
-                          if ((DateTime.Now - timestamp).TotalMinutes > 5)
-                           {
-                               await QuartzUtil.DeleteJob(ng.JobName, ng.JobGroup);
-                           }
+                 {
+                     //超时自毁
+                     if ((DateTime.Now - timestamp).TotalMinutes > 5)
+                         await QuartzUtil.DeleteJob(ng.JobName, ng.JobGroup);
 
+                     //扫水
+                     var plans = await JinMaAnalyzer.Instance.GetForcastData();
+                     JinMaAnalyzer.Instance.CalcuteScore(ref plans, startWhenBreakGua);
 
-                       }, "0/5 * * * * ? *");
+                     if (plans.Plan1.LastDrawedPeriod + 1 >= periodNo)
+                     {
+                         //TODO:分发消息
+
+                         await QuartzUtil.DeleteJob(ng.JobName, ng.JobGroup);
+                     }
+                 }, "0/5 * * * * ? *");
              });
 
             await QuartzUtil.GetScheduler().ScheduleJob(stewardJob, _pk10Trigger);
         }
-
-
     }
 }

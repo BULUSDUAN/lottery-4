@@ -6,9 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Colin.Lottery.Analyzers\Colin.Lottery.Analyzers.csproj" />
-    <ProjectReference Include="..\Colin.Lottery.Models\Colin.Lottery.Models.csproj" />
     <ProjectReference Include="..\Colin.Lottery.Utils\Colin.Lottery.Utils.csproj" />
+    <ProjectReference Include="..\Colin.Lottery.Models\Colin.Lottery.Models.csproj" />
+    <ProjectReference Include="..\Colin.Lottery.Analyzers\Colin.Lottery.Analyzers.csproj" />
+    <ProjectReference Include="..\Colin.Lottery.Common\Colin.Lottery.Common.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Quartz" Version="3.0.4" />

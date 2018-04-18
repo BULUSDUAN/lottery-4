@@ -7,9 +7,7 @@ namespace Colin.Lottery.StrategyService
         static readonly DateTime _START_DATETIME = new DateTime(2018, 4, 18, 11, 0, 0);
         static void Main(string[] args)
         {
-            //Start();
-
-            var span = DateTime.Now - _START_DATETIME;
+            Start();
 
             Console.ReadKey();
         }

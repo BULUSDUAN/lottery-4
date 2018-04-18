@@ -1,4 +1,5 @@
 ﻿using System;
+
 namespace Colin.Lottery.Common
 {
     public interface ILotteryScheduler

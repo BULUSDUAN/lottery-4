@@ -7,4 +7,7 @@
   <ItemGroup>
     <Folder Include="Scheduler\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Colin.Lottery.Models\Colin.Lottery.Models.csproj" />
+  </ItemGroup>
 </Project>
