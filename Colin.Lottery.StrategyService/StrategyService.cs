@@ -9,8 +9,8 @@ namespace Colin.Lottery.StrategyService
         : Singleton<T>, IStrategyService
         where T : StrategyService<T>, new()
     {
-        public abstract Task Start();
+        public abstract Task Start(bool startWhenBreakGua = false);
 
-        public abstract void Start(Dictionary<LotteryType, List<int>> typeRules);
+        public abstract void Start(Dictionary<LotteryType, List<int>> typeRules, bool startWhenBreakGua = false);
     }
 }

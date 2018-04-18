@@ -29,12 +29,12 @@ namespace Colin.Lottery.StrategyService
             _sscTrigger = QuartzUtil.CreateTrigger($"{LotteryType.CQSSC}", "JinMaTrigger", "0/5 * * * * ? *");
         }
 
-        public async override Task Start()
+        public async override Task Start(bool startWhenBreakGua = false)
         {
-            await StartPK10Champion();
+            await StartPK10(PK10Rule.Champion, startWhenBreakGua);
         }
 
-        public override void Start(Dictionary<LotteryType, List<int>> typeRules)
+        public override void Start(Dictionary<LotteryType, List<int>> typeRules, bool startWhenBreakGua = false)
         {
             if (typeRules == null)
                 return;
@@ -68,62 +68,41 @@ namespace Colin.Lottery.StrategyService
                         });
                         break;
                     case LotteryType.PK10:
-                        typeRules[type].ForEach(async r =>
-                        {
-                            switch ((PK10Rule)r)
-                            {
-                                case PK10Rule.Champion:
-                                    await StartPK10Champion();
-                                    break;
-                                case PK10Rule.Second:
-                                    break;
-                                case PK10Rule.Third:
-                                    break;
-                                case PK10Rule.Fourth:
-                                    break;
-                                case PK10Rule.BigOrSmall:
-                                    break;
-                                case PK10Rule.OddOrEven:
-                                    break;
-                                case PK10Rule.DragonOrTiger:
-                                    break;
-                                case PK10Rule.Sum:
-                                    break;
-                            }
-                        });
+                        typeRules[type].ForEach(async r => await StartPK10((PK10Rule)r, startWhenBreakGua));
                         break;
                 }
             }
         }
 
-        async Task StartPK10Champion(bool startWhenBreakGua = false)
+        async Task StartPK10(PK10Rule rule, bool startWhenBreakGua)
         {
+            var prefix = $"{LotteryType.PK10}_{rule}";
             //大管家Job，负责创建每期的扫水Job
-            var stewardJob = QuartzUtil.CreateSimpleJob($"Steward_{LotteryType.PK10}_Job", $"{LotteryType.PK10}_JobGroup", async () =>
-             {
-                 var timestamp = DateTime.Now;
-                 var periodNo = PK10Scheduler.Instance.GetPeriodNo(timestamp);
-                 var tempJob = $"{periodNo}_Scan_{LotteryType.PK10}";
-                 var ng = tempJob.JobAndTriggerNames();
+            var stewardJob = QuartzUtil.CreateSimpleJob($"{prefix}_Steward_Job", $"{LotteryType.PK10}_JobGroup", async () =>
+            {
+                var timestamp = DateTime.Now;
+                var periodNo = PK10Scheduler.Instance.GetPeriodNo(timestamp);
+                var tempJob = $"{prefix}_Scan_{periodNo}";
+                var ng = tempJob.JobAndTriggerNames();
 
-                 await QuartzUtil.ScheduleSimpleJob(tempJob, async () =>
-                 {
-                     //超时自毁
-                     if ((DateTime.Now - timestamp).TotalMinutes > 5)
-                         await QuartzUtil.DeleteJob(ng.JobName, ng.JobGroup);
+                await QuartzUtil.ScheduleSimpleJob(tempJob, async () =>
+                {
+                    //超时自毁
+                    if ((DateTime.Now - timestamp).TotalMinutes > 5)
+                        await QuartzUtil.DeleteJob(ng.JobName, ng.JobGroup);
 
-                     //扫水
-                     var plans = await JinMaAnalyzer.Instance.GetForcastData();
-                     JinMaAnalyzer.Instance.CalcuteScore(ref plans, startWhenBreakGua);
+                    //扫水
+                    var plans = await JinMaAnalyzer.Instance.GetForcastData();
+                    JinMaAnalyzer.Instance.CalcuteScore(ref plans, startWhenBreakGua);
 
-                     if (plans.Plan1.LastDrawedPeriod + 1 >= periodNo)
-                     {
-                         //TODO:分发消息
+                    if (plans.Plan1.LastDrawedPeriod + 1 >= periodNo)
+                    {
+                        //TODO:分发消息
 
-                         await QuartzUtil.DeleteJob(ng.JobName, ng.JobGroup);
-                     }
-                 }, "0/5 * * * * ? *");
-             });
+                        await QuartzUtil.DeleteJob(ng.JobName, ng.JobGroup);
+                    }
+                }, "0/5 * * * * ? *");
+            });
 
             await QuartzUtil.GetScheduler().ScheduleJob(stewardJob, _pk10Trigger);
         }
