@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace SignalRTutorial.Pages
+namespace Colin.Lottery.WebApp.Pages
 {
     //[Authorize]
     public class ChatModel : PageModel

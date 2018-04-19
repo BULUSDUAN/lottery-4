@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
 
-namespace SignalRTutorial.Hubs
+namespace Colin.Lottery.WebApp.Hubs
 {
     public class ChatHub : Hub
     {
