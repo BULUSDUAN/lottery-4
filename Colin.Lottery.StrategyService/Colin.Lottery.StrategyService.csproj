@@ -6,9 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="新建文件夹\" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Colin.Lottery.Common\Colin.Lottery.Common.csproj" />
     <ProjectReference Include="..\Colin.Lottery.Models\Colin.Lottery.Models.csproj" />
     <ProjectReference Include="..\Colin.Lottery.Utils\Colin.Lottery.Utils.csproj" />
