@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 using Colin.Lottery.WebApp.Hubs;
+using Microsoft.AspNetCore.SignalR;
 
 namespace Colin.Lottery.WebApp
 {
@@ -32,6 +33,7 @@ namespace Colin.Lottery.WebApp
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             services.AddSignalR();
+            services.AddScoped<PK10Hub>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -58,7 +60,7 @@ namespace Colin.Lottery.WebApp
 
             app.UseSignalR(routes =>
             {
-                routes.MapHub<ChatHub>("/hubs/chat");
+                routes.MapHub<PK10Hub>("/hubs/pk10");
             });
         }
     }

@@ -19,6 +19,7 @@
   <ItemGroup>
     <Content Remove="Areas\Identity\Pages\_ViewStart.cshtml" />
     <Content Remove="package.json" />
+    <Content Remove="wwwroot\js\index.js" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Data\ApplicationDbContext.cs" />
@@ -28,6 +29,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="package.json" />
+    <None Include="wwwroot\js\index.js" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Colin.Lottery.Models\Colin.Lottery.Models.csproj" />

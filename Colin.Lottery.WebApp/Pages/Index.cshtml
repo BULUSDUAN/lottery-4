@@ -1,67 +1,30 @@
 ﻿@page
-    @model IndexModel
-        @{
-            ViewData["Title"] = "北京PK10";
-        }
-
-        <div class="row">
-            <div class="col-md-5">
-                <h2>Plan A</h2>
-                <ul>
-                    <li>Sample pages using ASP.NET Core Razor Pages</li>
-                </ul>
-            </div>
-            <div class="col-md-5 col-md-offset-2">
-                <h2>Plan B</h2>
-                <ul>
-                    <li>Sample pages using ASP.NET Core Razor Pages</li>
-                </ul>
-            </div>
-        </div>
-
-        <h1>Chat</h1>
-
-        <form id="send-form" action="#">
-            Send a message:
-            <input type="text" id="message-textbox" disabled />
-            <button id="send-button" type="submit" disabled>Send</button>
-        </form>
-
-        <ul id="messages-list"></ul>
-
-        @section Scripts {
-            <script src="/lib/signalr/signalr.js"></script>
-            <script>// Bind DOM elements
-var sendForm = document.getElementById("send-form");
-var sendButton = document.getElementById("send-button");
-var messagesList = document.getElementById("messages-list");
-var messageTextBox = document.getElementById("message-textbox");
-
-function appendMessage(content) {
-                    var li = document.createElement("li");
-                    li.innerText = content;
-                    messagesList.appendChild(li);
+@model IndexModel
+@{
+    ViewData["Title"] = "北京PK10";
 }
 
-var connection = new signalR.HubConnection("/hubs/chat");
+<div class="row">
+    <div class="col-md-5">
+        <h2>Plan A</h2>
+        <ul id="planAList">
+            <li>Sample pages using ASP.NET Core Razor Pages</li>
+        </ul>
+    </div>
+    <div class="col-md-5 col-md-offset-2">
+        <h2>Plan B</h2>
+        <ul>
+            <li>Sample pages using ASP.NET Core Razor Pages</li>
+        </ul>
+    </div>
+</div>
 
-sendForm.addEventListener("submit", function(evt) {
-                    var message = messageTextBox.value;
-                    messageTextBox.value = "";
-                    connection.send("Send", message);
-                    evt.preventDefault();
-});
+<button id="btn">Click Me</button>
+<form method="post">
+    <button id="btnPost">Post Button</button>
+</form>
 
-connection.on("SendMessage", function(sender, message) {
-                    appendMessage(sender + ': ' + message);
-});
-
-connection.on("SendAction", function(sender, action) {
-                    appendMessage(sender + ' ' + action);
-});
-
-connection.start().then(function() {
-                    messageTextBox.disabled = false;
-                    sendButton.disabled = false;
-});</script>
-        }
+@section Scripts {
+    <script src="/lib/signalr/signalr.js"></script>
+    <script src="/js/index.js"></script>
+}

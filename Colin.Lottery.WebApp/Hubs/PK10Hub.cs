@@ -5,11 +5,11 @@ using Microsoft.AspNetCore.SignalR;
 
 namespace Colin.Lottery.WebApp.Hubs
 {
-    public class ChatHub : BaseHub
+    public class PK10Hub : BaseHub<PK10Hub>
     {
-        public async Task Send(string message)
+        public async Task Test()
         {
-            await Clients.All.SendAsync("SendMessage", Context.User.Identity.Name, message);
+            await Clients.Caller.SendAsync("ShowServerTime", DateTime.Now);
         }
     }
 }

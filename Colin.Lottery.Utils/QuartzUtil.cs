@@ -240,7 +240,7 @@ namespace Colin.Lottery.Utils
             if (!(context.JobDetail.JobDataMap["jobDelegate"] is Action job))
                 return;
 
-            job.Invoke();
+            await Task.Run(job);
         }
     }
 }

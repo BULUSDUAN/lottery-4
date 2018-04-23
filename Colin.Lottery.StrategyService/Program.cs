@@ -1,5 +1,5 @@
 ﻿using System;
-using Microsoft.Owin.Hosting;
+using Microsoft.AspNetCore.SignalR.Client;
 
 namespace Colin.Lottery.StrategyService
 {
@@ -7,22 +7,36 @@ namespace Colin.Lottery.StrategyService
     {
         static void Main(string[] args)
         {
-            // This will *ONLY* bind to localhost, if you want to bind to all addresses
-            // use http://*:8080 or http://+:8080 to bind to all addresses. 
-            // See http://msdn.microsoft.com/en-us/library/system.net.httplistener.aspx 
-            // for more information.
-            using (WebApp.Start<Startup>("http://localhost:8080/"))
-            {
-                Console.WriteLine("SignalR Server running at http://localhost:8080/");
-            }
 
-            Start();
+            Test();
+
+            //Start();
             Console.ReadKey();
         }
 
         async static void Start()
         {
             await JinMaStrategyService.Instance.Start();
+        }
+
+        static async void Test()
+        {
+            var hubConn = new HubConnectionBuilder()
+                .WithUrl("https://localhost:44383/hubs/pk10")
+                .Build();
+
+            
+            //供服务端调用的客户端方法
+            hubConn.On<DateTime>("ShowServerTime", data => Console.WriteLine(data));
+
+            await hubConn.StartAsync();
+
+            //调用服务端方法
+            await hubConn.InvokeAsync("Test");
+            
+
+            //停止链接
+            //await hubConn.DisposeAsync();
         }
     }
 }

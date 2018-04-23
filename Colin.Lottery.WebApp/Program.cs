@@ -14,6 +14,8 @@ namespace Colin.Lottery.WebApp
     {
         public static void Main(string[] args)
         {
+            
+
             CreateWebHostBuilder(args).Build().Run();
         }
 
