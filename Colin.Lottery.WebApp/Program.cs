@@ -14,7 +14,7 @@ namespace Colin.Lottery.WebApp
     {
         public static void Main(string[] args)
         {
-            
+            Start();
 
             CreateWebHostBuilder(args).Build().Run();
         }
@@ -22,5 +22,7 @@ namespace Colin.Lottery.WebApp
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>();
+
+        async static void Start() => await JinMaStrategyService.Instance.Start();
     }
 }

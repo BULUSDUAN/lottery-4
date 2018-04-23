@@ -33,5 +33,8 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Colin.Lottery.Models\Colin.Lottery.Models.csproj" />
+    <ProjectReference Include="..\Colin.Lottery.Common\Colin.Lottery.Common.csproj" />
+    <ProjectReference Include="..\Colin.Lottery.Utils\Colin.Lottery.Utils.csproj" />
+    <ProjectReference Include="..\Colin.Lottery.Analyzers\Colin.Lottery.Analyzers.csproj" />
   </ItemGroup>
 </Project>
