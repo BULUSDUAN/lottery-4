@@ -10,4 +10,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Colin.Lottery.Models\Colin.Lottery.Models.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="IServiceProviderExt.cs" />
+  </ItemGroup>
 </Project>

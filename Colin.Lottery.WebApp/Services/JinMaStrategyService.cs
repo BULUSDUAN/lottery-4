@@ -31,11 +31,8 @@ namespace Colin.Lottery.WebApp
             */
             _pk10Trigger = QuartzUtil.CreateTrigger($"{LotteryType.PK10}", "JinMaTrigger", "0 1/5 9-23 * * ?");
             _sscTrigger = QuartzUtil.CreateTrigger($"{LotteryType.CQSSC}", "JinMaTrigger", "0/5 * * * * ? *");
-        }
 
-        public JinMaStrategyService(IHubContext<PK10Hub> _pk10Context)
-        {
-            _PK10Context = _pk10Context;
+            _PK10Context = Startup.GetService<IHubContext<PK10Hub>>();
         }
 
         public async override Task Start(bool startWhenBreakGua = false)

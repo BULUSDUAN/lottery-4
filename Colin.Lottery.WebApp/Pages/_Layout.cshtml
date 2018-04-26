@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -14,10 +14,11 @@
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
     </environment>
+    @RenderSection("Styles", required: false)
 </head>
 <body>
     <nav class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
+        <div class="container-fluid">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="sr-only">Toggle navigation</span>
@@ -25,29 +26,75 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a asp-page="/Index" class="navbar-brand">Colin.Lottery.WebApp</a>
+                <a class="navbar-brand" href="/">
+                  <span class="glyphicon glyphicon-usd text-warning" aria-hidden="true"></span>
+                </a>
+                <a asp-page="/Index" class="navbar-brand">彩迷心窍</a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a asp-page="/Index">Home</a></li>
-                    <li><a asp-page="/About">About</a></li>
-                    <li><a asp-page="/Contact">Contact</a></li>
+                    <li class="active"><a asp-page="/Index">概览</a></li>
+                    <li class="dropdown">
+                      <a asp-page="/PK10" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">北京PK10<span class="caret"></span></a>
+                      <ul class="dropdown-menu">
+                        <li><a href="/PK10/1">冠军</a></li>
+                        <li><a href="/PK10/2">亚军</a></li>
+                        <li><a href="/PK10/3">季军</a></li>
+                        <li><a href="/PK10/4">第四名</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="/PK10/5">冠军大小</a></li>
+                        <li><a href="/PK10/6">冠军单双</a></li>
+                        <li><a href="/PK10/7">冠军龙虎</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="/PK10/8">冠亚和值</a></li>
+                      </ul>
+                    </li>
+                    <li class="dropdown">
+                      <a href="/CQSSC" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">重庆时时彩<span class="caret"></span></a>
+                      <ul class="dropdown-menu">
+                        <li><a href="/CQSSC/1">总和单双</a></li>
+                        <li><a href="/CQSSC/2">总和大小</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="/CQSSC/3">龙虎</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="/CQSSC/4">后二组选</a></li>
+                        <li><a href="/CQSSC/5">后三组选</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="/CQSSC/6">个位单双</a></li>
+                        <li><a href="/CQSSC/7">个位大小</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="/CQSSC/8">个位定位</a></li>
+                      </ul>
+                    </li>
+                    <li><a asp-page="/Instructions">策略说明</a></li>
+                    <li class="dropdown">
+                      <a href="/Rules" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">玩法介绍<span class="caret"></span></a>
+                      <ul class="dropdown-menu">
+                        <li><a href="/Rules/1">北京PK10</a></li>
+                        <li><a href="/Rules/0">重庆时时彩</a></li>
+                      </ul>
+                    </li>
+                    <li><a asp-page="/Contact">关于</a></li>
                 </ul>
+                <p class="navbar-text pull-right"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;<a href="#" class="navbar-link">Signed in</a></p>
             </div>
         </div>
     </nav>
     <partial name="_CookieConsentPartial" />
-    <div class="container body-content">
+    <div class="container-fluid body-content">
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; 2018 - Colin.Lottery.WebApp</p>
+            <p>&copy; 2018 - 彩迷心窍</p>
         </footer>
     </div>
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="~/lib/art-template/template-web.js"></script>
+        <script src="~/js/template-ext.js"></script>
         <script src="~/js/site.js" asp-append-version="true"></script>
+
     </environment>
     <environment exclude="Development">
         <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"

@@ -34,7 +34,7 @@ namespace Colin.Lottery.Models
         /// <summary>
         /// 截至期号
         /// </summary>
-        long? LastPeriod { get; set; }
+        long LastPeriod { get; set; }
 
         /// <summary>
         /// 开奖号码

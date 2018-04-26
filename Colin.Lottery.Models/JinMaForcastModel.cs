@@ -18,7 +18,7 @@ namespace Colin.Lottery.Models
 
         public string Resalt { set { this.IsWin = value.Equals("..") ? null : (bool?)value.Equals("中"); } }
 
-        public long? QiHao { set { this.LastPeriod = value; } }
+        public long? QiHao { set { this.LastPeriod = value ?? Convert.ToInt32(this.PeriodRange.Split('-').FirstOrDefault()) + this.ChaseTimes - 1; } }
 
         public string OpenCode { set { this.DrawNo = value; } }
 

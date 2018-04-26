@@ -1,6 +1,7 @@
-﻿using Colin.Lottery.Models;
-using System;
+﻿using System;
 using Xunit;
+
+using Colin.Lottery.Models;
 
 namespace Colin.Lottery.Analyzers.Test
 {

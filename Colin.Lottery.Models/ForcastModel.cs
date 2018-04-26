@@ -12,7 +12,7 @@ namespace Colin.Lottery.Models
         public string ForcastNo { get; set; }
         public int ChaseTimes { get; set; }
         public bool? IsWin { get; set; }
-        public long? LastPeriod { get; set; }
+        public long LastPeriod { get; set; }
         public string DrawNo { get; set; }
     }
 

@@ -20,6 +20,7 @@
     <Content Remove="Areas\Identity\Pages\_ViewStart.cshtml" />
     <Content Remove="package.json" />
     <Content Remove="wwwroot\js\index.js" />
+    <Content Remove="wwwroot\lib\art-template\template-web.js" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Data\ApplicationDbContext.cs" />
@@ -30,11 +31,15 @@
   <ItemGroup>
     <None Include="package.json" />
     <None Include="wwwroot\js\index.js" />
+    <None Include="wwwroot\lib\art-template\template-web.js" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Colin.Lottery.Models\Colin.Lottery.Models.csproj" />
     <ProjectReference Include="..\Colin.Lottery.Common\Colin.Lottery.Common.csproj" />
     <ProjectReference Include="..\Colin.Lottery.Utils\Colin.Lottery.Utils.csproj" />
     <ProjectReference Include="..\Colin.Lottery.Analyzers\Colin.Lottery.Analyzers.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="wwwroot\lib\art-template\" />
   </ItemGroup>
 </Project>

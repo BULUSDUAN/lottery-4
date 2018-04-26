@@ -1,5 +1,5 @@
+using System;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -7,7 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 using Colin.Lottery.WebApp.Hubs;
-using Microsoft.AspNetCore.SignalR;
+using System.Threading.Tasks;
 
 namespace Colin.Lottery.WebApp
 {
@@ -30,14 +30,15 @@ namespace Colin.Lottery.WebApp
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc()
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             services.AddSignalR();
-            services.AddScoped<PK10Hub>();
+            //services.AddScoped<PK10Hub>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public async void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -62,6 +63,18 @@ namespace Colin.Lottery.WebApp
             {
                 routes.MapHub<PK10Hub>("/hubs/pk10");
             });
+
+            provider = app.ApplicationServices;
+
+            //启动策略
+            await JinMaStrategyService.Instance.Start();
+        }
+
+
+        static IServiceProvider provider;
+        public static T GetService<T>() where T : class
+        {
+            return provider.GetService(typeof(T)) as T;
         }
     }
 }
