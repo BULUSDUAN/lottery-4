@@ -15,20 +15,19 @@ namespace Colin.Lottery.WebApp.Hubs
     where T : BaseHub<T>
     {
         /// <summary>
-        /// 用户统计
+        /// 在线用户统计
         /// </summary>
         protected static int _usersCount = 0;
 
         /// <summary>
-        /// 在线用户
+        /// 用户配置
         /// </summary>
-        protected static ConcurrentDictionary<string, object> _users = new ConcurrentDictionary<string, object>();
+
+        public static ConcurrentDictionary<string, object> UserSettings { get; set; } = new ConcurrentDictionary<string, object>();
 
         public async override Task OnConnectedAsync()
         {
             Interlocked.Increment(ref _usersCount);
-            _users[Context.ConnectionId] = new UserData(Context.ConnectionId, $"user{_usersCount}");
-
             await Groups.AddAsync(Context.ConnectionId, typeof(T).Name);
 
             await base.OnConnectedAsync();
@@ -37,9 +36,8 @@ namespace Colin.Lottery.WebApp.Hubs
         public async override Task OnDisconnectedAsync(Exception exception)
         {
             Interlocked.Decrement(ref _usersCount);
-            _users.TryRemove(Context.ConnectionId, out object user);
-
             await Groups.RemoveAsync(Context.ConnectionId, typeof(T).Name);
+            UserSettings.TryRemove(Context.ConnectionId, out object settings);
 
             await base.OnDisconnectedAsync(exception);
         }

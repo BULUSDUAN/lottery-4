@@ -103,7 +103,8 @@ namespace Colin.Lottery.WebApp
 
                     if (plans.Plan1.LastDrawedPeriod + 1 >= periodNo && plans.Plan2.LastDrawedPeriod + 1 >= periodNo)
                     {
-                        await _PK10Context.Clients.All.SendAsync("ShowPlans", plans);
+                        //await _PK10Context.Clients.All.SendAsync("ShowPlans", plans);
+                        await _PK10Context.Clients.Clients(PK10Hub.GetConnectionIds(rule)).SendAsync("ShowPlans", plans);
 
                         await QuartzUtil.DeleteJob(ng.JobName, ng.JobGroup);
                     }

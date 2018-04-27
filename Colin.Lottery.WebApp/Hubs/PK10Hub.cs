@@ -1,3 +1,6 @@
+using System;
+using System.Linq;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
 
@@ -13,6 +16,24 @@ namespace Colin.Lottery.WebApp.Hubs
             var plans = await JinMaAnalyzer.Instance.GetForcastData(LotteryType.PK10, rule);
             JinMaAnalyzer.Instance.CalcuteScore(ref plans, startWhenBreakGua);
             await Clients.Caller.SendAsync("ShowPlans", plans);
+
+            //更新用户配置
+            UserSettings.TryRemove(Context.ConnectionId, out object settings);
+            UserSettings.TryAdd(Context.ConnectionId, new PK10Rule[] { (PK10Rule)rule });
+        }
+
+        public static IReadOnlyList<string> GetConnectionIds(PK10Rule rule)
+        {
+            var list = new List<string>();
+            foreach (var connId in UserSettings.Keys)
+            {
+                var rules = UserSettings[connId] as PK10Rule[];
+                if (!rules.Contains(rule))
+                    continue;
+
+                list.Add(connId);
+            }
+            return list;
         }
     }
 }
