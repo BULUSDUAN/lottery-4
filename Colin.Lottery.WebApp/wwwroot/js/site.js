@@ -9,3 +9,7 @@
         })
     })();
 })();
+
+function getLastParameter() {
+    return location.pathname.split('/').pop();
+}

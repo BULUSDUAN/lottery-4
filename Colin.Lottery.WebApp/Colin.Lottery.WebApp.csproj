@@ -21,6 +21,13 @@
     <Content Remove="package.json" />
     <Content Remove="wwwroot\js\index.js" />
     <Content Remove="wwwroot\lib\art-template\template-web.js" />
+    <Content Remove="wwwroot\js\lottery.js" />
+    <Content Remove="wwwroot\js\pk10.js" />
+    <Content Remove="wwwroot\js\rules.js" />
+    <Content Remove="wwwroot\js\template-ext.js" />
+    <Content Remove="wwwroot\css\lottery.css" />
+    <Content Remove="wwwroot\css\rules.css" />
+    <Content Remove="Pages\Rules.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Data\ApplicationDbContext.cs" />
@@ -32,6 +39,13 @@
     <None Include="package.json" />
     <None Include="wwwroot\js\index.js" />
     <None Include="wwwroot\lib\art-template\template-web.js" />
+    <None Include="wwwroot\js\lottery.js" />
+    <None Include="wwwroot\js\pk10.js" />
+    <None Include="wwwroot\js\rules.js" />
+    <None Include="wwwroot\js\template-ext.js" />
+    <None Include="wwwroot\css\lottery.css" />
+    <None Include="wwwroot\css\rules.css" />
+    <None Include="Pages\Rules.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Colin.Lottery.Models\Colin.Lottery.Models.csproj" />
