@@ -7,7 +7,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 using Colin.Lottery.WebApp.Hubs;
-using System.Threading.Tasks;
 
 namespace Colin.Lottery.WebApp
 {
@@ -51,7 +50,9 @@ namespace Colin.Lottery.WebApp
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
+            //TODO:咱不使用Https
+            //app.UseHttpsRedirection();
+
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
