@@ -96,5 +96,10 @@ namespace Colin.Lottery.Models
         /// 历史记录(不包含从最新期连挂的情况)出现连挂次数
         /// </summary>
         int KeepHisGuaCnt { get; set; }
+
+        /// <summary>
+        /// 最新预测开奖号码
+        /// </summary>
+        string ForcastDrawNo { get; }
     }
 }

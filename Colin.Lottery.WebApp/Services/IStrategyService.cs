@@ -1,12 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+
+using Microsoft.AspNetCore.SignalR;
+
 using Colin.Lottery.Models;
 
 namespace Colin.Lottery.WebApp
 {
     public interface IStrategyService
     {
+        IHubContext<NotifyHub> NotifyContext { get; }
+
+        string CreateNotification(LotteryType lottery, int rule, Plan plan, string forcastDrawNo, float score);
+
         /// <summary>
         /// 开始数据分析（默认为北京赛车冠军定位胆）
         /// </summary>

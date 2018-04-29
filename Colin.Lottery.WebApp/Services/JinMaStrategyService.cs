@@ -100,11 +100,16 @@ namespace Colin.Lottery.WebApp
                     //扫水
                     var plans = await JinMaAnalyzer.Instance.GetForcastData();
                     JinMaAnalyzer.Instance.CalcuteScore(ref plans, startWhenBreakGua);
+                    (IForcastPlanModel planA, IForcastPlanModel planB) = plans;
 
-                    if (plans.Plan1.LastDrawedPeriod + 1 >= periodNo && plans.Plan2.LastDrawedPeriod + 1 >= periodNo)
+                    if (planA.LastDrawedPeriod + 1 >= periodNo && planB.LastDrawedPeriod + 1 >= periodNo)
                     {
-                        //await _PK10Context.Clients.All.SendAsync("ShowPlans", plans);
+                        //推送到所有关注PK10当前玩法的客户端
                         await _PK10Context.Clients.Clients(PK10Hub.GetConnectionIds(rule)).SendAsync("ShowPlans", plans);
+
+                        //广播通知消息
+                        await NotifyContext.Clients.Clients(NotifyHub.GetConnectionIds(planA.Score)).SendAsync("Notify", new List<string> { CreateNotification(LotteryType.PK10, (int)rule, Plan.PlanA, planA.ForcastDrawNo, planA.Score) });
+                        await NotifyContext.Clients.Clients(NotifyHub.GetConnectionIds(planB.Score)).SendAsync("Notify", new List<string> { CreateNotification(LotteryType.PK10, (int)rule, Plan.PlanB, planB.ForcastDrawNo, planB.Score) });
 
                         await QuartzUtil.DeleteJob(ng.JobName, ng.JobGroup);
                     }

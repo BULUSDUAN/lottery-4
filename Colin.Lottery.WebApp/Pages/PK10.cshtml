@@ -8,108 +8,108 @@
 }
 
 <div class="page-header">
-  <h4>北京PK10&nbsp;<small>人工5码3期计划</small></h4>
+    <h4>北京PK10&nbsp;<small>人工5码3期计划</small></h4>
 </div>
 <div>
     <ul class="nav nav-tabs" role="tablist">
-      <li role="presentation" class="active"><a href="#1" id="1-tab" role="tab" data-toggle="tab" aria-controls="1" aria-expanded="true">冠军</a></li>
-      <li role="presentation" class=""><a href="#2" role="tab" id="2-tab" data-toggle="tab" aria-controls="2" aria-expanded="false">亚军</a></li>
-      <li role="presentation" class=""><a href="#3" role="tab" id="3-tab" data-toggle="tab" aria-controls="3" aria-expanded="false">季军</a></li>
-      <li role="presentation" class=""><a href="#4" role="tab" id="4-tab" data-toggle="tab" aria-controls="4" aria-expanded="false">第四名</a></li>
-      <li role="presentation" class=""><a href="#5" role="tab" id="5-tab" data-toggle="tab" aria-controls="5" aria-expanded="false">冠军大小</a></li>
-      <li role="presentation" class=""><a href="#6" role="tab" id="6-tab" data-toggle="tab" aria-controls="6" aria-expanded="false">冠军单双</a></li>
-      <li role="presentation" class=""><a href="#7" role="tab" id="7-tab" data-toggle="tab" aria-controls="7" aria-expanded="false">冠军龙虎</a></li>
-      <li role="presentation" class=""><a href="#8" role="tab" id="8-tab" data-toggle="tab" aria-controls="8" aria-expanded="false">冠亚和值</a></li>
+        <li role="presentation" class="active"><a href="#1" id="1-tab" role="tab" data-toggle="tab" aria-controls="1" aria-expanded="true">冠军</a></li>
+        <li role="presentation" class=""><a href="#2" role="tab" id="2-tab" data-toggle="tab" aria-controls="2" aria-expanded="false">亚军</a></li>
+        <li role="presentation" class=""><a href="#3" role="tab" id="3-tab" data-toggle="tab" aria-controls="3" aria-expanded="false">季军</a></li>
+        <li role="presentation" class=""><a href="#4" role="tab" id="4-tab" data-toggle="tab" aria-controls="4" aria-expanded="false">第四名</a></li>
+        <li role="presentation" class=""><a href="#5" role="tab" id="5-tab" data-toggle="tab" aria-controls="5" aria-expanded="false">冠军大小</a></li>
+        <li role="presentation" class=""><a href="#6" role="tab" id="6-tab" data-toggle="tab" aria-controls="6" aria-expanded="false">冠军单双</a></li>
+        <li role="presentation" class=""><a href="#7" role="tab" id="7-tab" data-toggle="tab" aria-controls="7" aria-expanded="false">冠军龙虎</a></li>
+        <li role="presentation" class=""><a href="#8" role="tab" id="8-tab" data-toggle="tab" aria-controls="8" aria-expanded="false">冠亚和值</a></li>
     </ul>
     <div class="tab-content">
-      <div role="tabpanel" class="tab-pane fade active in" id="1" aria-labelledby="1-tab"></div>
-      <div role="tabpanel" class="tab-pane fade" id="2" aria-labelledby="2-tab"></div>
-      <div role="tabpanel" class="tab-pane fade" id="3" aria-labelledby="3-tab"></div>
-      <div role="tabpanel" class="tab-pane fade" id="4" aria-labelledby="4-tab"></div>
-      <div role="tabpanel" class="tab-pane fade" id="5" aria-labelledby="5-tab"></div>
-      <div role="tabpanel" class="tab-pane fade" id="6" aria-labelledby="6-tab"></div>
-      <div role="tabpanel" class="tab-pane fade" id="7" aria-labelledby="7-tab"></div>
-      <div role="tabpanel" class="tab-pane fade" id="8" aria-labelledby="8-tab">
+        <div role="tabpanel" class="tab-pane fade active in" id="1" aria-labelledby="1-tab"></div>
+        <div role="tabpanel" class="tab-pane fade" id="2" aria-labelledby="2-tab"></div>
+        <div role="tabpanel" class="tab-pane fade" id="3" aria-labelledby="3-tab"></div>
+        <div role="tabpanel" class="tab-pane fade" id="4" aria-labelledby="4-tab"></div>
+        <div role="tabpanel" class="tab-pane fade" id="5" aria-labelledby="5-tab"></div>
+        <div role="tabpanel" class="tab-pane fade" id="6" aria-labelledby="6-tab"></div>
+        <div role="tabpanel" class="tab-pane fade" id="7" aria-labelledby="7-tab"></div>
+        <div role="tabpanel" class="tab-pane fade" id="8" aria-labelledby="8-tab">
 
-      </div>
+        </div>
     </div>
-  </div>
+</div>
 
 @section Scripts {
-    <script src="/lib/signalr/signalr.js"></script>
-
     <script id="planLoading" type="text/html">
         <div class="progress">
-          <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
-            加载中...
-          </div>
+            <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+                加载中...
+            </div>
         </div>
     </script>
-    <script id="planContainer" type="text/html"><div class="row"></div></script>
+    <script id="planContainer" type="text/html">
+        <div class="row"></div>
+    </script>
     <script id="planTemplate" type="text/html">
         <div class="col-md-6">
             <div class="table-responsive">
-              <table class="table table-condensed table-hover table-striped">
-                 <caption>
-                     <button class="btn btn-info pull-right" type="button">
-                       {{name}}  <span class="badge">{{score|toFixed 0}}</span>
-                     </button>
-                 </caption>
-                 <thead>
-                  <tr>
-                    <th>期号区间</th>
-                    <th>预测号码</th>
-                    <th>追号期数</th>
-                    <th>开奖号码</th>
-                    <th>追号次数</th>
-                    <th>中奖结果</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {{each forcastData}}
-                      {{if !$value.drawNo}}
-                          {{if score>=80}}
-                              <tr class="danger">
-                          {{else}}
-                              <tr class="success">
-                          {{/if}}
-                      {{else}}
-                          <tr>
-                      {{/if}}
-                        <td>{{$value.periodRange}}</td>
-                        <td>{{$value.forcastNo}}</td>
-                        <td>{{$value.lastPeriod}}</td>
-                        <td>
-                          {{if $value.drawNo}}
-                              {{$value.drawNo}}
-                          {{else}}
-                              开奖中...
-                          {{/if}}
-                        </td>
-                        <td>{{$value.chaseTimes}}</td>
-                        <td>
-                            {{if $value.isWin==true}}
-                              <strong class="text-danger">中</strong>
-                            {{else if $value.isWin==false}}
-                              <strong class="text-success">挂</strong>
+                <table class="table table-condensed table-hover table-striped">
+                    <caption>
+                        <button class="btn btn-info pull-right" type="button">
+                            {{name}}  <span class="badge">{{score|toFixed 0}}</span>
+                        </button>
+                    </caption>
+                    <thead>
+                        <tr>
+                            <th>期号区间</th>
+                            <th>预测号码</th>
+                            <th>追号期数</th>
+                            <th>开奖号码</th>
+                            <th>追号次数</th>
+                            <th>中奖结果</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{each forcastData}}
+                        {{if !$value.drawNo}}
+                        {{if score>=80}}
+                        <tr class="danger">
                             {{else}}
-                                <button type="button" class="btn btn-danger btn-xs">
-                                   <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                                   {{score|toFixed 0}}
-                                </button>
+                        <tr class="success">
                             {{/if}}
-                        </td>
-                      </tr>
-                  {{/each}}
-                </tbody>
-                <tfoot>
-                  <tr>
-                  <th colspan="6">
-                      当前{{totalCount}}期内，中奖：{{winCount}} 错误：{{loseCount}}，中奖概率：{{winProbability*100|toFixed}}%
-                  </th>
-                  </tr>
-                </tfoot>
-              </table>
+                            {{else}}
+                        <tr>
+                            {{/if}}
+                            <td>{{$value.periodRange}}</td>
+                            <td>{{$value.forcastNo}}</td>
+                            <td>{{$value.lastPeriod}}</td>
+                            <td>
+                                {{if $value.drawNo}}
+                                {{$value.drawNo}}
+                                {{else}}
+                                开奖中...
+                                {{/if}}
+                            </td>
+                            <td>{{$value.chaseTimes}}</td>
+                            <td>
+                                {{if $value.isWin==true}}
+                                <strong class="text-danger">中</strong>
+                                {{else if $value.isWin==false}}
+                                <strong class="text-success">挂</strong>
+                                {{else}}
+                                <button type="button" class="btn btn-danger btn-xs">
+                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                    {{score|toFixed 0}}
+                                </button>
+                                {{/if}}
+                            </td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th colspan="6">
+                                当前{{totalCount}}期内，中奖：{{winCount}} 错误：{{loseCount}}，中奖概率：{{winProbability*100|toFixed}}%
+                            </th>
+                        </tr>
+                    </tfoot>
+                </table>
             </div>
         </div>
     </script>

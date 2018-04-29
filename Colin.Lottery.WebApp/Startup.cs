@@ -63,6 +63,7 @@ namespace Colin.Lottery.WebApp
             app.UseSignalR(routes =>
             {
                 routes.MapHub<PK10Hub>("/hubs/pk10");
+                routes.MapHub<NotifyHub>("/hubs/notify");
             });
 
             provider = app.ApplicationServices;

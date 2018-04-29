@@ -41,15 +41,5 @@ namespace Colin.Lottery.WebApp.Hubs
 
             await base.OnDisconnectedAsync(exception);
         }
-
-        /// <summary>
-        /// 向所有客户端推送广播数据
-        /// </summary>
-        /// <returns>The broadcast.</returns>
-        /// <param name="data">Data.</param>
-        public async Task Broadcast(object data)
-        {
-            await Clients.All.SendAsync("Broadcast", data);
-        }
     }
 }

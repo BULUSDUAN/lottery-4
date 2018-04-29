@@ -16,6 +16,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="wwwroot\lib\art-template\" />
+    <Folder Include="wwwroot\lib\notify\" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Composition.AttributedModel">
@@ -33,5 +34,12 @@
     <Reference Include="System.Composition.TypedParts">
       <HintPath>..\..\..\..\..\usr\local\share\dotnet\sdk\NuGetFallbackFolder\system.composition.typedparts\1.0.31\lib\netstandard1.0\System.Composition.TypedParts.dll</HintPath>
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Remove="wwwroot\lib\notify\notify.min.js" />
+    <Content Remove="wwwroot\js\notify.ext" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="wwwroot\lib\notify\notify.min.js" />
   </ItemGroup>
 </Project>

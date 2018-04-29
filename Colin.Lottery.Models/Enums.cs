@@ -97,6 +97,12 @@ namespace Colin.Lottery.Models
         Sum = 8
     }
 
+    public enum Plan
+    {
+        PlanA,
+        PlanB
+    }
+
     /// <summary>
     /// 计划员
     /// </summary>
@@ -105,11 +111,88 @@ namespace Colin.Lottery.Models
         /// <summary>
         /// 计划员1
         /// </summary>
-        Planner1=1,
+        Planner1 = 1,
 
         /// <summary>
         /// 计划员2
         /// </summary>
-        Planner2=2
+        Planner2 = 2
+    }
+
+    public static class EnumExt
+    {
+        public static string ToStringName(this LotteryType lottery)
+        {
+            switch (lottery)
+            {
+                case LotteryType.PK10: return "北京PK10";
+                case LotteryType.CQSSC: return "重庆时时彩";
+            }
+
+            throw new ArgumentException($"彩种 - “{lottery}” 暂不支持");
+        }
+
+        public static string ToStringName(this PK10Rule rule)
+        {
+            switch (rule)
+            {
+                case PK10Rule.Champion:
+                    return "冠军";
+                case PK10Rule.Second:
+                    return "亚军";
+                case PK10Rule.Third:
+                    return "季军";
+                case PK10Rule.Fourth:
+                    return "第四名";
+                case PK10Rule.BigOrSmall:
+                    return "冠军大小";
+                case PK10Rule.OddOrEven:
+                    return "冠军单双";
+                case PK10Rule.DragonOrTiger:
+                    return "冠军龙虎";
+                case PK10Rule.Sum:
+                    return "冠亚和值";
+            }
+
+            throw new ArgumentException($"北京PK10玩法 - “{rule}” 暂不支持");
+        }
+
+        public static string ToStringName(this CQSSCRule rule)
+        {
+            switch (rule)
+            {
+                case CQSSCRule.OddOrEven:
+                    return "总和单双";
+                case CQSSCRule.BigOrSmall:
+                    return "总和大小";
+                case CQSSCRule.DragonOrTiger:
+                    return "龙虎";
+                case CQSSCRule.Last2Group:
+                    return "后二组选";
+                case CQSSCRule.Last3Group:
+                    return "后三组选";
+                case CQSSCRule.OneOddOrEven:
+                    return "个位单双";
+                case CQSSCRule.OneBigOrSmall:
+                    return "个位大小";
+                case CQSSCRule.One:
+                    return "个位定位";
+            }
+
+            throw new ArgumentException($"重庆时时彩玩法 - “{rule}” 暂不支持");
+        }
+
+        public static string ToStringName(this int rule, LotteryType lottery)
+        {
+            switch (lottery)
+            {
+                case LotteryType.PK10:
+                    return ((PK10Rule)rule).ToStringName();
+                case LotteryType.CQSSC:
+                    return ((CQSSCRule)rule).ToStringName();
+            }
+
+            throw new ArgumentException($"彩种 - “{lottery}” 暂不支持");
+        }
     }
 }

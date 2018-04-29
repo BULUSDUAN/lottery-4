@@ -1,20 +1,20 @@
-(function () {
+(function (win) {
     //玩法
     let rule = getLotteryRule();
     $(".nav-tabs li:eq(" + (rule - 1) + ") a").tab('show');
     loading();
 
-    //创建链接
-    let connection = new signalR.HubConnection("/hubs/pk10");
+    //创建连接
+    let hub = '/hubs/pk10';
+    let connection = new signalR.HubConnection(hub);
 
-    //启动链接并初始化数据
+    //启动连接并初始化数据
     connection.start().then(
         function () {
-            console.log("与服务器建立链接成功");
             connection.invoke('GetForcastData', rule, true);
         },
         function () {
-            console.log("与服务器建立链接失败");
+            console.error("服务器(" + hub + ")连接失败");
         })
         .catch(error => {
             console.error(error.message);
@@ -46,4 +46,4 @@
     }
 
 
-})();
+})(window);

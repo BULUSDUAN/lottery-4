@@ -28,5 +28,7 @@ namespace Colin.Lottery.Models
         public float Score { get; set; }
         public int KeepGuaCnt { get; set; }
         public int KeepHisGuaCnt { get; set; }
+
+        public string ForcastDrawNo => this.ForcastData.LastOrDefault().ForcastNo;
     }
 }

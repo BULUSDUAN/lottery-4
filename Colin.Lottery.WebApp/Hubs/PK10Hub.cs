@@ -1,4 +1,3 @@
-using System;
 using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -22,6 +21,11 @@ namespace Colin.Lottery.WebApp.Hubs
             UserSettings.TryAdd(Context.ConnectionId, new PK10Rule[] { (PK10Rule)rule });
         }
 
+        /// <summary>
+        /// 获取关注指定玩法的所有连接ID
+        /// </summary>
+        /// <returns>The connection identifiers.</returns>
+        /// <param name="rule">PK10玩法</param>
         public static IReadOnlyList<string> GetConnectionIds(PK10Rule rule)
         {
             var list = new List<string>();
