@@ -50,8 +50,8 @@ namespace Colin.Lottery.WebApp
                 app.UseHsts();
             }
 
-            //TODO:咱不使用Https
-            //app.UseHttpsRedirection();
+            //TODO: 暂不使用Https
+            app.UseHttpsRedirection();
 
             app.UseStaticFiles();
             app.UseCookiePolicy();
