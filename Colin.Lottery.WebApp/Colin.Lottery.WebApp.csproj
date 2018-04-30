@@ -20,8 +20,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Remove="log4net.config" />
+    <Content Remove="wwwroot\css\index.css" />
   </ItemGroup>
   <ItemGroup>
     <None Include="log4net.config" />
+    <None Include="wwwroot\css\index.css" />
   </ItemGroup>
 </Project>

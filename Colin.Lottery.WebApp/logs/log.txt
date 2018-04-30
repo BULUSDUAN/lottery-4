@@ -1,1 +1,1654 @@
 2018-04-30 18:22:09,487 [1] WARN  - Fuck
+2018-04-30 19:46:34,548 [323] ERROR - 预测数据反序列化失败，内容:系统出现错误,请将错误编码告知管理员,并重试操作,错误编码:[2018043019491297692]
+Unexpected character encountered while parsing value: 系. Path '', line 0, position 0.
+   at Newtonsoft.Json.JsonTextReader.ParseValue()
+   at Newtonsoft.Json.JsonReader.ReadForType(JsonContract contract, Boolean hasConverter)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.Deserialize(JsonReader reader, Type objectType, Boolean checkAdditionalContent)
+   at Newtonsoft.Json.JsonSerializer.DeserializeInternal(JsonReader reader, Type objectType)
+   at Newtonsoft.Json.JsonConvert.DeserializeObject(String value, Type type, JsonSerializerSettings settings)
+   at Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value, JsonSerializerSettings settings)
+   at Colin.Lottery.Collectors.JinMaCollector.<GetForcastData>d__4.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Collectors/JinMaCollector.cs:line 79
+2018-04-30 20:07:41,453 [220] ERROR - 预测数据反序列化失败，内容:系统出现错误,请将错误编码告知管理员,并重试操作,错误编码:[2018043020101941177]
+Unexpected character encountered while parsing value: 系. Path '', line 0, position 0.
+   at Newtonsoft.Json.JsonTextReader.ParseValue()
+   at Newtonsoft.Json.JsonReader.ReadForType(JsonContract contract, Boolean hasConverter)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.Deserialize(JsonReader reader, Type objectType, Boolean checkAdditionalContent)
+   at Newtonsoft.Json.JsonSerializer.DeserializeInternal(JsonReader reader, Type objectType)
+   at Newtonsoft.Json.JsonConvert.DeserializeObject(String value, Type type, JsonSerializerSettings settings)
+   at Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value, JsonSerializerSettings settings)
+   at Colin.Lottery.Collectors.JinMaCollector.<GetForcastData>d__4.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Collectors/JinMaCollector.cs:line 79
+2018-04-30 20:17:15,524 [145] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:17:15,524 [147] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:17:15,524 [134] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:17:15,524 [113] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:17:15,524 [144] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:17:15,524 [146] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:17:15,524 [122] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:17:15,524 [130] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:17:20,457 [122] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:17:20,458 [130] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:17:20,459 [144] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:17:20,460 [130] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:17:20,461 [144] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:17:20,462 [130] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:17:20,463 [144] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:17:20,464 [130] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:17:25,452 [146] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:17:25,452 [138] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:17:25,453 [147] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:17:25,454 [138] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:17:25,456 [147] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:17:25,457 [138] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:17:25,458 [147] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:17:25,459 [138] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:17:30,484 [113] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:17:30,485 [138] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:17:30,487 [138] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:17:30,488 [113] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:17:30,489 [138] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:17:30,491 [113] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:17:30,492 [138] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:17:30,493 [113] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:17:35,501 [145] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:17:35,502 [113] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:17:35,503 [138] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:17:35,504 [145] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:17:35,505 [138] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:17:35,508 [138] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:17:35,509 [145] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:17:35,510 [138] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:17:40,547 [122] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:17:40,548 [130] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:17:40,550 [153] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:17:40,550 [122] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:17:40,551 [130] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:17:40,552 [122] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:17:40,552 [153] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:17:40,554 [130] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:17:45,553 [130] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:17:45,554 [150] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:17:45,555 [130] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:17:45,556 [150] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:17:45,557 [122] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:17:45,557 [130] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:17:45,558 [150] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:17:45,559 [130] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:17:50,562 [150] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:17:50,564 [149] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:17:50,564 [130] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:17:50,565 [150] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:17:50,566 [130] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:17:50,566 [149] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:17:50,568 [150] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:17:50,569 [130] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:17:55,567 [138] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:17:55,568 [144] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:17:55,568 [130] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:17:55,569 [138] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:17:55,571 [130] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:17:55,573 [130] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:17:55,573 [138] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:17:55,574 [144] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:18:00,583 [138] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:18:00,584 [144] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:18:00,585 [138] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:18:00,587 [144] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:18:00,588 [138] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:18:00,590 [144] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:18:00,590 [130] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:18:00,591 [138] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:18:05,609 [144] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:18:05,611 [138] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:18:05,611 [144] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:18:05,613 [138] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:18:05,615 [144] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:18:05,615 [138] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:18:05,617 [130] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:18:05,618 [138] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:18:10,631 [152] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:18:10,632 [130] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:18:10,633 [152] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:18:10,634 [152] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:18:10,636 [152] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:18:10,636 [130] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:18:10,637 [152] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:18:10,639 [130] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:18:15,640 [148] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:18:15,641 [138] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:18:15,644 [148] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:18:15,644 [138] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:18:15,644 [130] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:18:15,645 [152] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:18:15,647 [152] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:18:15,647 [130] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:18:20,637 [152] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:18:20,637 [138] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:18:20,638 [130] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:18:20,639 [152] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:18:20,641 [152] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:18:20,643 [152] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:18:20,643 [130] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:18:20,644 [152] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:18:25,660 [130] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:18:25,663 [138] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:18:25,663 [152] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:18:25,665 [148] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:18:25,665 [152] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:18:25,665 [130] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:18:25,666 [138] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:18:25,667 [148] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:18:30,679 [152] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:18:30,681 [130] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:18:30,682 [130] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:18:30,684 [130] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:18:30,685 [130] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:18:30,686 [130] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:18:30,689 [130] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:18:30,689 [148] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:18:31,212 [130] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:18:31,212 [148] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:18:31,212 [138] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:18:31,212 [152] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:18:31,212 [153] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:18:31,212 [151] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:18:31,212 [154] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:18:31,214 [138] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:22:15,658 [37] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:22:15,658 [38] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:22:15,658 [31] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:22:15,658 [39] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:22:15,658 [40] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:22:15,658 [28] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:22:15,658 [30] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:22:15,658 [32] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:22:20,384 [45] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:22:20,384 [46] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:22:20,387 [46] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:22:20,387 [45] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:22:20,388 [38] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:22:20,389 [45] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:22:20,390 [38] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:22:20,391 [46] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:22:25,395 [30] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:22:25,396 [31] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:22:25,399 [31] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:22:25,399 [30] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:22:25,400 [45] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:22:25,401 [30] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:22:25,402 [45] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:22:25,404 [30] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:22:30,409 [45] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:22:30,410 [32] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:22:30,413 [32] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:22:30,414 [45] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:22:30,415 [32] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:22:30,416 [45] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:22:30,417 [32] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:22:30,418 [45] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:22:35,421 [45] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:22:35,422 [30] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:22:35,423 [45] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:22:35,425 [30] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:22:35,428 [30] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:22:35,429 [45] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:22:35,430 [30] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:22:35,431 [45] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:22:40,445 [46] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:22:40,446 [28] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:22:40,447 [46] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:22:40,449 [28] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:22:40,450 [46] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:22:40,452 [28] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:22:40,452 [30] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:22:40,453 [46] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:22:45,456 [28] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:22:45,457 [46] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:22:45,459 [28] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:22:45,461 [46] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:22:45,461 [30] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:22:45,462 [28] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:22:45,463 [30] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:22:45,465 [28] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:22:50,456 [46] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:22:50,456 [30] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:22:50,458 [28] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:22:50,458 [38] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:22:50,459 [46] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:22:50,461 [38] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:22:50,461 [28] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:22:50,462 [38] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:22:55,494 [28] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:22:55,496 [46] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:22:55,497 [38] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:22:55,498 [46] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:22:55,500 [38] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:22:55,500 [46] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:22:55,501 [28] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:22:55,503 [46] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:23:00,505 [38] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:23:00,507 [46] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:23:00,507 [28] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:23:00,508 [38] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:23:00,510 [28] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:23:00,511 [28] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:23:00,511 [38] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:23:00,513 [46] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:23:05,530 [30] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:23:05,531 [38] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:23:05,534 [38] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:23:05,536 [38] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:23:05,538 [30] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:23:05,539 [38] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:23:05,540 [30] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:23:05,542 [38] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:23:10,547 [28] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:23:10,547 [38] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:23:10,549 [46] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:23:10,549 [30] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:23:10,550 [38] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:23:10,552 [38] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:23:10,554 [38] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:23:10,554 [46] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:23:15,563 [30] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:23:15,565 [46] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:23:15,565 [38] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:23:15,566 [30] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:23:15,566 [28] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:23:15,568 [30] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:23:15,569 [30] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:23:15,571 [30] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:23:20,579 [28] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:23:20,579 [30] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:23:20,581 [41] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:23:20,581 [38] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:23:20,581 [46] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:23:20,583 [28] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:23:20,583 [30] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:23:20,585 [30] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:23:25,594 [30] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:23:25,596 [46] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:23:25,597 [46] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:23:25,600 [30] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:23:25,600 [46] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:23:25,601 [28] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:23:25,602 [38] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:23:25,603 [38] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:23:30,626 [46] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:23:30,628 [28] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:23:30,630 [30] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:23:30,630 [46] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:23:30,632 [46] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:23:30,632 [30] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:23:30,634 [30] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:23:30,635 [30] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:23:31,293 [38] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:23:31,293 [46] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:23:31,293 [30] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:23:31,293 [41] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:23:31,293 [28] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:23:31,293 [45] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:23:31,293 [43] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:23:31,293 [42] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:27:59,354 [49] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:28:19,977 [49] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:29:14,464 [48] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:29:35,049 [61] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:32:15,589 [79] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:32:15,589 [74] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:32:15,591 [81] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:32:15,592 [74] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:32:15,593 [81] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:32:15,594 [74] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:32:15,595 [81] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:32:15,596 [74] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:32:20,524 [75] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:32:20,525 [77] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:32:20,526 [74] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:32:20,527 [75] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:32:20,528 [74] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:32:20,529 [75] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:32:20,532 [75] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:32:20,533 [74] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:32:25,537 [81] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:32:25,539 [71] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:32:25,540 [81] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:32:25,541 [71] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:32:25,543 [81] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:32:25,543 [76] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:32:25,544 [71] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:32:25,545 [76] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:32:30,560 [81] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:32:30,561 [76] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:32:30,562 [81] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:32:30,564 [81] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:32:30,566 [81] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:32:30,568 [76] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:32:30,568 [81] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:32:30,569 [76] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:32:35,573 [76] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:32:35,574 [71] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:32:35,577 [71] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:32:35,577 [76] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:32:35,578 [81] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:32:35,579 [76] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:32:35,580 [81] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:32:35,582 [76] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:32:40,586 [71] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:32:40,586 [76] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:32:40,587 [81] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:32:40,588 [76] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:32:40,588 [71] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:32:40,590 [71] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:32:40,592 [76] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:32:40,592 [81] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:32:42,542 [81] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:32:45,586 [75] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:32:45,588 [71] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:32:45,589 [75] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:32:45,592 [75] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:32:45,594 [75] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:32:45,594 [71] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:32:45,595 [81] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:32:45,596 [71] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:32:50,611 [75] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:32:50,612 [71] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:32:50,614 [75] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:32:50,615 [71] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:32:50,617 [75] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:32:50,618 [71] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:32:50,619 [75] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:32:50,622 [75] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:32:55,632 [71] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:32:55,633 [75] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:32:55,634 [77] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:32:55,637 [77] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:32:55,638 [71] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:32:55,639 [77] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:32:55,641 [71] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:32:55,642 [77] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:33:00,648 [77] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:33:00,649 [71] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:33:00,650 [77] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:33:00,652 [71] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:33:00,653 [77] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:33:00,655 [71] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:33:00,657 [71] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:33:00,659 [71] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:33:05,649 [77] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:33:05,649 [71] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:33:05,650 [75] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:33:05,650 [83] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:33:05,652 [71] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:33:05,652 [77] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:33:05,653 [77] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:33:05,655 [77] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:33:10,657 [77] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:33:10,658 [83] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:33:10,658 [71] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:33:10,660 [75] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:33:10,660 [77] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:33:10,661 [71] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:33:10,664 [77] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:33:10,664 [71] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:33:15,682 [71] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:33:15,684 [71] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:33:15,687 [76] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:33:15,687 [71] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:33:15,688 [84] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:33:15,689 [71] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:33:15,691 [71] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:33:15,693 [84] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:33:20,698 [84] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:33:20,698 [76] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:33:20,699 [71] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:33:20,701 [76] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:33:20,701 [84] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:33:20,703 [84] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:33:20,703 [76] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:33:20,705 [84] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:33:25,703 [75] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:33:25,705 [84] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:33:25,705 [76] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:33:25,706 [75] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:33:25,706 [83] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:33:25,708 [83] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:33:25,710 [83] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:33:25,711 [83] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:33:30,722 [84] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:33:30,722 [83] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:33:30,724 [76] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:33:30,724 [75] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:33:30,726 [84] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:33:30,726 [83] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:33:30,728 [83] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:33:30,728 [84] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:33:31,304 [83] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:33:31,304 [84] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:33:31,306 [75] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:33:31,306 [71] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:37:15,753 [45] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:37:15,753 [39] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:37:15,753 [46] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:37:15,753 [9] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:37:15,753 [43] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:37:15,753 [44] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:37:15,753 [28] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:37:15,766 [39] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:37:20,457 [39] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:37:20,458 [28] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:37:20,460 [39] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:37:20,461 [28] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:37:20,462 [39] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:37:20,463 [28] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:37:20,464 [39] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:37:20,465 [28] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:37:25,477 [28] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:37:25,478 [43] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:37:25,479 [39] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:37:25,482 [39] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:37:25,483 [43] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:37:25,484 [39] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:37:25,485 [43] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:37:25,486 [39] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:37:30,488 [43] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:37:30,489 [28] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:37:30,493 [28] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:37:30,493 [43] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:37:30,494 [39] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:37:30,496 [39] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:37:30,497 [43] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:37:30,498 [39] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:37:35,523 [28] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:37:35,524 [39] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:37:35,525 [28] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:37:35,526 [39] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:37:35,527 [28] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:37:35,528 [39] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:37:35,529 [28] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:37:35,530 [39] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:37:40,547 [39] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:37:40,549 [47] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:37:40,550 [39] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:37:40,551 [47] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:37:40,552 [39] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:37:40,553 [47] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:37:40,554 [39] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:37:40,556 [47] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:37:45,565 [39] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:37:45,566 [44] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:37:45,567 [39] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:37:45,569 [44] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:37:45,570 [39] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:37:45,570 [47] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:37:45,571 [44] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:37:45,572 [47] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:37:50,570 [39] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:37:50,570 [44] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:37:50,571 [47] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:37:50,573 [44] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:37:50,576 [44] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:37:50,580 [44] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:37:50,581 [47] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:37:50,582 [44] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:37:55,575 [44] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:37:55,576 [28] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:37:55,577 [44] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:37:55,578 [28] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:37:55,579 [44] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:37:55,581 [28] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:37:55,583 [28] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:37:55,584 [44] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:38:00,586 [51] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:38:00,587 [52] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:38:00,588 [51] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:38:00,590 [52] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:38:00,591 [51] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:38:00,592 [44] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:38:00,593 [52] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:38:00,595 [52] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:38:05,613 [44] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:38:05,613 [28] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:38:05,615 [52] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:38:05,615 [51] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:38:05,616 [28] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:38:05,618 [28] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:38:05,618 [51] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:38:05,619 [28] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:38:10,629 [51] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:38:10,629 [52] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:38:10,631 [28] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:38:10,631 [44] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:38:10,633 [52] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:38:10,633 [51] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:38:10,635 [51] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:38:10,637 [51] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:38:15,646 [28] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:38:15,647 [51] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:38:15,648 [44] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:38:15,649 [28] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:38:15,649 [52] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:38:15,651 [44] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:38:15,652 [52] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:38:15,652 [44] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:38:20,655 [28] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:38:20,655 [44] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:38:20,657 [51] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:38:20,657 [52] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:38:20,659 [51] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:38:20,659 [44] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:38:20,662 [51] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:38:20,662 [44] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:38:25,670 [44] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:38:25,671 [52] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:38:25,673 [52] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:38:25,674 [52] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:38:25,676 [52] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:38:25,677 [51] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:38:25,677 [52] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:38:25,679 [52] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:38:30,687 [44] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:38:30,688 [52] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:38:30,690 [52] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:38:30,692 [44] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:38:30,692 [52] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:38:30,693 [44] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:38:30,695 [44] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:38:30,696 [44] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:38:31,453 [51] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:38:31,453 [44] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:38:31,453 [54] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:38:31,453 [52] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:38:31,453 [49] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:38:31,453 [28] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:38:31,453 [53] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
+2018-04-30 20:38:31,454 [55] ERROR - HttpUtil.GetStringAsync失败。An error occurred while sending the request.
+   at System.Net.Http.HttpClient.<FinishSendAsyncBuffered>d__62.MoveNext()
+   at Colin.Lottery.Utils.HttpUtil.<GetStringAsync>d__0.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Utils/HttpUtil.cs:line 14
