@@ -71,7 +71,16 @@ namespace Colin.Lottery.Collectors
         public async Task<IForcastPlanModel> GetForcastData(LotteryType type, Planner planer, int rule)
         {
             string response = await HttpUtil.GetStringAsync(GetForecastUrl(type, planer, rule));
-            return JsonConvert.DeserializeObject<JinMaForcastPlanModel>(response);
+            try
+            {
+                return JsonConvert.DeserializeObject<JinMaForcastPlanModel>(response);
+            }
+            catch (Exception ex)
+            {
+
+                LogUtil.Error($"预测数据反序列化失败 {ex.Message}\r\n{ex.StackTrace}");
+                return null;
+            }
         }
     }
 }

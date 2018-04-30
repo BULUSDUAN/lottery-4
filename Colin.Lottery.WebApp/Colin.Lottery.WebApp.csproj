@@ -18,4 +18,10 @@
     <Folder Include="wwwroot\lib\art-template\" />
     <Folder Include="wwwroot\lib\notify\" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Remove="log4net.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="log4net.config" />
+  </ItemGroup>
 </Project>
