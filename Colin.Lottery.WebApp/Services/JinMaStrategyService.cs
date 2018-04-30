@@ -94,7 +94,7 @@ namespace Colin.Lottery.WebApp
                         await QuartzUtil.DeleteJob(ng.JobName, ng.JobGroup);
 
                     //扫水
-                    var plans = await JinMaAnalyzer.Instance.GetForcastData();
+                    var plans = await JinMaAnalyzer.Instance.GetForcastData(LotteryType.PK10, (int)rule);
                     JinMaAnalyzer.Instance.CalcuteScore(ref plans, startWhenBreakGua);
                     (IForcastPlanModel planA, IForcastPlanModel planB) = plans;
 
