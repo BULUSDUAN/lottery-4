@@ -51,12 +51,12 @@ namespace Colin.Lottery.WebApp
             }
 
             //TODO: 暂不使用Https
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
-            app.UseAuthentication();
+            //app.UseAuthentication();UseAuthentication
 
             app.UseMvc();
 

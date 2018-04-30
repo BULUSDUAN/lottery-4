@@ -10,10 +10,10 @@ namespace Colin.Lottery.WebApp
 {
     public class NotifyHub : BaseHub<NotifyHub>
     {
-        public async Task GetNotifications(float criticalScore, bool startWhenBreakGua = false)
+        public void GetNotifications(float criticalScore, bool startWhenBreakGua = false)
         {
-            var notifications = await GetAllNotifications(criticalScore, startWhenBreakGua);
-            await Clients.Caller.SendAsync("Notify", notifications);
+            //var notifications = await GetAllNotifications(criticalScore, startWhenBreakGua);
+            //await Clients.Caller.SendAsync("Notify", notifications);
 
             UserSettings.TryRemove(Context.ConnectionId, out object settings);
             UserSettings.TryAdd(Context.ConnectionId, criticalScore);

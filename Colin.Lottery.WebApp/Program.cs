@@ -7,6 +7,7 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using System.Diagnostics;
 
 namespace Colin.Lottery.WebApp
 {
@@ -19,6 +20,7 @@ namespace Colin.Lottery.WebApp
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+                //.UseUrls("http://*:5000;https://*:5001")
                 .UseStartup<Startup>();
     }
 }

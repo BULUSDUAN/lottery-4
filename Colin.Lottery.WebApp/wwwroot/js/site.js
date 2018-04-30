@@ -31,7 +31,7 @@
             if (!msgs || msgs.length <= 0)
                 return;
 
-            for (let i = 0; i < msgs.length; i++) {
+            for (let i = msgs.length-1; i >= 0; i--) {
                 $.notify(msgs[i], "success");
             }
         });
