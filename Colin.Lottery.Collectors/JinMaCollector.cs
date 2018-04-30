@@ -73,12 +73,14 @@ namespace Colin.Lottery.Collectors
             string response = await HttpUtil.GetStringAsync(GetForecastUrl(type, planer, rule));
             try
             {
+                if (string.IsNullOrWhiteSpace(response))
+                    return null;
+
                 return JsonConvert.DeserializeObject<JinMaForcastPlanModel>(response);
             }
             catch (Exception ex)
             {
-
-                LogUtil.Error($"预测数据反序列化失败 {ex.Message}\r\n{ex.StackTrace}");
+                LogUtil.Error($"预测数据反序列化失败，内容:{response}\r\n{ex.Message}\r\n{ex.StackTrace}");
                 return null;
             }
         }
