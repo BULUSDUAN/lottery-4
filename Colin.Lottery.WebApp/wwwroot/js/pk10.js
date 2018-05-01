@@ -30,6 +30,11 @@
         container.append(template('planTemplate', data.item2));
         $(".tab-pane.active").html(container);
     });
+    
+    //无数据返回
+    connection.on("NoResult",function(){
+        $(".tab-pane.active").html($(template('noResultTemplate')()));
+    });
 
     //切换Tab加载数据
     $(".nav-tabs a").on("click", function () {

@@ -176,6 +176,9 @@ namespace Colin.Lottery.Analyzers
         public override void CalcuteScore(ref (IForcastPlanModel Plan1, IForcastPlanModel Plan2) plans, bool startWhenBreakGua = false)
         {
             (IForcastPlanModel Plan1, IForcastPlanModel Plan2) = plans;
+            if (Plan1 == null || Plan2 == null)
+                return;
+
             var p1Forcast = Plan1.ForcastData.LastOrDefault();
             var p2Forcast = Plan2.ForcastData.LastOrDefault();
 

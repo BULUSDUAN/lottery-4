@@ -17,7 +17,7 @@ namespace Colin.Lottery.Utils
             }
             catch (Exception ex)
             {
-                LogUtil.Error($"HttpUtil.GetStringAsync失败。{ex.Message}\r\n{ex.StackTrace}");
+                LogUtil.Warn($"{ex.Message}\r\n{ex.StackTrace}");
                 return null;
             }
         }

@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.SignalR;
 
 using Colin.Lottery.Analyzers;
 using Colin.Lottery.Models;
+using Colin.Lottery.Utils;
 
 namespace Colin.Lottery.WebApp.Hubs
 {
@@ -13,8 +14,17 @@ namespace Colin.Lottery.WebApp.Hubs
         public async Task GetForcastData(int rule = 1, bool startWhenBreakGua = false)
         {
             var plans = await JinMaAnalyzer.Instance.GetForcastData(LotteryType.PK10, rule);
-            JinMaAnalyzer.Instance.CalcuteScore(ref plans, startWhenBreakGua);
-            await Clients.Caller.SendAsync("ShowPlans", plans);
+            if (plans.Plan1 == null || plans.Plan2 == null)
+            {
+                await Clients.Caller.SendAsync("NoResult");
+                LogUtil.Fatal("目标网站扫水接口异常，请尽快检查恢复");
+            }
+            else
+            {
+                JinMaAnalyzer.Instance.CalcuteScore(ref plans, startWhenBreakGua);
+                await Clients.Caller.SendAsync("ShowPlans", plans);
+            }
+
 
             //更新用户配置
             UserSettings.TryRemove(Context.ConnectionId, out object settings);

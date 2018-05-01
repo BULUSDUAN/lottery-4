@@ -95,8 +95,18 @@ namespace Colin.Lottery.WebApp
 
                     //扫水
                     var plans = await JinMaAnalyzer.Instance.GetForcastData(LotteryType.PK10, (int)rule);
-                    JinMaAnalyzer.Instance.CalcuteScore(ref plans, startWhenBreakGua);
                     (IForcastPlanModel planA, IForcastPlanModel planB) = plans;
+                    /*
+                    * 如果目标网站接口正常，每次都可以扫到结果，即使不是没有更新最新期预测数据，所以如果没有扫水结果，说明目标网站接口出错
+                    */
+                    if (planA == null || planB == null)
+                    {
+                        await _PK10Context.Clients.Clients(PK10Hub.GetConnectionIds(rule)).SendAsync("NoResult");
+                        LogUtil.Fatal("目标网站扫水接口异常，请尽快检查恢复");
+                        return;
+                    }
+
+                    JinMaAnalyzer.Instance.CalcuteScore(ref plans, startWhenBreakGua);
 
                     if (planA.LastDrawedPeriod + 1 >= periodNo && planB.LastDrawedPeriod + 1 >= periodNo)
                     {
