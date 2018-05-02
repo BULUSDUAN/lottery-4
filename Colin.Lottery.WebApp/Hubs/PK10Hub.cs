@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.SignalR;
 
 using Colin.Lottery.Analyzers;
 using Colin.Lottery.Models;
+using System;
 
 namespace Colin.Lottery.WebApp.Hubs
 {
@@ -38,6 +39,12 @@ namespace Colin.Lottery.WebApp.Hubs
                 list.Add(connId);
             }
             return list;
+        }
+
+        public override async Task OnConnectedAsync()
+        {
+            await Clients.Caller.SendAsync("ShowServerTime", DateTime.Now.ToString());
+
         }
     }
 }
