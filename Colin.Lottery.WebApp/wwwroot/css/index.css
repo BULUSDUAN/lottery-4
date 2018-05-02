@@ -1,0 +1,7 @@
+﻿.page-header {
+    margin-top: 20px;
+}
+
+td[rowspan] {
+    text-align: center;
+}

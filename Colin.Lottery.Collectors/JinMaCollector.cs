@@ -17,7 +17,7 @@ namespace Colin.Lottery.Collectors
         /// <summary>
         /// 异步接口根地址
         /// </summary>
-        private static readonly string _ROOT_URL = "https://3530.net/ajax/";
+        private static readonly string _ROOT_URL = "https://55906.net/ajax/";
 
         /// <summary>
         /// 获取开奖号码历史记录接口地址
@@ -71,7 +71,18 @@ namespace Colin.Lottery.Collectors
         public async Task<IForcastPlanModel> GetForcastData(LotteryType type, Planner planer, int rule)
         {
             string response = await HttpUtil.GetStringAsync(GetForecastUrl(type, planer, rule));
-            return JsonConvert.DeserializeObject<JinMaForcastPlanModel>(response);
+            try
+            {
+                if (string.IsNullOrWhiteSpace(response))
+                    return null;
+
+                return JsonConvert.DeserializeObject<JinMaForcastPlanModel>(response);
+            }
+            catch (Exception ex)
+            {
+                LogUtil.Error($"预测数据反序列化失败，内容:{response}\r\n{ex.Message}\r\n{ex.StackTrace}");
+                return null;
+            }
         }
     }
 }

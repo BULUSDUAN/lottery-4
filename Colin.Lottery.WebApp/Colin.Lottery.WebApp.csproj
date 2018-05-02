@@ -1,21 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk.Web">
-
-  <PropertyGroup>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
-    <UserSecretsId>Colin.Lottery.WebApp-2FC5635B-A6C7-4AB9-891E-032EFC37255B</UserSecretsId>
-  </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.App" Version="2.1.0-preview1-final" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Colin.Lottery.Models\Colin.Lottery.Models.csproj" />
-    <ProjectReference Include="..\Colin.Lottery.Common\Colin.Lottery.Common.csproj" />
-    <ProjectReference Include="..\Colin.Lottery.Utils\Colin.Lottery.Utils.csproj" />
-    <ProjectReference Include="..\Colin.Lottery.Analyzers\Colin.Lottery.Analyzers.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="wwwroot\lib\art-template\" />
-    <Folder Include="wwwroot\lib\notify\" />
-  </ItemGroup>
+    <PropertyGroup>
+        <TargetFramework>netcoreapp2.1</TargetFramework>
+        <UserSecretsId>Colin.Lottery.WebApp-2FC5635B-A6C7-4AB9-891E-032EFC37255B</UserSecretsId>
+    </PropertyGroup>
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.App" Version="2.1.0-preview1-final" />
+    </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\Colin.Lottery.Models\Colin.Lottery.Models.csproj" />
+        <ProjectReference Include="..\Colin.Lottery.Common\Colin.Lottery.Common.csproj" />
+        <ProjectReference Include="..\Colin.Lottery.Utils\Colin.Lottery.Utils.csproj" />
+        <ProjectReference Include="..\Colin.Lottery.Analyzers\Colin.Lottery.Analyzers.csproj" />
+    </ItemGroup>
+    <ItemGroup>
+        <Folder Include="wwwroot\lib\art-template\" />
+        <Folder Include="wwwroot\lib\notify\" />
+    </ItemGroup>
 </Project>
