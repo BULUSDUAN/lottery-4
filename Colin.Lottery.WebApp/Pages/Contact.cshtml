@@ -1,19 +1,29 @@
 ﻿@page
-@model ContactModel
 @{
-    ViewData["Title"] = "Contact";
+    ViewData["Title"] = "关于我们";
 }
-<h2>@ViewData["Title"]</h2>
-<h3>@Model.Message</h3>
 
-<address>
-    One Microsoft Way<br />
-    Redmond, WA 98052-6399<br />
-    <abbr title="Phone">P:</abbr>
-    425.555.0100
-</address>
 
-<address>
-    <strong>Support:</strong> <a href="mailto:Support@example.com">Support@example.com</a><br />
-    <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-</address>
+<div class="page-header">
+    <h4>
+        关于我们
+        <small>联系我们以获得更多帮助</small>
+    </h4>
+</div>
+
+<div class="container">
+    <div class="media">
+        <div class="media-body">
+            <h4 class="media-heading">联系我们</h4>
+            <address>
+                <strong>Support:</strong> <a href="mailto:zhangcheng5468@gmail.com">zhangcheng5468@gmail.com</a><br />
+                <strong>Marketing:</strong> <a href="mailto:zhangcheng5468@gmail.com">zhangcheng5468@gmail.com</a>
+            </address>
+        </div>
+        <div class="media-right">
+            <a href="#">
+                <img class="media-object" src="/images/wechat.jpg" style="height:300px;">
+            </a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,10 @@
+2018-05-03 21:52:36,732 [141] ERROR - 预测数据反序列化失败，内容:系统出现错误,请将错误编码告知管理员,并重试操作,错误编码:[2018050321550421323]
+Unexpected character encountered while parsing value: 系. Path '', line 0, position 0.
+   at Newtonsoft.Json.JsonTextReader.ParseValue()
+   at Newtonsoft.Json.JsonReader.ReadForType(JsonContract contract, Boolean hasConverter)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.Deserialize(JsonReader reader, Type objectType, Boolean checkAdditionalContent)
+   at Newtonsoft.Json.JsonSerializer.DeserializeInternal(JsonReader reader, Type objectType)
+   at Newtonsoft.Json.JsonConvert.DeserializeObject(String value, Type type, JsonSerializerSettings settings)
+   at Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value, JsonSerializerSettings settings)
+   at Colin.Lottery.Collectors.JinMaCollector.<GetForcastData>d__4.MoveNext() in /Users/zhangcheng/Desktop/Lottery/Colin.Lottery.Collectors/JinMaCollector.cs:line 79
+2018-05-03 21:52:36,935 [133] FATAL - 目标网站扫水接口异常，请尽快检查恢复
