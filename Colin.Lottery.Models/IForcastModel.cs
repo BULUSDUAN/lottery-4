@@ -12,6 +12,12 @@ namespace Colin.Lottery.Models
     public interface IForcastModel
     {
         /// <summary>
+        /// 玩法规则
+        /// </summary>
+        /// <value>The rule.</value>
+        string Rule { get; set; }
+
+        /// <summary>
         /// 期号范围
         /// </summary>
         string PeriodRange { get; set; }
@@ -40,6 +46,16 @@ namespace Colin.Lottery.Models
         /// 开奖号码
         /// </summary>
         string DrawNo { get; set; }
+
+        /// <summary>
+        /// 最新期评测分数
+        /// </summary>
+        float Score { get; set; }
+
+        /// <summary>
+        /// 中奖概率
+        /// </summary>
+        float WinProbability { get; set; }
     }
 
     /// <summary>

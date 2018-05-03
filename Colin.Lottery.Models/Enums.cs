@@ -143,7 +143,7 @@ namespace Colin.Lottery.Models
                 case PK10Rule.Third:
                     return "季军";
                 case PK10Rule.Fourth:
-                    return "第四名";
+                    return "第4名";
                 case PK10Rule.BigOrSmall:
                     return "冠军大小";
                 case PK10Rule.OddOrEven:

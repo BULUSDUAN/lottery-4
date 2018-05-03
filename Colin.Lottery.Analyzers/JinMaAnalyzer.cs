@@ -228,6 +228,9 @@ namespace Colin.Lottery.Analyzers
             Plan1.KeepHisGuaCnt = keepHisGuaCnt1;
             Plan2.KeepGuaCnt = keepGuaCnt2;
             Plan2.KeepHisGuaCnt = keepHisGuaCnt2;
+
+            Plan1.ForcastData.LastOrDefault().Score = Plan1.Score;
+            Plan2.ForcastData.LastOrDefault().Score = Plan2.Score;
         }
 
 

@@ -26,28 +26,47 @@ namespace Colin.Lottery.WebApp.Hubs
             }
 
 
-            //更新用户配置
-            UserSettings.TryRemove(Context.ConnectionId, out object settings);
-            UserSettings.TryAdd(Context.ConnectionId, new PK10Rule[] { (PK10Rule)rule });
+            await Groups.AddAsync(Context.ConnectionId, ((PK10Rule)rule).ToString());
         }
 
         /// <summary>
-        /// 获取关注指定玩法的所有连接ID
+        /// 获取PK10所有玩法最新期预测数据
         /// </summary>
-        /// <returns>The connection identifiers.</returns>
-        /// <param name="rule">PK10玩法</param>
-        public static IReadOnlyList<string> GetConnectionIds(PK10Rule rule)
+        /// <returns>The all new forcast.</returns>
+        public async Task GetAllNewForcast(bool startWhenBreakGua = false)
         {
-            var list = new List<string>();
-            foreach (var connId in UserSettings.Keys)
-            {
-                var rules = UserSettings[connId] as PK10Rule[];
-                if (!rules.Contains(rule))
-                    continue;
+            var forcast = new List<IForcastModel>();
+            int error = 0;
+            error += await GetNewForcast(forcast, PK10Rule.Champion, startWhenBreakGua);
+            error += await GetNewForcast(forcast, PK10Rule.Second, startWhenBreakGua);
+            error += await GetNewForcast(forcast, PK10Rule.Third, startWhenBreakGua);
+            error += await GetNewForcast(forcast, PK10Rule.Fourth, startWhenBreakGua);
+            error += await GetNewForcast(forcast, PK10Rule.BigOrSmall, startWhenBreakGua);
+            error += await GetNewForcast(forcast, PK10Rule.OddOrEven, startWhenBreakGua);
+            error += await GetNewForcast(forcast, PK10Rule.DragonOrTiger, startWhenBreakGua);
+            error += await GetNewForcast(forcast, PK10Rule.Sum, startWhenBreakGua);
 
-                list.Add(connId);
+            if (error > 0)
+            {
+                await Clients.Caller.SendAsync("NoResult", "allRules");
+                LogUtil.Fatal("目标网站扫水接口异常，请尽快检查恢复");
             }
-            return list;
+
+            await Clients.Caller.SendAsync("ShowPlans", forcast);
+
+            await Groups.AddAsync(Context.ConnectionId, "AllRules");
+        }
+
+        async Task<int> GetNewForcast(List<IForcastModel> newForcast, PK10Rule rule, bool startWhenBreakGua)
+        {
+            var plans = await JinMaAnalyzer.Instance.GetForcastData(LotteryType.PK10, (int)rule);
+            if (plans.Plan1 == null || plans.Plan2 == null)
+                return 1;
+
+            JinMaAnalyzer.Instance.CalcuteScore(ref plans, startWhenBreakGua);
+            newForcast.Add(plans.Plan1.ForcastData.LastOrDefault());
+            newForcast.Add(plans.Plan2.ForcastData.LastOrDefault());
+            return 0;
         }
     }
 }

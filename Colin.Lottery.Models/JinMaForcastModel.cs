@@ -8,7 +8,7 @@ namespace Colin.Lottery.Models
 {
     public class JinMaForcastModel : ForcastModel
     {
-        //public string ApiName { get; set; }
+        public string ApiName { set { this.Rule = value; } }
 
         public string ZhouQi { set { this.PeriodRange = value; } }
 
@@ -31,7 +31,6 @@ namespace Colin.Lottery.Models
         public int C { get; set; }
 
         public string L { get; set; }
-
     }
 
     public class JinMaForcastPlanModel : ForcastPlanModel
@@ -49,6 +48,7 @@ namespace Colin.Lottery.Models
                 this.WinCount = summary.B;
                 this.LoseCount = summary.C;
                 this.WinProbability = float.Parse(summary.L.TrimEnd('%')) / 100;
+                this.ForcastData.LastOrDefault().WinProbability = this.WinProbability;
             }
         }
     }

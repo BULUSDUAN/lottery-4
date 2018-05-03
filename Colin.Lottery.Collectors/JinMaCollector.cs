@@ -17,7 +17,7 @@ namespace Colin.Lottery.Collectors
         /// <summary>
         /// 异步接口根地址
         /// </summary>
-        private static readonly string _ROOT_URL = "https://55906.net/ajax/";
+        private static readonly string _ROOT_URL = "https://3530.net/ajax/";
 
         /// <summary>
         /// 获取开奖号码历史记录接口地址
