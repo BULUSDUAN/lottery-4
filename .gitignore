@@ -1,0 +1,6 @@
+bin
+obj
+packages
+v15
+.vs
+node_modules
