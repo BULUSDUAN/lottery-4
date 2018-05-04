@@ -101,7 +101,7 @@
             let pc = $('.pk-period');
             let newPeriod = data.pop().lastPeriod;
             if (pc.text() - 0 < newPeriod)
-                pc.text(newPeriod);
+                pc.text(newPeriod.toString().padStart(3, '0'));
 
             $('.planLoading').remove();
             $('.plan-noresult').remove();

@@ -18,9 +18,6 @@
         <Folder Include="wwwroot\lib\notify\" />
     </ItemGroup>
     <ItemGroup>
-      <Content Remove="wwwroot\images\wechat.jpg" />
-    </ItemGroup>
-    <ItemGroup>
-      <None Include="wwwroot\images\wechat.jpg" />
+        <None Include="wwwroot\images\wechat.jpg" />
     </ItemGroup>
 </Project>

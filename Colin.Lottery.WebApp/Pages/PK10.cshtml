@@ -74,7 +74,7 @@ ViewData["Title"] = "北京PK10";
                     {{/if}}
                     <td>{{$value.periodRange}}</td>
                     <td>{{$value.forcastNo}}</td>
-                    <td>{{$value.lastPeriod}}</td>
+                    <td>{{$value.lastPeriod.toString().padStart(3,'0')}}</td>
                     <td>
                         {{if $value.drawNo}}
                         {{$value.drawNo}}
