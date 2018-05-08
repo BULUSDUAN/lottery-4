@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.SignalR;
 using Colin.Lottery.Analyzers;
 using Colin.Lottery.Models;
 using Colin.Lottery.Utils;
+using System;
 
 namespace Colin.Lottery.WebApp.Hubs
 {
@@ -48,6 +49,12 @@ namespace Colin.Lottery.WebApp.Hubs
                 list.Add(connId);
             }
             return list;
+        }
+
+        public override async Task OnConnectedAsync()
+        {
+            await Clients.All.SendAsync("broadcastMessage", "system",
+                $"{Context.ConnectionId} joined the conversation");
         }
     }
 }
