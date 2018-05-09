@@ -1,28 +1,38 @@
-﻿using System;
+﻿using Colin.Lottery.Models;
+using Microsoft.AspNetCore.SignalR.Client;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.SignalR.Client;
-using Microsoft.AspNetCore.Sockets;
 
 namespace Colin.Lottery.SampleBetService
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             Task.Run(() => Run());
 
             Console.ReadKey();
         }
 
-        static async Task Run()
+        private static async Task Run()
         {
             var connection = new HubConnectionBuilder()
-                .WithUrl($"http://localhost:52648/hubs/pk10")
-                .WithConsoleLogger()
-                //.WithMessagePackProtol()
-                .WithTransport(Microsoft.AspNetCore.Http.Connections.TransportType.LongPolling)
+                .WithUrl($"http://localhost:5000/hubs/pk10")
                 .Build();
+
+            Console.WriteLine("Starting connection. Press Ctrl-C to close.");
+
+            connection.On<string>("ShowServerTime", (time) =>
+            {
+                Console.WriteLine($"Server Time is {time} now.");
+            });
+
+            connection.On<IForcastPlanModel>("ShowPlans", async (plan) =>
+            {
+                SampleBet.ShowPlans(plan);
+                //Console.WriteLine($"Server Time is {time} now.");
+            });
 
             var cts = new CancellationTokenSource();
             Console.CancelKeyPress += (sender, a) =>
@@ -31,21 +41,14 @@ namespace Colin.Lottery.SampleBetService
                 cts.Cancel();
             };
 
-            connection.On<string>("ShowServerTime", (time) =>
-            {
-                Console.WriteLine($"Server Time Is {time} now.");
-            });
+            //connection.Closed += e =>
+            //{
+            //    Console.WriteLine("Connection closed with error: {0}", e);
 
-            connection.Closed += e =>
-            {
-                Console.WriteLine("Connection closed with error: {0}", e);
-
-                cts.Cancel();
-            };
+            //    cts.Cancel();
+            //};
 
             await connection.StartAsync();
-            Console.WriteLine("Starting connection. Press Ctrl-C to close.");
-
         }
     }
 }

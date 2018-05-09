@@ -10,4 +10,8 @@
     <PackageReference Include="Microsoft.AspNetCore.Sockets" Version="1.0.0-preview1-final" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Colin.Lottery.Models\Colin.Lottery.Models.csproj" />
+  </ItemGroup>
+
 </Project>
