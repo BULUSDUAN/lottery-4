@@ -10,21 +10,20 @@ namespace Colin.Lottery.SampleBetService
     {
         static void Main(string[] args)
         {
-            Task.Run(Run).Wait();
+            Task.Run(() => Run());
+
+            Console.ReadKey();
         }
 
         static async Task Run()
         {
             var connection = new HubConnectionBuilder()
-                .WithUrl("http://www.ccmoney.win/hubs/pk10")
+                .WithUrl($"http://localhost:52648/hubs/pk10")
                 .WithConsoleLogger()
                 //.WithMessagePackProtol()
-                .WithTransport(Microsoft.AspNetCore.Http.Connections.TransportType.WebSockets)
+                .WithTransport(Microsoft.AspNetCore.Http.Connections.TransportType.LongPolling)
                 .Build();
 
-            await connection.StartAsync();
-
-            Console.WriteLine("Starting connection. Press Ctrl-C to close.");
             var cts = new CancellationTokenSource();
             Console.CancelKeyPress += (sender, a) =>
             {
@@ -36,6 +35,17 @@ namespace Colin.Lottery.SampleBetService
             {
                 Console.WriteLine($"Server Time Is {time} now.");
             });
+
+            connection.Closed += e =>
+            {
+                Console.WriteLine("Connection closed with error: {0}", e);
+
+                cts.Cancel();
+            };
+
+            await connection.StartAsync();
+            Console.WriteLine("Starting connection. Press Ctrl-C to close.");
+
         }
     }
 }

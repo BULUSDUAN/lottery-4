@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.SignalR;
 using Colin.Lottery.Analyzers;
 using Colin.Lottery.Models;
 using Colin.Lottery.Utils;
-using Colin.Lottery.Common;
 
 namespace Colin.Lottery.WebApp.Hubs
 {
