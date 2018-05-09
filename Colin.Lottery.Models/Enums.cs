@@ -194,5 +194,13 @@ namespace Colin.Lottery.Models
 
             throw new ArgumentException($"彩种 - “{lottery}” 暂不支持");
         }
+
+        public static int ToInt(this LotteryType lottery) => (int)lottery;
+
+        public static int ToInt(this Plan plan) => (int)plan;
+
+        public static int ToInt(this PK10Rule rule) => (int)rule;
+
+        public static int ToInt(this CQSSCRule rule) => (int)rule;
     }
 }

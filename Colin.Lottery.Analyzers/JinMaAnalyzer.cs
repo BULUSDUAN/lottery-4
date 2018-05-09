@@ -127,7 +127,7 @@ namespace Colin.Lottery.Analyzers
         /// <summary>
         /// 起投连挂次数
         /// </summary>
-        private const int _START_GUA_TIME = 1;
+        private const int _START_GUA_TIME = 2;
         /// <summary>
         /// 几次有效连挂以上为满分挂
         /// </summary>

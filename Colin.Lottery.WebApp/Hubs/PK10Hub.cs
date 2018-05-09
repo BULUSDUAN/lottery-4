@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.SignalR;
 using Colin.Lottery.Analyzers;
 using Colin.Lottery.Models;
 using Colin.Lottery.Utils;
+using Colin.Lottery.Common;
 
 namespace Colin.Lottery.WebApp.Hubs
 {
@@ -25,7 +26,7 @@ namespace Colin.Lottery.WebApp.Hubs
                 await Clients.Caller.SendAsync("ShowPlans", plans);
             }
 
-
+            Lotterys.PK10Rules.ForEach(async r => await Groups.RemoveAsync(Context.ConnectionId, r.ToString()));
             await Groups.AddAsync(Context.ConnectionId, ((PK10Rule)rule).ToString());
         }
 

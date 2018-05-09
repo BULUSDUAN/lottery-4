@@ -8,6 +8,7 @@
         });
     })();
 
+    /*
     //消息通知
     (function () {
         //创建连接
@@ -17,7 +18,7 @@
         //启动连接并初始化数据
         connection.start().then(
             function () {
-                connection.invoke('GetNotifications', 80,true);
+                connection.invoke('GetNotifications', 80, true);
             },
             function () {
                 console.error("服务器(" + hub + ")连接失败");
@@ -31,11 +32,12 @@
             if (!msgs || msgs.length <= 0)
                 return;
 
-            for (let i = msgs.length-1; i >= 0; i--) {
+            for (let i = msgs.length - 1; i >= 0; i--) {
                 $.notify(msgs[i], "success");
             }
         });
     })();
+    */
 })();
 
 //获取URL中最后一个参数

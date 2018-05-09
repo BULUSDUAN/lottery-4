@@ -1,0 +1,359 @@
+﻿@page
+@model SettingsModel
+@using Colin.Lottery.Models
+
+<div class="page-header">
+    <h4>
+        系统设置&nbsp;<small>定制专属彩票策略</small>
+    </h4>
+</div>
+
+<div class="container">
+    <h4>策略配置</h4>
+    <p>订阅彩种及其玩法后才能定时收到服务推送的相关订阅的策略消息</p>
+    <div class="row">
+        <div class="col-xs-5">
+            <label for="lotteryType">彩种</label>
+            <select class="form-control"  name="lotteryType" aria-describedby="help-block-lotteryType">
+                @foreach (var lottery in Model.LotteryTypes)
+                {
+                    <option value="@lottery.ToInt()">@lottery.ToStringName()</option>
+                }
+            </select>
+            <p class="help-block" id="help-block-lotteryType">选择订阅彩种</p>
+        </div>
+        <div class="col-xs-5 col-xs-offset-1">
+            <label>计划</label><br />
+            @foreach (var plan in Model.Plans)
+            {
+                <label class="checkbox-inline">
+                    <input type="checkbox" aria-describedby="help-block-plans" checked="checked" disabled="disabled" value="@plan.ToInt()"> @plan
+                </label>
+            }
+            <p class="help-block" id="help-block-plans">订阅策略计划</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <label>玩法</label><br />
+            <div id="rule_1">
+                @foreach (var rule in Model.PK10_Rules)
+                {
+                    <label class="checkbox-inline">
+                        <input type="checkbox" aria-describedby="help-block-rules" value="@rule.ToInt()">&nbsp;@rule.ToStringName()
+                    </label>
+                }
+            </div>
+            <div id="rule_0" class="hide">
+                @foreach (var rule in Model.CQSSC_Rules)
+                {
+                    <label class="checkbox-inline">
+                        <input type="checkbox" aria-describedby="help-block-rules" value="@rule.ToInt()">&nbsp;@rule.ToStringName()
+                    </label>
+                }
+            </div>
+            <p class="help-block" id="help-block-rules">订阅彩票玩法</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <label for="lotteryType">策略</label>
+            <div class="checkbox">
+                <label>
+                    <input id="test" type="checkbox" aria-describedby="help-block-strategy-endgua" data-toggle="collapse" data-target="#collapse1"
+                           aria-expanded="false" aria-controls="collapse1">
+                    连挂结束优先
+                </label>
+                <p class="help-block" id="help-block-strategy-endgua">连挂结束优先策略说明</p>
+            </div>
+        </div>
+        <div class="col-xs-12">
+            <div class="collapse" id="collapse1">
+                <div class="well">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <div class="form-group">
+                                <label for="guaCount">连挂次数</label>
+                                <select class="form-control" id="guaCount">
+                                    <option>1</option>
+                                    <option selected>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-3">
+                            <label>起追胜率</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <input type="checkbox" checked>
+                                </span>
+                                <input type="text" class="form-control" value="88.5">
+                                <span class="input-group-addon">%</span>
+                            </div>
+                        </div>
+                        <div class="col-xs-3">
+                            <label>号码重复度</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <input type="checkbox">
+                                </span>
+                                <input type="text" class="form-control" value="60">
+                                <span class="input-group-addon">%</span>
+                            </div>
+                        </div>
+                        <div class="col-xs-3">
+                            <label>起追分数</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <input type="checkbox" checked>
+                                </span>
+                                <input type="text" class="form-control" value="80">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <label>统计期数</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <input type="checkbox" checked>
+                                </span>
+                                <input type="text" class="form-control" value="300">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" aria-describedby="help-block-strategy-chasegua" data-toggle="collapse" data-target="#collapse2"
+                           aria-expanded="false" aria-controls="collapse2">
+                    追挂优先
+                </label>
+                <p class="help-block" id="help-block-strategy-chasegua">追挂优先策略说明</p>
+            </div>
+        </div>
+        <div class="col-xs-12">
+            <div class="collapse" id="collapse2">
+                <div class="well">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <div class="form-group">
+                                <label>连挂次数</label>
+                                <select class="form-control">
+                                    <option>1</option>
+                                    <option selected>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-3">
+                            <label>起追胜率</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <input type="checkbox" checked>
+                                </span>
+                                <input type="text" class="form-control" value="88.5">
+                                <span class="input-group-addon">%</span>
+                            </div>
+                        </div>
+                        <div class="col-xs-3">
+                            <label>号码重复度</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <input type="checkbox">
+                                </span>
+                                <input type="text" class="form-control" value="60">
+                                <span class="input-group-addon">%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" aria-describedby="help-block-strategy-win" data-toggle="collapse" data-target="#collapse3"
+                           aria-expanded="false" aria-controls="collapse3">
+                    追胜率优先
+                </label>
+                <p class="help-block" id="help-block-strategy-win">追胜率优先策略说明</p>
+            </div>
+        </div>
+        <div class="col-xs-12">
+            <div class="collapse" id="collapse3">
+                <div class="well">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <div class="form-group">
+                                <label>连挂次数</label>
+                                <select class="form-control">
+                                    <option>1</option>
+                                    <option selected>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-3">
+                            <label>起追胜率</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <input type="checkbox" checked>
+                                </span>
+                                <input type="text" class="form-control" value="88.5">
+                                <span class="input-group-addon">%</span>
+                            </div>
+                        </div>
+                        <div class="col-xs-3">
+                            <label>号码重复度</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <input type="checkbox">
+                                </span>
+                                <input type="text" class="form-control" value="60">
+                                <span class="input-group-addon">%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" aria-describedby="help-block-strategy-score" data-toggle="collapse" data-target="#collapse4"
+                           aria-expanded="false" aria-controls="collapse4">
+                    综合分数优先
+                </label>
+                <p class="help-block" id="help-block-strategy-score">综合分数优先策略说明</p>
+            </div>
+        </div>
+        <div class="col-xs-12">
+            <div class="collapse" id="collapse4">
+                <div class="well">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <div class="form-group">
+                                <label>连挂次数</label>
+                                <select class="form-control">
+                                    <option>1</option>
+                                    <option selected>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-3">
+                            <label>起追胜率</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <input type="checkbox" checked>
+                                </span>
+                                <input type="text" class="form-control" value="88.5">
+                                <span class="input-group-addon">%</span>
+                            </div>
+                        </div>
+                        <div class="col-xs-3">
+                            <label>号码重复度</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <input type="checkbox">
+                                </span>
+                                <input type="text" class="form-control" value="60">
+                                <span class="input-group-addon">%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h4>自动下注</h4>
+    <p>订阅彩种及其玩法后才能定时收到服务推送的相关订阅的策略消息</p>
+    <div class="row">
+        <div class="col-xs-5">
+            <label>自动下注</label><br />
+            <label class="checkbox-inline">
+                <input type="radio" id="test1" aria-describedby="help-block-autobet" checked="checked" name="autobet" data-toggle="collapse"
+                       data-target="#collapse5"
+                       aria-expanded="false" aria-controls="collapse5"> 是
+            </label>
+            <label class="checkbox-inline">
+                <input type="radio" aria-describedby="help-block-autobet" name="autobet"> 否
+            </label>
+            <p class="help-block" id="help-block-autobet">订阅策略计划</p>
+        </div>
+        <div class="col-xs-12">
+            <div class="collapse" id="collapse5">
+                <div class="well">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <div class="form-group">
+                                <label>下注策略</label>
+                                <select class="form-control">
+                                    <option>追挂优先</option>
+                                    <option selected>追胜率优先</option>
+                                    <option>综合分数优先</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-3">
+                            <label>每注金额</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <input type="checkbox" checked>
+                                </span>
+                                <input type="text" class="form-control" value="88.5">
+                                <div class="input-group-btn">
+                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                                            aria-expanded="false">
+                                        元 <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-right">
+                                        <li><a href="#">元</a></li>
+                                        <li><a href="#">角</a></li>
+                                        <li><a href="#">分</a></li>
+                                        <li><a href="#">厘</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-3">
+                            <div class="form-group">
+                                <label>追号段</label>
+                                <select class="form-control">
+                                    <option selected>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>不限</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <button type="submit" class="btn btn-primary">保存</button>
+        <button class="btn btn-link">导出配置</button>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="/js/settings.js"></script>
+}
