@@ -40,7 +40,10 @@
 
         //创建连接
         let hub = '/hubs/pk10';
-        let connection = new signalR.HubConnection(hub);
+        const connection = new signalR.HubConnectionBuilder()
+            .withUrl(hub)
+            .configureLogging(signalR.LogLevel.Information)
+            .build();
 
         //启动连接并初始化数据
         connection.start().then(
@@ -75,7 +78,7 @@
 
 
         //显示预测数据
-        connection.on("ShowPlans", function (data) {
+        connection.on("ShowPlans", data => {
             if (!data || data.length <= 0)
                 return;
 
