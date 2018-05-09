@@ -26,8 +26,9 @@ namespace Colin.Lottery.WebApp.Hubs
                 await Clients.Caller.SendAsync("ShowPlans", plans);
             }
 
-            Lotterys.PK10Rules.ForEach(async r => await Groups.RemoveAsync(Context.ConnectionId, r.ToString()));
-            await Groups.AddAsync(Context.ConnectionId, ((PK10Rule)rule).ToString());
+
+            Lotterys.PK10Rules.ForEach(async r => await Groups.RemoveFromGroupAsync(Context.ConnectionId, r.ToString()));
+            await Groups.AddToGroupAsync(Context.ConnectionId, ((PK10Rule)rule).ToString());
         }
 
         /// <summary>
@@ -55,7 +56,7 @@ namespace Colin.Lottery.WebApp.Hubs
 
             await Clients.Caller.SendAsync("ShowPlans", forcast);
 
-            await Groups.AddAsync(Context.ConnectionId, "AllRules");
+            await Groups.AddToGroupAsync(Context.ConnectionId, "AllRules");
         }
 
         async Task<int> GetNewForcast(List<IForcastModel> newForcast, PK10Rule rule, bool startWhenBreakGua)

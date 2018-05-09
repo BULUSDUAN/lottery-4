@@ -6,12 +6,15 @@
 
     //创建连接
     let hub = '/hubs/pk10';
-    let connection = new signalR.HubConnection(hub);
+    const connection = new signalR.HubConnectionBuilder()
+        .withUrl(hub)
+        .configureLogging(signalR.LogLevel.Information)
+        .build();
 
     //启动连接并初始化数据
     connection.start().then(
         function () {
-            connection.invoke('GetForcastData', rule, true);
+            connection.invoke('GetForcastData', rule, true).catch(err => console.error(err.toString()));
         },
         function () {
             console.error("服务器(" + hub + ")连接失败");
@@ -21,7 +24,7 @@
         });
 
     //显示预测数据
-    connection.on("ShowPlans", function (data) {
+    connection.on("ShowPlans", data => {
         data.item1.name = "Plan A";
         data.item2.name = "Plan B";
 
@@ -30,9 +33,9 @@
         container.append(template('planTemplate', data.item2));
         $(".tab-pane.active").html(container);
     });
-    
+
     //无数据返回
-    connection.on("NoResult",function(){
+    connection.on("NoResult", ()=> {
         $(".tab-pane.active").html($(template('noResultTemplate')()));
     });
 
@@ -40,7 +43,7 @@
     $(".nav-tabs a").on("click", function () {
         let id = $(this).attr("aria-controls");
         loading(id);
-        connection.invoke('GetForcastData', id, true);
+        connection.invoke('GetForcastData', id, true).catch(err => console.error(err.toString()));
         //无刷新更新URL
         history.replaceState(null, null, id);
     });

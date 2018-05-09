@@ -28,7 +28,7 @@ namespace Colin.Lottery.WebApp.Hubs
         public async override Task OnConnectedAsync()
         {
             Interlocked.Increment(ref _usersCount);
-            await Groups.AddAsync(Context.ConnectionId, typeof(T).Name);
+            await Groups.AddToGroupAsync(Context.ConnectionId, typeof(T).Name);
 
             await base.OnConnectedAsync();
         }
@@ -36,7 +36,7 @@ namespace Colin.Lottery.WebApp.Hubs
         public async override Task OnDisconnectedAsync(Exception exception)
         {
             Interlocked.Decrement(ref _usersCount);
-            await Groups.RemoveAsync(Context.ConnectionId, typeof(T).Name);
+            await Groups.RemoveFromGroupAsync(Context.ConnectionId, typeof(T).Name);
             UserSettings.TryRemove(Context.ConnectionId, out object settings);
 
             await base.OnDisconnectedAsync(exception);

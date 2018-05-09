@@ -5,7 +5,7 @@
         <UserSecretsId>Colin.Lottery.WebApp-2FC5635B-A6C7-4AB9-891E-032EFC37255B</UserSecretsId>
     </PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.App" Version="2.1.0-preview1-final" />
+        <PackageReference Include="Microsoft.AspNetCore.App" Version="2.1.0-rc1-final" />
     </ItemGroup>
     <ItemGroup>
         <ProjectReference Include="..\Colin.Lottery.Models\Colin.Lottery.Models.csproj" />
@@ -20,5 +20,7 @@
     <ItemGroup>
         <None Include="wwwroot\images\wechat.jpg" />
         <None Include="wwwroot\js\settings.js" />
+        <None Include="wwwroot\lib\signalr\signalr.js" />
+        <None Include="wwwroot\lib\signalr\signalr.min.js" />
     </ItemGroup>
 </Project>
