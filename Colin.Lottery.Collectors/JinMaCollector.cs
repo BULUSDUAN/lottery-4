@@ -80,7 +80,7 @@ namespace Colin.Lottery.Collectors
             }
             catch (Exception ex)
             {
-                LogUtil.Error($"预测数据反序列化失败，内容:{response}\r\n{ex.Message}\r\n{ex.StackTrace}");
+                LogUtil.Warn($"预测数据反序列化失败，内容:{response}\r\n{ex.Message}\r\n{ex.StackTrace}");
                 return null;
             }
         }
