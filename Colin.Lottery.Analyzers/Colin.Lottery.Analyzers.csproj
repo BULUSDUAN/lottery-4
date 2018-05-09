@@ -1,14 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
-
-  <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-  </PropertyGroup>
-
-  <ItemGroup>
-    <Compile Remove="Class1.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Colin.Lottery.Collectors\Colin.Lottery.Collectors.csproj" />
-    <ProjectReference Include="..\Colin.Lottery.Models\Colin.Lottery.Models.csproj" />
-  </ItemGroup>
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+    </PropertyGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\Colin.Lottery.Collectors\Colin.Lottery.Collectors.csproj" />
+        <ProjectReference Include="..\Colin.Lottery.Models\Colin.Lottery.Models.csproj" />
+    </ItemGroup>
 </Project>

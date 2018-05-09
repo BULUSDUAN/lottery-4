@@ -17,4 +17,7 @@
         <Folder Include="wwwroot\lib\art-template\" />
         <Folder Include="wwwroot\lib\notify\" />
     </ItemGroup>
+    <ItemGroup>
+        <None Include="wwwroot\images\wechat.jpg" />
+    </ItemGroup>
 </Project>

@@ -27,6 +27,18 @@ body {
     }
 }
 
+.page-header {
+    margin-top: 20px;
+}
+
+.progress {
+    margin-top: 20px;
+}
+
 .table > tbody > tr > td {
     vertical-align: middle;
+}
+
+.progress-bar {
+    width: 100%;
 }

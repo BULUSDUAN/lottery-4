@@ -101,7 +101,8 @@ namespace Colin.Lottery.WebApp
                     */
                     if (planA == null || planB == null)
                     {
-                        await _PK10Context.Clients.Clients(PK10Hub.GetConnectionIds(rule)).SendAsync("NoResult");
+                        //await _PK10Context.Clients.Group(rule.ToString()).SendAsync("NoResult");
+                        await _PK10Context.Clients.Groups(new List<string> { rule.ToString(), "AllRules" }).SendAsync("NoResult", rule.ToStringName());
                         LogUtil.Fatal("目标网站扫水接口异常，请尽快检查恢复");
                         return;
                     }
@@ -110,8 +111,16 @@ namespace Colin.Lottery.WebApp
 
                     if (planA.LastDrawedPeriod + 1 >= periodNo && planB.LastDrawedPeriod + 1 >= periodNo)
                     {
-                        //推送到所有关注PK10当前玩法的客户端
-                        await _PK10Context.Clients.Clients(PK10Hub.GetConnectionIds(rule)).SendAsync("ShowPlans", plans);
+                        //推送完整15期计划
+                        await _PK10Context.Clients.Group(rule.ToString()).SendAsync("ShowPlans", plans);
+
+                        //推送最新期计划
+                        var forcast = new List<IForcastModel>
+                        {
+                            planA.ForcastData.LastOrDefault(),
+                            planB.ForcastData.LastOrDefault()
+                        };
+                        await _PK10Context.Clients.Group("AllRules").SendAsync("ShowPlans", forcast);
 
                         //广播通知消息
                         await NotifyContext.Clients.Clients(NotifyHub.GetConnectionIds(planA.Score)).SendAsync("Notify", new List<string> { CreateNotification(LotteryType.PK10, (int)rule, Plan.PlanA, planA.ForcastDrawNo, planA.Score) });

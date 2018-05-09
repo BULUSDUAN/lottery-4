@@ -8,12 +8,15 @@ namespace Colin.Lottery.Models
 {
     public abstract class ForcastModel : IForcastModel
     {
+        public string Rule { get; set; }
         public string PeriodRange { get; set; }
         public string ForcastNo { get; set; }
         public int ChaseTimes { get; set; }
         public bool? IsWin { get; set; }
         public long LastPeriod { get; set; }
         public string DrawNo { get; set; }
+        public float Score { get; set; }
+        public float WinProbability { get; set; }
     }
 
     public abstract class ForcastPlanModel : IForcastPlanModel

@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using log4net;
 using log4net.Config;
 using log4net.Repository;
@@ -18,10 +17,65 @@ namespace Colin.Lottery.Utils
             log = LogManager.GetLogger(repository.Name, typeof(LogUtil));
         }
 
-        public static void Debug(string msg) => log.Debug(msg);
-        public static void Info(string msg) => log.Info(msg);
-        public static void Warn(string msg) => log.Warn(msg);
-        public static void Error(string msg) => log.Error(msg);
-        public static void Fatal(string msg) => log.Fatal(msg);
+
+        public static void Debug(string message)
+        {
+            try
+            {
+                System.Threading.Tasks.Task.Run(() =>
+                {
+                    log.Debug(message);
+                });
+            }
+            catch { }
+        }
+
+        public static void Info(string message)
+        {
+            try
+            {
+                System.Threading.Tasks.Task.Run(() =>
+                {
+                    log.Info(message);
+                });
+            }
+            catch { }
+        }
+
+        public static void Warn(string message)
+        {
+            try
+            {
+                System.Threading.Tasks.Task.Run(() =>
+                {
+                    log.Warn(message);
+                });
+            }
+            catch { }
+        }
+
+        public static void Error(string message)
+        {
+            try
+            {
+                System.Threading.Tasks.Task.Run(() =>
+                {
+                    log.Error(message);
+                });
+            }
+            catch { }
+        }
+
+        public static void Fatal(string message)
+        {
+            try
+            {
+                System.Threading.Tasks.Task.Run(() =>
+                {
+                    log.Fatal(message);
+                });
+            }
+            catch { }
+        }
     }
 }

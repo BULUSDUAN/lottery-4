@@ -4,4 +4,5 @@ packages
 v15
 .vs
 node_modules
-logs
+/Colin.Lottery.WebApp/Logs
+
