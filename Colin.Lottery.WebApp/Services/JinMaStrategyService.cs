@@ -103,7 +103,7 @@ namespace Colin.Lottery.WebApp
                     {
                         //await _PK10Context.Clients.Group(rule.ToString()).SendAsync("NoResult");
                         await _PK10Context.Clients.Groups(new List<string> { rule.ToString(), "AllRules" }).SendAsync("NoResult", rule.ToStringName());
-                        LogUtil.Fatal("目标网站扫水接口异常，请尽快检查恢复");
+                        LogUtil.Warn("目标网站扫水接口异常，请尽快检查恢复");
                         return;
                     }
 
