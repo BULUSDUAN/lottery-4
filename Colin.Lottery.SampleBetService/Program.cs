@@ -28,9 +28,9 @@ namespace Colin.Lottery.SampleBetService
                 Console.WriteLine($"Server Time is {time} now.");
             });
 
-            connection.On<IForcastPlanModel>("ShowPlans", async (plan) =>
-            {
-                SampleBet.ShowPlans(plan);
+            connection.On<IForcastPlanModel>("ShowPlans", plan =>
+           {
+               SampleBet.ShowPlans(plan);
                 //Console.WriteLine($"Server Time is {time} now.");
             });
 

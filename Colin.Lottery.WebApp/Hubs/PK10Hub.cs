@@ -18,7 +18,7 @@ namespace Colin.Lottery.WebApp.Hubs
             if (plans.Plan1 == null || plans.Plan2 == null)
             {
                 await Clients.Caller.SendAsync("NoResult");
-                LogUtil.Fatal("目标网站扫水接口异常，请尽快检查恢复");
+                LogUtil.Warn("目标网站扫水接口异常，请尽快检查恢复");
             }
             else
             {
@@ -51,7 +51,7 @@ namespace Colin.Lottery.WebApp.Hubs
             if (error > 0)
             {
                 await Clients.Caller.SendAsync("NoResult", "allRules");
-                LogUtil.Fatal("目标网站扫水接口异常，请尽快检查恢复");
+                LogUtil.Warn("目标网站扫水接口异常，请尽快检查恢复");
             }
 
             await Clients.Caller.SendAsync("ShowPlans", forcast);
