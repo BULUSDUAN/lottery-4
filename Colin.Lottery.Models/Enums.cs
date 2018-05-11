@@ -119,6 +119,21 @@ namespace Colin.Lottery.Models
         Planner2 = 2
     }
 
+    /// <summary>
+    /// 邮件内容格式
+    /// </summary>
+    public enum MailContentType
+    {
+        /// <summary>
+        /// 文本格式
+        /// </summary>
+        Plain,
+        /// <summary>
+        /// HTML格式
+        /// </summary>
+        Html
+    }
+
     public static class EnumExt
     {
         public static string ToStringName(this LotteryType lottery)

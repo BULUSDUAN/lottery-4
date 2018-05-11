@@ -8,5 +8,6 @@
     </ItemGroup>
     <ItemGroup>
         <ProjectReference Include="..\Colin.Lottery.Models\Colin.Lottery.Models.csproj" />
+        <ProjectReference Include="..\Colin.Lottery.Utils\Colin.Lottery.Utils.csproj" />
     </ItemGroup>
 </Project>
