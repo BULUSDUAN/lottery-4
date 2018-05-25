@@ -8,4 +8,8 @@
       <ProjectReference Include="..\Colin.Lottery.Utils\Colin.Lottery.Utils.csproj" />
       <ProjectReference Include="..\Colin.Lottery.Models\Colin.Lottery.Models.csproj" />
     </ItemGroup>
+    <ItemGroup>
+      <PackageReference Include="Selenium.WebDriver" Version="3.12.0" />
+      <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="2.38.0.1" />
+    </ItemGroup>
 </Project>

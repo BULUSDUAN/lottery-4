@@ -2,7 +2,7 @@
 
 namespace Colin.Lottery.SampleBetService
 {
-    internal class SampleBet
+    class SampleBet
     {
         public static void ShowPlans(IForcastPlanModel plan)
         {

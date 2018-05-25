@@ -5,6 +5,7 @@ using System.Linq;
 
 using Colin.Lottery.Collectors;
 using Colin.Lottery.Models;
+using Colin.Lottery.Utils;
 
 namespace Colin.Lottery.Analyzers
 {
@@ -86,7 +87,7 @@ namespace Colin.Lottery.Analyzers
         * 假定有效连挂(距离当前期最近的已经结束的连挂)次数为N
         * 1.N >= _START_GUA_TIME
         * 2.有效连挂基础分算法
-        *   N >= _KEEP_GUA_TIME 时基础分满分_GU
+        *   N >= _KEEP_GUA_TIME 时基础分满分_GUA
         *   N < _KEEP_GUA_TIME 时基础分按照 (_KEEP_GUA_TIME-N)*_DELTA_REDUCE 递减
         * 3.段位分递减算法
         *   我们认为连挂N段后，可以安全跟投N+1段，因为结束连挂已经过了一段，所以还可以安全跟投 N 次，结束连挂后的第二段段位分不减
@@ -312,7 +313,10 @@ namespace Colin.Lottery.Analyzers
             keepHisGuaCnt = 0;
 
             if (forcastData.Count() < 2)
-                throw new Exception("预测历史数据不足,无法进行评估");
+            {
+                LogUtil.Error("预测历史数据不足,无法进行评估");
+                return 0;
+            }
 
 
             var results = forcastData.Take(forcastData.Count() - 1).Select(f => f.IsWin).Reverse().ToList();

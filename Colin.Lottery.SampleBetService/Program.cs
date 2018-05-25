@@ -6,16 +6,14 @@ using System.Threading.Tasks;
 
 namespace Colin.Lottery.SampleBetService
 {
-    internal class Program
+    class Program
     {
-        private static void Main(string[] args)
+        static void Main(string[] args)
         {
-            Task.Run(() => Run());
-
             Console.ReadKey();
         }
 
-        private static async Task Run()
+        static async Task Run()
         {
             var connection = new HubConnectionBuilder()
                 .WithUrl($"http://localhost:5000/hubs/pk10")
@@ -31,8 +29,8 @@ namespace Colin.Lottery.SampleBetService
             connection.On<IForcastPlanModel>("ShowPlans", plan =>
            {
                SampleBet.ShowPlans(plan);
-                //Console.WriteLine($"Server Time is {time} now.");
-            });
+               //Console.WriteLine($"Server Time is {time} now.");
+           });
 
             var cts = new CancellationTokenSource();
             Console.CancelKeyPress += (sender, a) =>

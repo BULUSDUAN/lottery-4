@@ -12,6 +12,12 @@ namespace Colin.Lottery.WebApp.Hubs
 {
     public class PK10Hub : BaseHub<PK10Hub>
     {
+        /// <summary>
+        /// 获取指定玩法预测数据(最近15段)
+        /// </summary>
+        /// <returns>The forcast data.</returns>
+        /// <param name="rule">Rule.</param>
+        /// <param name="startWhenBreakGua">If set to <c>true</c> start when break gua.</param>
         public async Task GetForcastData(int rule = 1, bool startWhenBreakGua = false)
         {
             var plans = await JinMaAnalyzer.Instance.GetForcastData(LotteryType.PK10, rule);
@@ -56,7 +62,7 @@ namespace Colin.Lottery.WebApp.Hubs
 
             await Clients.Caller.SendAsync("ShowPlans", forcast);
 
-            await Groups.AddToGroupAsync(Context.ConnectionId, "AllRules");
+            await RegisterAllRules();
         }
 
         async Task<int> GetNewForcast(List<IForcastModel> newForcast, PK10Rule rule, bool startWhenBreakGua)
@@ -70,5 +76,12 @@ namespace Colin.Lottery.WebApp.Hubs
             newForcast.Add(plans.Plan2.ForcastData.LastOrDefault());
             return 0;
         }
+
+        /// <summary>
+        /// 注册所有玩法(供模拟下注和自动下注调用)
+        /// </summary>
+        /// <returns>The all rules.</returns>
+        public async Task RegisterAllRules() => await Groups.AddToGroupAsync(Context.ConnectionId, "AllRules");
+
     }
 }
