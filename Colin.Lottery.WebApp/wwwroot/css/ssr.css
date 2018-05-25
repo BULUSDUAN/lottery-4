@@ -1,0 +1,18 @@
+.col-server{
+    max-width: 300px;
+}
+.hot{
+    color:red;
+}
+.break-words{
+    word-break: break-all;
+}
+.address{
+    margin-top: 15px;
+}
+.tutorial{
+    margin:15px;
+}
+.tutorial img{
+    height: 845px;
+}
