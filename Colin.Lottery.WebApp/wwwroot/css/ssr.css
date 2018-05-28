@@ -14,5 +14,5 @@
     margin:15px;
 }
 .tutorial img{
-    height: 845px;
+    max-height: 845px;
 }

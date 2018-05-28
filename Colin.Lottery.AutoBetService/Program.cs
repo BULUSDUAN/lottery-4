@@ -1,9 +1,13 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Linq;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using Colin.Lottery.Models;
 using Colin.Lottery.Utils;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.PhantomJS;
 using OpenQA.Selenium.Support.UI;
 
 namespace Colin.Lottery.AutoBetService
@@ -33,20 +37,34 @@ namespace Colin.Lottery.AutoBetService
         //    );
         //}
 
-        static void Test()
+        static async Task Test()
         {
-            var options = new ChromeOptions();
-            options.AddArguments("headless", "disable-gpu", "remote-debugging-port=9222", "window-size=1440,900", "disable-infobars", "--disable-extensions");
+            //var watch = new Stopwatch();
+            //watch.Start();
 
-            using (var chrome = new ChromeDriver(AppDomain.CurrentDomain.BaseDirectory, options))
+            //var options = new ChromeOptions();
+            //options.AddArguments("headless", "disable-gpu", "disable-infobars", "--disable-extensions");
+            //using (var chrome = new ChromeDriver(AppDomain.CurrentDomain.BaseDirectory, options))
+            //{
+            //    chrome.Navigate().GoToUrl("https://tool.ssrshare.com/tool/free_ssr");
+
+            //    var inputs = chrome.FindElements(By.CssSelector(".mdui-textfield-input"));
+            //    foreach (var input in inputs)
+            //    {
+            //        Console.WriteLine(input.GetAttribute("value"));
+            //    }
+            //}
+
+            //watch.Stop();
+            //Console.WriteLine(watch.ElapsedMilliseconds);
+
+            var brower = new BrowserUtil();
+            await brower.Explore("https://ssrshare.xyz/freessr");
+            brower.Completed += (brw, args) =>
             {
-                chrome.Navigate().GoToUrl("http://kj.kai861.com/view/pk10.html?1?10001?null?d?www.1680210.com");
-                var curPeriod = chrome.FindElement(By.CssSelector("#preDrawIssue em")).Text;
-                var drawNo = string.Join(',', chrome.FindElements(By.CssSelector("#preDrawIssue li i")).Select(i => i.Text));
-                var nextPeriod = chrome.FindElement(By.CssSelector("#drawIssue em")).Text;
-                var leftTime = chrome.FindElement(By.CssSelector(".ntime em")).Text;
-
-            }
+                Console.WriteLine(DateTime.Now);
+                //Console.WriteLine(args.PageSource);
+            };
         }
     }
 }

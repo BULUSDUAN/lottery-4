@@ -4,4 +4,13 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="BrowserModels\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="BrowserEvenArgs.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Selenium.WebDriver" Version="3.12.0" />
+  </ItemGroup>
 </Project>

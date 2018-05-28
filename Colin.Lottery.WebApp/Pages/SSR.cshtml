@@ -1,44 +1,53 @@
-﻿@page
+﻿@page "{src?}"
 @model SSRModel
 @{
-ViewData["Title"] = "关于我们";
+    ViewData["Title"] = "关于我们";
 }
 
 @section Styles {
-<link rel="stylesheet" href="//at.alicdn.com/t/font_680567_p5o5k4hfed34n29.css"/>
-<link rel="stylesheet" href="~/css/ssr.css">
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_680567_p5o5k4hfed34n29.css" />
+    <link rel="stylesheet" href="~/css/ssr.css">
 }
 
 <div class="page-header">
     <h4>
         免费SS/SSR
         <small>免费资源且用且珍惜</small>
-        <button class="btn-link btn-xs pull-right" id="btn-export" disabled>导出配置</button>
+        <form class="form-inline form-group-sm pull-right">
+            <select class="form-control" id="selectSrc">
+                @foreach (var ssr in SSRModel.SsrRegs)
+                {
+                    <option value="@ssr.Id">@ssr.Desc</option>
+                }
+            </select>
+            <button class="btn-link btn-xs" id="btn-export" disabled>导出配置</button>
+        </form>
     </h4>
 </div>
 <table class="table table-condensed table-hover table-striped table-bordered">
     <thead>
-    <tr>
-        <th>序号</th>
-        <th>IP</th>
-        <th>端口</th>
-        <th>密码</th>
-        <th>加密方式</th>
-        <th>协议</th>
-        <th>混淆</th>
-        <th>Remarks</th>
-        <th class="text-center">二维码</th>
-    </tr>
+        <tr>
+            <th>序号</th>
+            <th>IP</th>
+            <th>端口</th>
+            <th>密码</th>
+            <th>加密方式</th>
+            <th>协议</th>
+            <th>混淆</th>
+            <th>Remarks</th>
+            <th class="text-center">二维码</th>
+        </tr>
     </thead>
     <tbody id="ssrs"></tbody>
     <tfoot>
-    <tr>
-        <td colspan="9">
-            <small class="text-danger">节点存活检测使用socks5测试，不能检测密码加密等，存在一定误差，如遇不能连接的节点可能密码或者加密方式被更换，请尝试其他节点。
-                数据库4小时刷新一次，可用状态1小时检测一次。数据库会后台统计凉凉次数，凉凉次数达到4次以上则会删除。
-            </small>
-        </td>
-    </tr>
+        <tr>
+            <td colspan="9">
+                <small class="text-danger">
+                    节点存活检测使用socks5测试，不能检测密码加密等，存在一定误差，如遇不能连接的节点可能密码或者加密方式被更换，请尝试其他节点。
+                    数据库4小时刷新一次，可用状态1小时检测一次。数据库会后台统计凉凉次数，凉凉次数达到4次以上则会删除。
+                </small>
+            </td>
+        </tr>
     </tfoot>
 </table>
 <div class="panel panel-info">
@@ -47,47 +56,80 @@ ViewData["Title"] = "关于我们";
     </div>
     <div class="panel-body">
         <p class="text-success">订阅后将自动推送免费SSR，定期更新，检测失效SSR,免除手动删除，更新的麻烦。</p>
-        <p>订阅获取限制5-20个节点左右，如需更多，请自行添加。&nbsp;<small class="text-danger">从下面下载对应平台客户端软件&nbsp;<span class="glyphicon glyphicon-hand-down text-danger" aria-hidden="true"></span></small></p>
+        <p>
+            <u>订阅获取限制5-20个节点左右，如需更多，请自行添加。</u>&nbsp;<small class="text-danger">
+                从下面下载对应平台客户端软件&nbsp;<span class="glyphicon glyphicon-hand-down text-danger" aria-hidden="true"></span>
+            </small>
+        </p>
 
         <div class="btn-group btn-group-justified" role="group" aria-label="Justified button group">
-            <a href="https://github.com/shadowsocksrr/shadowsocksr-csharp/releases" target="_blank" class="btn btn-primary" role="button"><i
-                    class="iconfont icon-windows"></i>&nbsp;Windows</a>
-            <a href="https://github.com/shadowsocks/ShadowsocksX-NG/releases/" target="_blank" class="btn btn-info" role="button"><i
-                    class="iconfont icon-macOS"></i>&nbsp;macOS</a>
-            <a href="https://github.com/erguotou520/electron-ssr" target="_blank" class="btn btn-danger" role="button"><i
-                    class="iconfont icon-linux"></i>&nbsp;Linux</a>
-            <a href="https://github.com/shadowsocksrr/shadowsocksr-android/releases" target="_blank" class="btn btn-success" role="button"><i
-                    class="iconfont icon-andriod"></i>&nbsp;Andriod</a>
-            <a href="https://itunes.apple.com/cn/app/shadowrocket/id932747118?l=en&mt=8" target="_blank" class="btn btn-warning" role="button"><i
-                    class="iconfont icon-iOS"></i>&nbsp;iOS</a>
+            <a href="https://github.com/shadowsocksrr/shadowsocksr-csharp/releases" target="_blank" class="btn btn-primary" role="button">
+                <i class="iconfont icon-windows"></i>&nbsp;Windows
+            </a>
+            <a href="https://github.com/shadowsocks/ShadowsocksX-NG/releases/" target="_blank" class="btn btn-info" role="button">
+                <i class="iconfont icon-macOS"></i>&nbsp;macOS
+            </a>
+            <a href="https://github.com/erguotou520/electron-ssr" target="_blank" class="btn btn-danger" role="button">
+                <i class="iconfont icon-linux"></i>&nbsp;Linux
+            </a>
+            <a href="https://github.com/shadowsocksrr/shadowsocksr-android/releases" target="_blank" class="btn btn-success" role="button">
+                <i class="iconfont icon-andriod"></i>&nbsp;Andriod
+            </a>
+            <a href="https://itunes.apple.com/cn/app/shadowrocket/id932747118?l=en&mt=8" target="_blank" class="btn btn-warning" role="button">
+                <i class="iconfont icon-iOS"></i>&nbsp;iOS
+            </a>
         </div>
     </div>
     <ul class="list-group">
-        <li class="list-group-item"><span class="glyphicon glyphicon-fire hot" aria-hidden="true"></span>&nbsp;&nbsp;https://ssrshare.xyz/freessr
-            &nbsp;<small class="text-danger">(推荐)</small>
-        </li>
-        <li class="list-group-item"><span class="glyphicon glyphicon-fire hot" aria-hidden="true"></span>&nbsp;&nbsp;https://yzzz.ml/freessr
-            &nbsp;<small class="text-danger">(推荐)</small>
-        </li>
-        <li class="list-group-item">https://tool.ssrshare.xyz/tool/api/getGolSub?key=1527091200_40_gdx &nbsp;<small class="text-primary">
-            Global订阅(每24小时更新key)
-        </small>
-        </li>
-        <li class="list-group-item">https://tool.ssrshare.xyz/tool/api/getCnSub?key=1527091200_40_gdx &nbsp;<small class="text-primary">
-            China订阅(24小时更新key)
-        </small>
-        </li>
-        <li class="list-group-item">https://raw.githubusercontent.com/ImLaoD/sub/master/ssrshare.com &nbsp;<small class="text-warning">
-            非实时订阅（个人更新无密码）
-        </small>
-        </li>
+        @foreach (var src in SSRModel.SsrRegs)
+        {
+            <li class="list-group-item">
+                @if (src.Id < 2)
+                {
+                    <span class="glyphicon glyphicon-fire hot" aria-hidden="true"></span>
+                    <text>&nbsp;&nbsp;</text>
+                }
+                @src.Url
+                &nbsp;
+                @{
+                    var className = src.Id < 2 ? "text-danger" : (src.Id > 2 ? "text-primary" : "text-warning");
+                }
+                <small class="@className">@src.Desc</small>
+            </li>
+        }
+
+        @*
+            <li class="list-group-item">
+                <span class="glyphicon glyphicon-fire hot" aria-hidden="true"></span>&nbsp;&nbsp;https://ssrshare.xyz/freessr
+                &nbsp;<small class="text-danger">(推荐)</small>
+            </li>
+            <li class="list-group-item">
+                <span class="glyphicon glyphicon-fire hot" aria-hidden="true"></span>&nbsp;&nbsp;https://yzzz.ml/freessr
+                &nbsp;<small class="text-danger">(推荐)</small>
+            </li>
+            <li class="list-group-item">
+                https://tool.ssrshare.xyz/tool/api/getGolSub?key=1527091200_40_gdx &nbsp;<small class="text-primary">
+                    Global订阅(每24小时更新key)
+                </small>
+            </li>
+            <li class="list-group-item">
+                https://tool.ssrshare.xyz/tool/api/getCnSub?key=1527091200_40_gdx &nbsp;<small class="text-primary">
+                    China订阅(24小时更新key)
+                </small>
+            </li>
+            <li class="list-group-item">
+                https://raw.githubusercontent.com/ImLaoD/sub/master/ssrshare.com &nbsp;<small class="text-warning">
+                    非实时订阅（个人更新无密码）
+                </small>
+            </li>
+        *@
     </ul>
     <div class="row tutorial">
         <div class="col-sm-6">
-            <img src="/images/ssr/ios-guid.gif"/>
+            <img src="/images/ssr/ios-guid.gif" class="img-responsive img-rounded" />
         </div>
         <div class="col-sm-6">
-            <img src="/images/ssr/andriod-guid.gif"/>
+            <img src="/images/ssr/andriod-guid.gif" class="img-responsive img-rounded" />
         </div>
     </div>
 </div>
@@ -109,7 +151,7 @@ ViewData["Title"] = "关于我们";
                         <div class="address"></div>
                     </div>
                 </div>
-                <hr/>
+                <hr />
                 <div class="row">
                     <div class="col-sm-6" id="ssrCode"></div>
                     <div class="col-sm-6 break-words">
@@ -125,26 +167,27 @@ ViewData["Title"] = "关于我们";
 </div>
 
 @section Scripts {
-<script src="/js/ssr/base64.js"></script>
-<script src="/js/ssr/qrcode.min.js"></script>
-<script id="ssrTemplate" type="text/html">
-    {{each}}
-    <tr>
-        <td>{{$index+1}}</td>
-        <td class="col-server">{{$value.server}}</td>
-        <td>{{$value.server_port}}</td>
-        <td>{{$value.password}}</td>
-        <td>{{$value.method}}</td>
-        <td>{{$value.protocol}}</td>
-        <td>{{$value.obfs}}</td>
-        <td>{{$value.remarks}}</td>
-        <td class="text-center">
-            <a href="#" no="{{$index}}" class="navbar-link qrCode" data-toggle="modal" data-target="#qrCode" title="二维码"><span
-                    class="glyphicon glyphicon-qrcode" aria-hidden="true"></span></a>
-        </td>
-    </tr>
-    {{/each}}
-</script>
-<script src="/js/ssr/ssr.js"></script>
-<script>analyze('@Model.SSRS');</script>
+    <script src="/js/ssr/base64.js"></script>
+    <script src="/js/ssr/qrcode.min.js"></script>
+    <script id="ssrTemplate" type="text/html">
+        {{each}}
+        <tr>
+            <td>{{$index+1}}</td>
+            <td class="col-server">{{$value.server}}</td>
+            <td>{{$value.server_port}}</td>
+            <td>{{$value.password}}</td>
+            <td>{{$value.method}}</td>
+            <td>{{$value.protocol}}</td>
+            <td>{{$value.obfs}}</td>
+            <td>{{$value.remarks}}</td>
+            <td class="text-center">
+                <a href="#" no="{{$index}}" class="navbar-link qrCode" data-toggle="modal" data-target="#qrCode" title="二维码">
+                    <span class="glyphicon glyphicon-qrcode" aria-hidden="true"></span>
+                </a>
+            </td>
+        </tr>
+        {{/each}}
+    </script>
+    <script src="/js/ssr/ssr.js"></script>
+    <script>analyze('@Model.SSRS');</script>
 }
