@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Colin.Lottery.Models
 {
     public class JinMaDrawModel : DrawModel
     {
-        public long QiHao { set { this.PeriodNo = value; } }
+        public long QiHao { set => PeriodNo = value; }
 
-        public string Code { set { this.DrawNo = value; } }
+        public string Code { set => DrawNo = value; }
     }
 
     public class JinMaLotteryModelCollection : DrawCollectionModel
@@ -19,8 +15,8 @@ namespace Colin.Lottery.Models
         {
             set
             {
-                this.DrawData = new List<IDrawModel>();
-                this.DrawData.AddRange(value);
+                DrawData = new List<IDrawModel>();
+                DrawData.AddRange(value);
             }
         }
     }

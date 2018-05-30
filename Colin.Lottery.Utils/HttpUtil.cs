@@ -6,12 +6,12 @@ namespace Colin.Lottery.Utils
 {
     public static class HttpUtil
     {
-        public async static Task<string> GetStringAsync(string url)
+        public static async Task<string> GetStringAsync(string url)
         {
             return await GetStringAsync(url, null);
         }
 
-        public async static Task<string> GetStringAsync(string url, TimeSpan? timeout)
+        public static async Task<string> GetStringAsync(string url, TimeSpan? timeout)
         {
             var hc = new HttpClient();
             if (timeout != null)

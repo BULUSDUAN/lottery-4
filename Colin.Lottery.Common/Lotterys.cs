@@ -1,14 +1,37 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Colin.Lottery.Models;
 
 namespace Colin.Lottery.Common
 {
     public static class Lotterys
     {
-        public static List<LotteryType> LotteryTypes { get; set; } = new List<LotteryType> { LotteryType.PK10, LotteryType.CQSSC };
-        public static List<Plan> Plans { get; set; } = new List<Plan> { Plan.PlanA, Plan.PlanB };
-        public static List<PK10Rule> PK10Rules { get; set; } = new List<PK10Rule> { PK10Rule.Champion, PK10Rule.Second, PK10Rule.Third, PK10Rule.Fourth, PK10Rule.BigOrSmall, PK10Rule.OddOrEven, PK10Rule.DragonOrTiger, PK10Rule.Sum };
-        public static List<CQSSCRule> CQSSCRules { get; set; } = new List<CQSSCRule> { CQSSCRule.OddOrEven, CQSSCRule.BigOrSmall, CQSSCRule.DragonOrTiger, CQSSCRule.Last2Group, CQSSCRule.Last3Group, CQSSCRule.OneOddOrEven, CQSSCRule.OneBigOrSmall, CQSSCRule.One };
+        public static IEnumerable<LotteryType> LotteryTypes { get; } =
+            new List<LotteryType> {LotteryType.Pk10, LotteryType.Cqssc};
+        
+        public static IEnumerable<Plan> Plans { get; } = new List<Plan> { Plan.PlanA, Plan.PlanB };
+        
+        public static List<Pk10Rule> Pk10Rules { get; } = new List<Pk10Rule>
+        {
+            Pk10Rule.Champion,
+            Pk10Rule.Second,
+            Pk10Rule.Third,
+            Pk10Rule.Fourth,
+            Pk10Rule.BigOrSmall,
+            Pk10Rule.OddOrEven,
+            Pk10Rule.DragonOrTiger,
+            Pk10Rule.Sum
+        };
+        
+        public static IEnumerable<CqsscRule> CqsscRules { get; } = new List<CqsscRule>
+        {
+            CqsscRule.OddOrEven,
+            CqsscRule.BigOrSmall,
+            CqsscRule.DragonOrTiger,
+            CqsscRule.Last2Group,
+            CqsscRule.Last3Group,
+            CqsscRule.OneOddOrEven,
+            CqsscRule.OneBigOrSmall,
+            CqsscRule.One
+        };
     }
 }

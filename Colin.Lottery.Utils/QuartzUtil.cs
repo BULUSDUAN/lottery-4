@@ -85,13 +85,13 @@ namespace Colin.Lottery.Utils
         public static async Task<bool> DeleteJobs(string group, StringOperator compareWith)
         {
             GroupMatcher<JobKey> matcher;
-            if (compareWith == StringOperator.Contains)
+            if (Equals(compareWith, StringOperator.Contains))
                 matcher = GroupMatcher<JobKey>.GroupContains(group);
-            else if (compareWith == StringOperator.EndsWith)
+            else if (Equals(compareWith, StringOperator.EndsWith))
                 matcher = GroupMatcher<JobKey>.GroupEndsWith(group);
-            else if (compareWith == StringOperator.Equality)
+            else if (Equals(compareWith, StringOperator.Equality))
                 matcher = GroupMatcher<JobKey>.GroupEquals(group);
-            else if (compareWith == StringOperator.StartsWith)
+            else if (Equals(compareWith, StringOperator.StartsWith))
                 matcher = GroupMatcher<JobKey>.GroupStartsWith(group);
             else
                 matcher = GroupMatcher<JobKey>.AnyGroup();
@@ -175,11 +175,11 @@ namespace Colin.Lottery.Utils
         public static (string JobName, string JobGroup, string TriggerName, string TriggerGroup) JobAndTriggerNames(this string keyword)
         {
             return (
-                string.Format("{0}_Job", keyword),
-                string.Format("{0}_JobGroup", keyword),
-                string.Format("{0}_Trigger", keyword),
-                string.Format("{0}_TriggerGroup", keyword)
-                );
+                $"{keyword}_Job",
+                $"{keyword}_JobGroup",
+                $"{keyword}_Trigger",
+                $"{keyword}_TriggerGroup"
+            );
         }
 
         ///// <summary>
@@ -207,7 +207,7 @@ namespace Colin.Lottery.Utils
         public static async Task ModeifyTriggerTime(string triggerName, string triggerGroupName)
         {
             var sched = GetScheduler();
-            ITrigger trigger = await sched.GetTrigger(new TriggerKey(triggerName, triggerGroupName));
+            var trigger = await sched.GetTrigger(new TriggerKey(triggerName, triggerGroupName));
             var key = new TriggerKey(triggerName, triggerGroupName);
             await sched.ResumeTrigger(key);
         }

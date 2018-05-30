@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Colin.Lottery.Models;
 
 namespace Colin.Lottery.Analyzers

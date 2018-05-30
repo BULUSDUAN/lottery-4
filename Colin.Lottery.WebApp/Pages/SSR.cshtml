@@ -1,5 +1,5 @@
 ﻿@page "{src?}"
-@model SSRModel
+@model SsrModel
 @{
     ViewData["Title"] = "关于我们";
 }
@@ -15,7 +15,7 @@
         <small>免费资源且用且珍惜</small>
         <form class="form-inline form-group-sm pull-right">
             <select class="form-control" id="selectSrc">
-                @foreach (var ssr in SSRModel.SsrRegs)
+                @foreach (var ssr in SsrModel.SsrRegs)
                 {
                     <option value="@ssr.Id">@ssr.Desc</option>
                 }
@@ -81,7 +81,7 @@
         </div>
     </div>
     <ul class="list-group">
-        @foreach (var src in SSRModel.SsrRegs)
+        @foreach (var src in SsrModel.SsrRegs)
         {
             <li class="list-group-item">
                 @if (src.Id < 2)
@@ -97,32 +97,6 @@
                 <small class="@className">@src.Desc</small>
             </li>
         }
-
-        @*
-            <li class="list-group-item">
-                <span class="glyphicon glyphicon-fire hot" aria-hidden="true"></span>&nbsp;&nbsp;https://ssrshare.xyz/freessr
-                &nbsp;<small class="text-danger">(推荐)</small>
-            </li>
-            <li class="list-group-item">
-                <span class="glyphicon glyphicon-fire hot" aria-hidden="true"></span>&nbsp;&nbsp;https://yzzz.ml/freessr
-                &nbsp;<small class="text-danger">(推荐)</small>
-            </li>
-            <li class="list-group-item">
-                https://tool.ssrshare.xyz/tool/api/getGolSub?key=1527091200_40_gdx &nbsp;<small class="text-primary">
-                    Global订阅(每24小时更新key)
-                </small>
-            </li>
-            <li class="list-group-item">
-                https://tool.ssrshare.xyz/tool/api/getCnSub?key=1527091200_40_gdx &nbsp;<small class="text-primary">
-                    China订阅(24小时更新key)
-                </small>
-            </li>
-            <li class="list-group-item">
-                https://raw.githubusercontent.com/ImLaoD/sub/master/ssrshare.com &nbsp;<small class="text-warning">
-                    非实时订阅（个人更新无密码）
-                </small>
-            </li>
-        *@
     </ul>
     <div class="row tutorial">
         <div class="col-sm-6">
@@ -189,5 +163,5 @@
         {{/each}}
     </script>
     <script src="/js/ssr/ssr.js"></script>
-    <script>analyze('@Model.SSRS');</script>
+    <script>analyze('@Model.Ssrs');</script>
 }

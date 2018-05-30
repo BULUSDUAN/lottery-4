@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Colin.Lottery.Models
 {
@@ -14,15 +10,15 @@ namespace Colin.Lottery.Models
         /// <summary>
         /// 重庆时时彩
         /// </summary>
-        CQSSC,
+        Cqssc,
 
         /// <summary>
         /// 北京赛车PK10
         /// </summary>
-        PK10
+        Pk10
     }
 
-    public enum CQSSCRule
+    public enum CqsscRule
     {
         /// <summary>
         /// 单双
@@ -61,7 +57,7 @@ namespace Colin.Lottery.Models
     /// <summary>
     /// 北京赛车玩法
     /// </summary>
-    public enum PK10Rule
+    public enum Pk10Rule
     {
         /// <summary>
         /// 冠军
@@ -140,57 +136,57 @@ namespace Colin.Lottery.Models
         {
             switch (lottery)
             {
-                case LotteryType.PK10: return "北京PK10";
-                case LotteryType.CQSSC: return "重庆时时彩";
+                case LotteryType.Pk10: return "北京PK10";
+                case LotteryType.Cqssc: return "重庆时时彩";
             }
 
             throw new ArgumentException($"彩种 - “{lottery}” 暂不支持");
         }
 
-        public static string ToStringName(this PK10Rule rule)
+        public static string ToStringName(this Pk10Rule rule)
         {
             switch (rule)
             {
-                case PK10Rule.Champion:
+                case Pk10Rule.Champion:
                     return "冠军";
-                case PK10Rule.Second:
+                case Pk10Rule.Second:
                     return "亚军";
-                case PK10Rule.Third:
+                case Pk10Rule.Third:
                     return "季军";
-                case PK10Rule.Fourth:
+                case Pk10Rule.Fourth:
                     return "第4名";
-                case PK10Rule.BigOrSmall:
+                case Pk10Rule.BigOrSmall:
                     return "冠军大小";
-                case PK10Rule.OddOrEven:
+                case Pk10Rule.OddOrEven:
                     return "冠军单双";
-                case PK10Rule.DragonOrTiger:
+                case Pk10Rule.DragonOrTiger:
                     return "冠军龙虎";
-                case PK10Rule.Sum:
+                case Pk10Rule.Sum:
                     return "冠亚和值";
             }
 
             throw new ArgumentException($"北京PK10玩法 - “{rule}” 暂不支持");
         }
 
-        public static string ToStringName(this CQSSCRule rule)
+        public static string ToStringName(this CqsscRule rule)
         {
             switch (rule)
             {
-                case CQSSCRule.OddOrEven:
+                case CqsscRule.OddOrEven:
                     return "总和单双";
-                case CQSSCRule.BigOrSmall:
+                case CqsscRule.BigOrSmall:
                     return "总和大小";
-                case CQSSCRule.DragonOrTiger:
+                case CqsscRule.DragonOrTiger:
                     return "龙虎";
-                case CQSSCRule.Last2Group:
+                case CqsscRule.Last2Group:
                     return "后二组选";
-                case CQSSCRule.Last3Group:
+                case CqsscRule.Last3Group:
                     return "后三组选";
-                case CQSSCRule.OneOddOrEven:
+                case CqsscRule.OneOddOrEven:
                     return "个位单双";
-                case CQSSCRule.OneBigOrSmall:
+                case CqsscRule.OneBigOrSmall:
                     return "个位大小";
-                case CQSSCRule.One:
+                case CqsscRule.One:
                     return "个位定位";
             }
 
@@ -201,10 +197,10 @@ namespace Colin.Lottery.Models
         {
             switch (lottery)
             {
-                case LotteryType.PK10:
-                    return ((PK10Rule)rule).ToStringName();
-                case LotteryType.CQSSC:
-                    return ((CQSSCRule)rule).ToStringName();
+                case LotteryType.Pk10:
+                    return ((Pk10Rule)rule).ToStringName();
+                case LotteryType.Cqssc:
+                    return ((CqsscRule)rule).ToStringName();
             }
 
             throw new ArgumentException($"彩种 - “{lottery}” 暂不支持");
@@ -214,8 +210,8 @@ namespace Colin.Lottery.Models
 
         public static int ToInt(this Plan plan) => (int)plan;
 
-        public static int ToInt(this PK10Rule rule) => (int)rule;
+        public static int ToInt(this Pk10Rule rule) => (int)rule;
 
-        public static int ToInt(this CQSSCRule rule) => (int)rule;
+        public static int ToInt(this CqsscRule rule) => (int)rule;
     }
 }

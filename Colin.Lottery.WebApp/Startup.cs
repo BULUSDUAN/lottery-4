@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 using Colin.Lottery.WebApp.Hubs;
+using Colin.Lottery.WebApp.Services;
 
 namespace Colin.Lottery.WebApp
 {
@@ -66,17 +67,17 @@ namespace Colin.Lottery.WebApp
                 routes.MapHub<NotifyHub>("/hubs/notify");
             });
 
-            provider = app.ApplicationServices;
+            _provider = app.ApplicationServices;
 
             //启动策略
             await JinMaStrategyService.Instance.Start();
         }
 
 
-        static IServiceProvider provider;
+        private static IServiceProvider _provider;
         public static T GetService<T>() where T : class
         {
-            return provider.GetService(typeof(T)) as T;
+            return _provider.GetService(typeof(T)) as T;
         }
 
 

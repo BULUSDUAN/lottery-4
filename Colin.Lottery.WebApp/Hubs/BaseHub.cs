@@ -5,8 +5,6 @@ using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.SignalR;
 
-using Colin.Lottery.Models;
-
 
 namespace Colin.Lottery.WebApp.Hubs
 {
@@ -23,9 +21,9 @@ namespace Colin.Lottery.WebApp.Hubs
         /// 用户配置
         /// </summary>
 
-        public static ConcurrentDictionary<string, object> UserSettings { get; set; } = new ConcurrentDictionary<string, object>();
+        protected static ConcurrentDictionary<string, object> UserSettings { get; set; } = new ConcurrentDictionary<string, object>();
 
-        public async override Task OnConnectedAsync()
+        public override async Task OnConnectedAsync()
         {
             Interlocked.Increment(ref _usersCount);
             await Groups.AddToGroupAsync(Context.ConnectionId, typeof(T).Name);
@@ -33,11 +31,11 @@ namespace Colin.Lottery.WebApp.Hubs
             await base.OnConnectedAsync();
         }
 
-        public async override Task OnDisconnectedAsync(Exception exception)
+        public override async Task OnDisconnectedAsync(Exception exception)
         {
             Interlocked.Decrement(ref _usersCount);
             await Groups.RemoveFromGroupAsync(Context.ConnectionId, typeof(T).Name);
-            UserSettings.TryRemove(Context.ConnectionId, out object settings);
+            UserSettings.TryRemove(Context.ConnectionId, out var settings);
 
             await base.OnDisconnectedAsync(exception);
         }

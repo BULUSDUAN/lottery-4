@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Colin.Lottery.Common
+namespace Colin.Lottery.Common.Scheduler
 {
     public interface ILotteryScheduler
     {

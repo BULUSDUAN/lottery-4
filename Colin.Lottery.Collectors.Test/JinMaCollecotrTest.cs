@@ -1,7 +1,4 @@
-using System;
 using Xunit;
-
-using Colin.Lottery.Collectors;
 using Colin.Lottery.Models;
 
 namespace Colin.Lottery.Collectors.Test
@@ -11,18 +8,18 @@ namespace Colin.Lottery.Collectors.Test
         [Fact]
         public async void GetDrawNoHistoryTest()
         {
-            var pkHis = await JinMaCollector.Instance.GetDrawNoHistory(LotteryType.PK10);
-            var sshHis = await JinMaCollector.Instance.GetDrawNoHistory(LotteryType.CQSSC);
+            var pkHis = await JinMaCollector.Instance.GetDrawNoHistory(LotteryType.Pk10);
+            var sshHis = await JinMaCollector.Instance.GetDrawNoHistory(LotteryType.Cqssc);
         }
 
         [Fact]
         public async void GetForcastDataTest()
         {
-            var pk11 = await JinMaCollector.Instance.GetForcastData(LotteryType.PK10, Planner.Planner1, (int)PK10Rule.Champion);
-            var pk15 = await JinMaCollector.Instance.GetForcastData(LotteryType.PK10, Planner.Planner1, (int)PK10Rule.BigOrSmall);
-            var pk16 = await JinMaCollector.Instance.GetForcastData(LotteryType.PK10, Planner.Planner1, (int)PK10Rule.OddOrEven);
-            var pk17 = await JinMaCollector.Instance.GetForcastData(LotteryType.PK10, Planner.Planner1, (int)PK10Rule.DragonOrTiger);
-            var pk18 = await JinMaCollector.Instance.GetForcastData(LotteryType.PK10, Planner.Planner1, (int)PK10Rule.Sum);
+            var pk11 = await JinMaCollector.Instance.GetForcastData(LotteryType.Pk10, Planner.Planner1, (int)Pk10Rule.Champion);
+            var pk15 = await JinMaCollector.Instance.GetForcastData(LotteryType.Pk10, Planner.Planner1, (int)Pk10Rule.BigOrSmall);
+            var pk16 = await JinMaCollector.Instance.GetForcastData(LotteryType.Pk10, Planner.Planner1, (int)Pk10Rule.OddOrEven);
+            var pk17 = await JinMaCollector.Instance.GetForcastData(LotteryType.Pk10, Planner.Planner1, (int)Pk10Rule.DragonOrTiger);
+            var pk18 = await JinMaCollector.Instance.GetForcastData(LotteryType.Pk10, Planner.Planner1, (int)Pk10Rule.Sum);
         }
     }
 }

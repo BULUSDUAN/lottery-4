@@ -1,4 +1,6 @@
-(function (win) {
+// import * as signalR from "../lib/signalr/signalr";
+
+(function () {
     //玩法
     let rule = getLotteryRule();
     $(".nav-tabs li:eq(" + (rule - 1) + ") a").tab('show');
@@ -54,4 +56,4 @@
     }
 
 
-})(window);
+})();

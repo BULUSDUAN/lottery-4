@@ -22,7 +22,7 @@ namespace Colin.Lottery.Models
 
         public void GetOffLine(string connectionId)
         {
-            this.IsActive = false;
+            IsActive = false;
         }
     }
 }

@@ -85,11 +85,11 @@ function ssrDecode(text) {
 }
 
 function loadFile(fileName, content) {
-    var aLink = document.createElement('a');
-    var blob = new Blob([content], {
+    let aLink = document.createElement('a');
+    let blob = new Blob([content], {
         type: 'text/plain'
     });
-    var evt = new Event('click');
+    //let evt = new Event('click');
     aLink.download = fileName;
     aLink.href = URL.createObjectURL(blob);
     aLink.click();
@@ -117,7 +117,7 @@ function loadFile(fileName, content) {
         let parts= location.pathname.split('/');
         if(parts.length<3)
         {
-            sel.children().first().check();
+            sel.children().first().attr("selected","selected");
             return;
         }
         sel.val(getLastParameter());

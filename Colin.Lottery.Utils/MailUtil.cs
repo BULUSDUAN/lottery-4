@@ -21,12 +21,12 @@ namespace Colin.Lottery.Utils
         /// <param name="smtpPort">Smtp port.</param>
         /// <param name="userName">User name.</param>
         /// <param name="password">Password.</param>
-        public async static Task MailAsync(string from, string to, string subject, string content, MailContentType contentType, string smtpHost, int smtpPort, string userName, string password)
+        public static async Task MailAsync(string from, string to, string subject, string content, MailContentType contentType, string smtpHost, int smtpPort, string userName, string password)
         {
             await MailAsync(from, new List<string> { to }, subject, content, contentType, smtpHost, smtpPort, userName, password);
         }
 
-        public async static Task MailAsync(string from, List<string> to, string subject, string content, MailContentType contentType, string smtpHost, int smtpPort, string userName, string password)
+        public static async Task MailAsync(string from, List<string> to, string subject, string content, MailContentType contentType, string smtpHost, int smtpPort, string userName, string password)
         {
             var message = new MimeMessage();
             message.From.Add(new MailboxAddress(from));

@@ -7,15 +7,13 @@ function asyncToBase64(value, encoding, onSuccess, onError) {
     try {
         switch (encoding) {
             case 'ascii':
-                var result = window.btoa(value);
-                onSuccess(result);
+                onSuccess(window.btoa(value));
                 break;
             case 'utf8':
                 value = Base64Utils.encodeToUtf8Array(value);
                 // Fall through into byte array case.
             case undefined:
-                var result = Base64Utils.uint8ToBase64(value);
-                onSuccess(result);
+                onSuccess(Base64Utils.uint8ToBase64(value));
                 break;
             default:
                 onError('Unknown encoding \'' + encoding + '\'.');
@@ -35,19 +33,17 @@ function asyncFromBase64(value, encoding, onSuccess, onError) {
     try {
         switch (encoding) {
             case 'ascii':
-                var result = window.atob(Base64Utils.cleanupBase64(value));
-                onSuccess(result);
+                onSuccess(window.atob(Base64Utils.cleanupBase64(value)));
                 break;
             case 'utf8':
                 var utf8ByteArray = Base64Utils.b64ToByteArray(Base64Utils.cleanupBase64(value));
-                var result = Base64Utils.decodeFromUtf8Array(utf8ByteArray);
-                onSuccess(result);
+                onSuccess(Base64Utils.decodeFromUtf8Array(utf8ByteArray));
                 break;
             default:
                 onError('Unknown encoding \'' + encoding + '\'.');
         }
     } catch (error) {
-        if (error.name == 'InvalidCharacterError') {
+        if (error.name === 'InvalidCharacterError') {
             onError('Couldn\'t convert because the base64 decodes to non-latin1 characters.');
         } else if (error.message) {
             onError('Couldn\'t convert from base64 because ' + error.message + '.');
@@ -260,7 +256,7 @@ Base64Utils.cleanupBase64 = function(dirty) {
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
-;(function (exports) {
+(function (exports) {
     function utf8ToBytes(string, units) {
         units = units || Infinity;
         var codePoint;
@@ -378,9 +374,9 @@ Base64Utils.cleanupBase64 = function(dirty) {
         else
             result = new Uint8Array(utf8ToBytes(str));
         return result;
-    }
+    };
 
     exports.decodeFromUtf8Array = function(bytes) {
         return utf8Slice(bytes, 0, bytes.length);
-    }
+    };
 }(Base64Utils));

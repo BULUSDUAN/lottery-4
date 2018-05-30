@@ -8,6 +8,7 @@ using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 
 using Colin.Lottery.Models;
+using Colin.Lottery.Models.BrowserModels;
 
 namespace Colin.Lottery.Utils
 {
@@ -46,7 +47,7 @@ namespace Colin.Lottery.Utils
                 var options = new ChromeOptions();
                 options.AddArguments("headless", "disable-gpu", "disable-infobars", "--disable-extensions");
                 if (Proxy != null)
-                    options.Proxy = this.Proxy;
+                    options.Proxy = Proxy;
 
                 Starting?.Invoke(this, new ExploreStartingEventArgs(url));
                 try

@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-
 using Microsoft.AspNetCore.SignalR;
 
 using Colin.Lottery.Models;
+using Colin.Lottery.WebApp.Hubs;
 
-namespace Colin.Lottery.WebApp
+namespace Colin.Lottery.WebApp.Services
 {
     public interface IStrategyService
     {
@@ -22,6 +22,7 @@ namespace Colin.Lottery.WebApp
         /// 开始数据分析
         /// </summary>
         /// <param name="typeRules">彩种和玩法</param>
+        /// <param name="startWhenBreakGua"></param>
         void Start(Dictionary<LotteryType, List<int>> typeRules, bool startWhenBreakGua = false);
     }
 }

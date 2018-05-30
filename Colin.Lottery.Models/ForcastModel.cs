@@ -1,8 +1,5 @@
-﻿using System;
+﻿using System.Linq;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Colin.Lottery.Models
 {
@@ -32,6 +29,6 @@ namespace Colin.Lottery.Models
         public int KeepGuaCnt { get; set; }
         public int KeepHisGuaCnt { get; set; }
 
-        public string ForcastDrawNo => this.ForcastData.LastOrDefault().ForcastNo;
+        public string ForcastDrawNo => ForcastData.LastOrDefault()?.ForcastNo;
     }
 }

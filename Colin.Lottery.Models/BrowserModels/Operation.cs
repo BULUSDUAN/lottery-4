@@ -1,7 +1,7 @@
 ﻿using System;
 using OpenQA.Selenium;
 
-namespace Colin.Lottery.Models
+namespace Colin.Lottery.Models.BrowserModels
 {
     /// <summary>
     /// 对浏览器请求结果的业务操作

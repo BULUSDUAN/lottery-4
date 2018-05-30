@@ -3,7 +3,7 @@
     (function () {
         let menu = location.pathname.split('/')[1];
         $(".navbar-nav li").each(function () {
-            if ($(this).children("a").attr("href") == "/" + menu)
+            if ($(this).children("a").attr("href") === "/" + menu)
                 $(this).addClass("active").siblings().removeClass("active");
         });
     })();
@@ -14,7 +14,7 @@
         let hub = '/hubs/notify';
         const connection = new signalR.HubConnectionBuilder()
             .withUrl(hub)
-            .configureLogging(signalR.LogLevel.Information)
+            .configureLogging(signalR.LogLevel.Warning)
             .build();
 
         //启动连接并初始化数据
@@ -60,14 +60,14 @@ function notify(title, content) {
 
     // 检查用户是否同意接受通知
     else if (Notification.permission === "granted")
-        var notification = new Notification(title, options);
+        new Notification(title, options);
 
     // 否则我们需要向用户获取权限
     else if (Notification.permission !== 'denied') {
         Notification.requestPermission(function (permission) {
             // 如果用户同意，就可以向他们发送通知
             if (permission === "granted") {
-                var notification = new Notification(title, options);
+                new Notification(title, options);
             }
         });
     }

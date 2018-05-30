@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-
 using Colin.Lottery.Models;
+using Colin.Lottery.WebApp.Hubs;
 using Microsoft.AspNetCore.SignalR;
 
-namespace Colin.Lottery.WebApp
+namespace Colin.Lottery.WebApp.Services
 {
     public abstract class StrategyService<T>
         : Singleton<T>, IStrategyService

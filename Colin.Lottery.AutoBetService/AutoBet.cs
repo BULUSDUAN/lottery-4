@@ -1,5 +1,4 @@
-﻿using System;
-namespace Colin.Lottery.AutoBetService
+﻿namespace Colin.Lottery.AutoBetService
 {
     public class AutoBet
     {

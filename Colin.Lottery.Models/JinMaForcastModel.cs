@@ -1,26 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Colin.Lottery.Models
 {
     public class JinMaForcastModel : ForcastModel
     {
-        public string ApiName { set { this.Rule = value; } }
+        public string ApiName { set => Rule = value; }
 
-        public string ZhouQi { set { this.PeriodRange = value; } }
+        public string ZhouQi { set => PeriodRange = value; }
 
-        public string Number { set { this.ForcastNo = value; } }
+        public string Number { set => ForcastNo = value; }
 
-        public int Ready { set { this.ChaseTimes = value; } }
+        public int Ready { set => ChaseTimes = value; }
 
-        public string Resalt { set { this.IsWin = value.Equals("..") ? null : (bool?)value.Equals("中"); } }
+        public string Resalt { set => IsWin = value.Equals("..") ? null : (bool?)value.Equals("中"); }
 
-        public long? QiHao { set { this.LastPeriod = value ?? Convert.ToInt32(this.PeriodRange.Split('-').FirstOrDefault()) + this.ChaseTimes - 1; } }
+        public long? QiHao { set => LastPeriod = value ?? Convert.ToInt32(PeriodRange.Split('-').FirstOrDefault()) + ChaseTimes - 1; }
 
-        public string OpenCode { set { this.DrawNo = value; } }
+        public string OpenCode { set => DrawNo = value; }
 
         public long NowQiHao { get; set; }
 
@@ -35,20 +33,20 @@ namespace Colin.Lottery.Models
 
     public class JinMaForcastPlanModel : ForcastPlanModel
     {
-        public List<JinMaForcastModel> APICode
+        public List<JinMaForcastModel> ApiCode
         {
             set
             {
-                this.ForcastData = new List<IForcastModel>();
-                this.ForcastData.AddRange(value.Take(value.Count() - 1));
+                ForcastData = new List<IForcastModel>();
+                ForcastData.AddRange(value.Take(value.Count() - 1));
                 var summary = value.LastOrDefault();
-                this.LastDrawedPeriod = summary.NowQiHao;
-                this.LastDrawNo = summary.DrawNo;
-                this.TotalCount = summary.A;
-                this.WinCount = summary.B;
-                this.LoseCount = summary.C;
-                this.WinProbability = float.Parse(summary.L.TrimEnd('%')) / 100;
-                this.ForcastData.LastOrDefault().WinProbability = this.WinProbability;
+                LastDrawedPeriod = summary.NowQiHao;
+                LastDrawNo = summary.DrawNo;
+                TotalCount = summary.A;
+                WinCount = summary.B;
+                LoseCount = summary.C;
+                WinProbability = float.Parse(summary.L.TrimEnd('%')) / 100;
+                ForcastData.LastOrDefault().WinProbability = WinProbability;
             }
         }
     }

@@ -17,22 +17,22 @@ namespace Colin.Lottery.Collectors
         /// <summary>
         /// 异步接口根地址
         /// </summary>
-        private static readonly string _ROOT_URL = "https://47927.com/ajax/";
+        private static readonly string RootUrl = ConfigUtil.Configuration["CollectRootUrl"];
 
         /// <summary>
         /// 获取开奖号码历史记录接口地址
         /// </summary>
         /// <param name="type">彩种</param>
         /// <returns>开奖号码历史记录接口地址</returns>
-        private string GetHistoryUrl(LotteryType type)
+        private static string GetHistoryUrl(LotteryType type)
         {
-            string baseUrl = $"{_ROOT_URL}ajax_getlotry.php";
+            var baseUrl = $"{RootUrl}ajax_getlotry.php";
 
             switch (type)
             {
-                case LotteryType.CQSSC:
+                case LotteryType.Cqssc:
                     return baseUrl;
-                case LotteryType.PK10:
+                case LotteryType.Pk10:
                     return $"{baseUrl}?cai=pk10";
                 default:
                     return null;
@@ -46,15 +46,16 @@ namespace Colin.Lottery.Collectors
         /// <param name="planner">计划员</param>
         /// <param name="rule">玩法(请使用具体玩法枚举,如"PK10Rule","CQSSCRule")</param>
         /// <returns>预测开奖号码接口地址</returns>
-        private string GetForecastUrl(LotteryType type, Planner planner, int rule)
+        private static string GetForecastUrl(LotteryType type, Planner planner, int rule)
         {
-            string format = $"{_ROOT_URL}ajax_getapi.php?type={{0}}{((int)planner > 1 ? ((int)planner).ToString() : string.Empty)}&a={(int)rule}&t=0.{new Random().Next()}";
+            var format =
+                $"{RootUrl}ajax_getapi.php?type={{0}}{((int)planner > 1 ? ((int)planner).ToString() : string.Empty)}&a={rule}&t=0.{new Random().Next()}";
 
             switch (type)
             {
-                case LotteryType.CQSSC:
+                case LotteryType.Cqssc:
                     return string.Format(format, "ssc");
-                case LotteryType.PK10:
+                case LotteryType.Pk10:
                     return string.Format(format, "pk10");
                 default:
                     return null;
@@ -64,19 +65,16 @@ namespace Colin.Lottery.Collectors
 
         public override async Task<IDrawCollectionModel> GetDrawNoHistory(LotteryType type)
         {
-            string response = await HttpUtil.GetStringAsync(GetHistoryUrl(type));
+            var response = await HttpUtil.GetStringAsync(GetHistoryUrl(type));
             return JsonConvert.DeserializeObject<JinMaLotteryModelCollection>(response);
         }
 
         public async Task<IForcastPlanModel> GetForcastData(LotteryType type, Planner planer, int rule)
         {
-            string response = await HttpUtil.GetStringAsync(GetForecastUrl(type, planer, rule));
+            var response = await HttpUtil.GetStringAsync(GetForecastUrl(type, planer, rule));
             try
             {
-                if (string.IsNullOrWhiteSpace(response))
-                    return null;
-
-                return JsonConvert.DeserializeObject<JinMaForcastPlanModel>(response);
+                return string.IsNullOrWhiteSpace(response) ? null : JsonConvert.DeserializeObject<JinMaForcastPlanModel>(response);
             }
             catch (Exception ex)
             {

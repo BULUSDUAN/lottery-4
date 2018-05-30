@@ -1,12 +1,11 @@
-﻿using System.Threading.Tasks;
-using System.Collections.Generic;
-using Microsoft.AspNetCore.SignalR;
-
-using Colin.Lottery.WebApp.Hubs;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Colin.Lottery.Analyzers;
 using Colin.Lottery.Models;
+using Colin.Lottery.WebApp.Services;
 
-namespace Colin.Lottery.WebApp
+namespace Colin.Lottery.WebApp.Hubs
 {
     public class NotifyHub : BaseHub<NotifyHub>
     {
@@ -15,7 +14,7 @@ namespace Colin.Lottery.WebApp
             //var notifications = await GetAllNotifications(criticalScore, startWhenBreakGua);
             //await Clients.Caller.SendAsync("Notify", notifications);
 
-            UserSettings.TryRemove(Context.ConnectionId, out object settings);
+            UserSettings.TryRemove(Context.ConnectionId, out _);
             UserSettings.TryAdd(Context.ConnectionId, criticalScore);
         }
 
@@ -25,18 +24,18 @@ namespace Colin.Lottery.WebApp
         /// <returns>The all notifications.</returns>
         /// <param name="criticalScore">Critical score.</param>
         /// <param name="startWhenBreakGua">If set to <c>true</c> start when break gua.</param>
-        async Task<List<string>> GetAllNotifications(float criticalScore, bool startWhenBreakGua)
+        private async Task<List<string>> GetAllNotifications(float criticalScore, bool startWhenBreakGua)
         {
             var nots = new List<string>();
 
-            await GetNotifications(nots, LotteryType.PK10, (int)PK10Rule.Champion, criticalScore, startWhenBreakGua);
-            await GetNotifications(nots, LotteryType.PK10, (int)PK10Rule.Second, criticalScore, startWhenBreakGua);
-            await GetNotifications(nots, LotteryType.PK10, (int)PK10Rule.Third, criticalScore, startWhenBreakGua);
-            await GetNotifications(nots, LotteryType.PK10, (int)PK10Rule.Fourth, criticalScore, startWhenBreakGua);
-            await GetNotifications(nots, LotteryType.PK10, (int)PK10Rule.BigOrSmall, criticalScore, startWhenBreakGua);
-            await GetNotifications(nots, LotteryType.PK10, (int)PK10Rule.OddOrEven, criticalScore, startWhenBreakGua);
-            await GetNotifications(nots, LotteryType.PK10, (int)PK10Rule.DragonOrTiger, criticalScore, startWhenBreakGua);
-            await GetNotifications(nots, LotteryType.PK10, (int)PK10Rule.Sum, criticalScore, startWhenBreakGua);
+            await GetNotifications(nots, LotteryType.Pk10, (int)Pk10Rule.Champion, criticalScore, startWhenBreakGua);
+            await GetNotifications(nots, LotteryType.Pk10, (int)Pk10Rule.Second, criticalScore, startWhenBreakGua);
+            await GetNotifications(nots, LotteryType.Pk10, (int)Pk10Rule.Third, criticalScore, startWhenBreakGua);
+            await GetNotifications(nots, LotteryType.Pk10, (int)Pk10Rule.Fourth, criticalScore, startWhenBreakGua);
+            await GetNotifications(nots, LotteryType.Pk10, (int)Pk10Rule.BigOrSmall, criticalScore, startWhenBreakGua);
+            await GetNotifications(nots, LotteryType.Pk10, (int)Pk10Rule.OddOrEven, criticalScore, startWhenBreakGua);
+            await GetNotifications(nots, LotteryType.Pk10, (int)Pk10Rule.DragonOrTiger, criticalScore, startWhenBreakGua);
+            await GetNotifications(nots, LotteryType.Pk10, (int)Pk10Rule.Sum, criticalScore, startWhenBreakGua);
 
             return nots;
         }
@@ -50,11 +49,11 @@ namespace Colin.Lottery.WebApp
         /// <param name="rule">Rule.</param>
         /// <param name="criticalScore">Critical score.</param>
         /// <param name="startWhenBreakGua">If set to <c>true</c> start when break gua.</param>
-        async Task GetNotifications(List<string> notifications, LotteryType lottery, int rule, float criticalScore, bool startWhenBreakGua)
+        private static async Task GetNotifications(ICollection<string> notifications, LotteryType lottery, int rule, float criticalScore, bool startWhenBreakGua)
         {
             var plans = await JinMaAnalyzer.Instance.GetForcastData(lottery, rule);
             JinMaAnalyzer.Instance.CalcuteScore(ref plans, startWhenBreakGua);
-            (IForcastPlanModel planA, IForcastPlanModel planB) = plans;
+            var (planA, planB) = plans;
             if (planA.Score >= criticalScore)
                 notifications.Add(JinMaStrategyService.Instance.CreateNotification(lottery, rule, Plan.PlanA, planA.ForcastDrawNo, planA.Score));
             if (planB.Score >= criticalScore)
@@ -68,16 +67,7 @@ namespace Colin.Lottery.WebApp
         /// <param name="score">预测分数</param>
         public static IReadOnlyList<string> GetConnectionIds(float score)
         {
-            var list = new List<string>();
-            foreach (var connId in UserSettings.Keys)
-            {
-                var criticalScore = float.Parse(UserSettings[connId].ToString());
-                if (criticalScore > score)
-                    continue;
-
-                list.Add(connId);
-            }
-            return list;
+            return (from connId in UserSettings.Keys let criticalScore = float.Parse(UserSettings[connId].ToString()) where !(criticalScore > score) select connId).ToList();
         }
     }
 }

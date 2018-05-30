@@ -1,4 +1,6 @@
-﻿(function () {
+﻿// import * as signalR from "../lib/signalr/signalr";
+
+(function () {
     //更新PK10计时器
     (function () {
         let timer_pk10 = $("#timer-pk10");
@@ -6,7 +8,7 @@
         let curMin = now.getMinutes();
         let deadMin = 0;
         for (let i = curMin; i <= 60; i++) {
-            if (i % 5 != 0)
+            if (i % 5 !== 0)
                 continue;
 
             deadMin = i;
@@ -42,7 +44,7 @@
         let hub = '/hubs/pk10';
         const connection = new signalR.HubConnectionBuilder()
             .withUrl(hub)
-            .configureLogging(signalR.LogLevel.Information)
+            .configureLogging(signalR.LogLevel.Warning)
             .build();
 
         //启动连接并初始化数据
@@ -70,7 +72,7 @@
 
         function getRuleName(rule) {
             for (let name in dict) {
-                if (name == rule)
+                if (name === rule)
                     return dict[name];
             }
             console.error('没有给定的玩法' + rule)
@@ -113,7 +115,7 @@
 
         //无数据返回
         connection.on("NoResult", function (rule) {
-            if (rule == 'allRules') {
+            if (rule === 'allRules') {
                 $('.planLoading').remove();
                 $('.pk10-panel').append(template('noResultTemplate')());
                 return;

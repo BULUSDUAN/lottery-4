@@ -1,14 +1,6 @@
 ﻿using System;
-using System.Diagnostics;
-using System.Linq;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using Colin.Lottery.Models;
 using Colin.Lottery.Utils;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.PhantomJS;
-using OpenQA.Selenium.Support.UI;
 
 namespace Colin.Lottery.AutoBetService
 {

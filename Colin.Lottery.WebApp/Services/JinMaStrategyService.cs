@@ -1,39 +1,37 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using System.Linq;
+using System.Threading.Tasks;
+
 using Microsoft.AspNetCore.SignalR;
 
-using Quartz;
-
 using Colin.Lottery.Analyzers;
+using Colin.Lottery.Common.Scheduler;
 using Colin.Lottery.Models;
 using Colin.Lottery.Utils;
-using Colin.Lottery.Common;
-
 using Colin.Lottery.WebApp.Hubs;
 
-namespace Colin.Lottery.WebApp
+namespace Colin.Lottery.WebApp.Services
 {
     public class JinMaStrategyService : StrategyService<JinMaStrategyService>
     {
-        readonly IHubContext<PK10Hub> _PK10Context;
+        private readonly IHubContext<PK10Hub> _pk10Context;
 
         public JinMaStrategyService()
         {
-            _PK10Context = Startup.GetService<IHubContext<PK10Hub>>();
+            _pk10Context = Startup.GetService<IHubContext<PK10Hub>>();
         }
 
-        public async override Task Start(bool startWhenBreakGua = false)
+        public override async Task Start(bool startWhenBreakGua = false)
         {
-            await StartPK10(PK10Rule.Champion, startWhenBreakGua);
-            await StartPK10(PK10Rule.Second, startWhenBreakGua);
-            await StartPK10(PK10Rule.Third, startWhenBreakGua);
-            await StartPK10(PK10Rule.Fourth, startWhenBreakGua);
-            await StartPK10(PK10Rule.BigOrSmall, startWhenBreakGua);
-            await StartPK10(PK10Rule.OddOrEven, startWhenBreakGua);
-            await StartPK10(PK10Rule.DragonOrTiger, startWhenBreakGua);
-            await StartPK10(PK10Rule.Sum, startWhenBreakGua);
+            await StartPk10(Pk10Rule.Champion, startWhenBreakGua);
+            await StartPk10(Pk10Rule.Second, startWhenBreakGua);
+            await StartPk10(Pk10Rule.Third, startWhenBreakGua);
+            await StartPk10(Pk10Rule.Fourth, startWhenBreakGua);
+            await StartPk10(Pk10Rule.BigOrSmall, startWhenBreakGua);
+            await StartPk10(Pk10Rule.OddOrEven, startWhenBreakGua);
+            await StartPk10(Pk10Rule.DragonOrTiger, startWhenBreakGua);
+            await StartPk10(Pk10Rule.Sum, startWhenBreakGua);
         }
 
         public override void Start(Dictionary<LotteryType, List<int>> typeRules, bool startWhenBreakGua = false)
@@ -45,45 +43,45 @@ namespace Colin.Lottery.WebApp
             {
                 switch (type)
                 {
-                    case LotteryType.CQSSC:
+                    case LotteryType.Cqssc:
                         typeRules[type].ForEach(r =>
                         {
-                            switch ((CQSSCRule)r)
+                            switch ((CqsscRule)r)
                             {
-                                case CQSSCRule.OddOrEven:
+                                case CqsscRule.OddOrEven:
                                     break;
-                                case CQSSCRule.BigOrSmall:
+                                case CqsscRule.BigOrSmall:
                                     break;
-                                case CQSSCRule.DragonOrTiger:
+                                case CqsscRule.DragonOrTiger:
                                     break;
-                                case CQSSCRule.Last2Group:
+                                case CqsscRule.Last2Group:
                                     break;
-                                case CQSSCRule.Last3Group:
+                                case CqsscRule.Last3Group:
                                     break;
-                                case CQSSCRule.OneOddOrEven:
+                                case CqsscRule.OneOddOrEven:
                                     break;
-                                case CQSSCRule.OneBigOrSmall:
+                                case CqsscRule.OneBigOrSmall:
                                     break;
-                                case CQSSCRule.One:
+                                case CqsscRule.One:
                                     break;
                             }
                         });
                         break;
-                    case LotteryType.PK10:
-                        typeRules[type].ForEach(async r => await StartPK10((PK10Rule)r, startWhenBreakGua));
+                    case LotteryType.Pk10:
+                        typeRules[type].ForEach(async r => await StartPk10((Pk10Rule)r, startWhenBreakGua));
                         break;
                 }
             }
         }
 
-        async Task StartPK10(PK10Rule rule, bool startWhenBreakGua)
+        private async Task StartPk10(Pk10Rule rule, bool startWhenBreakGua)
         {
-            var prefix = $"{LotteryType.PK10}_{rule}";
+            var prefix = $"{LotteryType.Pk10}_{rule}";
             //大管家Job，负责创建每期的扫水Job
-            var stewardJob = QuartzUtil.CreateSimpleJob($"{prefix}_Steward_Job", $"{LotteryType.PK10}_JobGroup", async () =>
+            var stewardJob = QuartzUtil.CreateSimpleJob($"{prefix}_Steward_Job", $"{LotteryType.Pk10}_JobGroup", async () =>
             {
                 var timestamp = DateTime.Now;
-                var periodNo = PK10Scheduler.Instance.GetPeriodNo(timestamp);
+                var periodNo = Pk10Scheduler.Instance.GetPeriodNo(timestamp);
                 var tempJob = $"{prefix}_Scan_{periodNo}";
                 var ng = tempJob.JobAndTriggerNames();
 
@@ -94,7 +92,7 @@ namespace Colin.Lottery.WebApp
                         await QuartzUtil.DeleteJob(ng.JobName, ng.JobGroup);
 
                     //扫水
-                    var plans = await JinMaAnalyzer.Instance.GetForcastData(LotteryType.PK10, (int)rule);
+                    var plans = await JinMaAnalyzer.Instance.GetForcastData(LotteryType.Pk10, (int)rule);
                     (IForcastPlanModel planA, IForcastPlanModel planB) = plans;
                     /*
                     * 如果目标网站接口正常，每次都可以扫到结果，即使不是没有更新最新期预测数据，所以如果没有扫水结果，说明目标网站接口出错
@@ -102,7 +100,7 @@ namespace Colin.Lottery.WebApp
                     if (planA == null || planB == null)
                     {
                         //await _PK10Context.Clients.Group(rule.ToString()).SendAsync("NoResult");
-                        await _PK10Context.Clients.Groups(new List<string> { rule.ToString(), "AllRules" }).SendAsync("NoResult", rule.ToStringName());
+                        await _pk10Context.Clients.Groups(new List<string> { rule.ToString(), "AllRules" }).SendAsync("NoResult", rule.ToStringName());
                         LogUtil.Warn("目标网站扫水接口异常，请尽快检查恢复");
                         return;
                     }
@@ -112,7 +110,7 @@ namespace Colin.Lottery.WebApp
                     if (planA.LastDrawedPeriod + 1 >= periodNo && planB.LastDrawedPeriod + 1 >= periodNo)
                     {
                         //推送完整15期计划
-                        await _PK10Context.Clients.Group(rule.ToString()).SendAsync("ShowPlans", plans);
+                        await _pk10Context.Clients.Group(rule.ToString()).SendAsync("ShowPlans", plans);
 
                         //推送最新期计划
                         var forcast = new List<IForcastModel>
@@ -120,11 +118,11 @@ namespace Colin.Lottery.WebApp
                             planA.ForcastData.LastOrDefault(),
                             planB.ForcastData.LastOrDefault()
                         };
-                        await _PK10Context.Clients.Group("AllRules").SendAsync("ShowPlans", forcast);
+                        await _pk10Context.Clients.Group("AllRules").SendAsync("ShowPlans", forcast);
 
                         //广播通知消息
-                        await NotifyContext.Clients.Clients(NotifyHub.GetConnectionIds(planA.Score)).SendAsync("Notify", new List<string> { CreateNotification(LotteryType.PK10, (int)rule, Plan.PlanA, planA.ForcastDrawNo, planA.Score) });
-                        await NotifyContext.Clients.Clients(NotifyHub.GetConnectionIds(planB.Score)).SendAsync("Notify", new List<string> { CreateNotification(LotteryType.PK10, (int)rule, Plan.PlanB, planB.ForcastDrawNo, planB.Score) });
+                        await NotifyContext.Clients.Clients(NotifyHub.GetConnectionIds(planA.Score)).SendAsync("Notify", new List<string> { CreateNotification(LotteryType.Pk10, (int)rule, Plan.PlanA, planA.ForcastDrawNo, planA.Score) });
+                        await NotifyContext.Clients.Clients(NotifyHub.GetConnectionIds(planB.Score)).SendAsync("Notify", new List<string> { CreateNotification(LotteryType.Pk10, (int)rule, Plan.PlanB, planB.ForcastDrawNo, planB.Score) });
 
                         await QuartzUtil.DeleteJob(ng.JobName, ng.JobGroup);
                     }
@@ -137,9 +135,9 @@ namespace Colin.Lottery.WebApp
              * “0 1/5 9-23 * * ?”
              * 每天9点到23点，每5分钟的第1分钟第0秒。如 9:01:00,9:06:00 ... 9:56:00 ... 23:51:00,23:56:00
             */
-            var _pk10Trigger = QuartzUtil.CreateTrigger($"{LotteryType.PK10}_{Guid.NewGuid()}", "JinMaTrigger", "0 1/5 9-23 * * ?");
+            var pk10Trigger = QuartzUtil.CreateTrigger($"{LotteryType.Pk10}_{Guid.NewGuid()}", "JinMaTrigger", "0 1/5 9-23 * * ?");
 
-            await QuartzUtil.GetScheduler().ScheduleJob(stewardJob, _pk10Trigger);
+            await QuartzUtil.GetScheduler().ScheduleJob(stewardJob, pk10Trigger);
         }
     }
 }

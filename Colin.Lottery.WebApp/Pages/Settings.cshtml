@@ -38,7 +38,7 @@
         <div class="col-xs-12">
             <label>玩法</label><br />
             <div id="rule_1">
-                @foreach (var rule in Lotterys.PK10Rules)
+                @foreach (var rule in Lotterys.Pk10Rules)
                 {
                     <label class="checkbox-inline">
                         <input type="checkbox" aria-describedby="help-block-rules" value="@rule.ToInt()">&nbsp;@rule.ToStringName()
@@ -46,7 +46,7 @@
                 }
             </div>
             <div id="rule_0" class="hide">
-                @foreach (var rule in Lotterys.CQSSCRules)
+                @foreach (var rule in Lotterys.CqsscRules)
                 {
                     <label class="checkbox-inline">
                         <input type="checkbox" aria-describedby="help-block-rules" value="@rule.ToInt()">&nbsp;@rule.ToStringName()
