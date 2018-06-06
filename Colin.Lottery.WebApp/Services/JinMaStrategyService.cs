@@ -93,7 +93,7 @@ namespace Colin.Lottery.WebApp.Services
 
                     //扫水
                     var plans = await JinMaAnalyzer.Instance.GetForcastData(LotteryType.Pk10, (int)rule);
-                    (IForcastPlanModel planA, IForcastPlanModel planB) = plans;
+                    var (planA, planB) = plans;
                     /*
                     * 如果目标网站接口正常，每次都可以扫到结果，即使不是没有更新最新期预测数据，所以如果没有扫水结果，说明目标网站接口出错
                     */
@@ -107,25 +107,37 @@ namespace Colin.Lottery.WebApp.Services
 
                     JinMaAnalyzer.Instance.CalcuteScore(ref plans, startWhenBreakGua);
 
-                    if (planA.LastDrawedPeriod + 1 >= periodNo && planB.LastDrawedPeriod + 1 >= periodNo)
+                    if (planA.LastDrawedPeriod + 1 < periodNo || planB.LastDrawedPeriod + 1 < periodNo) return;
+                    
+                    //推送完整15期计划
+                    await _pk10Context.Clients.Group(rule.ToString()).SendAsync("ShowPlans", plans);
+
+                    //推送最新期计划
+                    var forcast = new List<IForcastModel>
                     {
-                        //推送完整15期计划
-                        await _pk10Context.Clients.Group(rule.ToString()).SendAsync("ShowPlans", plans);
-
-                        //推送最新期计划
-                        var forcast = new List<IForcastModel>
-                        {
-                            planA.ForcastData.LastOrDefault(),
-                            planB.ForcastData.LastOrDefault()
-                        };
-                        await _pk10Context.Clients.Group("AllRules").SendAsync("ShowPlans", forcast);
-
-                        //广播通知消息
-                        await NotifyContext.Clients.Clients(NotifyHub.GetConnectionIds(planA.Score)).SendAsync("Notify", new List<string> { CreateNotification(LotteryType.Pk10, (int)rule, Plan.PlanA, planA.ForcastDrawNo, planA.Score) });
-                        await NotifyContext.Clients.Clients(NotifyHub.GetConnectionIds(planB.Score)).SendAsync("Notify", new List<string> { CreateNotification(LotteryType.Pk10, (int)rule, Plan.PlanB, planB.ForcastDrawNo, planB.Score) });
-
-                        await QuartzUtil.DeleteJob(ng.JobName, ng.JobGroup);
+                        planA.ForcastData.LastOrDefault(),
+                        planB.ForcastData.LastOrDefault()
+                    };
+                    await _pk10Context.Clients.Group("AllRules").SendAsync("ShowPlans", forcast);
+                    
+                    //TODO:推送连挂消息
+                    if (planA.KeepGua)
+                    {
+                        
                     }
+
+                    if (planB.KeepGua)
+                    {
+                        
+                    }
+
+                    //广播通知消息
+                    await NotifyContext.Clients.Clients(NotifyHub.GetConnectionIds(planA.Score))
+                        .SendAsync("Notify", new List<string> { CreateNotification(LotteryType.Pk10, (int)rule, Plan.PlanA, planA.ForcastDrawNo, planA.Score) });
+                    await NotifyContext.Clients.Clients(NotifyHub.GetConnectionIds(planB.Score))
+                        .SendAsync("Notify", new List<string> { CreateNotification(LotteryType.Pk10, (int)rule, Plan.PlanB, planB.ForcastDrawNo, planB.Score) });
+
+                    await QuartzUtil.DeleteJob(ng.JobName, ng.JobGroup);
                 }, "0/5 * * * * ? *");
             });
 

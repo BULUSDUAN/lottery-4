@@ -42,6 +42,21 @@ namespace Colin.Lottery.Models
         /// 开奖号码
         /// </summary>
         string DrawNo { get; set; }
+        
+        /// <summary>
+        /// 挂-分数
+        /// </summary>
+        float GuaScore { get; set; }
+
+        /// <summary>
+        /// 号码重复度-分数
+        /// </summary>
+        float RepetitionScore { get; set; }
+
+        /// <summary>
+        /// 追号次数-分数
+        /// </summary>
+        float BetChaseScore { get; set; }
 
         /// <summary>
         /// 最新期评测分数
@@ -95,9 +110,29 @@ namespace Colin.Lottery.Models
         float WinProbability { get; set; }
 
         /// <summary>
+        /// 挂-分数
+        /// </summary>
+        float GuaScore { get; set; }
+
+        /// <summary>
+        /// 号码重复度-分数
+        /// </summary>
+        float RepetitionScore { get; set; }
+
+        /// <summary>
+        /// 追号次数-分数
+        /// </summary>
+        float BetChaseScore { get; set; }
+
+        /// <summary>
         /// 最新预测评分
         /// </summary>
         float Score { get; set; }
+
+        /// <summary>
+        /// 是否处于连挂有效期内
+        /// </summary>
+        bool KeepGua { get; set; }
 
         /// <summary>
         /// 从最新期开始连挂次数

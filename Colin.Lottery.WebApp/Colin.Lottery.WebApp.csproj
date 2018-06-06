@@ -33,6 +33,10 @@
     <None Include="wwwroot\js\ssr\qrcode.min.js" />
     <None Include="wwwroot\images\ssr\andriod-guid.gif" />
     <None Include="wwwroot\images\ssr\ios-guid.gif" />
+    <None Include="wwwroot\images\logo-128.svg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Remove="wwwroot\images\logo-128.svg" />
   </ItemGroup>
   <ItemGroup>
     <Content Update="appsettings.json">

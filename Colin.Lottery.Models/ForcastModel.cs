@@ -12,6 +12,9 @@ namespace Colin.Lottery.Models
         public bool? IsWin { get; set; }
         public long LastPeriod { get; set; }
         public string DrawNo { get; set; }
+        public float GuaScore { get; set; }
+        public float RepetitionScore { get; set; }
+        public float BetChaseScore { get; set; }
         public float Score { get; set; }
         public float WinProbability { get; set; }
     }
@@ -25,7 +28,11 @@ namespace Colin.Lottery.Models
         public int WinCount { get; set; }
         public int LoseCount { get; set; }
         public float WinProbability { get; set; }
+        public float GuaScore { get; set; }
+        public float RepetitionScore { get; set; }
+        public float BetChaseScore { get; set; }
         public float Score { get; set; }
+        public bool KeepGua { get; set; }
         public int KeepGuaCnt { get; set; }
         public int KeepHisGuaCnt { get; set; }
 
