@@ -50,7 +50,7 @@ function ssrDecode(text) {
             let arr = data.split(':');
             let ssr = {
                 "server": arr[0],
-                "server_port": arr[1],
+                "server_port": arr[1]-0,
                 "protocol": arr[2],
                 "method": arr[3],
                 "obfs": arr[4]

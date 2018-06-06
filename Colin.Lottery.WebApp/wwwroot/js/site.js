@@ -63,12 +63,11 @@ function notify(title, content) {
         new Notification(title, options);
 
     // 否则我们需要向用户获取权限
-    else if (Notification.permission !== 'denied') {
+    else if (Notification.permission === 'default') {
         Notification.requestPermission(function (permission) {
             // 如果用户同意，就可以向他们发送通知
-            if (permission === "granted") {
+            if (permission === "granted") 
                 new Notification(title, options);
-            }
         });
     }
     // 最后，如果执行到这里，说明用户已经拒绝对相关通知进行授权
