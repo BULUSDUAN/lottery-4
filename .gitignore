@@ -6,3 +6,6 @@ v15
 node_modules
 Logs
 *.user
+.idea
+.vscode
+Thumbs.db
