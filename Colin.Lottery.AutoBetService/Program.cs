@@ -1,6 +1,15 @@
 ﻿using System;
-using System.Threading.Tasks;
+using System.IO;
+using System.Linq;
+using Colin.Lottery.Analyzers;
+using Colin.Lottery.Common;
+using Colin.Lottery.Common.Notification;
+using Colin.Lottery.Models;
+using Colin.Lottery.Models.Notification;
 using Colin.Lottery.Utils;
+using NVelocity;
+using NVelocity.App;
+using NVelocity.Runtime;
 
 namespace Colin.Lottery.AutoBetService
 {
@@ -8,55 +17,18 @@ namespace Colin.Lottery.AutoBetService
     {
         static void Main(string[] args)
         {
-            //Console.WriteLine("Hello World!");
-
             Test();
+            
             Console.WriteLine("OK");
+            
             Console.ReadKey();
         }
 
-        //static async void Test()
-        //{
-        //    await MailUtil.MailAsync("zhangcheng5468@163.com",
-        //    "zhangcheng5468@163.com",
-        //    "TestSending",
-        //    "<h1 style='color:red'>测试内容1</h1>",
-        //    MailContentType.Html,
-        //    "smtp.163.com",
-        //    465,
-        //    "zhangcheng5468@163.com",
-        //    "xinzhe&468163"
-        //    );
-        //}
-
-        static async Task Test()
+        private static async void Test()
         {
-            //var watch = new Stopwatch();
-            //watch.Start();
-
-            //var options = new ChromeOptions();
-            //options.AddArguments("headless", "disable-gpu", "disable-infobars", "--disable-extensions");
-            //using (var chrome = new ChromeDriver(AppDomain.CurrentDomain.BaseDirectory, options))
-            //{
-            //    chrome.Navigate().GoToUrl("https://tool.ssrshare.com/tool/free_ssr");
-
-            //    var inputs = chrome.FindElements(By.CssSelector(".mdui-textfield-input"));
-            //    foreach (var input in inputs)
-            //    {
-            //        Console.WriteLine(input.GetAttribute("value"));
-            //    }
-            //}
-
-            //watch.Stop();
-            //Console.WriteLine(watch.ElapsedMilliseconds);
-
-            var brower = new BrowserUtil();
-            await brower.Explore("https://ssrshare.xyz/freessr");
-            brower.Completed += (brw, args) =>
-            {
-                Console.WriteLine(DateTime.Now);
-                //Console.WriteLine(args.PageSource);
-            };
+            var plans = await JinMaAnalyzer.Instance.GetForcastData(LotteryType.Pk10, 2);
+            JinMaAnalyzer.Instance.CalcuteScore(ref plans, true);
+            await MailNotify.NotifyAsync(new MailNotifyModel(LotteryType.Pk10, 2, Plan.PlanB,plans.Plan2, plans.Plan1.ForcastDrawNo));
         }
     }
 }

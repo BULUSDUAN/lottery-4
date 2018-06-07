@@ -15,11 +15,11 @@ namespace Colin.Lottery.Collectors.Test
         [Fact]
         public async void GetForcastDataTest()
         {
-            var pk11 = await JinMaCollector.Instance.GetForcastData(LotteryType.Pk10, Planner.Planner1, (int)Pk10Rule.Champion);
-            var pk15 = await JinMaCollector.Instance.GetForcastData(LotteryType.Pk10, Planner.Planner1, (int)Pk10Rule.BigOrSmall);
-            var pk16 = await JinMaCollector.Instance.GetForcastData(LotteryType.Pk10, Planner.Planner1, (int)Pk10Rule.OddOrEven);
-            var pk17 = await JinMaCollector.Instance.GetForcastData(LotteryType.Pk10, Planner.Planner1, (int)Pk10Rule.DragonOrTiger);
-            var pk18 = await JinMaCollector.Instance.GetForcastData(LotteryType.Pk10, Planner.Planner1, (int)Pk10Rule.Sum);
+            var pk11 = await JinMaCollector.GetForcastData(LotteryType.Pk10, Planner.Planner1, (int)Pk10Rule.Champion);
+            var pk15 = await JinMaCollector.GetForcastData(LotteryType.Pk10, Planner.Planner1, (int)Pk10Rule.BigOrSmall);
+            var pk16 = await JinMaCollector.GetForcastData(LotteryType.Pk10, Planner.Planner1, (int)Pk10Rule.OddOrEven);
+            var pk17 = await JinMaCollector.GetForcastData(LotteryType.Pk10, Planner.Planner1, (int)Pk10Rule.DragonOrTiger);
+            var pk18 = await JinMaCollector.GetForcastData(LotteryType.Pk10, Planner.Planner1, (int)Pk10Rule.Sum);
         }
     }
 }

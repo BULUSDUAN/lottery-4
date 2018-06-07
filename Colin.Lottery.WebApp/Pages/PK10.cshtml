@@ -48,19 +48,19 @@ ViewData["Title"] = "北京PK10";
                     <caption>
                         <div class="btn-group pull-right" role="group">
                             <button class="btn btn-primary btn-sm" type="button">
-                                {{name}}
+                                {{name}}&nbsp;
                                 <span class="badge">{{score|toFixed 0}}</span>
                             </button>
                             <button class="btn btn-danger btn-sm" type="button">
-                                挂
+                                挂&nbsp;
                                 <span class="badge">{{guaScore|toFixed 0}}</span>
                             </button>
                             <button class="btn btn-warning btn-sm" type="button">
-                                重
+                                重&nbsp;
                                 <span class="badge">{{repetitionScore|toFixed 0}}</span>
                             </button>
                             <button class="btn btn-info btn-sm" type="button">
-                                追
+                                追&nbsp;
                                 <span class="badge">{{betChaseScore|toFixed 0}}</span>
                             </button>
                         </div>
@@ -77,39 +77,39 @@ ViewData["Title"] = "北京PK10";
                     </thead>
                     <tbody>
                     {{each forcastData}}
-                    {{if !$value.drawNo}}
-                    {{if score>=80}}
-                    <tr class="danger">
-                    {{else}}
-                    <tr class="success">
-                    {{/if}}
-                    {{else}}
-                    <tr>
+                        {{if !$value.drawNo}}
+                            {{if score>=80}}
+                                <tr class="danger">
+                            {{else}}
+                                <tr class="success">
+                            {{/if}}
+                        {{else}}
+                            <tr>
                         {{/if}}
-                        <td>{{$value.periodRange}}</td>
-                        <td>{{$value.forcastNo}}</td>
-                        <td>{{$value.lastPeriod.toString().padStart(3,'0')}}</td>
-                        <td>
-                            {{if $value.drawNo}}
-                            {{$value.drawNo}}
-                            {{else}}
-                            开奖中...
-                            {{/if}}
-                        </td>
-                        <td>{{$value.chaseTimes}}</td>
-                        <td>
-                            {{if $value.isWin==true}}
-                            <strong class="text-danger">中</strong>
-                            {{else if $value.isWin==false}}
-                            <strong class="text-success">挂</strong>
-                            {{else}}
-                            <button type="button" class="btn btn-danger btn-xs">
-                                <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                                {{score|toFixed 0}}
-                            </button>
-                            {{/if}}
-                        </td>
-                    </tr>
+                            <td>{{$value.periodRange}}</td>
+                            <td>{{$value.forcastNo}}</td>
+                            <td>{{$value.lastPeriod.toString().padStart(3,'0')}}</td>
+                            <td>
+                                {{if $value.drawNo}}
+                                {{$value.drawNo}}
+                                {{else}}
+                                开奖中...
+                                {{/if}}
+                            </td>
+                            <td>{{$value.chaseTimes}}</td>
+                            <td>
+                                {{if $value.isWin==true}}
+                                <strong class="text-danger">中</strong>
+                                {{else if $value.isWin==false}}
+                                <strong class="text-success">挂</strong>
+                                {{else}}
+                                <button type="button" class="btn btn-danger btn-xs">
+                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                    {{score|toFixed 0}}
+                                </button>
+                                {{/if}}
+                            </td>
+                        </tr>
                     {{/each}}
                     </tbody>
                     <tfoot>

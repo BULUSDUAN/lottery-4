@@ -44,6 +44,11 @@ namespace Colin.Lottery.Models
         string DrawNo { get; set; }
         
         /// <summary>
+        /// 从最新期开始连挂次数
+        /// </summary>
+        int KeepGuaCnt { get; set; }
+        
+        /// <summary>
         /// 挂-分数
         /// </summary>
         float GuaScore { get; set; }

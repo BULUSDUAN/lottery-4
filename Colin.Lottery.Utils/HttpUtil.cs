@@ -24,7 +24,7 @@ namespace Colin.Lottery.Utils
             }
             catch (Exception ex)
             {
-                LogUtil.Warn($"{ex.Message}\r\n{ex.StackTrace}");
+                LogUtil.Warn($"Http请求错误。错误消息:{ex.Message}\r\n堆栈内容:{ex.StackTrace}");
                 return null;
             }
         }

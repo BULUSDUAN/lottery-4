@@ -1,9 +1,11 @@
-﻿using MimeKit;
+﻿using System;
+using MimeKit;
 using MailKit.Net.Smtp;
 using System.Threading.Tasks;
 
 using Colin.Lottery.Models;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Colin.Lottery.Utils
 {
@@ -26,11 +28,11 @@ namespace Colin.Lottery.Utils
             await MailAsync(from, new List<string> { to }, subject, content, contentType, smtpHost, smtpPort, userName, password);
         }
 
-        public static async Task MailAsync(string from, List<string> to, string subject, string content, MailContentType contentType, string smtpHost, int smtpPort, string userName, string password)
+        public static async Task MailAsync(string from, IEnumerable<string> to, string subject, string content, MailContentType contentType, string smtpHost, int smtpPort, string userName, string password)
         {
             var message = new MimeMessage();
             message.From.Add(new MailboxAddress(from));
-            to.ForEach(addr => message.To.Add(new MailboxAddress(addr)));
+            to.ToList().ForEach(addr => message.To.Add(new MailboxAddress(addr)));
             message.Subject = subject;
 
             var builder = new BodyBuilder();
@@ -40,12 +42,19 @@ namespace Colin.Lottery.Utils
                 builder.HtmlBody = content;
             message.Body = builder.ToMessageBody();
 
-            using (var client = new SmtpClient())
+            try
             {
-                await client.ConnectAsync(smtpHost, smtpPort, true);
-                await client.AuthenticateAsync(userName, password);
-                await client.SendAsync(message);
-                await client.DisconnectAsync(true);
+                using (var client = new SmtpClient())
+                {
+                    await client.ConnectAsync(smtpHost, smtpPort, true);
+                    await client.AuthenticateAsync(userName, password);
+                    await client.SendAsync(message);
+                    await client.DisconnectAsync(true);
+                }
+            }
+            catch (Exception ex)
+            {
+                LogUtil.Warn($"邮件发送失败，请检查配置.错误消息:{ex.Message}\r\n堆栈错误:{ex.StackTrace}");
             }
         }
     }

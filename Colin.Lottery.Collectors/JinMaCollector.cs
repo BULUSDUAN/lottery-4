@@ -69,7 +69,7 @@ namespace Colin.Lottery.Collectors
             return JsonConvert.DeserializeObject<JinMaLotteryModelCollection>(response);
         }
 
-        public async Task<IForcastPlanModel> GetForcastData(LotteryType type, Planner planer, int rule)
+        public static async Task<IForcastPlanModel> GetForcastData(LotteryType type, Planner planer, int rule)
         {
             var response = await HttpUtil.GetStringAsync(GetForecastUrl(type, planer, rule));
             try
@@ -78,7 +78,7 @@ namespace Colin.Lottery.Collectors
             }
             catch (Exception ex)
             {
-                LogUtil.Warn($"预测数据反序列化失败，内容:{response}\r\n{ex.Message}\r\n{ex.StackTrace}");
+                LogUtil.Warn($"预测数据反序列化失败，内容:{response}\r\n错误消息:{ex.Message}\r\n堆栈内容:{ex.StackTrace}");
                 return null;
             }
         }

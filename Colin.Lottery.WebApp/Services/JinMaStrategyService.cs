@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
 
 using Colin.Lottery.Analyzers;
+using Colin.Lottery.Common.Notification;
 using Colin.Lottery.Common.Scheduler;
 using Colin.Lottery.Models;
+using Colin.Lottery.Models.Notification;
 using Colin.Lottery.Utils;
 using Colin.Lottery.WebApp.Hubs;
 
@@ -109,10 +111,10 @@ namespace Colin.Lottery.WebApp.Services
 
                     if (planA.LastDrawedPeriod + 1 < periodNo || planB.LastDrawedPeriod + 1 < periodNo) return;
                     
-                    //推送完整15期计划
+                    //1.推送完整15期计划
                     await _pk10Context.Clients.Group(rule.ToString()).SendAsync("ShowPlans", plans);
 
-                    //推送最新期计划
+                    //2.推送最新期计划
                     var forcast = new List<IForcastModel>
                     {
                         planA.ForcastData.LastOrDefault(),
@@ -120,18 +122,16 @@ namespace Colin.Lottery.WebApp.Services
                     };
                     await _pk10Context.Clients.Group("AllRules").SendAsync("ShowPlans", forcast);
                     
-                    //TODO:推送连挂消息
-                    if (planA.KeepGua)
+                    //3.推送连挂消息
+                    if (rule != Pk10Rule.Sum)
                     {
-                        
+                        if (planA.KeepGua)
+                            await MailNotify.NotifyAsync(new MailNotifyModel(LotteryType.Pk10, (int)rule, Plan.PlanA, planA, planA.ForcastDrawNo));
+                        if (planB.KeepGua)
+                            await MailNotify.NotifyAsync(new MailNotifyModel(LotteryType.Pk10, (int)rule, Plan.PlanB, planB, planB.ForcastDrawNo));
                     }
 
-                    if (planB.KeepGua)
-                    {
-                        
-                    }
-
-                    //广播通知消息
+                    //4.广播通知消息
                     await NotifyContext.Clients.Clients(NotifyHub.GetConnectionIds(planA.Score))
                         .SendAsync("Notify", new List<string> { CreateNotification(LotteryType.Pk10, (int)rule, Plan.PlanA, planA.ForcastDrawNo, planA.Score) });
                     await NotifyContext.Clients.Clients(NotifyHub.GetConnectionIds(planB.Score))

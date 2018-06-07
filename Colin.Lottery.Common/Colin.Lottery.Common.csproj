@@ -1,16 +1,33 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
-    <PropertyGroup>
-        <TargetFramework>netstandard2.0</TargetFramework>
-    </PropertyGroup>
-    <ItemGroup>
-        <Folder Include="Scheduler\" />
-    </ItemGroup>
-    <ItemGroup>
-        <ProjectReference Include="..\Colin.Lottery.Models\Colin.Lottery.Models.csproj" />
-        <ProjectReference Include="..\Colin.Lottery.Utils\Colin.Lottery.Utils.csproj" />
-    </ItemGroup>
-    <ItemGroup>
-      <Compile Remove="Notification.cs" />
-    </ItemGroup>
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="Scheduler\" />
+    <Folder Include="Notification\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Colin.Lottery.Models\Colin.Lottery.Models.csproj" />
+    <ProjectReference Include="..\Colin.Lottery.Utils\Colin.Lottery.Utils.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Notification.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Notification\MailNotifyTemplate.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="Notification\MailNotifyTemplate.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Notification\MailNotifyTemplate.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="NVelocity" Version="1.1.1" />
+  </ItemGroup>
 </Project>

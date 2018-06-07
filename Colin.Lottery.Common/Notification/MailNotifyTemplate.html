@@ -1,0 +1,130 @@
+﻿<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        #div-logo {
+            margin: 20px auto;
+        }
+
+        img {
+            width: 72px;
+        }
+
+        #title {
+            margin: 20px auto;
+        }
+
+        .glyphicon-fire {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div id="div-logo" class="text-center">
+            <img src="http://bet518.win/images/logo-128.svg" class="img-rounded" alt="bet518.win">
+        </div>
+        <h4 id="title" class="text-center">
+            $Model.Lottery - $Model.Rule - $Model.Plan - $Model.CurrentPeriod.KeepGuaCnt连挂 - 第$Model.CurrentPeriod.ChaseTimes期 &nbsp;
+            <small>
+                <span class="glyphicon glyphicon-fire" aria-hidden="true"></span>
+            </small>
+        </h4>
+        <a href="https://c1.jhc2go.com/" target="_blank" class="btn btn-primary btn-lg btn-block">马上下注</a>
+        <hr />
+        <div class="table-responsive">
+            <table class="table table-condensed table-hover table-striped">
+                <caption>
+                    <div class="btn-group pull-right" role="group">
+                        <a href="http://bet518.win/PK10/1" class="btn btn-primary btn-sm">
+                            $Model.Lottery - $Model.Rule&nbsp;
+                            <span class="badge">$Model.Plan</span>
+                        </a>
+                        <button class="btn btn-success btn-sm" type="button">
+                            挂&nbsp;
+                            <span class="badge">$Model.CurrentPeriod.GuaScore</span>
+                        </button>
+                        <button class="btn btn-info btn-sm" type="button">
+                            重&nbsp;
+                            <span class="badge">$Model.CurrentPeriod.RepetitionScore</span>
+                        </button>
+                        <button class="btn btn-warning btn-sm" type="button">
+                            追&nbsp;
+                            <span class="badge">$Model.CurrentPeriod.BetChaseScore</span>
+                        </button>
+                        <button class="btn btn-danger btn-sm" type="button">
+                            综&nbsp;
+                            <span class="badge">$Model.CurrentPeriod.Score.ToString("F0")</span>
+                        </button>
+                    </div>
+                </caption>
+                <thead>
+                    <tr>
+                        <th>期号区间</th>
+                        <th>预测号码</th>
+                        <th>追号期数</th>
+                        <th>开奖号码</th>
+                        <th>追号次数</th>
+                        <th>中奖结果</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    #foreach($period in $Model.PassedPeriod)
+                    <tr>
+                        <td>$period.PeriodRange</td>
+                        <td>$period.ForcastNo</td>
+                        <td>$Model.ToPeriodNo($period.LastPeriod)</td>
+                        <td>
+                            $period.DrawNo
+                        </td>
+                        <td>$period.ChaseTimes</td>
+                        <td>
+                            #if($period.IsWin)
+                            <strong class="text-danger">中</strong>
+                            #else
+                            <strong class="text-success">挂</strong>
+                            #end
+                        </td>
+                    </tr>
+                    #afterall
+                    <tr class="danger">
+                        <td>$Model.CurrentPeriod.PeriodRange</td>
+                        <td>$Model.CurrentPeriod.ForcastNo</td>
+                        <td>$Model.ToPeriodNo($Model.CurrentPeriod.LastPeriod)</td>
+                        <td>
+                            $Model.PartnerForcastNo &nbsp;
+                            <span class="label label-primary">$Model.PartnerPlan</span>
+                        </td>
+                        <td>$Model.CurrentPeriod.ChaseTimes</td>
+                        <td>
+                            <button type="button" class="btn btn-danger btn-xs">
+                                <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                $Model.CurrentPeriod.Score.ToString("F0")
+                            </button>
+                        </td>
+                    </tr>
+                    #end
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th colspan="6">
+                            当前$Model.ForcastPlan.TotalCount期内，中奖：$Model.ForcastPlan.WinCount 错误：$Model.ForcastPlan.LoseCount，中奖概率：$Model.ForcastPlan.WinProbability.ToString("p")
+                        </th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        <hr />
+        <footer>
+            <p>
+                &copy; 2018 - 彩迷心窍&nbsp;
+                <a href="http://bet518.win" class="text-danger">bet518.win</a>
+            </p>
+        </footer>
+    </div>
+</body>
+
+</html>
