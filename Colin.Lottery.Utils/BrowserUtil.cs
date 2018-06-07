@@ -85,7 +85,7 @@ namespace Colin.Lottery.Utils
                 }
                 catch (Exception ex)
                 {
-                    LogUtil.Error($"Browser访问{url}出错,错误消息:{ex.Message},堆栈信息:{ex.StackTrace}");
+                    LogUtil.Warn($"Browser访问{url}出错,错误消息:{ex.Message},堆栈信息:{ex.StackTrace}");
                 }
             });
         }
