@@ -23,7 +23,7 @@ namespace Colin.Lottery.Common.Notification
             switch (config.ContentType)
             {
                 case MailContentType.Html:
-                    content = GetEmailContent(config.Template,model);
+                    content = GetEmailContent(config.Template, model);
                     break;
                 case MailContentType.Plain:
                     content = config.Content;
@@ -37,7 +37,7 @@ namespace Colin.Lottery.Common.Notification
                 config.SmtpPort, config.UserName, config.Password);
         }
 
-        private static string GetEmailContent(string templateFile,MailNotifyModel model)
+        private static string GetEmailContent(string templateFile, MailNotifyModel model)
         {
             var file = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, templateFile);
             if (!File.Exists(file))
@@ -45,17 +45,25 @@ namespace Colin.Lottery.Common.Notification
                 LogUtil.Error($"邮件通知模板文件({templateFile})不存在，请检查配置文件或模板文件");
                 return null;
             }
-            
-            var engine=new VelocityEngine();
-            engine.SetProperty(RuntimeConstants.FILE_RESOURCE_LOADER_PATH,AppDomain.CurrentDomain.BaseDirectory);            
-            engine.Init();
-            var template=engine.GetTemplate(templateFile);
-            var context=new VelocityContext();
-            context.Put("Model", model);
-            
-            var writer=new StringWriter();
-            template.Merge(context,writer);
-            return writer.GetStringBuilder().ToString();
+
+            try
+            {
+                var engine = new VelocityEngine();
+                engine.SetProperty(RuntimeConstants.FILE_RESOURCE_LOADER_PATH, AppDomain.CurrentDomain.BaseDirectory);
+                engine.Init();
+                var template = engine.GetTemplate(templateFile);
+                var context = new VelocityContext();
+                context.Put("Model", model);
+
+                var writer = new StringWriter();
+                template.Merge(context, writer);
+                return writer.GetStringBuilder().ToString();
+            }
+            catch (Exception ex)
+            {
+                LogUtil.Warn($"通知邮件内容生成失败,错误消息:{ex.Message}堆栈内容:{ex.StackTrace}");
+                return null;
+            }
         }
     }
 }
