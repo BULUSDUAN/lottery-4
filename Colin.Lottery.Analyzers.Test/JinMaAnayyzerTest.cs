@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Xunit;
 
 using Colin.Lottery.Models;
@@ -11,8 +12,8 @@ namespace Colin.Lottery.Analyzers.Test
         public async void GetForcastDataTest()
         {
             var plans = await JinMaAnalyzer.Instance.GetForcastData();
-            ShowPlan(plans.PlanA);
-            ShowPlan(plans.PlanB);
+            ShowPlan(plans.FirstOrDefault());
+            ShowPlan(plans.LastOrDefault());
         }
 
         void ShowPlan(IForcastPlanModel plan)
@@ -27,7 +28,7 @@ namespace Colin.Lottery.Analyzers.Test
         public async void CalcuteScoreTest()
         {
             var plans = await JinMaAnalyzer.Instance.GetForcastData();
-            JinMaAnalyzer.Instance.CalcuteScore(ref plans, true);
+            JinMaAnalyzer.Instance.CalcuteScore(plans, true);
         }
     }
 }

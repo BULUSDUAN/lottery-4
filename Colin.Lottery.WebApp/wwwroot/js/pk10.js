@@ -27,12 +27,16 @@
 
     //显示预测数据
     connection.on("ShowPlans", data => {
-        data.item1.name = "Plan A";
-        data.item2.name = "Plan B";
+        if (!data||data.length<2){
+            console.error("预测数据格式错误");
+            return;
+        } 
+        data[0].name = "Plan A";
+        data[1].name = "Plan B";
 
         let container = $(template('planContainer')());
-        container.append(template('planTemplate', data.item1));
-        container.append(template('planTemplate', data.item2));
+        container.append(template('planTemplate', data[0]));
+        container.append(template('planTemplate', data[1]));
         $(".tab-pane.active").html(container);
     });
 

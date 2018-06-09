@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-
+using System.Runtime.CompilerServices;
 using Colin.Lottery.Collectors;
 using Colin.Lottery.Models;
 using Colin.Lottery.Utils;
@@ -26,15 +26,15 @@ namespace Colin.Lottery.Analyzers
             return await JinMaCollector.GetForcastData(type, planer, rule);
         }
 
-        public override async Task<(IForcastPlanModel PlanA, IForcastPlanModel PlanB)> GetForcastData(LotteryType type,
+        public override async Task<List<IForcastPlanModel>> GetForcastData(LotteryType type,
             int rule)
         {
             var planA = await GetForcastData(type, Planner.Planner1, rule);
             var planB = await GetForcastData(type, Planner.Planner2, rule);
-            return (planA, planB);
+            return new List<IForcastPlanModel>{planA,planB};
         }
 
-        public override async Task<(IForcastPlanModel PlanA, IForcastPlanModel PlanB)> GetForcastData(LotteryType type)
+        public override async Task<List<IForcastPlanModel>> GetForcastData(LotteryType type)
         {
             int rule;
             switch (type)
@@ -52,7 +52,7 @@ namespace Colin.Lottery.Analyzers
             return await GetForcastData(type, rule);
         }
 
-        public override async Task<(IForcastPlanModel PlanA, IForcastPlanModel PlanB)> GetForcastData()
+        public override async Task<List<IForcastPlanModel>> GetForcastData()
         {
             return await GetForcastData(LotteryType.Pk10, (int) Pk10Rule.Champion);
         }
@@ -191,73 +191,43 @@ namespace Colin.Lottery.Analyzers
 
         #endregion
 
-        public override void CalcuteScore(ref (IForcastPlanModel PlanA, IForcastPlanModel PlanB) plans,
+        public override void CalcuteScore(List<IForcastPlanModel> plans,
             bool startWhenBreakGua)
         {
-            var (planA, planB) = plans;
-            if (planA == null || planB == null)
-                return;
+            if (plans == null || plans.Count<2)
+            return;            
 
-            var p1Forcast = planA.ForcastData.LastOrDefault();
-            var p2Forcast = planB.ForcastData.LastOrDefault();
-            if(p1Forcast==null||p2Forcast==null)
-                return;
-
-            var repetition = CalcuteRepetition(p1Forcast.ForcastNo, p2Forcast.ForcastNo);
-            var gua1 = CalcuteGua(planA.ForcastData, startWhenBreakGua, out var keepGuaCnt1, out _);
-            var gua2 = CalcuteGua(planB.ForcastData, startWhenBreakGua, out var keepGuaCnt2, out _);
-            var chase1 = CalcuteBetChase(p1Forcast.ChaseTimes);
-            var chase2 = CalcuteBetChase(p2Forcast.ChaseTimes);
-            
-            if (!startWhenBreakGua)
+            var repetition = CalcuteRepetition(plans.FirstOrDefault().ForcastDrawNo,plans.LastOrDefault().ForcastDrawNo);
+            plans.ForEach(plan =>
             {
-                if (keepGuaCnt1 > 1 || repetition >= Repetition)
-                    planA.Score = 100;
+                plan.RepetitionScore = repetition;
+                plan.GuaScore = CalcuteGua(plan.ForcastData, startWhenBreakGua, out var keepGuaCnt, out _);
+                plan.KeepGuaCnt = keepGuaCnt;
+                plan.BetChaseScore = CalcuteBetChase(plan.ForcastData.LastOrDefault().ChaseTimes);
+                
+                if (!startWhenBreakGua)
+                {
+                    if (keepGuaCnt > 1 || repetition >= Repetition)
+                        plan.Score = 100;
+                    else
+                    {
+                        var score = (plan.GuaScore * Pg + repetition * Pr + plan.BetChaseScore * Pc) * (plan.WinProbability - MinPrpbability) /
+                                 (MaxPrpbability - MinPrpbability);
+                        plan.Score = repetition >= Repetition ? repetition : score;
+                    }
+                }
                 else
                 {
-                    var s1 = (gua1 * Pg + repetition * Pr + chase1 * Pc) * (planA.WinProbability - MinPrpbability) /
-                             (MaxPrpbability - MinPrpbability);
-                    planA.Score = repetition >= Repetition ? repetition : s1;
+                    if (plan.GuaScore >= 90 || repetition >= Repetition)
+                        plan.Score = 100;
+                    else
+                    {
+                        var score = (plan.GuaScore * Pgb + repetition * Prb + plan.BetChaseScore * Pcb) * (plan.WinProbability - MinPrpbability) /
+                                 (MaxPrpbability - MinPrpbability);
+                        plan.Score = repetition >= Repetition ? repetition : score;
+                    }
                 }
-
-                if (keepGuaCnt2 > 1 || repetition >= Repetition)
-                    planB.Score = 100;
-                else
-                {
-                    var s2 = (gua2 * Pg + repetition * Pr + chase2 * Pc) * (planB.WinProbability - MinPrpbability) /
-                             (MaxPrpbability - MinPrpbability);
-                    planB.Score = repetition >= Repetition ? repetition : s2;
-                }
-            }
-            else
-            {
-                if (gua1 >= 90 || repetition >= Repetition)
-                    planA.Score = 100;
-                else
-                {
-                    var s1 = (gua1 * Pgb + repetition * Prb + chase1 * Pcb) * (planA.WinProbability - MinPrpbability) /
-                             (MaxPrpbability - MinPrpbability);
-                    planA.Score = repetition >= Repetition ? repetition : s1;
-                }
-
-                if (gua2 >= 90 || repetition >= Repetition)
-                    planB.Score = 100;
-                else
-                {
-                    var s2 = (gua2 * Pgb + repetition * Prb + chase2 * Pcb) * (planB.WinProbability - MinPrpbability) /
-                             (MaxPrpbability - MinPrpbability);
-                    planB.Score = repetition >= Repetition ? repetition : s2;
-                }
-            }
-            
-            planA.GuaScore = gua1;
-            planA.RepetitionScore = repetition;
-            planA.BetChaseScore = chase1;
-            planA.KeepGuaCnt = keepGuaCnt1;
-            planB.GuaScore = gua2;
-            planB.RepetitionScore = repetition;
-            planB.BetChaseScore = chase2;
-            planB.KeepGuaCnt = keepGuaCnt2;
+            });
         }
 
 

@@ -1,4 +1,3 @@
-using System;
 using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -22,14 +21,14 @@ namespace Colin.Lottery.WebApp.Hubs
         public async Task GetForcastData(int rule = 1, bool startWhenBreakGua = false)
         {
             var plans = await JinMaAnalyzer.Instance.GetForcastData(LotteryType.Pk10, rule);
-            if (plans.PlanA == null || plans.PlanB == null)
+            if (plans==null||plans.Count<2)
             {
                 await Clients.Caller.SendAsync("NoResult");
                 LogUtil.Warn("目标网站扫水接口异常，请尽快检查恢复");
             }
             else
             {
-                JinMaAnalyzer.Instance.CalcuteScore(ref plans, startWhenBreakGua);
+                JinMaAnalyzer.Instance.CalcuteScore(plans, startWhenBreakGua);
                 await Clients.Caller.SendAsync("ShowPlans", plans);
             }
 
@@ -69,12 +68,11 @@ namespace Colin.Lottery.WebApp.Hubs
         private static async Task<int> GetNewForcast(ICollection<IForcastModel> newForcast, Pk10Rule rule, bool startWhenBreakGua)
         {
             var plans = await JinMaAnalyzer.Instance.GetForcastData(LotteryType.Pk10, (int)rule);
-            if (plans.PlanA == null || plans.PlanB == null)
+            if (plans==null||plans.Count<2)
                 return 1;
 
-            JinMaAnalyzer.Instance.CalcuteScore(ref plans, startWhenBreakGua);
-            newForcast.Add(plans.PlanA.ForcastData.LastOrDefault());
-            newForcast.Add(plans.PlanB.ForcastData.LastOrDefault());
+            JinMaAnalyzer.Instance.CalcuteScore(plans, startWhenBreakGua);
+            plans.ForEach(p=>newForcast.Add(p.ForcastData.LastOrDefault()));
             return 0;
         }
 
