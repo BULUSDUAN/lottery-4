@@ -2,17 +2,12 @@
 
 namespace Colin.Lottery.Models
 {
+    /// <inheritdoc />
     /// <summary>
     /// 预测数据模型接口
     /// </summary>
-    public interface IForcastModel
+    public interface IForcastModel:IForcastSharedModel
     {
-        /// <summary>
-        /// 玩法规则
-        /// </summary>
-        /// <value>The rule.</value>
-        string Rule { get; set; }
-
         /// <summary>
         /// 期号范围
         /// </summary>
@@ -42,42 +37,13 @@ namespace Colin.Lottery.Models
         /// 开奖号码
         /// </summary>
         string DrawNo { get; set; }
-        
-        /// <summary>
-        /// 从最新期开始连挂次数
-        /// </summary>
-        int KeepGuaCnt { get; set; }
-        
-        /// <summary>
-        /// 挂-分数
-        /// </summary>
-        float GuaScore { get; set; }
-
-        /// <summary>
-        /// 号码重复度-分数
-        /// </summary>
-        float RepetitionScore { get; set; }
-
-        /// <summary>
-        /// 追号次数-分数
-        /// </summary>
-        float BetChaseScore { get; set; }
-
-        /// <summary>
-        /// 最新期评测分数
-        /// </summary>
-        float Score { get; set; }
-
-        /// <summary>
-        /// 中奖概率
-        /// </summary>
-        float WinProbability { get; set; }
     }
 
+    /// <inheritdoc />
     /// <summary>
     /// 预测数据集模型接口
     /// </summary>
-    public interface IForcastPlanModel
+    public interface IForcastPlanModel:IForcastSharedModel
     {
         /// <summary>
         /// 预测数据
@@ -85,14 +51,30 @@ namespace Colin.Lottery.Models
         List<IForcastModel> ForcastData { get; set; }
 
         /// <summary>
-        /// 最新一期开奖期号
+        /// 最新开奖期号
         /// </summary>
         long LastDrawedPeriod { get; set; }
 
         /// <summary>
-        /// 最新一期开奖号码
+        /// 最新预测开奖号码
         /// </summary>
-        string LastDrawNo { get; set; }
+        string ForcastDrawNo { get; }
+    }
+
+    /// <summary>
+    /// 预测数据Plan级与最新期共享字段
+    /// </summary>
+    public interface IForcastSharedModel
+    {
+        /// <summary>
+        /// 玩法规则
+        /// </summary>
+        string Rule { get; set; }
+        
+        /// <summary>
+        /// 计划
+        /// </summary>
+        Plan Plan { get; set; }
 
         /// <summary>
         /// 统计有效期数
@@ -135,23 +117,8 @@ namespace Colin.Lottery.Models
         float Score { get; set; }
 
         /// <summary>
-        /// 是否处于连挂有效期内
-        /// </summary>
-        bool KeepGua { get; set; }
-
-        /// <summary>
         /// 从最新期开始连挂次数
         /// </summary>
         int KeepGuaCnt { get; set; }
-
-        /// <summary>
-        /// 历史记录(不包含从最新期连挂的情况)出现连挂次数
-        /// </summary>
-        int KeepHisGuaCnt { get; set; }
-
-        /// <summary>
-        /// 最新预测开奖号码
-        /// </summary>
-        string ForcastDrawNo { get; }
     }
 }

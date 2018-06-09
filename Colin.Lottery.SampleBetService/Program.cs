@@ -1,8 +1,6 @@
-﻿using Colin.Lottery.Models;
-using Microsoft.AspNetCore.SignalR.Client;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using System;
+using Colin.Lottery.Models;
+using Colin.Lottery.SampleBetService.DataModels;
 
 namespace Colin.Lottery.SampleBetService
 {
@@ -10,43 +8,26 @@ namespace Colin.Lottery.SampleBetService
     {
         static void Main(string[] args)
         {
+            SampleBet.StartConnection();
+            
+            Console.WriteLine("OK");
             Console.ReadKey();
         }
 
-        static async Task Run()
+        private static void Test()
         {
-            var connection = new HubConnectionBuilder()
-                .WithUrl($"http://localhost:5000/hubs/pk10")
-                .Build();
-
-            Console.WriteLine("Starting connection. Press Ctrl-C to close.");
-
-            connection.On<string>("ShowServerTime", (time) =>
+            using (var db = new SampleBetContext())
             {
-                Console.WriteLine($"Server Time is {time} now.");
-            });
+                db.BetAll.Add(new BeAllRecord(LotteryType.Pk10,1,Plan.PlanA,123,"1 2 3 4 5",2,1,1.956f,10000));
+                var count = db.SaveChanges();
+                Console.WriteLine("{0} records saved to database", count);
 
-            connection.On<IForcastPlanModel>("ShowPlans", plan =>
-           {
-               SampleBet.ShowPlans(plan);
-               //Console.WriteLine($"Server Time is {time} now.");
-           });
-
-            var cts = new CancellationTokenSource();
-            Console.CancelKeyPress += (sender, a) =>
-            {
-                a.Cancel = true;
-                cts.Cancel();
-            };
-
-            //connection.Closed += e =>
-            //{
-            //    Console.WriteLine("Connection closed with error: {0}", e);
-
-            //    cts.Cancel();
-            //};
-
-            await connection.StartAsync();
+                Console.WriteLine("AllRecords in database:");
+                foreach (var record in db.BetAll)
+                {
+                    Console.WriteLine(" - {0}",record.Id);
+                }
+            }
         }
     }
 }

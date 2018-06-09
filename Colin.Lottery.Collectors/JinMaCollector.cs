@@ -74,7 +74,12 @@ namespace Colin.Lottery.Collectors
             var response = await HttpUtil.GetStringAsync(GetForecastUrl(type, planer, rule));
             try
             {
-                return string.IsNullOrWhiteSpace(response) ? null : JsonConvert.DeserializeObject<JinMaForcastPlanModel>(response);
+                if (string.IsNullOrWhiteSpace(response))
+                    return null;
+                
+                var result = JsonConvert.DeserializeObject<JinMaForcastPlanModel>(response);
+                result.Plan = planer.GetPlan();
+                return result;
             }
             catch (Exception ex)
             {

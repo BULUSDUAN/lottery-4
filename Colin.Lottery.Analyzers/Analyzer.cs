@@ -10,12 +10,12 @@ namespace Colin.Lottery.Analyzers
     {
         public abstract Task<IForcastPlanModel> GetForcastData(LotteryType type, Planner planer, int rule);
 
-        public abstract Task<(IForcastPlanModel Plan1, IForcastPlanModel Plan2)> GetForcastData(LotteryType type, int rule);
+        public abstract Task<(IForcastPlanModel PlanA, IForcastPlanModel PlanB)> GetForcastData(LotteryType type, int rule);
 
-        public abstract Task<(IForcastPlanModel Plan1, IForcastPlanModel Plan2)> GetForcastData(LotteryType type);
+        public abstract Task<(IForcastPlanModel PlanA, IForcastPlanModel PlanB)> GetForcastData(LotteryType type);
 
-        public abstract Task<(IForcastPlanModel Plan1, IForcastPlanModel Plan2)> GetForcastData();
+        public abstract Task<(IForcastPlanModel PlanA, IForcastPlanModel PlanB)> GetForcastData();
 
-        public abstract void CalcuteScore(ref (IForcastPlanModel Plan1, IForcastPlanModel Plan2) plans, bool startWhenBreakGua);
+        public abstract void CalcuteScore(ref (IForcastPlanModel PlanA, IForcastPlanModel PlanB) plans, bool startWhenBreakGua);
     }
 }

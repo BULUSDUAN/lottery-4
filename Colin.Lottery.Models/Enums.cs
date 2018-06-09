@@ -1,4 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.InteropServices.ComTypes;
+using static Colin.Lottery.Models.Pk10Rule;
 
 namespace Colin.Lottery.Models
 {
@@ -143,56 +147,32 @@ namespace Colin.Lottery.Models
             throw new ArgumentException($"彩种 - “{lottery}” 暂不支持");
         }
 
-        public static string ToStringName(this Pk10Rule rule)
+
+        private static readonly Dictionary<Pk10Rule, string> Pk10Rules = new Dictionary<Pk10Rule, string>
         {
-            switch (rule)
-            {
-                case Pk10Rule.Champion:
-                    return "冠军";
-                case Pk10Rule.Second:
-                    return "亚军";
-                case Pk10Rule.Third:
-                    return "季军";
-                case Pk10Rule.Fourth:
-                    return "第4名";
-                case Pk10Rule.BigOrSmall:
-                    return "冠军大小";
-                case Pk10Rule.OddOrEven:
-                    return "冠军单双";
-                case Pk10Rule.DragonOrTiger:
-                    return "冠军龙虎";
-                case Pk10Rule.Sum:
-                    return "冠亚和值";
-            }
-
-            throw new ArgumentException($"北京PK10玩法 - “{rule}” 暂不支持");
-        }
-
-        public static string ToStringName(this CqsscRule rule)
+            [Champion] = "冠军",
+            [Second]="亚军",
+            [Third]="季军",
+            [Fourth]="第4名",
+            [BigOrSmall]="冠军大小",
+            [OddOrEven]="冠军单双",
+            [DragonOrTiger]="冠军龙虎",
+            [Sum]="冠亚和值"
+        };
+        private static readonly Dictionary<CqsscRule,string> CqsscRules=new Dictionary<CqsscRule, string>
         {
-            switch (rule)
-            {
-                case CqsscRule.OddOrEven:
-                    return "总和单双";
-                case CqsscRule.BigOrSmall:
-                    return "总和大小";
-                case CqsscRule.DragonOrTiger:
-                    return "龙虎";
-                case CqsscRule.Last2Group:
-                    return "后二组选";
-                case CqsscRule.Last3Group:
-                    return "后三组选";
-                case CqsscRule.OneOddOrEven:
-                    return "个位单双";
-                case CqsscRule.OneBigOrSmall:
-                    return "个位大小";
-                case CqsscRule.One:
-                    return "个位定位";
-            }
+            [CqsscRule.OddOrEven]="总和单双",
+            [CqsscRule.BigOrSmall]="总和大小",
+            [CqsscRule.DragonOrTiger]="龙虎",
+            [CqsscRule.Last2Group]="后二组选",
+            [CqsscRule.Last3Group]="后三组选",
+            [CqsscRule.OneOddOrEven]="个位单双",
+            [CqsscRule.OneBigOrSmall]="个位大小",
+            [CqsscRule.One]="个位定位"
+        };
 
-            throw new ArgumentException($"重庆时时彩玩法 - “{rule}” 暂不支持");
-        }
-
+        public static string ToStringName(this Pk10Rule rule) => Pk10Rules[rule];
+        public static string ToStringName(this CqsscRule rule) => CqsscRules[rule];
         public static string ToStringName(this int rule, LotteryType lottery)
         {
             switch (lottery)
@@ -205,7 +185,17 @@ namespace Colin.Lottery.Models
 
             throw new ArgumentException($"彩种 - “{lottery}” 暂不支持");
         }
+        
+        public static Pk10Rule ToPk10Rule(this string rule)=>Pk10Rules.Keys.FirstOrDefault(r => Pk10Rules[r] == rule);
+        public static CqsscRule ToCqsscRule(this string rule)=>CqsscRules.Keys.FirstOrDefault(r => CqsscRules[r] == rule);
 
+        private static readonly Dictionary<Planner, Plan> PlannerPlan=new Dictionary<Planner, Plan>
+        {
+            [Planner.Planner1]=Plan.PlanA,
+            [Planner.Planner2]=Plan.PlanB
+        };
+        public static Plan GetPlan(this Planner planner) => PlannerPlan[planner];
+        
         public static int ToInt(this LotteryType lottery) => (int)lottery;
 
         public static int ToInt(this Plan plan) => (int)plan;

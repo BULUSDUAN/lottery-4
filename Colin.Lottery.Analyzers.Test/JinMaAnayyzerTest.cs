@@ -11,8 +11,8 @@ namespace Colin.Lottery.Analyzers.Test
         public async void GetForcastDataTest()
         {
             var plans = await JinMaAnalyzer.Instance.GetForcastData();
-            ShowPlan(plans.Plan1);
-            ShowPlan(plans.Plan2);
+            ShowPlan(plans.PlanA);
+            ShowPlan(plans.PlanB);
         }
 
         void ShowPlan(IForcastPlanModel plan)

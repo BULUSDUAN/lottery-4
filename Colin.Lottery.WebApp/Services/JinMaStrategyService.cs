@@ -125,9 +125,9 @@ namespace Colin.Lottery.WebApp.Services
                     //3.推送连挂消息
                     if (rule != Pk10Rule.Sum)
                     {
-                        if (planA.KeepGua)
+                        if (planA.KeepGuaCnt>0)
                             await MailNotify.NotifyAsync(new MailNotifyModel(LotteryType.Pk10, (int)rule, Plan.PlanA, planA, planA.ForcastDrawNo));
-                        if (planB.KeepGua)
+                        if (planB.KeepGuaCnt>0)
                             await MailNotify.NotifyAsync(new MailNotifyModel(LotteryType.Pk10, (int)rule, Plan.PlanB, planB, planB.ForcastDrawNo));
                     }
 

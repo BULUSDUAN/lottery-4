@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -21,7 +22,7 @@ namespace Colin.Lottery.WebApp.Hubs
         public async Task GetForcastData(int rule = 1, bool startWhenBreakGua = false)
         {
             var plans = await JinMaAnalyzer.Instance.GetForcastData(LotteryType.Pk10, rule);
-            if (plans.Plan1 == null || plans.Plan2 == null)
+            if (plans.PlanA == null || plans.PlanB == null)
             {
                 await Clients.Caller.SendAsync("NoResult");
                 LogUtil.Warn("目标网站扫水接口异常，请尽快检查恢复");
@@ -68,12 +69,12 @@ namespace Colin.Lottery.WebApp.Hubs
         private static async Task<int> GetNewForcast(ICollection<IForcastModel> newForcast, Pk10Rule rule, bool startWhenBreakGua)
         {
             var plans = await JinMaAnalyzer.Instance.GetForcastData(LotteryType.Pk10, (int)rule);
-            if (plans.Plan1 == null || plans.Plan2 == null)
+            if (plans.PlanA == null || plans.PlanB == null)
                 return 1;
 
             JinMaAnalyzer.Instance.CalcuteScore(ref plans, startWhenBreakGua);
-            newForcast.Add(plans.Plan1.ForcastData.LastOrDefault());
-            newForcast.Add(plans.Plan2.ForcastData.LastOrDefault());
+            newForcast.Add(plans.PlanA.ForcastData.LastOrDefault());
+            newForcast.Add(plans.PlanB.ForcastData.LastOrDefault());
             return 0;
         }
 
@@ -82,6 +83,5 @@ namespace Colin.Lottery.WebApp.Hubs
         /// </summary>
         /// <returns>The all rules.</returns>
         public async Task RegisterAllRules() => await Groups.AddToGroupAsync(Context.ConnectionId, "AllRules");
-
     }
 }

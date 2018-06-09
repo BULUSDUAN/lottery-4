@@ -6,10 +6,12 @@ namespace Colin.Lottery.Models
 {
     public class JinMaForcastModel : ForcastModel
     {
-        public string ApiName { set => Rule = value; }
+        #region 15期数据
 
         public string ZhouQi { set => PeriodRange = value; }
 
+        public string ApiName { set => Rule = value; }
+        
         public string Number { set => ForcastNo = value; }
 
         public int Ready { set => ChaseTimes = value; }
@@ -20,6 +22,10 @@ namespace Colin.Lottery.Models
 
         public string OpenCode { set => DrawNo = value; }
 
+        #endregion
+
+        #region 汇总数据
+
         public long NowQiHao { get; set; }
 
         public int A { get; set; }
@@ -28,7 +34,9 @@ namespace Colin.Lottery.Models
 
         public int C { get; set; }
 
-        public string L { get; set; }
+        public string L { get; set; }        
+
+        #endregion
     }
 
     public class JinMaForcastPlanModel : ForcastPlanModel
@@ -39,14 +47,13 @@ namespace Colin.Lottery.Models
             {
                 ForcastData = new List<IForcastModel>();
                 ForcastData.AddRange(value.Take(value.Count() - 1));
+                
                 var summary = value.LastOrDefault();
                 LastDrawedPeriod = summary.NowQiHao;
-                LastDrawNo = summary.DrawNo;
                 TotalCount = summary.A;
                 WinCount = summary.B;
                 LoseCount = summary.C;
                 WinProbability = float.Parse(summary.L.TrimEnd('%')) / 100;
-                ForcastData.LastOrDefault().WinProbability = WinProbability;
             }
         }
     }

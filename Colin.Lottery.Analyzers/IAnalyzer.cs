@@ -20,26 +20,26 @@ namespace Colin.Lottery.Analyzers
         /// <param name="type">彩种</param>
         /// <param name="rule">彩票玩法</param>
         /// <returns>彩票预测数据</returns>
-        Task<(IForcastPlanModel Plan1, IForcastPlanModel Plan2)> GetForcastData(LotteryType type, int rule);
+        Task<(IForcastPlanModel PlanA, IForcastPlanModel PlanB)> GetForcastData(LotteryType type, int rule);
 
         /// <summary>
         /// 查询预测数据（默认为北京赛车冠军定位胆或重庆时时彩个位定位胆）
         /// </summary>
         /// <param name="type">彩种</param>
         /// <returns>彩票预测数据</returns>
-        Task<(IForcastPlanModel Plan1, IForcastPlanModel Plan2)> GetForcastData(LotteryType type);
+        Task<(IForcastPlanModel PlanA, IForcastPlanModel PlanB)> GetForcastData(LotteryType type);
 
         /// <summary>
         /// 查询预测数据（默认为北京赛车冠军定位胆）
         /// </summary>
         /// <returns>彩票预测数据</returns>
-        Task<(IForcastPlanModel Plan1, IForcastPlanModel Plan2)> GetForcastData();
+        Task<(IForcastPlanModel PlanA, IForcastPlanModel PlanB)> GetForcastData();
 
         /// <summary>
         /// 对计划评分
         /// </summary>
         /// <param name="plans">Plans.</param>
         /// <param name="startWhenBreakGua">If set to <c>true</c> start when break gua.</param>
-        void CalcuteScore(ref (IForcastPlanModel Plan1, IForcastPlanModel Plan2) plans, bool startWhenBreakGua);
+        void CalcuteScore(ref (IForcastPlanModel PlanA, IForcastPlanModel PlanB) plans, bool startWhenBreakGua);
     }
 }
