@@ -69,12 +69,12 @@ namespace Colin.Lottery.Utils
         /// <param name="subject">Subject.</param>
         /// <param name="content">Content.</param>
         /// <param name="contentType">Content type.</param>
-        public static async Task<SendGrid.Response> MailAsync(string sendGridApiKey, string from, IEnumerable<string> tos, string subject, string content, MailContentType contentType)
+        public static async Task MailAsync(string sendGridApiKey, string from, IEnumerable<string> tos, string subject, string content, MailContentType contentType)
         {
             if (tos == null || !tos.Any())
             {
                 LogUtil.Warn($"邮件发送失败，错误消息: 收件人不能为空！");
-                return null;
+                return;
             }
 
             var sendgrid = new SendGridClient(sendGridApiKey);
@@ -95,7 +95,9 @@ namespace Colin.Lottery.Utils
                     }
                 }
             };
-            return await sendgrid.SendEmailAsync(sendMessage);
+            SendGrid.Response response =  await sendgrid.SendEmailAsync(sendMessage);
+
+            LogUtil.Info($"Sendgrid 邮件发送状态: {response.StatusCode}");
         }
     }
 }
