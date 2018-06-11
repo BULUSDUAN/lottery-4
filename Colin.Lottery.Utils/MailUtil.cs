@@ -88,7 +88,7 @@ namespace Colin.Lottery.Utils
             {
                 From = new EmailAddress(from),
                 Subject = subject,
-                HtmlContent = "测试 SendGrid " + DateTime.Now,
+                HtmlContent = content,
                 Personalizations = new List<Personalization> {
                     new Personalization(){
                         Tos = emailAddresses
