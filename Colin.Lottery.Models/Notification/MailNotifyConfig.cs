@@ -1,4 +1,6 @@
-﻿namespace Colin.Lottery.Models.Notification
+﻿using System.Collections.Generic;
+
+namespace Colin.Lottery.Models.Notification
 {
     public class MailNotifyConfig
     {
