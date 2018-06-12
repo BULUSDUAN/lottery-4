@@ -10,8 +10,6 @@ namespace Colin.Lottery.AutoBetService
         {
             Test();
 
-            Console.WriteLine("OK");
-
             Console.ReadKey();
         }
 
@@ -20,9 +18,9 @@ namespace Colin.Lottery.AutoBetService
             var config = ConfigUtil.GetAppSettings<MailNotifyConfig>("MailNotify");
             SendGridConfig sendgridApiKey = ConfigUtil.GetAppSettings<SendGridConfig>("SendGridConfig");
 
-            await MailUtil.MailAsync(
+            SendGrid.Response respone = await MailUtil.MailAsync(
                 sendgridApiKey.ApiKey, config.From, config.To.Split(','), config.Subject, config.Content, config.ContentType);
-            //Console.WriteLine($"邮件已发送，状态 : {respone.StatusCode} ");
+            Console.WriteLine($"邮件已发送，状态 : {respone.StatusCode} ");
         }
     }
 }
