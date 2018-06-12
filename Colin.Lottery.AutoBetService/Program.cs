@@ -11,7 +11,6 @@ namespace Colin.Lottery.AutoBetService
             Test();
 
             Console.WriteLine("OK");
-
             Console.ReadKey();
         }
 
