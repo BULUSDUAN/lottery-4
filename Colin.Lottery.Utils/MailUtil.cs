@@ -1,11 +1,12 @@
 ﻿using System;
-using MimeKit;
-using MailKit.Net.Smtp;
-using System.Threading.Tasks;
-
-using Colin.Lottery.Models;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using Colin.Lottery.Models;
+using MailKit.Net.Smtp;
+using MimeKit;
+using SendGrid;
+using SendGrid.Helpers.Mail;
 
 namespace Colin.Lottery.Utils
 {
@@ -56,6 +57,47 @@ namespace Colin.Lottery.Utils
             {
                 LogUtil.Warn($"邮件发送失败，请检查配置.错误消息:{ex.Message}\r\n堆栈错误:{ex.StackTrace}");
             }
+        }
+
+        /// <summary>
+        /// 使用 SendGrid 发送邮件 (Google Cloud 支持的服务之一)
+        /// </summary>
+        /// <returns>发送回执</returns>
+        /// <param name="sendGridApiKey">Sendgrid API key.</param>
+        /// <param name="from">From.</param>
+        /// <param name="tos">Tos.</param>
+        /// <param name="subject">Subject.</param>
+        /// <param name="content">Content.</param>
+        /// <param name="contentType">Content type.</param>
+        public static async Task MailAsync(string sendGridApiKey, string from, IEnumerable<string> tos, string subject, string content, MailContentType contentType)
+        {
+            if (tos == null || !tos.Any())
+            {
+                LogUtil.Warn($"邮件发送失败，错误消息: 收件人不能为空！");
+                return;
+            }
+
+            var sendgrid = new SendGridClient(sendGridApiKey);
+            var emailAddresses = new List<EmailAddress>();
+            foreach (var to in tos)
+            {
+                emailAddresses.Add(new EmailAddress(to));
+            }
+
+            var sendMessage = new SendGridMessage()
+            {
+                From = new EmailAddress(from),
+                Subject = subject,
+                HtmlContent = content,
+                Personalizations = new List<Personalization> {
+                    new Personalization(){
+                        Tos = emailAddresses
+                    }
+                }
+            };
+            SendGrid.Response response =  await sendgrid.SendEmailAsync(sendMessage);
+
+            LogUtil.Info($"Sendgrid 邮件发送状态: {response.StatusCode}");
         }
     }
 }
