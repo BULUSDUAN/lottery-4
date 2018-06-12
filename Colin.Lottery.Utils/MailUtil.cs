@@ -81,9 +81,15 @@ namespace Colin.Lottery.Utils
                 message.PlainTextContent = content;
             else
                 message.HtmlContent = content;
-            
-            
-            await sendgrid.SendEmailAsync(message);
+
+            try
+            {
+                await sendgrid.SendEmailAsync(message);
+            }
+            catch (Exception ex)
+            {
+                LogUtil.Warn($"邮件发送失败，请检查配置.错误消息:{ex.Message}\r\n堆栈错误:{ex.StackTrace}");
+            }
         }
     }
 }
