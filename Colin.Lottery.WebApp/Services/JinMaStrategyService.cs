@@ -121,7 +121,7 @@ namespace Colin.Lottery.WebApp.Services
                     {
                         plans.ForEach(async p =>
                         {
-                            if(p.KeepGuaCnt>0)
+                            if(p.KeepGuaCnt>1)
                                 await MailNotify.NotifyAsync(new MailNotifyModel(LotteryType.Pk10, (int)rule, Plan.PlanA, p, p.ForcastDrawNo));
                         });
                     }

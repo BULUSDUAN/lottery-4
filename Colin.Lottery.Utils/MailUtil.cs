@@ -62,42 +62,28 @@ namespace Colin.Lottery.Utils
         /// <summary>
         /// 使用 SendGrid 发送邮件 (Google Cloud 支持的服务之一)
         /// </summary>
-        /// <returns>发送回执</returns>
-        /// <param name="sendGridApiKey">Sendgrid API key.</param>
+        /// <param name="apiKey">Sendgrid API key.</param>
         /// <param name="from">From.</param>
-        /// <param name="tos">Tos.</param>
+        /// <param name="to"></param>
         /// <param name="subject">Subject.</param>
         /// <param name="content">Content.</param>
         /// <param name="contentType">Content type.</param>
-        public static async Task MailAsync(string sendGridApiKey, string from, IEnumerable<string> tos, string subject, string content, MailContentType contentType)
+        public static async Task MailAsync(string apiKey, string from, IEnumerable<string> to, string subject, string content, MailContentType contentType)
         {
-            if (tos == null || !tos.Any())
-            {
-                LogUtil.Warn($"邮件发送失败，错误消息: 收件人不能为空！");
-                return;
-            }
-
-            var sendgrid = new SendGridClient(sendGridApiKey);
-            var emailAddresses = new List<EmailAddress>();
-            foreach (var to in tos)
-            {
-                emailAddresses.Add(new EmailAddress(to));
-            }
-
-            var sendMessage = new SendGridMessage()
+            var sendgrid = new SendGridClient(apiKey);
+            var message = new SendGridMessage
             {
                 From = new EmailAddress(from),
-                Subject = subject,
-                HtmlContent = content,
-                Personalizations = new List<Personalization> {
-                    new Personalization(){
-                        Tos = emailAddresses
-                    }
-                }
+                Personalizations = new List<Personalization> {new Personalization{Tos = to.Select(mailAddr=>new EmailAddress(mailAddr)).ToList()}},
+                Subject = subject
             };
-            SendGrid.Response response =  await sendgrid.SendEmailAsync(sendMessage);
-
-            LogUtil.Info($"Sendgrid 邮件发送状态: {response.StatusCode}");
+            if (contentType == MailContentType.Plain)
+                message.PlainTextContent = content;
+            else
+                message.HtmlContent = content;
+            
+            
+            await sendgrid.SendEmailAsync(message);
         }
     }
 }

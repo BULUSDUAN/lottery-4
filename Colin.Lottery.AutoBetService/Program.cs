@@ -18,10 +18,8 @@ namespace Colin.Lottery.AutoBetService
         private static async void Test()
         {
             var config = ConfigUtil.GetAppSettings<MailNotifyConfig>("MailNotify");
-            SendGridConfig sendgridApiKey = ConfigUtil.GetAppSettings<SendGridConfig>("SendGridConfig");
 
-             await MailUtil.MailAsync(
-                sendgridApiKey.ApiKey, config.From, config.To.Split(','), config.Subject, config.Content, config.ContentType);
+             await MailUtil.MailAsync(config.ApiKey, config.From, config.To.Split(','), config.Subject, "123123", config.ContentType);
         }
     }
 }

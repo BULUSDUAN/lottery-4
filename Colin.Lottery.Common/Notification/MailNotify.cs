@@ -17,7 +17,6 @@ namespace Colin.Lottery.Common.Notification
         public static async Task NotifyAsync(MailNotifyModel model)
         {
             var config = ConfigUtil.GetAppSettings<MailNotifyConfig>("MailNotify");
-            SendGridConfig sendgridApiKey = ConfigUtil.GetAppSettings<SendGridConfig>("SendGridConfig");
 
             var subject = $"{model.Lottery}-{model.Rule}-{model.Plan}-{model.CurrentPeriod.KeepGuaCnt}连挂-第{model.CurrentPeriod.ChaseTimes}期";
             string content;
@@ -34,8 +33,7 @@ namespace Colin.Lottery.Common.Notification
                     return;
             }
 
-            await MailUtil.MailAsync(sendgridApiKey.ApiKey,
-                                     config.From, config.To.Split(','), subject, content, config.ContentType);
+            await MailUtil.MailAsync(config.ApiKey,config.From, config.To.Split(','), subject, content, config.ContentType);
         }
 
         private static string GetEmailContent(string templateFile, MailNotifyModel model)
