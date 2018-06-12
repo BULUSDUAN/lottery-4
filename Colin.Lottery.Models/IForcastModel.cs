@@ -120,5 +120,7 @@ namespace Colin.Lottery.Models
         /// 从最新期开始连挂次数
         /// </summary>
         int KeepGuaCnt { get; set; }
+
+        int CurrentGuaCnt { get; set; }
     }
 }

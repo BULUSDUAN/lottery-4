@@ -21,6 +21,7 @@ namespace Colin.Lottery.Models
         public override Plan Plan { get; set; }
 
         public override int KeepGuaCnt { get; set; }
+        public override int CurrentGuaCnt { get; set; }
         public override float GuaScore { get; set; }
         public override float RepetitionScore { get; set; }
         public override float BetChaseScore { get; set; }
@@ -136,10 +137,22 @@ namespace Colin.Lottery.Models
         private int _keepGuaCnt;
         public override int KeepGuaCnt
         {
-            get => _keepGuaCnt; set
+            get => _keepGuaCnt; 
+            set
             {
                 _keepGuaCnt = value;
                 CurrentForcast.KeepGuaCnt = value;
+            }
+        }
+        
+        private int _currentGuaCnt;
+        public override int CurrentGuaCnt
+        {
+            get => _currentGuaCnt; 
+            set
+            {
+                _currentGuaCnt = value;
+                CurrentForcast.CurrentGuaCnt = value;
             }
         }
 
@@ -162,5 +175,6 @@ namespace Colin.Lottery.Models
         public abstract float BetChaseScore { get; set; }
         public abstract float Score { get; set; }
         public abstract int KeepGuaCnt { get; set; }
+        public abstract int CurrentGuaCnt { get; set; }
     }
 }

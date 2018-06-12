@@ -197,11 +197,11 @@ namespace Colin.Lottery.Analyzers
             if (plans == null || plans.Count<2)
             return;            
 
-            var repetition = CalcuteRepetition(plans.FirstOrDefault().ForcastDrawNo,plans.LastOrDefault().ForcastDrawNo);
+            var repetition = CalcuteRepetition(plans[0].ForcastDrawNo,plans[1].ForcastDrawNo);
             plans.ForEach(plan =>
             {
                 plan.RepetitionScore = repetition;
-                plan.GuaScore = CalcuteGua(plan.ForcastData, startWhenBreakGua, out var keepGuaCnt, out _);
+                plan.GuaScore = CalcuteGua(plan.ForcastData, startWhenBreakGua, out var keepGuaCnt, out var currentGuaCnt);
                 plan.KeepGuaCnt = keepGuaCnt;
                 plan.BetChaseScore = CalcuteBetChase(plan.ForcastData.LastOrDefault().ChaseTimes);
                 
@@ -301,20 +301,20 @@ namespace Colin.Lottery.Analyzers
         /// </summary>
         /// <param name="forcastData"></param>
         /// <param name="startWhenBreakGua"></param>
-        /// <param name="keepGuaCnt"></param>
-        /// <param name="keepHisGuaCnt"></param>
+        /// <param name="keepGuaCnt">有效挂(连挂已结束并仍处于有效期内)数量</param>
+        /// <param name="currentGuaCnt"></param>
         /// <returns></returns>
         private static float CalcuteGua(IReadOnlyCollection<IForcastModel> forcastData, bool startWhenBreakGua, out int keepGuaCnt,
-            out int keepHisGuaCnt)
+            out int currentGuaCnt)
         {
             if (!startWhenBreakGua)
-                return CalcuteGua(forcastData, out keepGuaCnt, out keepHisGuaCnt);
+                return CalcuteGua(forcastData, out keepGuaCnt, out currentGuaCnt);
 
             float total = 0;
             //从最新期开始连挂次数
             keepGuaCnt = 0;
             //历史记录(不包含从最新期连挂的情况)出现连挂次数
-            keepHisGuaCnt = 0;
+            currentGuaCnt = 0;
 
             if (forcastData.Count < 2)
             {
@@ -330,6 +330,7 @@ namespace Colin.Lottery.Analyzers
             if (firstWinIndex > 0)
             {
                 total = results.Count(f => f == false) * GuaBase;
+                currentGuaCnt = firstWinIndex;
             }
             else
             {
