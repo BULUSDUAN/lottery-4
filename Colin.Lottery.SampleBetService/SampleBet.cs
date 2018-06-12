@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR.Client;
@@ -9,8 +8,6 @@ using Colin.Lottery.Models;
 using Colin.Lottery.Models.BetService;
 using Colin.Lottery.SampleBetService.DataModels;
 using Colin.Lottery.Utils;
-using Microsoft.EntityFrameworkCore;
-using Org.BouncyCastle.Math.EC;
 
 namespace Colin.Lottery.SampleBetService
 {
