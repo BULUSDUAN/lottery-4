@@ -1,9 +1,8 @@
 ﻿@using Microsoft.AspNetCore.Http.Features
 
 @{
-    var consentFeature = Context.Features.Get<ITrackingConsentFeature>
-    ();
-    var showBanner = !consentFeature?.CanTrack ?? false;
+    var consentFeature = Context.Features.Get<ITrackingConsentFeature>();
+    var showBanner = false; 
     var cookieString = consentFeature?.CreateConsentCookie();
 }
 
@@ -31,10 +30,12 @@
             </div>
         </div>
     </nav>
-    <script>(function() {
-            document.querySelector("#cookieConsent button[data-cookie-string]").addEventListener("click", function(el) {
-                document.cookie = el.target.dataset.cookieString;
-                document.querySelector("#cookieConsent").classList.add("hidden");
-            }, false);
-})();</script>
+    <script>
+        (function() {
+                document.querySelector("#cookieConsent button[data-cookie-string]").addEventListener("click", function(el) {
+                    document.cookie = el.target.dataset.cookieString;
+                    document.querySelector("#cookieConsent").classList.add("hidden");
+                }, false);
+        })();
+    </script>
 }
