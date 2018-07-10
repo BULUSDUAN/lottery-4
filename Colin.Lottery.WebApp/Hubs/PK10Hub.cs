@@ -21,7 +21,7 @@ namespace Colin.Lottery.WebApp.Hubs
         public async Task GetForcastData(int rule = 1, bool startWhenBreakGua = false)
         {
             var plans = await JinMaAnalyzer.Instance.GetForcastData(LotteryType.Pk10, rule);
-            if (plans==null||plans.Count<2)
+            if (plans == null || plans.Count < 2 || plans.Any(p => p == null))
             {
                 await Clients.Caller.SendAsync("NoResult");
                 LogUtil.Warn("目标网站扫水接口异常，请尽快检查恢复");
@@ -68,11 +68,11 @@ namespace Colin.Lottery.WebApp.Hubs
         private static async Task<int> GetNewForcast(ICollection<IForcastModel> newForcast, Pk10Rule rule, bool startWhenBreakGua)
         {
             var plans = await JinMaAnalyzer.Instance.GetForcastData(LotteryType.Pk10, (int)rule);
-            if (plans==null||plans.Count<2)
+            if (plans == null || plans.Count < 2)
                 return 1;
 
             JinMaAnalyzer.Instance.CalcuteScore(plans, startWhenBreakGua);
-            plans.ForEach(p=>newForcast.Add(p.ForcastData.LastOrDefault()));
+            plans.ForEach(p => newForcast.Add(p.ForcastData.LastOrDefault()));
             return 0;
         }
 
