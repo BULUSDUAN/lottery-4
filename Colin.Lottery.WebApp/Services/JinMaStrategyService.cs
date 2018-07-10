@@ -96,9 +96,9 @@ namespace Colin.Lottery.WebApp.Services
                     //扫水
                     var plans = await JinMaAnalyzer.Instance.GetForcastData(LotteryType.Pk10, (int)rule);
                     /*
-                    * 如果目标网站接口正常，每次都可以扫到结果，即使不是没有更新最新期预测数据，所以如果没有扫水结果，说明目标网站接口出错
+                    * 如果目标网站接口正常，每次都可以扫到结果，即使没有更新最新期预测数据。所以如果没有扫水结果，说明目标网站接口出错
                     */
-                    if (plans == null || plans.Count<2)
+                    if (plans == null || plans.Count < 2 || plans.Any(p => p == null))
                     {
                         //await _PK10Context.Clients.Group(rule.ToString()).SendAsync("NoResult");
                         await _pk10Context.Clients.Groups(new List<string> { rule.ToString(), "AllRules" }).SendAsync("NoResult", rule.ToStringName());
@@ -108,28 +108,31 @@ namespace Colin.Lottery.WebApp.Services
 
                     JinMaAnalyzer.Instance.CalcuteScore(plans, startWhenBreakGua);
 
-                    if (plans.Any(p=>p.LastDrawedPeriod+1<periodNo)) return;
-                    
+                    if (plans.Any(p => p.LastDrawedPeriod + 1 < periodNo)) return;
+
                     //1.推送完整15期计划
                     await _pk10Context.Clients.Group(rule.ToString()).SendAsync("ShowPlans", plans);
 
                     //2.推送最新期计划
-                    await _pk10Context.Clients.Group("AllRules").SendAsync("ShowPlans", plans.Select(p=>p.ForcastData.LastOrDefault()));
-                    
+                    await _pk10Context.Clients.Group("AllRules").SendAsync("ShowPlans", plans.Select(p => p.ForcastData.LastOrDefault()));
+
+                    /* 暂停推送 连挂邮件通知 和 浏览器通知
+
                     //3.推送连挂消息
                     if (rule != Pk10Rule.Sum)
                     {
                         plans.ForEach(async p =>
                         {
-                            if(p.KeepGuaCnt>1)
+                            if (p.KeepGuaCnt > 1)
                                 await MailNotify.NotifyAsync(new MailNotifyModel(LotteryType.Pk10, (int)rule, Plan.PlanA, p, p.ForcastDrawNo));
                         });
                     }
 
                     //4.广播通知消息
-                    plans.ForEach(async p =>await NotifyContext.Clients.Clients(NotifyHub.GetConnectionIds(p.Score))
+                    plans.ForEach(async p => await NotifyContext.Clients.Clients(NotifyHub.GetConnectionIds(p.Score))
                             .SendAsync("Notify", new List<string> { CreateNotification(LotteryType.Pk10, (int)rule, Plan.PlanA, p.ForcastDrawNo, p.Score) }));
-                    
+                            
+                     */
 
                     await QuartzUtil.DeleteJob(ng.JobName, ng.JobGroup);
                 }, "0/5 * * * * ? *");
