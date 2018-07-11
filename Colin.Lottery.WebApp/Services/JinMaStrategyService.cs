@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
 
 using Colin.Lottery.Analyzers;
-using Colin.Lottery.Common.Notification;
 using Colin.Lottery.Common.Scheduler;
 using Colin.Lottery.Models;
-using Colin.Lottery.Models.Notification;
 using Colin.Lottery.Utils;
 using Colin.Lottery.WebApp.Hubs;
 
@@ -24,7 +22,7 @@ namespace Colin.Lottery.WebApp.Services
             _pk10Context = Startup.GetService<IHubContext<PK10Hub>>();
         }
 
-        public override async Task Start(bool startWhenBreakGua = false)
+        public override async Task Start(bool startWhenBreakGua = true)
         {
             await StartPk10(Pk10Rule.Champion, startWhenBreakGua);
             await StartPk10(Pk10Rule.Second, startWhenBreakGua);
@@ -36,7 +34,7 @@ namespace Colin.Lottery.WebApp.Services
             await StartPk10(Pk10Rule.Sum, startWhenBreakGua);
         }
 
-        public override void Start(Dictionary<LotteryType, List<int>> typeRules, bool startWhenBreakGua = false)
+        public override void Start(Dictionary<LotteryType, List<int>> typeRules, bool startWhenBreakGua = true)
         {
             if (typeRules == null)
                 return;
@@ -85,13 +83,13 @@ namespace Colin.Lottery.WebApp.Services
                 var timestamp = DateTime.Now;
                 var periodNo = Pk10Scheduler.Instance.GetPeriodNo(timestamp);
                 var tempJob = $"{prefix}_Scan_{periodNo}";
-                var ng = tempJob.JobAndTriggerNames();
+                var (JobName, JobGroup, _, _) = tempJob.JobAndTriggerNames();
 
                 await QuartzUtil.ScheduleSimpleJob(tempJob, async () =>
                 {
                     //超时自毁
                     if ((DateTime.Now - timestamp).TotalMinutes > 5)
-                        await QuartzUtil.DeleteJob(ng.JobName, ng.JobGroup);
+                        await QuartzUtil.DeleteJob(JobName, JobGroup);
 
                     //扫水
                     var plans = await JinMaAnalyzer.Instance.GetForcastData(LotteryType.Pk10, (int)rule);
@@ -134,7 +132,7 @@ namespace Colin.Lottery.WebApp.Services
                             
                      */
 
-                    await QuartzUtil.DeleteJob(ng.JobName, ng.JobGroup);
+                    await QuartzUtil.DeleteJob(JobName, JobGroup);
                 }, "0/5 * * * * ? *");
             });
 
