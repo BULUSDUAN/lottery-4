@@ -19,12 +19,14 @@ namespace Colin.Lottery.SampleBetService
             var connection = new HubConnectionBuilder()
                 .WithUrl(hubUrls.Pk10)
                 .Build();
-            connection.On<List<IForcastModel>>("ShowPlans", BetPk10);
+//            connection.On<List<IForcastModel>>("ShowPlans", BetPk10);
+            connection.On<DateTime>("ShowDate", time => Console.WriteLine(time));
 
             try
             {
                 await connection.StartAsync();
-                await connection.InvokeAsync("RegisterAllRules");
+//                await connection.InvokeAsync("RegisterAllRules");
+                await connection.InvokeAsync("GetDate");
             }
             catch (Exception ex)
             {

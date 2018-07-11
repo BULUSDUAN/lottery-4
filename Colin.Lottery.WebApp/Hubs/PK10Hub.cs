@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -81,5 +82,7 @@ namespace Colin.Lottery.WebApp.Hubs
         /// </summary>
         /// <returns>The all rules.</returns>
         public async Task RegisterAllRules() => await Groups.AddToGroupAsync(Context.ConnectionId, "AllRules");
+
+        public async Task GetDate() => await Clients.Caller.SendAsync("ShowDate",DateTime.Now);
     }
 }
