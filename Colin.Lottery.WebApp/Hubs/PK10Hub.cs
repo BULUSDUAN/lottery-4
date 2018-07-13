@@ -84,5 +84,14 @@ namespace Colin.Lottery.WebApp.Hubs
         public async Task RegisterAllRules() => await Groups.AddToGroupAsync(Context.ConnectionId, "AllRules");
 
         public async Task GetDate() => await Clients.Caller.SendAsync("ShowDate",DateTime.Now);
+
+        
+        public override async Task OnDisconnectedAsync(Exception exception)
+        {
+           await Groups.RemoveFromGroupAsync(Context.ConnectionId, "AllRules");
+            Lotterys.Pk10Rules.ForEach(async rule=> await Groups.RemoveFromGroupAsync(Context.ConnectionId, ((Pk10Rule)rule).ToString()));
+
+            await base.OnDisconnectedAsync(exception);
+        }
     }
 }
