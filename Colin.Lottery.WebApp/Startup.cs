@@ -33,7 +33,12 @@ namespace Colin.Lottery.WebApp
             services.AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-            services.AddSignalR();
+            services.AddSignalR(hubOptions =>
+            {
+                hubOptions.KeepAliveInterval = TimeSpan.FromMinutes(10);
+            })
+            .AddMessagePackProtocol(); ;
+
             //services.AddScoped<PK10Hub>();
         }
 
@@ -64,8 +69,9 @@ namespace Colin.Lottery.WebApp
             app.UseSignalR(routes =>
             {
                 routes.MapHub<PK10Hub>("/hubs/pk10");
-                routes.MapHub<NotifyHub>("/hubs/notify");
+                //routes.MapHub<NotifyHub>("/hubs/notify");
             });
+
 
             _provider = app.ApplicationServices;
 
