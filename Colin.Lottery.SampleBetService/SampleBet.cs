@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR.Client;
+using Microsoft.Extensions.DependencyInjection;
 
 using Colin.Lottery.Models;
 using Colin.Lottery.Models.BetService;
@@ -18,14 +19,17 @@ namespace Colin.Lottery.SampleBetService
             var hubUrls = ConfigUtil.GetAppSettings<SourceHubUrls>("SourceHubUrls");
             var connection = new HubConnectionBuilder()
                 .WithUrl(hubUrls.Pk10)
+                .AddMessagePackProtocol()
                 .Build();
-//            connection.On<List<IForcastModel>>("ShowPlans", BetPk10);
+            connection.ServerTimeout = TimeSpan.FromMinutes(10);
+
+            connection.On<List<IForcastModel>>("ShowPlans", obj => Console.WriteLine("Fuck"));
             connection.On<DateTime>("ShowDate", time => Console.WriteLine(time));
 
             try
             {
                 await connection.StartAsync();
-//                await connection.InvokeAsync("RegisterAllRules");
+                await connection.InvokeAsync("RegisterAllRules");
                 await connection.InvokeAsync("GetDate");
             }
             catch (Exception ex)
@@ -38,6 +42,9 @@ namespace Colin.Lottery.SampleBetService
         private static readonly BetConfig BetConfig= ConfigUtil.GetAppSettings<BetConfig>("BetConfig"); 
         private static async void BetPk10(List<IForcastModel> forcastData)
         {
+            Console.WriteLine("ShowPlans");
+            return;
+
             foreach (var forcast in forcastData)
             {
                 //跳过和值
