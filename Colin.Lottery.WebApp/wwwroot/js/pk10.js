@@ -2,7 +2,7 @@
 
 (function () {
     //玩法
-    let rule = getLotteryRule();
+    let rule = getLotteryRule()-0;
     $(".nav-tabs li:eq(" + (rule - 1) + ") a").tab('show');
     loading();
 
@@ -10,7 +10,7 @@
     let hub = '/hubs/pk10';
     const connection = new signalR.HubConnectionBuilder()
         .withUrl(hub)
-        .withHubProtocol(new signalR.protocols.msgpack.MessagePackHubProtocol())
+        //.withHubProtocol(new signalR.protocols.msgpack.MessagePackHubProtocol())
         .configureLogging(signalR.LogLevel.Information)
         .build();
 

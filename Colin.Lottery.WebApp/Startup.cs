@@ -33,11 +33,12 @@ namespace Colin.Lottery.WebApp
             services.AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-            services.AddSignalR(hubOptions =>
-            {
-                hubOptions.KeepAliveInterval = TimeSpan.FromMinutes(10);
-            })
-            .AddMessagePackProtocol();
+            //services.AddSignalR(hubOptions =>
+            //{
+            //    hubOptions.KeepAliveInterval = TimeSpan.FromMinutes(10);
+            //})
+            //.AddMessagePackProtocol();
+            services.AddSignalR();
 
             //services.AddScoped<PK10Hub>();
         }

@@ -19,7 +19,7 @@ namespace Colin.Lottery.SampleBetService
             var hubUrls = ConfigUtil.GetAppSettings<SourceHubUrls>("SourceHubUrls");
             var connection = new HubConnectionBuilder()
                 .WithUrl(hubUrls.Pk10)
-                .AddMessagePackProtocol()
+                //.AddMessagePackProtocol()
                 .Build();
             connection.ServerTimeout = TimeSpan.FromMinutes(10);
 
