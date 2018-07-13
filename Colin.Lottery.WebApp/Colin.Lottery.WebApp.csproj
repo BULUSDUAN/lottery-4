@@ -9,6 +9,7 @@
     <PackageReference Include="Microsoft.AspNetCore.App" Version="2.1.0" />
     <PackageReference Include="Selenium.Chrome.WebDriver" Version="2.38.0" />
     <PackageReference Include="Selenium.WebDriver" Version="3.12.1" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Protocols.MessagePack" Version="1.0.2" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Colin.Lottery.Models\Colin.Lottery.Models.csproj" />

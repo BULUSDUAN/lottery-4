@@ -37,7 +37,7 @@ namespace Colin.Lottery.WebApp
             {
                 hubOptions.KeepAliveInterval = TimeSpan.FromMinutes(10);
             })
-            .AddMessagePackProtocol(); ;
+            .AddMessagePackProtocol();
 
             //services.AddScoped<PK10Hub>();
         }
