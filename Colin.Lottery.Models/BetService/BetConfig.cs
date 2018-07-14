@@ -7,13 +7,14 @@ namespace Colin.Lottery.Models.BetService
     public class BetConfig
     {
         /// <summary>
-        /// 起始金额
+        /// 模拟投注起始余额
         /// </summary>
         public int StartBalance { get; set; }
+
         /// <summary>
-        /// 单注金额
+        /// 挂结束大额倍投 起始单注金额
         /// </summary>
-        public int BetMoney { get; set; }
+        public float HighGuaEndBet { get; set; }
 
         /// <summary>
         /// 赔率
@@ -21,7 +22,7 @@ namespace Colin.Lottery.Models.BetService
         public float Odds { get; set; }
 
         /// <summary>
-        /// 最小胜率
+        /// 起投最小胜率
         /// </summary>
         public float MinWinProbability { get; set; }
         

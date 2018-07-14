@@ -1,13 +1,11 @@
 ﻿using Colin.Lottery.Models;
-using Microsoft.EntityFrameworkCore;
-
 using Colin.Lottery.Models.BetService;
 using Colin.Lottery.Utils;
-using Microsoft.Extensions.Configuration;
+using Microsoft.EntityFrameworkCore;
 
-namespace Colin.Lottery.SampleBetService.DataModels
+namespace Colin.Lottery.BetService.DataModels
 {
-    public class SampleBetContext : DbContext
+    public class BetContext : DbContext
     {
         public DbSet<BetGuaRecord> BetGua { get; set; }
         public DbSet<BetAll3Record> BetAll3 { get; set; }

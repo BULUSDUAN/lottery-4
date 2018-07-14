@@ -1,19 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.SignalR.Client;
-
-using Newtonsoft.Json;
-
 using Colin.Lottery.Models;
 using Colin.Lottery.Models.BetService;
 using Colin.Lottery.Utils;
+using Microsoft.AspNetCore.SignalR.Client;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace Colin.Lottery.SampleBetService
+namespace Colin.Lottery.BetService
 {
-    public static class SampleBet
+    public static class AutoBet
     {
         public static async Task StartConnection()
         {
