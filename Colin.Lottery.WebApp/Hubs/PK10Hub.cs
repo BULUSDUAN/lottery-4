@@ -83,8 +83,6 @@ namespace Colin.Lottery.WebApp.Hubs
         /// <returns>The all rules.</returns>
         public async Task RegisterAllRules() => await Groups.AddToGroupAsync(Context.ConnectionId, "AllRules");
 
-        public async Task GetDate() => await Clients.Caller.SendAsync("ShowDate",DateTime.Now);
-
         
         public override async Task OnDisconnectedAsync(Exception exception)
         {

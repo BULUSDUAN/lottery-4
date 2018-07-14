@@ -1,27 +1,26 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
-  </PropertyGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Colin.Lottery.Analyzers\Colin.Lottery.Analyzers.csproj" />
-    <ProjectReference Include="..\Colin.Lottery.Common\Colin.Lottery.Common.csproj" />
-    <ProjectReference Include="..\Colin.Lottery.Utils\Colin.Lottery.Utils.csproj" />
-    <ProjectReference Include="..\Colin.Lottery.Models\Colin.Lottery.Models.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="NVelocity" Version="1.1.1" />
-    <PackageReference Include="Selenium.WebDriver" Version="3.13.1" />
-    <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="2.40.0" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Remove="appsettings.json" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="appsettings.json">
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>netcoreapp2.1</TargetFramework>
+    </PropertyGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\Colin.Lottery.Analyzers\Colin.Lottery.Analyzers.csproj" />
+        <ProjectReference Include="..\Colin.Lottery.Common\Colin.Lottery.Common.csproj" />
+        <ProjectReference Include="..\Colin.Lottery.Utils\Colin.Lottery.Utils.csproj" />
+        <ProjectReference Include="..\Colin.Lottery.Models\Colin.Lottery.Models.csproj" />
+    </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Selenium.WebDriver" Version="3.13.1" />
+        <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="2.40.0" />
+    </ItemGroup>
+    <ItemGroup>
+        <None Remove="appsettings.json" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="appsettings.json">
+            <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+    </ItemGroup>
 </Project>

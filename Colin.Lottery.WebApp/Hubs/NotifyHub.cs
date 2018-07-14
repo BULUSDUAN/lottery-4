@@ -3,7 +3,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Colin.Lottery.Analyzers;
 using Colin.Lottery.Models;
-using Colin.Lottery.WebApp.Services;
 
 namespace Colin.Lottery.WebApp.Hubs
 {
@@ -53,12 +52,12 @@ namespace Colin.Lottery.WebApp.Hubs
         {
             var plans = await JinMaAnalyzer.Instance.GetForcastData(lottery, rule);
             JinMaAnalyzer.Instance.CalcuteScore(plans, startWhenBreakGua);
-            
-            plans.ForEach(p =>
-            {
-                if (p.Score >= criticalScore)
-                    notifications.Add(JinMaStrategyService.Instance.CreateNotification(lottery, rule, Plan.PlanA, p.ForcastDrawNo, p.Score));
-            });
+
+            //plans.ForEach(p =>
+            //{
+            //    if (p.Score >= criticalScore)
+            //        notifications.Add(JinMaStrategyService.Instance.CreateNotification(lottery, rule, Plan.PlanA, p.ForcastDrawNo, p.Score));
+            //});
         }
 
         /// <summary>

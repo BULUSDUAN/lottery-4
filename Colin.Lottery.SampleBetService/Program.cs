@@ -8,27 +8,10 @@ namespace Colin.Lottery.SampleBetService
     {
         static void Main(string[] args)
         {
-            //SampleBet.StartConnection();
+            SampleBet.StartConnection();
 
-            //Console.WriteLine("OK");
-            //Console.ReadKey();
-
-            Test();
+            Console.WriteLine("OK");
             Console.ReadKey();
         }
-
-        static void Test()
-        {
-            Action func = SampleBet.StartConnection().Result;
-            while (true)
-            {
-                string key = Console.ReadLine();
-                if (!string.IsNullOrWhiteSpace(key))
-                {
-                    func();
-                }
-            }
-        }
-
     }
 }

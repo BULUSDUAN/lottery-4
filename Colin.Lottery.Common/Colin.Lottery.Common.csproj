@@ -27,7 +27,4 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="NVelocity" Version="1.1.1" />
-  </ItemGroup>
 </Project>

@@ -2,9 +2,9 @@
 using System.IO;
 using System.Threading.Tasks;
 
-using NVelocity;
-using NVelocity.App;
-using NVelocity.Runtime;
+//using NVelocity;
+//using NVelocity.App;
+//using NVelocity.Runtime;
 
 using Colin.Lottery.Models;
 using Colin.Lottery.Models.Notification;
@@ -33,36 +33,41 @@ namespace Colin.Lottery.Common.Notification
                     return;
             }
 
-            await MailUtil.MailAsync(config.ApiKey,config.From, config.To.Split(','), subject, content, config.ContentType);
+            await MailUtil.MailAsync(config.ApiKey, config.From, config.To.Split(','), subject, content, config.ContentType);
         }
 
         private static string GetEmailContent(string templateFile, MailNotifyModel model)
         {
-            var file = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, templateFile);
-            if (!File.Exists(file))
-            {
-                LogUtil.Error($"邮件通知模板文件({templateFile})不存在，请检查配置文件或模板文件");
-                return null;
-            }
+            /*  由于时效性问题暂停邮件通知
+             *
+                var file = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, templateFile);
+                if (!File.Exists(file))
+                {
+                    LogUtil.Error($"邮件通知模板文件({templateFile})不存在，请检查配置文件或模板文件");
+                    return null;
+                }
 
-            try
-            {
-                var engine = new VelocityEngine();
-                engine.SetProperty(RuntimeConstants.FILE_RESOURCE_LOADER_PATH, AppDomain.CurrentDomain.BaseDirectory);
-                engine.Init();
-                var template = engine.GetTemplate(templateFile);
-                var context = new VelocityContext();
-                context.Put("Model", model);
+                try
+                {
+                    var engine = new VelocityEngine();
+                    engine.SetProperty(RuntimeConstants.FILE_RESOURCE_LOADER_PATH, AppDomain.CurrentDomain.BaseDirectory);
+                    engine.Init();
+                    var template = engine.GetTemplate(templateFile);
+                    var context = new VelocityContext();
+                    context.Put("Model", model);
 
-                var writer = new StringWriter();
-                template.Merge(context, writer);
-                return writer.GetStringBuilder().ToString();
-            }
-            catch (Exception ex)
-            {
-                LogUtil.Warn($"通知邮件内容生成失败,错误消息:{ex.Message}堆栈内容:{ex.StackTrace}");
-                return null;
-            }
+                    var writer = new StringWriter();
+                    template.Merge(context, writer);
+                    return writer.GetStringBuilder().ToString();
+                }
+                catch (Exception ex)
+                {
+                    LogUtil.Warn($"通知邮件内容生成失败,错误消息:{ex.Message}堆栈内容:{ex.StackTrace}");
+                    return null;
+                }
+                */
+
+            return null;
         }
     }
 }
