@@ -38,6 +38,7 @@ namespace Colin.Lottery.WebApp.Pages
             bu.Completed -= GetLinks;
             bu.Completed += (s, e) => Ssrs = e.WebBrower.FindElementByTagName("body").Text;
             await bu.Explore(url);
+            bu.Quit();
         }
     }
 }
