@@ -3,24 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-using Microsoft.AspNetCore.SignalR;
-
 using Colin.Lottery.Analyzers;
 using Colin.Lottery.Common.Scheduler;
 using Colin.Lottery.Models;
 using Colin.Lottery.Utils;
-using Colin.Lottery.WebApp.Hubs;
 
-namespace Colin.Lottery.WebApp.Services
+namespace Colin.Lottery.DataService
 {
-    public class JinMaStrategyService : StrategyService<JinMaStrategyService>
+    public class JinMaDataService : DataService<JinMaDataService>
     {
-        private readonly IHubContext<PK10Hub> _pk10Context;
-
-        public JinMaStrategyService()
-        {
-            _pk10Context = Startup.GetService<IHubContext<PK10Hub>>();
-        }
+        public override event EventHandler<DataCollectedEventArgs> DataCollectedSuccess;
+        public override event EventHandler<CollectErrorEventArgs> DataCollectedError;
 
         public override async Task Start(bool startWhenBreakGua = true)
         {
@@ -98,9 +91,7 @@ namespace Colin.Lottery.WebApp.Services
                     */
                     if (plans == null || plans.Count < 2 || plans.Any(p => p == null))
                     {
-                        //await _PK10Context.Clients.Group(rule.ToString()).SendAsync("NoResult");
-                        await _pk10Context.Clients.Groups(new List<string> { rule.ToString(), "AllRules" }).SendAsync("NoResult", rule.ToStringName());
-                        LogUtil.Warn("目标网站扫水接口异常，请尽快检查恢复");
+                        DataCollectedError?.Invoke(this, new CollectErrorEventArgs(rule,"目标网站扫水接口异常，请尽快检查恢复"));
                         return;
                     }
 
@@ -108,29 +99,7 @@ namespace Colin.Lottery.WebApp.Services
 
                     if (plans.Any(p => p.LastDrawedPeriod + 1 < periodNo)) return;
 
-                    //1.推送完整15期计划
-                    await _pk10Context.Clients.Group(rule.ToString()).SendAsync("ShowPlans", plans);
-
-                    //2.推送最新期计划
-                    await _pk10Context.Clients.Group("AllRules").SendAsync("ShowPlans", plans.Select(p => p.ForcastData.LastOrDefault()));
-
-                    /* 暂停推送 连挂邮件通知 和 浏览器通知
-
-                    //3.推送连挂消息
-                    if (rule != Pk10Rule.Sum)
-                    {
-                        plans.ForEach(async p =>
-                        {
-                            if (p.KeepGuaCnt > 1)
-                                await MailNotify.NotifyAsync(new MailNotifyModel(LotteryType.Pk10, (int)rule, Plan.PlanA, p, p.ForcastDrawNo));
-                        });
-                    }
-
-                    //4.广播通知消息
-                    plans.ForEach(async p => await NotifyContext.Clients.Clients(NotifyHub.GetConnectionIds(p.Score))
-                            .SendAsync("Notify", new List<string> { CreateNotification(LotteryType.Pk10, (int)rule, Plan.PlanA, p.ForcastDrawNo, p.Score) }));
-                            
-                     */
+                    DataCollectedSuccess?.Invoke(this, new DataCollectedEventArgs(rule,plans));
 
                     await QuartzUtil.DeleteJob(JobName, JobGroup);
                 }, "0/5 * * * * ? *");

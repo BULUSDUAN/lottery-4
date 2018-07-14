@@ -17,6 +17,7 @@
         <PackageReference Include="Selenium.WebDriver" Version="3.13.1" />
     </ItemGroup>
     <ItemGroup>
+        <ProjectReference Include="..\Colin.Lottery.DataService\Colin.Lottery.DataService.csproj" />
         <ProjectReference Include="..\Colin.Lottery.Models\Colin.Lottery.Models.csproj" />
         <ProjectReference Include="..\Colin.Lottery.Common\Colin.Lottery.Common.csproj" />
         <ProjectReference Include="..\Colin.Lottery.Utils\Colin.Lottery.Utils.csproj" />
