@@ -47,7 +47,15 @@ namespace Colin.Lottery.SampleBetService
                 if (plan.Rule.ToPk10Rule() == Pk10Rule.Sum)
                     return;
                 
-                
+                /*
+                 *  投注策略
+                 *
+                 * 1.胜率高于 MinWinProbability 则每期跟投(最多连续跟投9期)，出现9期未中(3连挂)停止跟投，等待连挂结束，采用追挂结束模式大额跟投
+                 * 2.胜率低于 MinWinProbability，如果符合连挂结束则采用追挂结束模式小额跟投
+                 * 
+                 * ---- 追连挂结束模式 ----
+                 * 
+                 */
             }
             
            

@@ -24,6 +24,11 @@ namespace Colin.Lottery.Models.BetService
         /// 最小胜率
         /// </summary>
         public float MinWinProbability { get; set; }
+        
+        /// <summary>
+        /// 起投连挂次数
+        /// </summary>
+        public int MinGua { get; set; }
 
         private string _timesFormula;
         private IEnumerable<int> _times;
