@@ -33,7 +33,11 @@ namespace Colin.Lottery.Models.BetService
         public decimal Balance { get; set; }
 
         public DateTime BetTime { get; set; }
-        
+
+        public bool IsDrawed { get; set; }
+
+        public DateTime? DrawTime { get; set; }
+
         public BetRecord(LotteryType lottery,int rule,Plan plan,long periodNo,string betNo,int chaseTimes,decimal betMoney,float odds,BetType betType,decimal balance)
         {
             Lottery = lottery;
@@ -47,6 +51,7 @@ namespace Colin.Lottery.Models.BetService
             BetType = betType;
             Balance = balance;
             BetTime = DateTime.Now;
+            IsDrawed = false;
         }
     }
 }

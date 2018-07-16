@@ -50,6 +50,7 @@ namespace Colin.Lottery.Models
                 
                 var summary = value.LastOrDefault();
                 LastDrawedPeriod = summary.NowQiHao;
+                LastDrawNo = summary.DrawNo;
                 TotalCount = summary.A;
                 WinCount = summary.B;
                 LoseCount = summary.C;

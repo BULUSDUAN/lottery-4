@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using System.Collections.Generic;
+using OpenQA.Selenium;
 
 namespace Colin.Lottery.Models
 {
@@ -13,6 +14,8 @@ namespace Colin.Lottery.Models
         public long LastPeriod { get; set; }
         public string DrawNo { get; set; }
 
+        public override long LastDrawedPeriod { get; set; }
+        public override string LastDrawNo { get; set; }
         public override int TotalCount { get; set; }
         public override int WinCount { get; set; }
         public override int LoseCount { get; set; }
@@ -34,9 +37,32 @@ namespace Colin.Lottery.Models
         public List<IForcastModel> ForcastData { get; set; }
         private IForcastModel CurrentForcast => ForcastData?.LastOrDefault();
 
-        public long LastDrawedPeriod { get; set; }
+        private long _lastDrawedPeriod;
+
+        public override long LastDrawedPeriod
+        {
+            get => _lastDrawedPeriod;
+            set
+            {
+                _lastDrawedPeriod = value;
+                CurrentForcast.LastDrawedPeriod = value;
+            }
+        }
+
+        private string _lastDrawNo;
+
+        public override string LastDrawNo
+        {
+            get => _lastDrawNo;
+            set
+            {
+                _lastDrawNo = value;
+                CurrentForcast.LastDrawNo = value;
+            }
+        }
 
         private int _totalCount;
+
         public override int TotalCount
         {
             get => _totalCount;
@@ -48,6 +74,7 @@ namespace Colin.Lottery.Models
         }
 
         private int _winCount;
+
         public override int WinCount
         {
             get => _winCount;
@@ -59,6 +86,7 @@ namespace Colin.Lottery.Models
         }
 
         private int _lostCount;
+
         public override int LoseCount
         {
             get => _lostCount;
@@ -70,6 +98,7 @@ namespace Colin.Lottery.Models
         }
 
         private float _winProbability;
+
         public override float WinProbability
         {
             get => _winProbability;
@@ -80,9 +109,14 @@ namespace Colin.Lottery.Models
             }
         }
 
-        public override string Rule { get => CurrentForcast.Rule; set { } }
+        public override string Rule
+        {
+            get => CurrentForcast.Rule;
+            set { }
+        }
 
         private Plan _plan;
+
         public override Plan Plan
         {
             get => _plan;
@@ -94,6 +128,7 @@ namespace Colin.Lottery.Models
         }
 
         private float _guaScore;
+
         public override float GuaScore
         {
             get => _guaScore;
@@ -105,6 +140,7 @@ namespace Colin.Lottery.Models
         }
 
         private float _repetitionScore;
+
         public override float RepetitionScore
         {
             get => _repetitionScore;
@@ -116,9 +152,11 @@ namespace Colin.Lottery.Models
         }
 
         private float _betChaseScore;
+
         public override float BetChaseScore
         {
-            get => _betChaseScore; set
+            get => _betChaseScore;
+            set
             {
                 _betChaseScore = value;
                 CurrentForcast.BetChaseScore = value;
@@ -126,9 +164,11 @@ namespace Colin.Lottery.Models
         }
 
         private float _score;
+
         public override float Score
         {
-            get => _score; set
+            get => _score;
+            set
             {
                 _score = value;
                 CurrentForcast.Score = value;
@@ -136,31 +176,34 @@ namespace Colin.Lottery.Models
         }
 
         private int _keepGuaCnt;
+
         public override int KeepGuaCnt
         {
-            get => _keepGuaCnt; 
+            get => _keepGuaCnt;
             set
             {
                 _keepGuaCnt = value;
                 CurrentForcast.KeepGuaCnt = value;
             }
         }
-        
+
         private int _chaseTimesAfterEndGua;
+
         public override int ChaseTimesAfterEndGua
         {
-            get => _chaseTimesAfterEndGua; 
+            get => _chaseTimesAfterEndGua;
             set
             {
                 _chaseTimesAfterEndGua = value;
                 CurrentForcast.ChaseTimesAfterEndGua = value;
             }
         }
-        
+
         private int _keepGuaingCnt;
+
         public override int KeepGuaingCnt
         {
-            get => _keepGuaingCnt; 
+            get => _keepGuaingCnt;
             set
             {
                 _keepGuaingCnt = value;
@@ -174,6 +217,8 @@ namespace Colin.Lottery.Models
 
     public abstract class ForcastSharedModel : IForcastSharedModel
     {
+        public abstract long LastDrawedPeriod { get; set; }
+        public abstract string LastDrawNo { get; set; }
         public abstract int TotalCount { get; set; }
         public abstract int WinCount { get; set; }
         public abstract int LoseCount { get; set; }

@@ -51,11 +51,6 @@ namespace Colin.Lottery.Models
         List<IForcastModel> ForcastData { get; set; }
 
         /// <summary>
-        /// 最新开奖期号
-        /// </summary>
-        long LastDrawedPeriod { get; set; }
-
-        /// <summary>
         /// 最新预测开奖号码
         /// </summary>
         string ForcastDrawNo { get; }
@@ -75,6 +70,16 @@ namespace Colin.Lottery.Models
         /// 计划
         /// </summary>
         Plan Plan { get; set; }
+
+        /// <summary>
+        /// 最新开奖期号
+        /// </summary>
+        long LastDrawedPeriod { get; set; }
+
+        /// <summary>
+        /// 最新开奖号码
+        /// </summary>
+        string LastDrawNo { get; set; }
 
         /// <summary>
         /// 统计有效期数
