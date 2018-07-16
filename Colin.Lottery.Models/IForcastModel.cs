@@ -117,10 +117,18 @@ namespace Colin.Lottery.Models
         float Score { get; set; }
 
         /// <summary>
-        /// 从最新期开始连挂次数
+        /// 有效连挂次数(连挂已结束)
         /// </summary>
         int KeepGuaCnt { get; set; }
 
-        int CurrentGuaCnt { get; set; }
+        /// <summary>
+        /// 第几段跟投(连挂结束后)
+        /// </summary>
+        int ChaseTimesAfterEndGua { get; set; }
+
+        /// <summary>
+        /// 连挂次数(连挂中)
+        /// </summary>
+        int KeepGuaingCnt { get; set; }
     }
 }

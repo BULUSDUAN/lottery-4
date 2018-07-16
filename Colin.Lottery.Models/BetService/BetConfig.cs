@@ -19,12 +19,12 @@ namespace Colin.Lottery.Models.BetService
         /// <summary>
         /// 挂结束大额倍投 起始单注金额
         /// </summary>
-        public float HighEndGua { get; set; }
+        public float HighEndGuaBetMoney { get; set; }
         
         /// <summary>
         /// 挂结束小额倍投 起始单注金额
         /// </summary>
-        public float LowEndGua { get; set; }
+        public float LowEndGuaBetMoney { get; set; }
         
         /// <summary>
         /// 相同号码跟投 起始单注金额
@@ -45,6 +45,11 @@ namespace Colin.Lottery.Models.BetService
         /// 起投连挂次数
         /// </summary>
         public int MinGua { get; set; }
+
+        /// <summary>
+        /// 追挂结束每段下注金额递减比例
+        /// </summary>
+        public int DeltaReduce { get;set; }
 
         private string _timesFormula;
         private IEnumerable<int> _times;

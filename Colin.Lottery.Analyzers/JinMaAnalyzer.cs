@@ -112,8 +112,10 @@ namespace Colin.Lottery.Analyzers
             plans.ForEach(plan =>
             {
                 plan.RepetitionScore = repetition;
-                plan.GuaScore = CalcuteGua(plan.ForcastData, out var keepGuaCnt);
+                plan.GuaScore = CalcuteGua(plan.ForcastData, out var keepGuaCnt,out var chaseTimesAfterEndGua,out var keepGuaingCnt);
                 plan.KeepGuaCnt = keepGuaCnt;
+                plan.ChaseTimesAfterEndGua = chaseTimesAfterEndGua;
+                plan.KeepGuaingCnt = keepGuaingCnt;
                 plan.BetChaseScore = CalcuteBetChase(plan.ForcastData.LastOrDefault().ChaseTimes);
                 
                 if (plan.GuaScore >= 90 || repetition >= Config.Repetition)
@@ -128,27 +130,27 @@ namespace Colin.Lottery.Analyzers
         }
 
 
-        
-
-
         /// <summary>
         /// 计算"挂"分数 (结束挂优先)
         /// </summary>
         /// <param name="forcastData"></param>
-        /// <param name="keepGuaCnt">有效挂(连挂已结束并仍处于有效期内)数量</param>
+        /// <param name="keepGuaCnt">有效连挂次数(连挂已结束)</param>
+        /// <param name="chaseTimesAfterEndGua">第几段跟投(连挂结束后)</param>
+        /// <param name="keepGuaingCnt">连挂次数(连挂中)</param>
         /// <returns></returns>
-        private static float CalcuteGua(IReadOnlyCollection<IForcastModel> forcastData, out int keepGuaCnt)
+        private static float CalcuteGua(IReadOnlyCollection<IForcastModel> forcastData, out int keepGuaCnt,out int chaseTimesAfterEndGua,out int keepGuaingCnt)
         {
             float total = 0;
             //从最新期开始连挂次数
             keepGuaCnt = 0;
+            chaseTimesAfterEndGua = 0;
+            keepGuaingCnt = 0;
 
             if (forcastData.Count < 2)
             {
                 LogUtil.Error("预测历史数据不足,无法进行评估");
                 return 0;
             }
-
 
             var results = forcastData.Take(forcastData.Count - 1).Select(f => f.IsWin).Reverse().ToList();
             //第一个非挂
@@ -157,12 +159,14 @@ namespace Colin.Lottery.Analyzers
             if (firstWinIndex > 0)
             {
                 total = results.Count(f => f == false) * Config.GuaBase;
+                keepGuaingCnt = firstWinIndex;
             }
             else
             {
                 //第一个有效挂
                 var firstValidWrongIndex =
                     results.Skip(firstWinIndex + 1).ToList().FindIndex(f => f == false) + firstWinIndex + 1;
+                chaseTimesAfterEndGua = firstValidWrongIndex + 1;
                 //有效连挂次数
                 var validGua = results.Skip(firstValidWrongIndex + 1).ToList().FindIndex(f => f == true) + 1;
                 //普通挂次数

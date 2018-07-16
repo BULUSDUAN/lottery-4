@@ -2,7 +2,7 @@
 
 namespace Colin.Lottery.Models.BetService
 {
-    public abstract class BetRecordModel
+    public class BetRecord
     {
         public int Id { get; set; }
 
@@ -21,6 +21,8 @@ namespace Colin.Lottery.Models.BetService
         public decimal BetMoney { get; set; }
 
         public float Odds { get; set; }
+        
+        public BetType BetType { get; set; }
 
         public string DrawNo { get; set; }
 
@@ -31,8 +33,8 @@ namespace Colin.Lottery.Models.BetService
         public decimal Balance { get; set; }
 
         public DateTime BetTime { get; set; }
-
-        public BetRecordModel(LotteryType lottery,int rule,Plan plan,long periodNo,string betNo,int chaseTimes,decimal betMoney,float odds,decimal balance)
+        
+        public BetRecord(LotteryType lottery,int rule,Plan plan,long periodNo,string betNo,int chaseTimes,decimal betMoney,float odds,BetType betType,decimal balance)
         {
             Lottery = lottery;
             Rule = rule;
@@ -42,6 +44,7 @@ namespace Colin.Lottery.Models.BetService
             ChaseTimes = chaseTimes;
             BetMoney = betMoney;
             Odds = odds;
+            BetType = betType;
             Balance = balance;
             BetTime = DateTime.Now;
         }
