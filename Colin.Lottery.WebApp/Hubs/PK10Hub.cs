@@ -18,8 +18,7 @@ namespace Colin.Lottery.WebApp.Hubs
         /// </summary>
         /// <returns>The forcast data.</returns>
         /// <param name="rule">Rule.</param>
-        /// <param name="startWhenBreakGua">If set to <c>true</c> start when break gua.</param>
-        public async Task GetForcastData(int rule = 1, bool startWhenBreakGua = false)
+        public async Task GetForcastData(int rule = 1)
         {
             var plans = await JinMaAnalyzer.Instance.GetForcastData(LotteryType.Pk10, rule);
             if (plans == null || plans.Count < 2 || plans.Any(p => p == null))
@@ -29,7 +28,7 @@ namespace Colin.Lottery.WebApp.Hubs
             }
             else
             {
-                JinMaAnalyzer.Instance.CalcuteScore(plans, startWhenBreakGua);
+                JinMaAnalyzer.Instance.CalcuteScore(plans);
                 await Clients.Caller.SendAsync("ShowPlans", plans);
             }
 
@@ -42,18 +41,18 @@ namespace Colin.Lottery.WebApp.Hubs
         /// 获取PK10所有玩法最新期预测数据
         /// </summary>
         /// <returns>The all new forcast.</returns>
-        public async Task GetAllNewForcast(bool startWhenBreakGua = false)
+        public async Task GetAllNewForcast()
         {
             var forcast = new List<IForcastModel>();
             var error = 0;
-            error += await GetNewForcast(forcast, Pk10Rule.Champion, startWhenBreakGua);
-            error += await GetNewForcast(forcast, Pk10Rule.Second, startWhenBreakGua);
-            error += await GetNewForcast(forcast, Pk10Rule.Third, startWhenBreakGua);
-            error += await GetNewForcast(forcast, Pk10Rule.Fourth, startWhenBreakGua);
-            error += await GetNewForcast(forcast, Pk10Rule.BigOrSmall, startWhenBreakGua);
-            error += await GetNewForcast(forcast, Pk10Rule.OddOrEven, startWhenBreakGua);
-            error += await GetNewForcast(forcast, Pk10Rule.DragonOrTiger, startWhenBreakGua);
-            error += await GetNewForcast(forcast, Pk10Rule.Sum, startWhenBreakGua);
+            error += await GetNewForcast(forcast, Pk10Rule.Champion);
+            error += await GetNewForcast(forcast, Pk10Rule.Second);
+            error += await GetNewForcast(forcast, Pk10Rule.Third);
+            error += await GetNewForcast(forcast, Pk10Rule.Fourth);
+            error += await GetNewForcast(forcast, Pk10Rule.BigOrSmall);
+            error += await GetNewForcast(forcast, Pk10Rule.OddOrEven);
+            error += await GetNewForcast(forcast, Pk10Rule.DragonOrTiger);
+            error += await GetNewForcast(forcast, Pk10Rule.Sum);
 
             if (error > 0)
             {
@@ -66,13 +65,13 @@ namespace Colin.Lottery.WebApp.Hubs
             await RegisterAllRules();
         }
 
-        private static async Task<int> GetNewForcast(ICollection<IForcastModel> newForcast, Pk10Rule rule, bool startWhenBreakGua)
+        private static async Task<int> GetNewForcast(ICollection<IForcastModel> newForcast, Pk10Rule rule)
         {
             var plans = await JinMaAnalyzer.Instance.GetForcastData(LotteryType.Pk10, (int)rule);
             if (plans == null || plans.Count < 2)
                 return 1;
 
-            JinMaAnalyzer.Instance.CalcuteScore(plans, startWhenBreakGua);
+            JinMaAnalyzer.Instance.CalcuteScore(plans);
             plans.ForEach(p => newForcast.Add(p.ForcastData.LastOrDefault()));
             return 0;
         }

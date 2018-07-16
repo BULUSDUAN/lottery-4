@@ -9,12 +9,27 @@ namespace Colin.Lottery.Models.BetService
         /// <summary>
         /// 模拟投注起始余额
         /// </summary>
-        public int StartBalance { get; set; }
+        public float StartBalance { get; set; }
+
+        /// <summary>
+        /// 每期跟投单注 起始单注金额
+        /// </summary>
+        public float EveryBetMoney { get; set; }
 
         /// <summary>
         /// 挂结束大额倍投 起始单注金额
         /// </summary>
-        public float HighGuaEndBet { get; set; }
+        public float HighEndGua { get; set; }
+        
+        /// <summary>
+        /// 挂结束小额倍投 起始单注金额
+        /// </summary>
+        public float LowEndGua { get; set; }
+        
+        /// <summary>
+        /// 相同号码跟投 起始单注金额
+        /// </summary>
+        public float SameNumberBetMoney { get; set; }
 
         /// <summary>
         /// 赔率
@@ -47,6 +62,6 @@ namespace Colin.Lottery.Models.BetService
         }
         
         
-        public int this[int index] => _times != null && _times.Any() ? _times.ElementAt(index%_times.Count()) : 1;
+        public int this[int index] => _times != null && _times.Any() ? _times.ElementAt(index%_times.Count()-1) : 1;
     }
 }

@@ -15,19 +15,19 @@ namespace Colin.Lottery.DataService
         public override event EventHandler<DataCollectedEventArgs> DataCollectedSuccess;
         public override event EventHandler<CollectErrorEventArgs> DataCollectedError;
 
-        public override async Task Start(bool startWhenBreakGua = true)
+        public override async Task Start()
         {
-            await StartPk10(Pk10Rule.Champion, startWhenBreakGua);
-            await StartPk10(Pk10Rule.Second, startWhenBreakGua);
-            await StartPk10(Pk10Rule.Third, startWhenBreakGua);
-            await StartPk10(Pk10Rule.Fourth, startWhenBreakGua);
-            await StartPk10(Pk10Rule.BigOrSmall, startWhenBreakGua);
-            await StartPk10(Pk10Rule.OddOrEven, startWhenBreakGua);
-            await StartPk10(Pk10Rule.DragonOrTiger, startWhenBreakGua);
-            await StartPk10(Pk10Rule.Sum, startWhenBreakGua);
+            await StartPk10(Pk10Rule.Champion);
+            await StartPk10(Pk10Rule.Second);
+            await StartPk10(Pk10Rule.Third);
+            await StartPk10(Pk10Rule.Fourth);
+            await StartPk10(Pk10Rule.BigOrSmall);
+            await StartPk10(Pk10Rule.OddOrEven);
+            await StartPk10(Pk10Rule.DragonOrTiger);
+            await StartPk10(Pk10Rule.Sum);
         }
 
-        public override void Start(Dictionary<LotteryType, List<int>> typeRules, bool startWhenBreakGua = true)
+        public override void Start(Dictionary<LotteryType, List<int>> typeRules)
         {
             if (typeRules == null)
                 return;
@@ -61,13 +61,13 @@ namespace Colin.Lottery.DataService
                         });
                         break;
                     case LotteryType.Pk10:
-                        typeRules[type].ForEach(async r => await StartPk10((Pk10Rule)r, startWhenBreakGua));
+                        typeRules[type].ForEach(async r => await StartPk10((Pk10Rule)r));
                         break;
                 }
             }
         }
 
-        private async Task StartPk10(Pk10Rule rule, bool startWhenBreakGua)
+        private async Task StartPk10(Pk10Rule rule)
         {
             var prefix = $"{LotteryType.Pk10}_{rule}";
             //大管家Job，负责创建每期的扫水Job
@@ -95,7 +95,7 @@ namespace Colin.Lottery.DataService
                         return;
                     }
 
-                    JinMaAnalyzer.Instance.CalcuteScore(plans, startWhenBreakGua);
+                    JinMaAnalyzer.Instance.CalcuteScore(plans);
 
                     if (plans.Any(p => p.LastDrawedPeriod + 1 < periodNo)) return;
 

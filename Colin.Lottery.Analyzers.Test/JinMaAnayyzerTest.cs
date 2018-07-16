@@ -28,7 +28,7 @@ namespace Colin.Lottery.Analyzers.Test
         public async void CalcuteScoreTest()
         {
             var plans = await JinMaAnalyzer.Instance.GetForcastData();
-            JinMaAnalyzer.Instance.CalcuteScore(plans, true);
+            JinMaAnalyzer.Instance.CalcuteScore(plans);
         }
     }
 }

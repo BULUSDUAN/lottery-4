@@ -13,25 +13,27 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2.AutomationServices", "2.A
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5.Infrastructure", "5.Infrastructure", "{24FFDED7-DE03-48F5-9DE5-BE378CFC33CF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Colin.Lottery.Common", "Colin.Lottery.Common\Colin.Lottery.Common.csproj", "{7077B4CA-714D-476F-8574-15022951089D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Colin.Lottery.Common", "Colin.Lottery.Common\Colin.Lottery.Common.csproj", "{7077B4CA-714D-476F-8574-15022951089D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Colin.Lottery.Utils", "Colin.Lottery.Utils\Colin.Lottery.Utils.csproj", "{150DDAF4-8BD6-4880-97EE-D45FEDA41645}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Colin.Lottery.Utils", "Colin.Lottery.Utils\Colin.Lottery.Utils.csproj", "{150DDAF4-8BD6-4880-97EE-D45FEDA41645}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Colin.Lottery.Models", "Colin.Lottery.Models\Colin.Lottery.Models.csproj", "{94CB1224-EA78-4856-A262-4CB9909CF7E2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Colin.Lottery.Models", "Colin.Lottery.Models\Colin.Lottery.Models.csproj", "{94CB1224-EA78-4856-A262-4CB9909CF7E2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Colin.Lottery.Collectors", "Colin.Lottery.Collectors\Colin.Lottery.Collectors.csproj", "{B8C82C0F-BCC4-4A80-B3D8-89E640BD3F79}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Colin.Lottery.Collectors", "Colin.Lottery.Collectors\Colin.Lottery.Collectors.csproj", "{B8C82C0F-BCC4-4A80-B3D8-89E640BD3F79}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Colin.Lottery.Collectors.Test", "Colin.Lottery.Collectors.Test\Colin.Lottery.Collectors.Test.csproj", "{16894FF4-1B3E-4946-8EEE-92FB82DB10D6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Colin.Lottery.Collectors.Test", "Colin.Lottery.Collectors.Test\Colin.Lottery.Collectors.Test.csproj", "{16894FF4-1B3E-4946-8EEE-92FB82DB10D6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Colin.Lottery.Analyzers", "Colin.Lottery.Analyzers\Colin.Lottery.Analyzers.csproj", "{36591B4F-80CC-4FC8-933A-45FE3D592A98}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Colin.Lottery.Analyzers", "Colin.Lottery.Analyzers\Colin.Lottery.Analyzers.csproj", "{36591B4F-80CC-4FC8-933A-45FE3D592A98}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Colin.Lottery.Analyzers.Test", "Colin.Lottery.Analyzers.Test\Colin.Lottery.Analyzers.Test.csproj", "{3F18B8A1-9DB4-4667-AD51-A8F457EE66EC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Colin.Lottery.Analyzers.Test", "Colin.Lottery.Analyzers.Test\Colin.Lottery.Analyzers.Test.csproj", "{3F18B8A1-9DB4-4667-AD51-A8F457EE66EC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Colin.Lottery.WebApp", "Colin.Lottery.WebApp\Colin.Lottery.WebApp.csproj", "{EEFB1ABC-66D7-4245-A27F-5292646B9ED7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Colin.Lottery.WebApp", "Colin.Lottery.WebApp\Colin.Lottery.WebApp.csproj", "{EEFB1ABC-66D7-4245-A27F-5292646B9ED7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Colin.Lottery.DataService", "Colin.Lottery.DataService\Colin.Lottery.DataService.csproj", "{3258FCAD-16F8-48BD-A560-6FA45BB58390}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Colin.Lottery.DataService", "Colin.Lottery.DataService\Colin.Lottery.DataService.csproj", "{3258FCAD-16F8-48BD-A560-6FA45BB58390}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Colin.Lottery.BetService", "Colin.Lottery.BetService\Colin.Lottery.BetService.csproj", "{7CD5668E-65F7-444D-AB43-3300115A219F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Colin.Lottery.BetService", "Colin.Lottery.BetService\Colin.Lottery.BetService.csproj", "{7CD5668E-65F7-444D-AB43-3300115A219F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Colin.Lottery.WpfApp", "Colin.Lottery.WpfApp\Colin.Lottery.WpfApp.csproj", "{0D92C22D-6C8F-4A80-A0EF-13E8183611BC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -289,6 +291,30 @@ Global
 		{7CD5668E-65F7-444D-AB43-3300115A219F}.Release|x64.Build.0 = Release|Any CPU
 		{7CD5668E-65F7-444D-AB43-3300115A219F}.Release|x86.ActiveCfg = Release|Any CPU
 		{7CD5668E-65F7-444D-AB43-3300115A219F}.Release|x86.Build.0 = Release|Any CPU
+		{0D92C22D-6C8F-4A80-A0EF-13E8183611BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D92C22D-6C8F-4A80-A0EF-13E8183611BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D92C22D-6C8F-4A80-A0EF-13E8183611BC}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{0D92C22D-6C8F-4A80-A0EF-13E8183611BC}.Debug|ARM.Build.0 = Debug|Any CPU
+		{0D92C22D-6C8F-4A80-A0EF-13E8183611BC}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{0D92C22D-6C8F-4A80-A0EF-13E8183611BC}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{0D92C22D-6C8F-4A80-A0EF-13E8183611BC}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{0D92C22D-6C8F-4A80-A0EF-13E8183611BC}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{0D92C22D-6C8F-4A80-A0EF-13E8183611BC}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{0D92C22D-6C8F-4A80-A0EF-13E8183611BC}.Debug|x64.Build.0 = Debug|Any CPU
+		{0D92C22D-6C8F-4A80-A0EF-13E8183611BC}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{0D92C22D-6C8F-4A80-A0EF-13E8183611BC}.Debug|x86.Build.0 = Debug|Any CPU
+		{0D92C22D-6C8F-4A80-A0EF-13E8183611BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D92C22D-6C8F-4A80-A0EF-13E8183611BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D92C22D-6C8F-4A80-A0EF-13E8183611BC}.Release|ARM.ActiveCfg = Release|Any CPU
+		{0D92C22D-6C8F-4A80-A0EF-13E8183611BC}.Release|ARM.Build.0 = Release|Any CPU
+		{0D92C22D-6C8F-4A80-A0EF-13E8183611BC}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{0D92C22D-6C8F-4A80-A0EF-13E8183611BC}.Release|iPhone.Build.0 = Release|Any CPU
+		{0D92C22D-6C8F-4A80-A0EF-13E8183611BC}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{0D92C22D-6C8F-4A80-A0EF-13E8183611BC}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{0D92C22D-6C8F-4A80-A0EF-13E8183611BC}.Release|x64.ActiveCfg = Release|Any CPU
+		{0D92C22D-6C8F-4A80-A0EF-13E8183611BC}.Release|x64.Build.0 = Release|Any CPU
+		{0D92C22D-6C8F-4A80-A0EF-13E8183611BC}.Release|x86.ActiveCfg = Release|Any CPU
+		{0D92C22D-6C8F-4A80-A0EF-13E8183611BC}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -304,6 +330,7 @@ Global
 		{EEFB1ABC-66D7-4245-A27F-5292646B9ED7} = {9E136313-2C58-448E-91EE-405E44334C81}
 		{3258FCAD-16F8-48BD-A560-6FA45BB58390} = {5C81D99D-2FC2-484B-AD94-87347909FC33}
 		{7CD5668E-65F7-444D-AB43-3300115A219F} = {5C81D99D-2FC2-484B-AD94-87347909FC33}
+		{0D92C22D-6C8F-4A80-A0EF-13E8183611BC} = {9E136313-2C58-448E-91EE-405E44334C81}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A9F48C08-73B1-4942-BA17-CFB7956A2F05}

@@ -103,8 +103,7 @@ namespace Colin.Lottery.Analyzers
         */
 
         private static readonly AnalyzeConfig Config = ConfigUtil.GetAppSettings<AnalyzeConfig>("AnalyzeConfig");
-        public override void CalcuteScore(List<IForcastPlanModel> plans,
-            bool startWhenBreakGua)
+        public override void CalcuteScore(List<IForcastPlanModel> plans)
         {
             if (plans == null || plans.Count<2)
             return;            
@@ -113,120 +112,36 @@ namespace Colin.Lottery.Analyzers
             plans.ForEach(plan =>
             {
                 plan.RepetitionScore = repetition;
-                plan.GuaScore = CalcuteGua(plan.ForcastData, startWhenBreakGua, out var keepGuaCnt, out var currentGuaCnt);
+                plan.GuaScore = CalcuteGua(plan.ForcastData, out var keepGuaCnt);
                 plan.KeepGuaCnt = keepGuaCnt;
                 plan.BetChaseScore = CalcuteBetChase(plan.ForcastData.LastOrDefault().ChaseTimes);
                 
-                if (!startWhenBreakGua)
-                {
-                    if (keepGuaCnt > 1 || repetition >=Config.Repetition)
-                        plan.Score = 100;
-                    else
-                    {
-                        var score = (plan.GuaScore * Config.Pg + repetition * Config.Pr + plan.BetChaseScore * Config.Pc) * (plan.WinProbability - Config.MinPrpbability) /
-                                 (Config.MaxPrpbability - Config.MinPrpbability);
-                        plan.Score = repetition >= Config.Repetition ? repetition : score;
-                    }
-                }
+                if (plan.GuaScore >= 90 || repetition >= Config.Repetition)
+                    plan.Score = 100;
                 else
                 {
-                    if (plan.GuaScore >= 90 || repetition >= Config.Repetition)
-                        plan.Score = 100;
-                    else
-                    {
-                        var score = (plan.GuaScore * Config.Pgb + repetition * Config.Prb + plan.BetChaseScore * Config.Pcb) * (plan.WinProbability - Config.MinPrpbability) /
-                                 (Config.MaxPrpbability - Config.MinPrpbability);
-                        plan.Score = repetition >= Config.Repetition ? repetition : score;
-                    }
+                    var score = (plan.GuaScore * Config.Pgb + repetition * Config.Prb + plan.BetChaseScore * Config.Pcb) * (plan.WinProbability - Config.MinPrpbability) /
+                                (Config.MaxPrpbability - Config.MinPrpbability);
+                    plan.Score = repetition >= Config.Repetition ? repetition : score;
                 }
             });
         }
 
 
-        /// <summary>
-        /// 计算"挂"分数 (出现挂优先)
-        /// </summary>
-        /// <param name="forcastData"></param>
-        /// <param name="keepGuaCnt"></param>
-        /// <param name="keepHisGuaCnt"></param>
-        /// <returns></returns>
-        private static float CalcuteGua(IReadOnlyCollection<IForcastModel> forcastData, out int keepGuaCnt,
-            out int keepHisGuaCnt)
-        {
-            float total = 0;
-            //从最新期开始连挂次数
-            keepGuaCnt = 0;
-            //历史记录(不包含从最新期连挂的情况)出现连挂次数
-            keepHisGuaCnt = 0;
-
-            if (forcastData.Count < 2)
-                throw new Exception("预测历史数据不足,无法进行评估");
-
-            var results = forcastData.Take(forcastData.Count - 1).Select(f => f.IsWin);
-            var enumerable = results as bool?[] ?? results.ToArray();
-            var lastIndex = enumerable.Length - 1;
-            for (var i = lastIndex; i >= 0; i--)
-            {
-                var isWin = enumerable.ElementAt(i);
-                if (isWin != false)
-                    continue;
-
-                //从最新一期非连挂
-                var breakGua = enumerable.Skip(i).Take(enumerable.Length - i).Any(w => w != false);
-
-                float priority;
-
-                //从最近一期连挂 所有挂的期数权重均为100%
-                if (!breakGua)
-                {
-                    priority = 1;
-                    keepGuaCnt++;
-                }
-                else
-                {
-                    //历史记录(不包含从最新期连挂的情况)出现连挂，每个连挂期数都附加相应分数
-                    if (enumerable.Skip(i + 1).Take(1).FirstOrDefault() == false)
-                    {
-                        total += Config.KeepGuaExtra;
-                        keepHisGuaCnt++;
-                    }
-
-                    //正常每个挂 权重递减
-                    priority = 1 - (lastIndex - i) * Config.GuaPriority;
-                }
-
-                if (priority > 0)
-                {
-                    var score = Config.Gua * priority;
-                    total += score > Config.GuaBase ? score : Config.GuaBase;
-                }
-                else
-                    total += Config.GuaBase;
-            }
-
-            return total > 100 ? 100 : total;
-        }
+        
 
 
         /// <summary>
         /// 计算"挂"分数 (结束挂优先)
         /// </summary>
         /// <param name="forcastData"></param>
-        /// <param name="startWhenBreakGua"></param>
         /// <param name="keepGuaCnt">有效挂(连挂已结束并仍处于有效期内)数量</param>
-        /// <param name="currentGuaCnt"></param>
         /// <returns></returns>
-        private static float CalcuteGua(IReadOnlyCollection<IForcastModel> forcastData, bool startWhenBreakGua, out int keepGuaCnt,
-            out int currentGuaCnt)
+        private static float CalcuteGua(IReadOnlyCollection<IForcastModel> forcastData, out int keepGuaCnt)
         {
-            if (!startWhenBreakGua)
-                return CalcuteGua(forcastData, out keepGuaCnt, out currentGuaCnt);
-
             float total = 0;
             //从最新期开始连挂次数
             keepGuaCnt = 0;
-            //历史记录(不包含从最新期连挂的情况)出现连挂次数
-            currentGuaCnt = 0;
 
             if (forcastData.Count < 2)
             {
@@ -242,7 +157,6 @@ namespace Colin.Lottery.Analyzers
             if (firstWinIndex > 0)
             {
                 total = results.Count(f => f == false) * Config.GuaBase;
-                currentGuaCnt = firstWinIndex;
             }
             else
             {

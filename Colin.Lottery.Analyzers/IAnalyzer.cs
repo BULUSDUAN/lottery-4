@@ -40,7 +40,6 @@ namespace Colin.Lottery.Analyzers
         /// 对计划评分
         /// </summary>
         /// <param name="plans">Plans.</param>
-        /// <param name="startWhenBreakGua">If set to <c>true</c> start when break gua.</param>
-        void CalcuteScore(List<IForcastPlanModel> plans, bool startWhenBreakGua);
+        void CalcuteScore(List<IForcastPlanModel> plans);
     }
 }

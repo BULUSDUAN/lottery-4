@@ -12,9 +12,9 @@ namespace Colin.Lottery.DataService
         public abstract event EventHandler<DataCollectedEventArgs> DataCollectedSuccess;
         public abstract event EventHandler<CollectErrorEventArgs> DataCollectedError;
 
-        public abstract Task Start(bool startWhenBreakGua = false);
+        public abstract Task Start();
 
-        public abstract void Start(Dictionary<LotteryType, List<int>> typeRules, bool startWhenBreakGua = false);
+        public abstract void Start(Dictionary<LotteryType, List<int>> typeRules);
 
     }
 }

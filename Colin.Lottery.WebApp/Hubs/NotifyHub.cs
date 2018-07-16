@@ -8,9 +8,9 @@ namespace Colin.Lottery.WebApp.Hubs
 {
     public class NotifyHub : BaseHub<NotifyHub>
     {
-        public void GetNotifications(float criticalScore, bool startWhenBreakGua = false)
+        public void GetNotifications(float criticalScore)
         {
-            //var notifications = await GetAllNotifications(criticalScore, startWhenBreakGua);
+            //var notifications = await GetAllNotifications(criticalScore);
             //await Clients.Caller.SendAsync("Notify", notifications);
 
             UserSettings.TryRemove(Context.ConnectionId, out _);
@@ -22,19 +22,18 @@ namespace Colin.Lottery.WebApp.Hubs
         /// </summary>
         /// <returns>The all notifications.</returns>
         /// <param name="criticalScore">Critical score.</param>
-        /// <param name="startWhenBreakGua">If set to <c>true</c> start when break gua.</param>
-        private async Task<List<string>> GetAllNotifications(float criticalScore, bool startWhenBreakGua)
+        private async Task<List<string>> GetAllNotifications(float criticalScore)
         {
             var nots = new List<string>();
 
-            await GetNotifications(nots, LotteryType.Pk10, (int)Pk10Rule.Champion, criticalScore, startWhenBreakGua);
-            await GetNotifications(nots, LotteryType.Pk10, (int)Pk10Rule.Second, criticalScore, startWhenBreakGua);
-            await GetNotifications(nots, LotteryType.Pk10, (int)Pk10Rule.Third, criticalScore, startWhenBreakGua);
-            await GetNotifications(nots, LotteryType.Pk10, (int)Pk10Rule.Fourth, criticalScore, startWhenBreakGua);
-            await GetNotifications(nots, LotteryType.Pk10, (int)Pk10Rule.BigOrSmall, criticalScore, startWhenBreakGua);
-            await GetNotifications(nots, LotteryType.Pk10, (int)Pk10Rule.OddOrEven, criticalScore, startWhenBreakGua);
-            await GetNotifications(nots, LotteryType.Pk10, (int)Pk10Rule.DragonOrTiger, criticalScore, startWhenBreakGua);
-            await GetNotifications(nots, LotteryType.Pk10, (int)Pk10Rule.Sum, criticalScore, startWhenBreakGua);
+            await GetNotifications(nots, LotteryType.Pk10, (int)Pk10Rule.Champion, criticalScore);
+            await GetNotifications(nots, LotteryType.Pk10, (int)Pk10Rule.Second, criticalScore);
+            await GetNotifications(nots, LotteryType.Pk10, (int)Pk10Rule.Third, criticalScore);
+            await GetNotifications(nots, LotteryType.Pk10, (int)Pk10Rule.Fourth, criticalScore);
+            await GetNotifications(nots, LotteryType.Pk10, (int)Pk10Rule.BigOrSmall, criticalScore);
+            await GetNotifications(nots, LotteryType.Pk10, (int)Pk10Rule.OddOrEven, criticalScore);
+            await GetNotifications(nots, LotteryType.Pk10, (int)Pk10Rule.DragonOrTiger, criticalScore);
+            await GetNotifications(nots, LotteryType.Pk10, (int)Pk10Rule.Sum, criticalScore);
 
             return nots;
         }
@@ -47,11 +46,10 @@ namespace Colin.Lottery.WebApp.Hubs
         /// <param name="lottery">Lottery.</param>
         /// <param name="rule">Rule.</param>
         /// <param name="criticalScore">Critical score.</param>
-        /// <param name="startWhenBreakGua">If set to <c>true</c> start when break gua.</param>
-        private static async Task GetNotifications(ICollection<string> notifications, LotteryType lottery, int rule, float criticalScore, bool startWhenBreakGua)
+        private static async Task GetNotifications(ICollection<string> notifications, LotteryType lottery, int rule, float criticalScore)
         {
             var plans = await JinMaAnalyzer.Instance.GetForcastData(lottery, rule);
-            JinMaAnalyzer.Instance.CalcuteScore(plans, startWhenBreakGua);
+            JinMaAnalyzer.Instance.CalcuteScore(plans);
 
             //plans.ForEach(p =>
             //{

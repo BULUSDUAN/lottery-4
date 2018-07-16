@@ -12,14 +12,13 @@ namespace Colin.Lottery.DataService
         /// <summary>
         /// 开始数据分析（默认为北京赛车冠军定位胆）
         /// </summary>
-        Task Start(bool startWhenBreakGua = false);
+        Task Start();
 
         /// <summary>
         /// 开始数据分析
         /// </summary>
         /// <param name="typeRules">彩种和玩法</param>
-        /// <param name="startWhenBreakGua"></param>
-        void Start(Dictionary<LotteryType, List<int>> typeRules, bool startWhenBreakGua = false);
+        void Start(Dictionary<LotteryType, List<int>> typeRules);
 
         
         /// <summary>
@@ -28,7 +27,7 @@ namespace Colin.Lottery.DataService
         event EventHandler<DataCollectedEventArgs> DataCollectedSuccess;
 
         /// <summary>
-        /// 数据请求错误、
+        /// 数据请求错误、CurrentGuaCnt
         /// </summary>
         event EventHandler<CollectErrorEventArgs> DataCollectedError;
     }

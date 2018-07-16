@@ -17,6 +17,6 @@ namespace Colin.Lottery.Analyzers
 
         public abstract Task<List<IForcastPlanModel>> GetForcastData();
 
-        public abstract void CalcuteScore(List<IForcastPlanModel> plans, bool startWhenBreakGua);
+        public abstract void CalcuteScore(List<IForcastPlanModel> plans);
     }
 }

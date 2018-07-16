@@ -37,8 +37,11 @@ namespace Colin.Lottery.BetService
         private static readonly BetConfig BetConfig = ConfigUtil.GetAppSettings<BetConfig>("BetConfig");
         private static async void BetPk10(JArray arg)
         {
+            //TODO:判断是否仍有余额
+            
+            
             var plans = JsonConvert.DeserializeObject<List<JinMaForcastModel>>(arg.ToString());
-            foreach (var plan in plans)
+            foreach (IForcastModel plan in plans)
             {
                 //跳过和值
                 if (plan.Rule.ToPk10Rule() == Pk10Rule.Sum)
@@ -51,8 +54,48 @@ namespace Colin.Lottery.BetService
                  * 2.胜率低于 MinWinProbability，如果符合连挂结束则采用追挂结束模式小额跟投
                  * 
                  * ---- 追连挂结束模式 ----
-                 * 
+                 *
+                 * 1)等待N连挂结束之后可以相对安全的跟投N-1期，如果N-1中再次出现挂则停止追挂结束模式
+                 * 2）N-1期倍投随跟投期数递减
+                 *
+                 * 3.前四名玩法中出现号码重复度100%时小额跟投3期
+                 * 4.如果一期同时满足以上多种情况，则采用以上最大的下注金额
                  */
+
+                float betMoney = 0;
+
+                if (plan.WinProbability >= BetConfig.MinWinProbability)
+                {
+                    if (plan.KeepGuaCnt >= 3)
+                    {
+                        //3连挂结
+                    }
+                    else
+                    {
+                        //连挂中或正常未挂
+                        
+                        
+                    }
+                }
+                else
+                {
+                    if (plan.KeepGuaCnt >= BetConfig.MinGua)
+                    {
+//                        LowEndGua
+                        
+                        //判断当前第几段第几期跟投 决定下注金额
+//                        betMoney = betMoney < BetConfig.LowEndGua ? BetConfig.LowEndGua : betMoney;    
+                    }
+                }
+
+                if (plan.RepetitionScore >= 100)
+                {
+                    //SameNumber
+                    var money = BetConfig[plan.ChaseTimes] * BetConfig.SameNumberBetMoney;
+                    betMoney = betMoney < money ? money : betMoney;    
+                }
+                
+                //TODO:判断余额是否大于下注金额
             }
             
            

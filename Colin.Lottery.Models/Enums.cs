@@ -120,6 +120,30 @@ namespace Colin.Lottery.Models
     }
 
     /// <summary>
+    /// 投注类型
+    /// </summary>
+    public enum BetType
+    {
+        /// <summary>
+        /// 每期跟投
+        /// </summary>
+        Every,
+        /// <summary>
+        /// 大额挂结束
+        /// </summary>
+        HighEndGua,
+        /// <summary>
+        /// 小额挂结束
+        /// </summary>
+        LowEndGua,
+        /// <summary>
+        /// 相同号码
+        /// </summary>
+        SameNumber
+    }
+    
+
+    /// <summary>
     /// 邮件内容格式
     /// </summary>
     public enum MailContentType

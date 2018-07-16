@@ -17,7 +17,7 @@
     //启动连接并初始化数据
     connection.start().then(
         function () {
-            connection.invoke('GetForcastData', rule, true).catch(err => console.error(err.toString()));
+            connection.invoke('GetForcastData', rule).catch(err => console.error(err.toString()));
         },
         function () {
             console.error("服务器(" + hub + ")连接失败");
@@ -50,7 +50,7 @@
     $(".nav-tabs a").on("click", function () {
         let id = $(this).attr("aria-controls");
         loading(id);
-        connection.invoke('GetForcastData', id, true).catch(err => console.error(err.toString()));
+        connection.invoke('GetForcastData', id).catch(err => console.error(err.toString()));
         //无刷新更新URL
         history.replaceState(null, null, id);
     });
