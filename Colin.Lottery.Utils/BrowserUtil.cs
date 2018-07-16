@@ -27,7 +27,7 @@ namespace Colin.Lottery.Utils
                 ChromeOptions.Proxy = proxy;
             }
 
-            _chromeDriver = new ChromeDriver(ChromeOptions);
+            _chromeDriver = new ChromeDriver(AppDomain.CurrentDomain.BaseDirectory, ChromeOptions);
         }
 
         private ChromeOptions ChromeOptions
@@ -78,7 +78,7 @@ namespace Colin.Lottery.Utils
 
                     //执行JavaScript
                     if (script != null)
-                        _chromeDriver.ExecuteAsyncScript(script.Code, script.Args);
+                        _chromeDriver.ExecuteScript(script.Code, script.Args);
 
                     //返回条件和超时时间
                     if (operation?.Condition != null)
