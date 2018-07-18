@@ -177,7 +177,8 @@ namespace Colin.Lottery.BetService
             var type = BetType.Every;
 
             //跳过和值
-            if (plan.Rule.ToPk10Rule() == Pk10Rule.Sum)
+            var rule = plan.Rule.ToPk10Rule();
+            if (rule == Pk10Rule.Sum)
                 return (betMoney, type);
 
             /*
@@ -244,9 +245,12 @@ namespace Colin.Lottery.BetService
 
             if (plan.RepetitionScore >= 100)
             {
-                //SameNumber
-                money = BetConfig[plan.ChaseTimes] * BetConfig.SameNumberBetMoney;
-                CompareBetInfo(BetType.SameNumber);
+                if (rule == Pk10Rule.Champion || rule == Pk10Rule.Second || rule == Pk10Rule.Third || rule == Pk10Rule.Fourth)
+                {
+                    //SameNumber
+                    money = BetConfig[plan.ChaseTimes] * BetConfig.SameNumberBetMoney;
+                    CompareBetInfo(BetType.SameNumber);
+                }
             }
 
             return (betMoney, type);
