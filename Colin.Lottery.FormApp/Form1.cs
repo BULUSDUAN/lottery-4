@@ -73,27 +73,20 @@ let timer= setInterval(function(){
             browser.ExecuteScript("$('#btn_OK').click()");
         }
 
-        /// <summary>
-        /// 选择彩种
-        /// </summary>
-        /// <param name="type"></param>
-        private void ChooseLotteryType(LotteryType type = LotteryType.Pk10)
+
+
+        //彩种、玩法、期号、号码、下注金额
+        private void Bet(LotteryType type, int rule, long periodNo, string betNo, decimal betMoney)
         {
-            var dictNames = new Dictionary<LotteryType, string>
+            var dictNames = new Dictionary<LotteryType, int>
             {
-                [LotteryType.Pk10] = "北京PK10",
-                [LotteryType.Cqssc] = "重庆时时彩"
+                [LotteryType.Pk10] = 19,
+                [LotteryType.Cqssc] = 1
             };
 
-            string name = dictNames[type];
-
-            //导航到主页
-            
-        }
-
-        private void NavigateHome()
-        {
-            
+            StringBuilder sb = new StringBuilder();
+            //选择彩种
+            var typeId = dictNames[type];
         }
     }
 }

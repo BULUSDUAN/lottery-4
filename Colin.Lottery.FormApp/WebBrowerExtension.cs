@@ -55,7 +55,6 @@ namespace Colin.Lottery.FormApp
         {
             var body = browser.Document.GetElementsByTagName("body")[0];
             var newScript = browser.Document.CreateElement("script");
-            //移除所有由此生成的所有自执行函数，如果
             newScript.SetAttribute("canBeCleared", "true");
             newScript.InnerHtml = $"(function(){{$('[canBeCleared=true]').remove();{script}}})();";
             body.AppendChild(newScript);
