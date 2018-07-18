@@ -27,6 +27,7 @@
         <Folder Include="wwwroot\lib\art-template\" />
         <Folder Include="wwwroot\js\ssr\" />
         <Folder Include="wwwroot\images\ssr\" />
+        <Folder Include="wwwroot\others\" />
     </ItemGroup>
     <ItemGroup>
         <None Include="wwwroot\js\settings.js" />

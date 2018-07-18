@@ -49,7 +49,7 @@ namespace Colin.Lottery.Models.BetService
         /// <summary>
         /// 追挂结束每段下注金额递减比例
         /// </summary>
-        public int DeltaReduce { get;set; }
+        public float DeltaReduce { get;set; }
 
         private string _timesFormula;
         private IEnumerable<int> _times;
