@@ -86,11 +86,11 @@ namespace Colin.Lottery.BetService
                     foreach (var record in records)
                     {
                         record.DrawNo = plans.FirstOrDefault().LastDrawNo;
-                        var isWin = CheckIsWin((Pk10Rule)record.Rule,record.BetNo,record.DrawNo);
+                        var isWin = CheckIsWin((Pk10Rule)record.Rule, record.BetNo, record.DrawNo);
                         record.IsWin = isWin;
                         if (isWin)
                         {
-                            record.WinMoney = record.BetMoney * ((decimal) record.Odds - 1);
+                            record.WinMoney = record.BetMoney * ((decimal)record.Odds - 1);
                             //中奖后将中奖金额加到最后一条记录的可用余额上
                             Db.BetRecord.LastOrDefault().Balance += record.WinMoney;
                         }
@@ -109,7 +109,7 @@ namespace Colin.Lottery.BetService
                     var lastPeriod = Db.BetRecord.LastOrDefault();
 
                     //余额不足
-                    var balance = lastPeriod?.Balance ?? (decimal) BetConfig.StartBalance;
+                    var balance = lastPeriod?.Balance ?? (decimal)BetConfig.StartBalance;
                     if (balance < 0)
                         continue;
 
@@ -119,12 +119,12 @@ namespace Colin.Lottery.BetService
                         continue;
 
                     //余额不足
-                    if ((decimal) info.BetMoney > balance)
+                    if ((decimal)info.BetMoney > balance)
                         continue;
 
-                    var betMoneyAll = (decimal) info.BetMoney * 5;
+                    var betMoneyAll = (decimal)info.BetMoney * 5;
                     balance -= betMoneyAll;
-                    Db.BetRecord.Add(new BetRecord(LotteryType.Pk10, (int) plan.Rule.ToPk10Rule(),
+                    Db.BetRecord.Add(new BetRecord(LotteryType.Pk10, (int)plan.Rule.ToPk10Rule(),
                         plan.Plan, plan.LastDrawedPeriod + 1, plan.ForcastNo, plan.ChaseTimes, betMoneyAll,
                         BetConfig.Odds, info.BetType, balance));
 
@@ -136,34 +136,34 @@ namespace Colin.Lottery.BetService
             }
         }
 
-        private static bool CheckIsWin(Pk10Rule rule,string betNo, string drawNo)
+        private static bool CheckIsWin(Pk10Rule rule, string betNo, string drawNo)
         {
-            if (string.IsNullOrWhiteSpace(betNo)||string.IsNullOrWhiteSpace(drawNo))
+            if (string.IsNullOrWhiteSpace(betNo) || string.IsNullOrWhiteSpace(drawNo))
                 return false;
 
             var betNos = betNo.Split(' ');
-            var winNos= drawNo.Split(',');
+            var winNos = drawNo.Split(',');
             if (!betNos.Any() || winNos.Length < 10)
                 return false;
-            var champion = Convert.ToInt32( winNos[0]);
+            var champion = Convert.ToInt32(winNos[0]);
             var second = Convert.ToInt32(winNos[1]);
-            
+            var tenth = Convert.ToInt32(winNos[10]);
+
             switch (rule)
             {
                 case Pk10Rule.Champion:
                 case Pk10Rule.Second:
                 case Pk10Rule.Third:
                 case Pk10Rule.Fourth:
-                    return betNos.Contains(winNos[(int) rule]);
+                    return betNos.Contains(winNos[(int)rule]);
                 case Pk10Rule.BigOrSmall:
-                    return string.Equals(betNos[0],champion>5?"大":"小");
+                    return string.Equals(betNos[0], champion > 5 ? "大" : "小");
                 case Pk10Rule.OddOrEven:
-                    return string.Equals(betNos[0],champion%2!=0?"单":"双");
+                    return string.Equals(betNos[0], champion % 2 != 0 ? "单" : "双");
                 case Pk10Rule.DragonOrTiger:
-                    //TODO:确定龙虎玩法
-                    return false;    
+                    return string.Equals(betNo[0], champion > tenth ? "龙" : "虎");
                 case Pk10Rule.Sum:
-                    return betNos.Contains((champion+second).ToString().PadLeft(2,'0'));
+                    return betNos.Contains((champion + second).ToString().PadLeft(2, '0'));
             }
 
             return false;

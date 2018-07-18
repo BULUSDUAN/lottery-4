@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Colin.Lottery.WpfApp.Properties
+namespace Colin.Lottery.FormApp.Properties
 {
 
 
