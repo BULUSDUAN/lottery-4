@@ -102,9 +102,8 @@ namespace Colin.Lottery.DataService
 
                     DataCollectedSuccess?.Invoke(this, new DataCollectedEventArgs(rule, plans));
 
-
-                    bool isDel = await QuartzUtil.RemoveJob(JobName, JobGroup, TriggerName, TriggerGroup);
-                    Console.WriteLine($"删除任务{JobName}\t{JobGroup}\t{isDel}\t{DateTime.Now}");
+                    await QuartzUtil.RemoveJob(JobName, JobGroup, TriggerName, TriggerGroup);
+                    Console.WriteLine($"{JobName}\t{JobGroup}\t{DateTime.Now}");
                 }, "0/5 * * * * ? *");
             });
 

@@ -72,10 +72,7 @@ namespace Colin.Lottery.BetService
                 //    }
                 //}
 
-                var p = plans.FirstOrDefault();
-                Console.WriteLine($"{p.Rule}\t{p.LastPeriod}\t{DateTime.Now}");
 
-                /*
                 foreach (IForcastModel plan in plans)
                 {
                     var lastPeriod = Db.BetRecord.LastOrDefault();
@@ -96,16 +93,16 @@ namespace Colin.Lottery.BetService
 
                     var betMoneyAll = (decimal)info.BetMoney * 5;
                     balance -= betMoneyAll;
+
+                    //TODO:下注  彩种、玩法、期号、号码、下注金额
+
+
                     Db.BetRecord.Add(new BetRecord(LotteryType.Pk10, (int)plan.Rule.ToPk10Rule(),
                         plan.Plan, plan.LastDrawedPeriod + 1, plan.ForcastNo, plan.ChaseTimes, betMoneyAll,
                         BetConfig.Odds, info.BetType, balance));
-
-
-                    //TODO:下注  彩种、玩法、期号、号码、下注金额
                 }
 
                 Db.SaveChanges();
-                */
             }
         }
 
