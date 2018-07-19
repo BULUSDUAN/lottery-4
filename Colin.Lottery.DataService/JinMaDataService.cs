@@ -103,7 +103,6 @@ namespace Colin.Lottery.DataService
                     DataCollectedSuccess?.Invoke(this, new DataCollectedEventArgs(rule, plans));
 
                     await QuartzUtil.RemoveJob(JobName, JobGroup, TriggerName, TriggerGroup);
-                    Console.WriteLine($"{JobName}\t{JobGroup}\t{DateTime.Now}");
                 }, "0/5 * * * * ? *");
             });
 
