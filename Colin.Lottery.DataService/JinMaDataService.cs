@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,6 +8,7 @@ using Colin.Lottery.Analyzers;
 using Colin.Lottery.Common.Scheduler;
 using Colin.Lottery.Models;
 using Colin.Lottery.Utils;
+using Quartz;
 
 namespace Colin.Lottery.DataService
 {
@@ -67,6 +69,7 @@ namespace Colin.Lottery.DataService
             }
         }
 
+
         private async Task StartPk10(Pk10Rule rule)
         {
             var prefix = $"{LotteryType.Pk10}_{rule}";
@@ -76,14 +79,17 @@ namespace Colin.Lottery.DataService
                 var timestamp = DateTime.Now;
                 var periodNo = Pk10Scheduler.Instance.GetPeriodNo(timestamp);
                 var tempJob = $"{prefix}_Scan_{periodNo}";
-                var (JobName, JobGroup, TriggerName, TriggerGroup) = tempJob.JobAndTriggerNames();
+                var (JobName, JobGroup, _, _) = tempJob.JobAndTriggerNames();
 
                 await QuartzUtil.ScheduleSimpleJob(tempJob, async () =>
                 {
+                    //Job废弃
+                    if (!QuartzUtil.CanExecute(JobName, JobGroup))
+                        return;
+
                     //超时自毁
                     if ((DateTime.Now - timestamp).TotalMinutes > 5)
-                        await QuartzUtil.RemoveJob(JobName, JobGroup, TriggerName, TriggerGroup);
-                    //await QuartzUtil.DeleteJob(JobName, JobGroup);
+                        await QuartzUtil.DeleteJob(JobName, JobGroup);
 
                     //扫水
                     var plans = await JinMaAnalyzer.Instance.GetForcastData(LotteryType.Pk10, (int)rule);
@@ -101,8 +107,7 @@ namespace Colin.Lottery.DataService
                     if (plans.Any(p => p.LastDrawedPeriod + 1 < periodNo)) return;
 
                     DataCollectedSuccess?.Invoke(this, new DataCollectedEventArgs(rule, plans));
-
-                    await QuartzUtil.RemoveJob(JobName, JobGroup, TriggerName, TriggerGroup);
+                    await QuartzUtil.DeleteJob(JobName, JobGroup);
                 }, "0/5 * * * * ? *");
             });
 

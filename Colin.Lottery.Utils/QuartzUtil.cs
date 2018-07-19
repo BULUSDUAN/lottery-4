@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 using Quartz;
@@ -12,6 +15,42 @@ namespace Colin.Lottery.Utils
 {
     public static class QuartzUtil
     {
+        /// <summary>
+        /// 废弃的Job
+        /// </summary>
+        public static ConcurrentQueue<JobKey> ObsoleteJobs { get; set; }
+        static QuartzUtil()
+        {
+            ObsoleteJobs = new ConcurrentQueue<JobKey>();
+
+            async void ClearObsoleteJobs()
+            {
+                await ScheduleSimpleJob("ClearObsoleteJobs", async () =>
+                  {
+                      if (!ObsoleteJobs.TryDequeue(out JobKey job))
+                          return;
+
+                      bool deleted = await GetScheduler().DeleteJob(job);
+                      if (deleted)
+                          return;
+
+                      ObsoleteJobs.Enqueue(job);
+                  }, "0/5 * * * * ? *");
+            }
+            ClearObsoleteJobs();
+        }
+
+        public static bool CanExecute(string jobName, string jobGroup) => !QuartzUtil.ObsoleteJobs.Contains(new JobKey(jobName, jobGroup), new JobKeyComparer());
+        class JobKeyComparer : IEqualityComparer<JobKey>
+        {
+            public bool Equals(JobKey x, JobKey y)
+            {
+                return string.Equals(x.Name, y.Name) && string.Equals(x.Group, y.Group);
+            }
+
+            public int GetHashCode(JobKey obj) => obj.GetHashCode();
+        }
+
         /// <summary>
         /// 获取全局唯一Scheduler(GlobleScheduler)
         /// </summary>
@@ -55,23 +94,26 @@ namespace Colin.Lottery.Utils
                  .Build();
         }
 
-        /// <summary>
-        /// 移除Job
-        /// </summary>
-        /// <returns>The job.</returns>
-        /// <param name="triggerName">Trigger name.</param>
-        /// <param name="triggerGroup">Trigger group.</param>
-        /// <param name="jobName">Job name.</param>
-        /// <param name="jobGroup">Job group.</param>
-        public static async Task<bool> RemoveJob(string jobName, string jobGroup, string triggerName, string triggerGroup)
-        {
-            var scheduler = GetScheduler();
-            var trigger = new TriggerKey(triggerName, triggerGroup);
-            await scheduler.PauseTrigger(trigger);
-            await scheduler.PauseJob(new JobKey(jobName, jobGroup));
-            await scheduler.UnscheduleJob(trigger);
-            return await DeleteJob(jobName, jobGroup);
-        }
+
+
+
+        ///// <summary>
+        ///// 移除Job
+        ///// </summary>
+        ///// <returns>The job.</returns>
+        ///// <param name="triggerName">Trigger name.</param>
+        ///// <param name="triggerGroup">Trigger group.</param>
+        ///// <param name="jobName">Job name.</param>
+        ///// <param name="jobGroup">Job group.</param>
+        //public static async Task<bool> RemoveJob(string jobName, string jobGroup, string triggerName, string triggerGroup)
+        //{
+        //    var scheduler = GetScheduler();
+        //    var trigger = new TriggerKey(triggerName, triggerGroup);
+        //    await scheduler.PauseTrigger(trigger);
+        //    await scheduler.PauseJob(new JobKey(jobName, jobGroup));
+        //    await scheduler.UnscheduleJob(trigger);
+        //    return await DeleteJob(jobName, jobGroup);
+        //}
 
         /// <summary>
         /// 删除指定名称Job
@@ -89,10 +131,14 @@ namespace Colin.Lottery.Utils
         /// <param name="name">Job名称</param>
         /// <param name="group">Job分组名称</param>
         /// <returns>true if the Job was found and deleted.</returns>
-        public static async Task<bool> DeleteJob(string name, string group)
+        public static async Task DeleteJob(string name, string group)
         {
+            var job = new JobKey(name, group);
+            bool result = await GetScheduler().DeleteJob(job);
 
-            return await GetScheduler().DeleteJob(new JobKey(name, group));
+            //删除失败后加入废弃队列
+            if (!result)
+                ObsoleteJobs.Enqueue(job);
         }
 
         /// <summary>

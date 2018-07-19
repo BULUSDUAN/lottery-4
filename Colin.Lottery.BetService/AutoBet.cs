@@ -46,39 +46,42 @@ namespace Colin.Lottery.BetService
             //加锁去异步，防止多线程并发下注引起余额等字段重入
             lock (Db)
             {
+                //自动开奖
                 //上期所有玩法开奖
-                //var records = Db.BetRecord.Where(p =>
-                //    !p.IsDrawed && p.PeriodNo == plans.FirstOrDefault().LastDrawedPeriod);
-                //if (records.Any())
-                //{
-                //    foreach (var record in records)
-                //    {
-                //        record.DrawNo = plans.FirstOrDefault().LastDrawNo;
-                //        var isWin = CheckIsWin((Pk10Rule)record.Rule, record.BetNo, record.DrawNo);
-                //        record.IsWin = isWin;
-                //        if (isWin)
-                //        {
-                //            record.WinMoney = record.BetMoney * ((decimal)record.Odds - 1);
-                //            //中奖后将中奖金额加到最后一条记录的可用余额上
-                //            Db.BetRecord.LastOrDefault().Balance += record.WinMoney;
-                //        }
-                //        else
-                //        {
-                //            record.WinMoney = -record.BetMoney;
-                //        }
+                var records = Db.BetRecord.Where(p =>
+                    !p.IsDrawed && p.PeriodNo == plans.FirstOrDefault().LastDrawedPeriod);
+                if (records.Any())
+                {
+                    foreach (var record in records)
+                    {
+                        record.DrawNo = plans.FirstOrDefault().LastDrawNo;
+                        var isWin = CheckIsWin((Pk10Rule)record.Rule, record.BetNo, record.DrawNo);
+                        record.IsWin = isWin;
+                        if (isWin)
+                        {
+                            var addMoney = record.BetMoney * (decimal)record.Odds;
+                            record.WinMoney = addMoney - record.BetMoney;
+                            //中奖后将中奖金额加到最后一条记录的可用余额上
+                            Db.BetRecord.LastOrDefault().Balance += addMoney;
+                        }
+                        else
+                        {
+                            record.WinMoney = -record.BetMoney;
+                        }
 
-                //        record.IsDrawed = true;
-                //        record.DrawTime = DateTime.Now;
-                //    }
-                //}
+                        record.IsDrawed = true;
+                        record.DrawTime = DateTime.Now;
+                    }
+                }
 
-
+                //自动下注
+                var balance = Db.BetRecord.LastOrDefault()?.Balance ?? (decimal)BetConfig.StartBalance;
                 foreach (IForcastModel plan in plans)
                 {
-                    var lastPeriod = Db.BetRecord.LastOrDefault();
+                    //var lastPeriod = Db.BetRecord.LastOrDefault();
+                    //var balance = lastPeriod?.Balance ?? (decimal)BetConfig.StartBalance;
 
                     //余额不足
-                    var balance = lastPeriod?.Balance ?? (decimal)BetConfig.StartBalance;
                     if (balance < 0)
                         continue;
 
@@ -117,7 +120,7 @@ namespace Colin.Lottery.BetService
                 return false;
             var champion = Convert.ToInt32(winNos[0]);
             var second = Convert.ToInt32(winNos[1]);
-            var tenth = Convert.ToInt32(winNos[10]);
+            var tenth = Convert.ToInt32(winNos[9]);
 
             switch (rule)
             {
