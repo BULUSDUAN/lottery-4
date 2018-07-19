@@ -41,69 +41,41 @@ namespace Colin.Lottery.BetService
 
         private static void BetPk10(JArray arg)
         {
-            /*
-            using (var db = new BetContext())
-            {
-                var lastRecord = await db.BetRecord.LastOrDefaultAsync();
-                var balance = lastRecord?.Balance ?? (decimal) BetConfig.StartBalance;
-                if (lastRecord?.Balance < 0)
-                    return;
-
-                var plans = JsonConvert.DeserializeObject<List<JinMaForcastModel>>(arg.ToString());
-                foreach (IForcastModel plan in plans)
-                {
-                    var info = GetBetInfo(plan);
-                    if (info.BetMoney <= 0)
-                        continue;
-
-                    if ((decimal) info.BetMoney > balance)
-                        continue;
-
-                    var betMoneyAll = (decimal) info.BetMoney * 5;
-                    balance -= betMoneyAll;
-                    await db.BetRecord.AddAsync(new BetRecord(LotteryType.Pk10, (int) plan.Rule.ToPk10Rule(),
-                        plan.Plan, plan.LastPeriod, plan.ForcastNo, plan.ChaseTimes, betMoneyAll,
-                        BetConfig.Odds, info.BetType, balance));
-
-
-                    //TODO:下注  彩种、玩法、期号、号码、下注金额
-                }
-
-                await db.SaveChangesAsync();
-            }
-            */
+            var plans = JsonConvert.DeserializeObject<List<JinMaForcastModel>>(arg.ToString());
 
             //加锁去异步，防止多线程并发下注引起余额等字段重入
             lock (Db)
             {
-                var plans = JsonConvert.DeserializeObject<List<JinMaForcastModel>>(arg.ToString());
-
                 //上期所有玩法开奖
-                var records = Db.BetRecord.Where(p =>
-                    !p.IsDrawed && p.PeriodNo == plans.FirstOrDefault().LastDrawedPeriod);
-                if (records.Any())
-                {
-                    foreach (var record in records)
-                    {
-                        record.DrawNo = plans.FirstOrDefault().LastDrawNo;
-                        var isWin = CheckIsWin((Pk10Rule)record.Rule, record.BetNo, record.DrawNo);
-                        record.IsWin = isWin;
-                        if (isWin)
-                        {
-                            record.WinMoney = record.BetMoney * ((decimal)record.Odds - 1);
-                            //中奖后将中奖金额加到最后一条记录的可用余额上
-                            Db.BetRecord.LastOrDefault().Balance += record.WinMoney;
-                        }
-                        else
-                        {
-                            record.WinMoney = -record.BetMoney;
-                        }
+                //var records = Db.BetRecord.Where(p =>
+                //    !p.IsDrawed && p.PeriodNo == plans.FirstOrDefault().LastDrawedPeriod);
+                //if (records.Any())
+                //{
+                //    foreach (var record in records)
+                //    {
+                //        record.DrawNo = plans.FirstOrDefault().LastDrawNo;
+                //        var isWin = CheckIsWin((Pk10Rule)record.Rule, record.BetNo, record.DrawNo);
+                //        record.IsWin = isWin;
+                //        if (isWin)
+                //        {
+                //            record.WinMoney = record.BetMoney * ((decimal)record.Odds - 1);
+                //            //中奖后将中奖金额加到最后一条记录的可用余额上
+                //            Db.BetRecord.LastOrDefault().Balance += record.WinMoney;
+                //        }
+                //        else
+                //        {
+                //            record.WinMoney = -record.BetMoney;
+                //        }
 
-                        record.IsDrawed = true;
-                        record.DrawTime = DateTime.Now;
-                    }
-                }
+                //        record.IsDrawed = true;
+                //        record.DrawTime = DateTime.Now;
+                //    }
+                //}
 
+                var p = plans.FirstOrDefault();
+                Console.WriteLine($"{p.Rule}\t{p.LastPeriod}\t{DateTime.Now}");
+
+                /*
                 foreach (IForcastModel plan in plans)
                 {
                     var lastPeriod = Db.BetRecord.LastOrDefault();
@@ -133,6 +105,7 @@ namespace Colin.Lottery.BetService
                 }
 
                 Db.SaveChanges();
+                */
             }
         }
 

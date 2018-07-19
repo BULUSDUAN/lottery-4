@@ -76,13 +76,14 @@ namespace Colin.Lottery.DataService
                 var timestamp = DateTime.Now;
                 var periodNo = Pk10Scheduler.Instance.GetPeriodNo(timestamp);
                 var tempJob = $"{prefix}_Scan_{periodNo}";
-                var (JobName, JobGroup, _, _) = tempJob.JobAndTriggerNames();
+                var (JobName, JobGroup, TriggerName, TriggerGroup) = tempJob.JobAndTriggerNames();
 
                 await QuartzUtil.ScheduleSimpleJob(tempJob, async () =>
                 {
                     //超时自毁
                     if ((DateTime.Now - timestamp).TotalMinutes > 5)
-                        await QuartzUtil.DeleteJob(JobName, JobGroup);
+                        await QuartzUtil.RemoveJob(JobName, JobGroup, TriggerName, TriggerGroup);
+                    //await QuartzUtil.DeleteJob(JobName, JobGroup);
 
                     //扫水
                     var plans = await JinMaAnalyzer.Instance.GetForcastData(LotteryType.Pk10, (int)rule);
@@ -91,7 +92,7 @@ namespace Colin.Lottery.DataService
                     */
                     if (plans == null || plans.Count < 2 || plans.Any(p => p == null))
                     {
-                        DataCollectedError?.Invoke(this, new CollectErrorEventArgs(rule,"目标网站扫水接口异常，请尽快检查恢复"));
+                        DataCollectedError?.Invoke(this, new CollectErrorEventArgs(rule, "目标网站扫水接口异常，请尽快检查恢复"));
                         return;
                     }
 
@@ -99,9 +100,11 @@ namespace Colin.Lottery.DataService
 
                     if (plans.Any(p => p.LastDrawedPeriod + 1 < periodNo)) return;
 
-                    DataCollectedSuccess?.Invoke(this, new DataCollectedEventArgs(rule,plans));
+                    DataCollectedSuccess?.Invoke(this, new DataCollectedEventArgs(rule, plans));
 
-                    await QuartzUtil.DeleteJob(JobName, JobGroup);
+
+                    bool isDel = await QuartzUtil.RemoveJob(JobName, JobGroup, TriggerName, TriggerGroup);
+                    Console.WriteLine($"删除任务{JobName}\t{JobGroup}\t{isDel}\t{DateTime.Now}");
                 }, "0/5 * * * * ? *");
             });
 

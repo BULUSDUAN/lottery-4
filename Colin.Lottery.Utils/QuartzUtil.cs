@@ -56,6 +56,24 @@ namespace Colin.Lottery.Utils
         }
 
         /// <summary>
+        /// 移除Job
+        /// </summary>
+        /// <returns>The job.</returns>
+        /// <param name="triggerName">Trigger name.</param>
+        /// <param name="triggerGroup">Trigger group.</param>
+        /// <param name="jobName">Job name.</param>
+        /// <param name="jobGroup">Job group.</param>
+        public static async Task<bool> RemoveJob(string jobName, string jobGroup, string triggerName, string triggerGroup)
+        {
+            var scheduler = GetScheduler();
+            var trigger = new TriggerKey(triggerName, triggerGroup);
+            await scheduler.PauseTrigger(trigger);
+            await scheduler.PauseJob(new JobKey(jobName, jobGroup));
+            await scheduler.UnscheduleJob(trigger);
+            return await DeleteJob(jobName, jobGroup);
+        }
+
+        /// <summary>
         /// 删除指定名称Job
         /// </summary>
         /// <param name="name">Job名称</param>
@@ -73,6 +91,7 @@ namespace Colin.Lottery.Utils
         /// <returns>true if the Job was found and deleted.</returns>
         public static async Task<bool> DeleteJob(string name, string group)
         {
+
             return await GetScheduler().DeleteJob(new JobKey(name, group));
         }
 
