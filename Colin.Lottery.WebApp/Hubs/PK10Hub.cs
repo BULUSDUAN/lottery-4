@@ -3,7 +3,6 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
-
 using Colin.Lottery.Analyzers;
 using Colin.Lottery.Models;
 using Colin.Lottery.Utils;
@@ -33,8 +32,9 @@ namespace Colin.Lottery.WebApp.Hubs
             }
 
 
-            Lotterys.Pk10Rules.ForEach(async r => await Groups.RemoveFromGroupAsync(Context.ConnectionId, r.ToString()));
-            await Groups.AddToGroupAsync(Context.ConnectionId, ((Pk10Rule)rule).ToString());
+            Lotterys.Pk10Rules.ForEach(async r =>
+                await Groups.RemoveFromGroupAsync(Context.ConnectionId, r.ToString()));
+            await Groups.AddToGroupAsync(Context.ConnectionId, ((Pk10Rule) rule).ToString());
         }
 
         /// <summary>
@@ -67,8 +67,8 @@ namespace Colin.Lottery.WebApp.Hubs
 
         private static async Task<int> GetNewForcast(ICollection<IForcastModel> newForcast, Pk10Rule rule)
         {
-            var plans = await JinMaAnalyzer.Instance.GetForcastData(LotteryType.Pk10, (int)rule);
-            if (plans == null || plans.Count < 2)
+            var plans = await JinMaAnalyzer.Instance.GetForcastData(LotteryType.Pk10, (int) rule);
+            if (plans == null || plans.Count < 2 || plans.Any(p => p == null))
                 return 1;
 
             JinMaAnalyzer.Instance.CalcuteScore(plans);
@@ -82,11 +82,12 @@ namespace Colin.Lottery.WebApp.Hubs
         /// <returns>The all rules.</returns>
         public async Task RegisterAllRules() => await Groups.AddToGroupAsync(Context.ConnectionId, "AllRules");
 
-        
+
         public override async Task OnDisconnectedAsync(Exception exception)
         {
-           await Groups.RemoveFromGroupAsync(Context.ConnectionId, "AllRules");
-            Lotterys.Pk10Rules.ForEach(async rule=> await Groups.RemoveFromGroupAsync(Context.ConnectionId, ((Pk10Rule)rule).ToString()));
+            await Groups.RemoveFromGroupAsync(Context.ConnectionId, "AllRules");
+            Lotterys.Pk10Rules.ForEach(async rule =>
+                await Groups.RemoveFromGroupAsync(Context.ConnectionId, ((Pk10Rule) rule).ToString()));
 
             await base.OnDisconnectedAsync(exception);
         }
