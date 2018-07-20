@@ -18,23 +18,21 @@ namespace Colin.Lottery.Utils
         /// <summary>
         /// 废弃的Job
         /// </summary>
-        public static ConcurrentQueue<string> ObsoleteJobs { get; set; }
+        public static ConcurrentBag<string> ObsoleteJobs { get; set; }
         static QuartzUtil()
         {
-            ObsoleteJobs = new ConcurrentQueue<string>();
+            ObsoleteJobs = new ConcurrentBag<string>();
 
             async void ClearObsoleteJobs()
             {
                 await ScheduleSimpleJob("ClearObsoleteJobs", async () =>
                   {
-                      if (!ObsoleteJobs.TryDequeue(out string jobKey))
+                      if (!ObsoleteJobs.TryPeek(out string jobKey))
                           return;
 
                       bool deleted = await GetScheduler().DeleteJob(jobKey.ToJobKey());
                       if (deleted)
-                          return;
-
-                      ObsoleteJobs.Enqueue(jobKey);
+                          ObsoleteJobs.TryTake(out string _);
                   }, "0/5 * * * * ? *");
             }
             ClearObsoleteJobs();
@@ -120,14 +118,7 @@ namespace Colin.Lottery.Utils
         /// <returns>true if the Job was found and deleted.</returns>
         public static void DeleteJob(string name, string group)
         {
-            var job = new JobKey(name, group);
-            //bool result = await GetScheduler().DeleteJob(job);
-            var task = GetScheduler().DeleteJob(job);
-            task.Wait();
-
-            //删除失败后加入废弃队列
-            if (!task.Result)
-                ObsoleteJobs.Enqueue(job.ToStringName());
+            ObsoleteJobs.Add(new JobKey(name, group).ToStringName());
         }
 
         /// <summary>
