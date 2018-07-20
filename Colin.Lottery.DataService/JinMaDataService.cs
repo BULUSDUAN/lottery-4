@@ -89,7 +89,7 @@ namespace Colin.Lottery.DataService
 
                     //超时自毁
                     if ((DateTime.Now - timestamp).TotalMinutes > 5)
-                        await QuartzUtil.DeleteJob(JobName, JobGroup);
+                        QuartzUtil.DeleteJob(JobName, JobGroup);
 
                     //扫水
                     var plans = await JinMaAnalyzer.Instance.GetForcastData(LotteryType.Pk10, (int)rule);
@@ -107,7 +107,8 @@ namespace Colin.Lottery.DataService
                     if (plans.Any(p => p.LastDrawedPeriod + 1 < periodNo)) return;
 
                     DataCollectedSuccess?.Invoke(this, new DataCollectedEventArgs(rule, plans));
-                    await QuartzUtil.DeleteJob(JobName, JobGroup);
+                    QuartzUtil.DeleteJob(JobName, JobGroup);
+                    Console.WriteLine($"删除任务:{JobName}\t{System.Threading.Thread.CurrentThread.ManagedThreadId}");
                 }, "0/5 * * * * ? *");
             });
 

@@ -18,39 +18,29 @@ namespace Colin.Lottery.Utils
         /// <summary>
         /// 废弃的Job
         /// </summary>
-        public static ConcurrentQueue<JobKey> ObsoleteJobs { get; set; }
+        public static ConcurrentQueue<string> ObsoleteJobs { get; set; }
         static QuartzUtil()
         {
-            ObsoleteJobs = new ConcurrentQueue<JobKey>();
+            ObsoleteJobs = new ConcurrentQueue<string>();
 
             async void ClearObsoleteJobs()
             {
                 await ScheduleSimpleJob("ClearObsoleteJobs", async () =>
                   {
-                      if (!ObsoleteJobs.TryDequeue(out JobKey job))
+                      if (!ObsoleteJobs.TryDequeue(out string jobKey))
                           return;
 
-                      bool deleted = await GetScheduler().DeleteJob(job);
+                      bool deleted = await GetScheduler().DeleteJob(jobKey.ToJobKey());
                       if (deleted)
                           return;
 
-                      ObsoleteJobs.Enqueue(job);
+                      ObsoleteJobs.Enqueue(jobKey);
                   }, "0/5 * * * * ? *");
             }
             ClearObsoleteJobs();
         }
 
-        public static bool CanExecute(string jobName, string jobGroup) => !QuartzUtil.ObsoleteJobs.Contains(new JobKey(jobName, jobGroup), new JobKeyComparer());
-        class JobKeyComparer : IEqualityComparer<JobKey>
-        {
-            public bool Equals(JobKey x, JobKey y)
-            {
-                return string.Equals(x.Name, y.Name) && string.Equals(x.Group, y.Group);
-            }
-
-            public int GetHashCode(JobKey obj) => obj.GetHashCode();
-        }
-
+        public static bool CanExecute(string jobName, string jobGroup) => !QuartzUtil.ObsoleteJobs.Contains(new JobKey(jobName, jobGroup).ToStringName());
         /// <summary>
         /// 获取全局唯一Scheduler(GlobleScheduler)
         /// </summary>
@@ -94,9 +84,6 @@ namespace Colin.Lottery.Utils
                  .Build();
         }
 
-
-
-
         ///// <summary>
         ///// 移除Job
         ///// </summary>
@@ -131,14 +118,16 @@ namespace Colin.Lottery.Utils
         /// <param name="name">Job名称</param>
         /// <param name="group">Job分组名称</param>
         /// <returns>true if the Job was found and deleted.</returns>
-        public static async Task DeleteJob(string name, string group)
+        public static void DeleteJob(string name, string group)
         {
             var job = new JobKey(name, group);
-            bool result = await GetScheduler().DeleteJob(job);
+            //bool result = await GetScheduler().DeleteJob(job);
+            var task = GetScheduler().DeleteJob(job);
+            task.Wait();
 
             //删除失败后加入废弃队列
-            if (!result)
-                ObsoleteJobs.Enqueue(job);
+            if (!task.Result)
+                ObsoleteJobs.Enqueue(job.ToStringName());
         }
 
         /// <summary>
@@ -224,7 +213,7 @@ namespace Colin.Lottery.Utils
         public static async Task ScheduleSimpleJob(string nameKeyword, Action jobDelegate, string cron)
         {
             (string jobName, string jobGroup, string triggerName, string triggerGroup) = nameKeyword.JobAndTriggerNames();
-            await DeleteJob(jobName, jobGroup);
+            await GetScheduler().DeleteJob(new JobKey(jobName, jobGroup));
 
             var job = CreateSimpleJob(jobName, jobGroup, jobDelegate);
             var trigger = CreateTrigger(triggerName, triggerGroup, cron);
@@ -275,6 +264,18 @@ namespace Colin.Lottery.Utils
             var trigger = await sched.GetTrigger(new TriggerKey(triggerName, triggerGroupName));
             var key = new TriggerKey(triggerName, triggerGroupName);
             await sched.ResumeTrigger(key);
+        }
+
+        public static string ToStringName(this JobKey jobKey) =>
+         $"{jobKey.Name}:{jobKey.Group}";
+
+        public static JobKey ToJobKey(this string jobKeyStr)
+        {
+            if (string.IsNullOrWhiteSpace(jobKeyStr))
+                return null;
+
+            var parts = jobKeyStr.Split(':');
+            return parts.Length < 2 ? null : new JobKey(parts.FirstOrDefault(), parts.LastOrDefault());
         }
     }
 
