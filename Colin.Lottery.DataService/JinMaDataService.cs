@@ -80,36 +80,46 @@ namespace Colin.Lottery.DataService
                 var periodNo = Pk10Scheduler.Instance.GetPeriodNo(timestamp);
                 var tempJob = $"{prefix}_Scan_{periodNo}";
                 var (JobName, JobGroup, _, _) = tempJob.JobAndTriggerNames();
+                var obj = new Object();
 
-                await QuartzUtil.ScheduleSimpleJob(tempJob, async () =>
-                {
-                    //Job废弃
-                    if (!QuartzUtil.CanExecute(JobName, JobGroup))
-                        return;
+                await QuartzUtil.ScheduleSimpleJob(tempJob, () =>
+               {
+                   //避免第一轮任务执行未完成时第二轮任务开始执行,锁定 同一种玩法同一期 任务
+                   lock (obj)
+                   {
+                       //Job废弃
+                       if (!QuartzUtil.CanExecute(JobName, JobGroup))
+                           return;
 
-                    //超时自毁
-                    if ((DateTime.Now - timestamp).TotalMinutes > 5)
-                        QuartzUtil.DeleteJob(JobName, JobGroup);
+                       //超时自毁
+                       if ((DateTime.Now - timestamp).TotalMinutes > 5)
+                           QuartzUtil.DeleteJob(JobName, JobGroup);
 
-                    //扫水
-                    var plans = await JinMaAnalyzer.Instance.GetForcastData(LotteryType.Pk10, (int)rule);
-                    /*
-                    * 如果目标网站接口正常，每次都可以扫到结果，即使没有更新最新期预测数据。所以如果没有扫水结果，说明目标网站接口出错
-                    */
-                    if (plans == null || plans.Count < 2 || plans.Any(p => p == null))
-                    {
-                        DataCollectedError?.Invoke(this, new CollectErrorEventArgs(rule, "目标网站扫水接口异常，请尽快检查恢复"));
-                        return;
-                    }
+                       //扫水
+                       var task = JinMaAnalyzer.Instance.GetForcastData(LotteryType.Pk10, (int)rule);
+                       task.Wait();
+                       var plans = task.Result;
+                       /*
+                       * 如果目标网站接口正常，每次都可以扫到结果，即使没有更新最新期预测数据。所以如果没有扫水结果，说明目标网站接口出错
+                       */
+                       if (plans == null || plans.Count < 2 || plans.Any(p => p == null))
+                       {
+                           DataCollectedError?.Invoke(this, new CollectErrorEventArgs(rule, "目标网站扫水接口异常，请尽快检查恢复"));
+                           return;
+                       }
 
-                    JinMaAnalyzer.Instance.CalcuteScore(plans);
+                       JinMaAnalyzer.Instance.CalcuteScore(plans);
 
-                    if (plans.Any(p => p.LastDrawedPeriod + 1 < periodNo)) return;
+                       if (plans.Any(p => p.LastDrawedPeriod + 1 < periodNo)) return;
 
-                    DataCollectedSuccess?.Invoke(this, new DataCollectedEventArgs(rule, plans));
-                    QuartzUtil.DeleteJob(JobName, JobGroup);
-                    Console.WriteLine($"删除任务:{JobName}\t{System.Threading.Thread.CurrentThread.ManagedThreadId}");
-                }, "0/5 * * * * ? *");
+                       DataCollectedSuccess?.Invoke(this, new DataCollectedEventArgs(rule, plans));
+                       QuartzUtil.DeleteJob(JobName, JobGroup);
+                       Console.WriteLine($"删除任务:{JobName}\t{System.Threading.Thread.CurrentThread.ManagedThreadId}");
+                   }
+
+
+
+               }, "0/5 * * * * ? *");
             });
 
             /* 
