@@ -114,7 +114,7 @@ namespace Colin.Lottery.DataService
 
                        DataCollectedSuccess?.Invoke(this, new DataCollectedEventArgs(rule, plans));
                        QuartzUtil.DeleteJob(JobName, JobGroup);
-                       Console.WriteLine($"删除任务:{JobName}\t{System.Threading.Thread.CurrentThread.ManagedThreadId}");
+//                       Console.WriteLine($"删除任务:{JobName}\t{System.Threading.Thread.CurrentThread.ManagedThreadId}");
                    }
 
 

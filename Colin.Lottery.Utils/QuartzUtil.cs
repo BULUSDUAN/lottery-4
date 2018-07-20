@@ -35,7 +35,7 @@ namespace Colin.Lottery.Utils
                           ObsoleteJobs.TryTake(out string _);
                   }, "0/5 * * * * ? *");
             }
-            //ClearObsoleteJobs();
+            ClearObsoleteJobs();
         }
 
         public static bool CanExecute(string jobName, string jobGroup) => !QuartzUtil.ObsoleteJobs.Contains(new JobKey(jobName, jobGroup).ToStringName());
