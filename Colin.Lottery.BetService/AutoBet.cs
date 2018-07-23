@@ -114,7 +114,7 @@ namespace Colin.Lottery.BetService
             if (string.IsNullOrWhiteSpace(betNo) || string.IsNullOrWhiteSpace(drawNo))
                 return false;
 
-            var betNos = betNo.Split(' ');
+            var betNos = betNo.Split(',');
             var winNos = drawNo.Split(',');
             if (!betNos.Any() || winNos.Length < 10)
                 return false;
@@ -128,13 +128,13 @@ namespace Colin.Lottery.BetService
                 case Pk10Rule.Second:
                 case Pk10Rule.Third:
                 case Pk10Rule.Fourth:
-                    return betNos.Contains(winNos[(int)rule]);
+                    return betNos.Contains(winNos[(int)rule-1]);
                 case Pk10Rule.BigOrSmall:
                     return string.Equals(betNos[0], champion > 5 ? "大" : "小");
                 case Pk10Rule.OddOrEven:
                     return string.Equals(betNos[0], champion % 2 != 0 ? "单" : "双");
                 case Pk10Rule.DragonOrTiger:
-                    return string.Equals(betNo[0], champion > tenth ? "龙" : "虎");
+                    return string.Equals(betNos[0], champion > tenth ? "龙" : "虎");
                 case Pk10Rule.Sum:
                     return betNos.Contains((champion + second).ToString().PadLeft(2, '0'));
             }
