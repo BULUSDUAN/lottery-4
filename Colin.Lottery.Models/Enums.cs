@@ -97,6 +97,24 @@ namespace Colin.Lottery.Models
         Sum = 8
     }
 
+    public enum Pk10RuleType
+    {
+        /// <summary>
+        /// 单号 1～10
+        /// </summary>
+        SingleNo,
+        
+        /// <summary>
+        /// 两面盘
+        /// </summary>
+        TwoSides,
+        
+        /// <summary>
+        /// 冠亚组合
+        /// </summary>
+        FirstAndSecondGroup
+    }
+
     public enum Plan
     {
         PlanA,
@@ -141,7 +159,7 @@ namespace Colin.Lottery.Models
         /// </summary>
         SameNumber
     }
-    
+
 
     /// <summary>
     /// 邮件内容格式
@@ -160,39 +178,45 @@ namespace Colin.Lottery.Models
 
     public static class EnumExt
     {
+        private static readonly Dictionary<LotteryType, string> LotteryTypes = new Dictionary<LotteryType, string>
+        {
+            [LotteryType.Pk10] = "北京PK10",
+            [LotteryType.Cqssc] = "重庆时时彩"
+        };
+
+
         public static string ToStringName(this LotteryType lottery)
         {
-            switch (lottery)
-            {
-                case LotteryType.Pk10: return "北京PK10";
-                case LotteryType.Cqssc: return "重庆时时彩";
-            }
+            return LotteryTypes[lottery];
+        }
 
-            throw new ArgumentException($"彩种 - “{lottery}” 暂不支持");
+        public static LotteryType ToLotteryType(this string lotteryName)
+        {
+            return LotteryTypes.Keys.FirstOrDefault(t => LotteryTypes[t] == lotteryName);
         }
 
 
         private static readonly Dictionary<Pk10Rule, string> Pk10Rules = new Dictionary<Pk10Rule, string>
         {
             [Champion] = "冠军",
-            [Second]="亚军",
-            [Third]="季军",
-            [Fourth]="第4名",
-            [BigOrSmall]="冠军大小",
-            [OddOrEven]="冠军单双",
-            [DragonOrTiger]="冠军龙虎",
-            [Sum]="冠亚和值"
+            [Second] = "亚军",
+            [Third] = "季军",
+            [Fourth] = "第4名",
+            [BigOrSmall] = "冠军大小",
+            [OddOrEven] = "冠军单双",
+            [DragonOrTiger] = "冠军龙虎",
+            [Sum] = "冠亚和值"
         };
-        private static readonly Dictionary<CqsscRule,string> CqsscRules=new Dictionary<CqsscRule, string>
+        private static readonly Dictionary<CqsscRule, string> CqsscRules = new Dictionary<CqsscRule, string>
         {
-            [CqsscRule.OddOrEven]="总和单双",
-            [CqsscRule.BigOrSmall]="总和大小",
-            [CqsscRule.DragonOrTiger]="龙虎",
-            [CqsscRule.Last2Group]="后二组选",
-            [CqsscRule.Last3Group]="后三组选",
-            [CqsscRule.OneOddOrEven]="个位单双",
-            [CqsscRule.OneBigOrSmall]="个位大小",
-            [CqsscRule.One]="个位定位"
+            [CqsscRule.OddOrEven] = "总和单双",
+            [CqsscRule.BigOrSmall] = "总和大小",
+            [CqsscRule.DragonOrTiger] = "龙虎",
+            [CqsscRule.Last2Group] = "后二组选",
+            [CqsscRule.Last3Group] = "后三组选",
+            [CqsscRule.OneOddOrEven] = "个位单双",
+            [CqsscRule.OneBigOrSmall] = "个位大小",
+            [CqsscRule.One] = "个位定位"
         };
 
         public static string ToStringName(this Pk10Rule rule) => Pk10Rules[rule];
@@ -209,17 +233,20 @@ namespace Colin.Lottery.Models
 
             throw new ArgumentException($"彩种 - “{lottery}” 暂不支持");
         }
-        
-        public static Pk10Rule ToPk10Rule(this string rule)=>Pk10Rules.Keys.FirstOrDefault(r => Pk10Rules[r] == rule);
-        public static CqsscRule ToCqsscRule(this string rule)=>CqsscRules.Keys.FirstOrDefault(r => CqsscRules[r] == rule);
 
-        private static readonly Dictionary<Planner, Plan> PlannerPlan=new Dictionary<Planner, Plan>
+        public static Pk10Rule ToPk10Rule(this string rule) => Pk10Rules.Keys.FirstOrDefault(r => Pk10Rules[r] == rule);
+        public static CqsscRule ToCqsscRule(this string rule) => CqsscRules.Keys.FirstOrDefault(r => CqsscRules[r] == rule);
+
+        public static Pk10RuleType ToPk10RuleType(this Pk10Rule rule) =>
+            (int) rule <= 4 ? Pk10RuleType.SingleNo :(rule==Sum?Pk10RuleType.FirstAndSecondGroup:Pk10RuleType.TwoSides); 
+
+        private static readonly Dictionary<Planner, Plan> PlannerPlan = new Dictionary<Planner, Plan>
         {
-            [Planner.Planner1]=Plan.PlanA,
-            [Planner.Planner2]=Plan.PlanB
+            [Planner.Planner1] = Plan.PlanA,
+            [Planner.Planner2] = Plan.PlanB
         };
         public static Plan GetPlan(this Planner planner) => PlannerPlan[planner];
-        
+
         public static int ToInt(this LotteryType lottery) => (int)lottery;
 
         public static int ToInt(this Plan plan) => (int)plan;
