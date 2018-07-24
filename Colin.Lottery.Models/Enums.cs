@@ -80,11 +80,11 @@ namespace Colin.Lottery.Models
         /// </summary>
         Fourth = 4,
         /// <summary>
-        /// 大小
+        /// 冠军大小
         /// </summary>
         BigOrSmall = 5,
         /// <summary>
-        /// 单双
+        /// 冠军单双
         /// </summary>
         OddOrEven = 6,
         /// <summary>
