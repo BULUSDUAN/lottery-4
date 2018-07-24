@@ -54,11 +54,15 @@ namespace Colin.Lottery.BetService.Da2088
         /// <summary>
         /// 下注
         /// </summary>
-        /// <param name="betRuleNumbers">玩法和下注号码</param>
-        public void Bet(string periodNo, Pk10Rule rule, string number, decimal money)
+        /// <param name="periodNo">期号</param>
+        /// <param name="rule">玩法枚举</param>
+        /// <param name="number">下注号码</param>
+        /// <param name="money">单个号码金额</param>
+        public void Bet(long periodNo, Pk10Rule rule, string number, decimal money)
         {
             string url = $"bet/bet.do?_t={DateTime.Now.Ticks}";
-            
+
+            BetParam betParam = new BetParam(periodNo, rule, number, money);
             
         }
 

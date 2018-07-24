@@ -12,7 +12,7 @@ namespace Colin.Lottery.BetService.Da2088
                 var autoBet = new AutoBetMain();
                 autoBet.Login();
                 
-                autoBet.Bet();
+                //autoBet.Bet();
             }
             catch (Exception e)
             {
