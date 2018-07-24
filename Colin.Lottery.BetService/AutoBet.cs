@@ -114,7 +114,7 @@ namespace Colin.Lottery.BetService
             if (string.IsNullOrWhiteSpace(betNo) || string.IsNullOrWhiteSpace(drawNo))
                 return false;
 
-            var betNos = betNo.Split(' ');
+            var betNos = betNo.Split(',');
             var winNos = drawNo.Split(',');
             if (!betNos.Any() || winNos.Length < 10)
                 return false;
@@ -128,13 +128,13 @@ namespace Colin.Lottery.BetService
                 case Pk10Rule.Second:
                 case Pk10Rule.Third:
                 case Pk10Rule.Fourth:
-                    return betNos.Contains(winNos[(int)rule]);
+                    return betNos.Contains(winNos[(int)rule-1]);
                 case Pk10Rule.BigOrSmall:
                     return string.Equals(betNos[0], champion > 5 ? "大" : "小");
                 case Pk10Rule.OddOrEven:
                     return string.Equals(betNos[0], champion % 2 != 0 ? "单" : "双");
                 case Pk10Rule.DragonOrTiger:
-                    return string.Equals(betNo[0], champion > tenth ? "龙" : "虎");
+                    return string.Equals(betNos[0], champion > tenth ? "龙" : "虎");
                 case Pk10Rule.Sum:
                     return betNos.Contains((champion + second).ToString().PadLeft(2, '0'));
             }
@@ -150,8 +150,8 @@ namespace Colin.Lottery.BetService
             var type = BetType.Every;
 
             //跳过和值
-            var rule = plan.Rule.ToPk10Rule();
-            if (rule == Pk10Rule.Sum)
+            var ruleType = plan.Rule.ToPk10Rule().ToPk10RuleType();
+            if (ruleType == Pk10RuleType.FirstAndSecondGroup)
                 return (betMoney, type);
 
             /*
@@ -169,7 +169,8 @@ namespace Colin.Lottery.BetService
              * 4.如果一期同时满足以上多种情况，则采用以上最大的下注金额
              */
 
-            if (plan.WinProbability >= BetConfig.MinWinProbability)
+            var probability=ruleType == Pk10RuleType.SingleNo ? BetConfig.SingleNoMinProbability:BetConfig.TwoSidesMinProbability;
+            if (plan.WinProbability >= probability)
             {
                 if (plan.KeepGuaCnt >= 3)
                 {
@@ -184,6 +185,9 @@ namespace Colin.Lottery.BetService
                 }
                 else
                 {
+                    var everyBetMoney = ruleType == Pk10RuleType.SingleNo
+                        ? BetConfig.SingleNoEveryBetMoney
+                        : BetConfig.TwoSidesEveryBetMoney;
                     if (plan.KeepGuaingCnt > 0)
                     {
                         if (plan.KeepGuaingCnt >= 3)
@@ -193,14 +197,14 @@ namespace Colin.Lottery.BetService
                         else
                         {
                             //Every
-                            money = BetConfig.EveryBetMoney * BetConfig[plan.KeepGuaingCnt * 3 + plan.ChaseTimes];
+                            money = everyBetMoney * BetConfig[plan.KeepGuaingCnt * 3 + plan.ChaseTimes];
                             CompareBetInfo(BetType.Every);
                         }
                     }
                     else
                     {
                         //Every
-                        money = BetConfig.EveryBetMoney * BetConfig[plan.ChaseTimes];
+                        money = everyBetMoney * BetConfig[plan.ChaseTimes];
                         CompareBetInfo(BetType.Every);
                     }
                 }
@@ -218,7 +222,7 @@ namespace Colin.Lottery.BetService
 
             if (plan.RepetitionScore >= 100)
             {
-                if (rule == Pk10Rule.Champion || rule == Pk10Rule.Second || rule == Pk10Rule.Third || rule == Pk10Rule.Fourth)
+                if (ruleType==Pk10RuleType.SingleNo)
                 {
                     //SameNumber
                     money = BetConfig[plan.ChaseTimes] * BetConfig.SameNumberBetMoney;

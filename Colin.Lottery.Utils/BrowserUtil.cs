@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Security;
 using System.Threading.Tasks;
 using System.Threading;
 using OpenQA.Selenium;
@@ -12,8 +13,7 @@ namespace Colin.Lottery.Utils
 {
     public class BrowserUtil
     {
-        private ChromeDriver _chromeDriver;
-        private ChromeOptions _chromeOptions;
+        private readonly ChromeDriver _chromeDriver;
 
         public BrowserUtil()
             : this(null)
@@ -22,24 +22,12 @@ namespace Colin.Lottery.Utils
 
         public BrowserUtil(Proxy proxy)
         {
+            var chromeOptions = new ChromeOptions();
+            chromeOptions.AddArguments("headless", "disable-gpu", "disable-infobars", "--disable-extensions");
             if (proxy != null)
-            {
-                ChromeOptions.Proxy = proxy;
-            }
+                chromeOptions.Proxy = proxy;
 
-            _chromeDriver = new ChromeDriver(AppDomain.CurrentDomain.BaseDirectory, ChromeOptions);
-        }
-
-        private ChromeOptions ChromeOptions
-        {
-            get
-            {
-                if (_chromeOptions != null) return _chromeOptions;
-
-                _chromeOptions = new ChromeOptions();
-                _chromeOptions.AddArguments("headless", "disable-gpu", "disable-infobars", "--disable-extensions");
-                return _chromeOptions;
-            }
+            _chromeDriver = new ChromeDriver(AppDomain.CurrentDomain.BaseDirectory, chromeOptions);
         }
 
         /// <summary>
@@ -71,8 +59,6 @@ namespace Colin.Lottery.Utils
                 Starting?.Invoke(this, new ExploreStartingEventArgs(url));
                 try
                 {
-//                    using (var chrome = new ChromeDriver(AppDomain.CurrentDomain.BaseDirectory, options))
-//                    {
                     //请求URL
                     _chromeDriver.Navigate().GoToUrl(url);
 
@@ -102,7 +88,6 @@ namespace Colin.Lottery.Utils
 
                     Completed?.Invoke(this,
                         new ExploreCompleteEventArgs(url, _chromeDriver, threadId, elapsed, pageSource));
-//                    }
                 }
                 catch (Exception ex)
                 {
@@ -124,6 +109,30 @@ namespace Colin.Lottery.Utils
         public async Task Explore(string url)
         {
             await Explore(url, null, null);
+        }
+
+        /// <summary>
+        /// 执行Js脚本并等待完成
+        /// </summary>
+        /// <param name="script"></param>
+        /// <param name="operation"></param>
+        public void ExecuteScript(Script script, Operation operation)
+        {
+            //执行JavaScript
+            if (script != null)
+                _chromeDriver.ExecuteScript(script.Code, script.Args);
+
+            //返回条件和超时时间
+            if (operation?.Condition != null)
+            {
+                var driverWait =
+                    new WebDriverWait(_chromeDriver, TimeSpan.FromMilliseconds(operation.Timeout));
+                driverWait.Until(driver =>
+                {
+                    operation.Action?.Invoke(_chromeDriver);
+                    return operation.Condition.Invoke(driver);
+                });
+            }
         }
 
         public void Quit()

@@ -11,10 +11,17 @@ namespace Colin.Lottery.Models.BetService
         /// </summary>
         public float StartBalance { get; set; }
 
+        
+        
         /// <summary>
-        /// 每期跟投单注 起始单注金额
+        /// 每期跟投单注 起始单注金额 1～10单号
         /// </summary>
-        public float EveryBetMoney { get; set; }
+        public float SingleNoEveryBetMoney { get; set; }
+        
+        /// <summary>
+        /// 每期跟投单注 起始单注金额 两面盘
+        /// </summary>
+        public float TwoSidesEveryBetMoney { get; set; }
 
         /// <summary>
         /// 挂结束大额倍投 起始单注金额
@@ -37,9 +44,14 @@ namespace Colin.Lottery.Models.BetService
         public float Odds { get; set; }
 
         /// <summary>
-        /// 起投最小胜率
+        /// 起投最小胜率 1～10单号
         /// </summary>
-        public float MinWinProbability { get; set; }
+        public float SingleNoMinProbability { get; set; }
+        
+        /// <summary>
+        /// 起投最小胜率 两面盘
+        /// </summary>
+        public float TwoSidesMinProbability { get; set; }
         
         /// <summary>
         /// 起投连挂次数
