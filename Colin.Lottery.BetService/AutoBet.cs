@@ -222,7 +222,7 @@ namespace Colin.Lottery.BetService
 
             if (plan.RepetitionScore >= 100)
             {
-                if (ruleType==Pk10RuleType.SingleNo)
+                if (ruleType==Pk10RuleType.SingleNo&&plan.Plan==Plan.PlanA)
                 {
                     //SameNumber
                     money = BetConfig[plan.ChaseTimes] * BetConfig.SameNumberBetMoney;
