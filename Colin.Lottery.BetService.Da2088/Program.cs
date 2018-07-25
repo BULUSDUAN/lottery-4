@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Colin.Lottery.Common.AutoBetSites;
 using Colin.Lottery.Models;
 using Colin.Lottery.Utils;
@@ -16,25 +17,23 @@ namespace Colin.Lottery.BetService.Da2088
                 /*
                  * 登录
                  */
-                string account = "song90273";
-                string password = "200_daxl5306";
+                string account = args[0];
+                string password = args[1];
                 autoBet.Login(account, password);
-                
+
                 /*
                  * 投注
                  */
-                long periodNo = 694744;
+                long periodNo = 694816;
 
-                autoBet.Bet(periodNo, Pk10Rule.Champion, "1,2,3,4,5", 1m);
-                autoBet.Bet(periodNo, Pk10Rule.Second, "1,2,3,4,5", 1m);
-                autoBet.Bet(periodNo, Pk10Rule.Third, "1,2,3,4,5", 1m);
-                autoBet.Bet(periodNo, Pk10Rule.Fourth, "1,2,3,4,5", 1m);
-                autoBet.Bet(periodNo, Pk10Rule.BigOrSmall, "大", 1m);
-                autoBet.Bet(periodNo, Pk10Rule.BigOrSmall, "小", 1m);
-                autoBet.Bet(periodNo, Pk10Rule.OddOrEven, "单", 1m);
-                autoBet.Bet(periodNo, Pk10Rule.OddOrEven, "双", 1m);
-                autoBet.Bet(periodNo, Pk10Rule.DragonOrTiger, "龙", 1m);
-                autoBet.Bet(periodNo, Pk10Rule.DragonOrTiger, "虎", 1m);
+                string preNumbers = "01 02 04 05 09".Trim();
+                int[] preNumbersArray = preNumbers.Split(' ').Select(x => int.Parse(x)).ToArray();
+                string numbers = string.Join(',', preNumbersArray);
+
+                decimal money = 3m; // 单注1元
+
+                // 亚军
+                autoBet.Bet(periodNo, Pk10Rule.Second, numbers, money);
             }
             catch (Exception e)
             {

@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Colin.Lottery.Common.Models;
 using Colin.Lottery.Models;
 using Colin.Lottery.Utils;
-using Colin.Lottery.Common.Models;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace Colin.Lottery.Common.AutoBetSites
 {
@@ -64,7 +64,8 @@ namespace Colin.Lottery.Common.AutoBetSites
         /// <param name="money">单个号码金额</param>
         public void Bet(long periodNo, Pk10Rule rule, string number, decimal money)
         {
-            PrintLog($"{Environment.NewLine}即将下注，玩法: [{rule.GetAttributeValue()}],号码: [{number}], 金额: {money}.");
+            LotteryData lotteryData = GetLotteryData();
+            PrintLog($"{Environment.NewLine}即将下注，账户余额: [{lotteryData.Balance}], 玩法: [{rule.GetAttributeValue()}],号码: [{number}], 下注金额: {money}.");
 
             string url = $"bet/bet.do?_t={DateTime.Now.Ticks}";
 
@@ -92,8 +93,11 @@ namespace Colin.Lottery.Common.AutoBetSites
                 }
                 else
                 {
-                    PrintLog($"SUCCESS : 下注接口返回消息: {result.Msg}");
+                    PrintLog($"下注成功！");
                 }
+
+                lotteryData = GetLotteryData();
+                PrintLog($"下注结束, 当前账户余额: {lotteryData.Balance}");
             }
             catch (Exception ex)
             {
@@ -101,5 +105,26 @@ namespace Colin.Lottery.Common.AutoBetSites
             }
         }
 
+        /// <summary>
+        /// 获取账户余额等数据
+        /// </summary>
+        /// <returns></returns>
+        public LotteryData GetLotteryData()
+        {
+            string url = $"game/getLotteryData.do?_t={DateTime.Now.Ticks}&gameId=50";
+
+            LotteryData result = null;
+
+            try
+            {
+                result = _restHelper.Get<LotteryData>(url);
+            }
+            catch (Exception ex)
+            {
+                result = new LotteryData();
+                Console.WriteLine($">>> 获取账号余额失败，详情: {ex.Message}");
+            }
+            return result;
+        }
     }
 }

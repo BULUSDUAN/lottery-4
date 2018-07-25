@@ -27,7 +27,7 @@ namespace Colin.Lottery.Utils
             _client.AddDefaultHeader("Accept-Language", AcceptLanguage);
 
             // 若使用Fiddler抓包，此处需要设置代理为Fiddler的监听端口
-            //_client.Proxy = new WebProxy("127.0.0.1", 8888);
+            _client.Proxy = new WebProxy("127.0.0.1", 8888);
         }
 
         /// <summary>
@@ -43,6 +43,19 @@ namespace Colin.Lottery.Utils
             IRestResponse respone = _client.Execute(request);
             string content = respone.Content;
             return content;
+        }
+
+        /// <summary>
+        /// 提交 GET 请求
+        /// </summary>
+        /// <param name="relativeUrl">相对路径</param>
+        /// <param name="parameters">参数</param>
+        /// <returns></returns>
+        public T Get<T>(string relativeUrl, Dictionary<string, object> parameters = null) where T : class, new()
+        {
+            string content = Get(relativeUrl, parameters);
+            T result = JsonConvert.DeserializeObject<T>(content);
+            return result;
         }
 
         /// <summary>
