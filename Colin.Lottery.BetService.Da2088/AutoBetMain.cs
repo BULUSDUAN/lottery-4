@@ -46,7 +46,7 @@ namespace Colin.Lottery.BetService.Da2088
             // 3. 同意协议
             _restHelper.Get("game/", null);
 
-            PrintLog($"{DateTime.Now}\t登录成功! 余额：￥{result.Money}");
+            PrintLog($"{DateTime.Now}\t用户 {result.UserName} 登录成功! 余额：￥{result.Money}");
         }
 
         /// <summary>
@@ -62,6 +62,7 @@ namespace Colin.Lottery.BetService.Da2088
 
             string url = $"bet/bet.do?_t={DateTime.Now.Ticks}";
 
+            // 构建表单参数
             var betParam = new BetParam(periodNo, rule, number, money);
 
             var postBodyBuilder = new StringBuilder();
@@ -74,6 +75,7 @@ namespace Colin.Lottery.BetService.Da2088
                 postBodyBuilder.Append($"&betBean[{idx}].playId={bean.PlayId}&betBean[{idx}].money={bean.Money}");
             }
 
+            // 提交投注
             try
             {
                 BetResult result = _restHelper.Post<BetResult>(url, postBodyBuilder.ToString());

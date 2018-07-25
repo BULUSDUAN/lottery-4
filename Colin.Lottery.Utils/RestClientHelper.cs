@@ -11,7 +11,6 @@ namespace Colin.Lottery.Utils
             "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36";
 
         private const string AcceptLanguage = "zh-CN,zh;q=0.9,en;q=0.8,zh-TW;q=0.7,en-US;q=0.6";
-        private const string Accept = "application/json, text/plain, */*";
 
         private RestClient _client;
 
@@ -22,13 +21,13 @@ namespace Colin.Lottery.Utils
         public RestClientHelper(string domain)
         {
             _client = new RestClient(domain);
+
             _client.UserAgent = UserAgent;
-            //_client.DefaultParameters
-            _client.Proxy = new WebProxy("127.0.0.1", 8888);
-
             _client.CookieContainer = new CookieContainer();
-
             _client.AddDefaultHeader("Accept-Language", AcceptLanguage);
+
+            // 若使用Fiddler抓包，此处需要设置代理为Fiddler的监听端口
+            //_client.Proxy = new WebProxy("127.0.0.1", 8888);
         }
 
         /// <summary>
