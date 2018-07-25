@@ -1,4 +1,5 @@
 ﻿using System;
+using Colin.Lottery.Common.AutoBetSites;
 using Colin.Lottery.Models;
 using Colin.Lottery.Utils;
 
@@ -10,10 +11,19 @@ namespace Colin.Lottery.BetService.Da2088
         {
             try
             {
-                var autoBet = new AutoBetMain();
-                autoBet.Login();
+                var autoBet = new SiteBet_Da2088();
 
-                long periodNo = 694724;
+                /*
+                 * 登录
+                 */
+                string account = "song90273";
+                string password = "200_daxl5306";
+                autoBet.Login(account, password);
+                
+                /*
+                 * 投注
+                 */
+                long periodNo = 694744;
 
                 autoBet.Bet(periodNo, Pk10Rule.Champion, "1,2,3,4,5", 1m);
                 autoBet.Bet(periodNo, Pk10Rule.Second, "1,2,3,4,5", 1m);
@@ -34,7 +44,7 @@ namespace Colin.Lottery.BetService.Da2088
                 }
 
                 Console.WriteLine(e.Message);
-                LogUtil.Error(e.StackTrace);
+                Console.WriteLine(e.StackTrace);
             }
 
             Console.WriteLine("Program Ends!");

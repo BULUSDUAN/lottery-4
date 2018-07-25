@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Colin.Lottery.BetService.Da2088.Models
+namespace Colin.Lottery.Common.Models
 {
     public class LoginResult
     {

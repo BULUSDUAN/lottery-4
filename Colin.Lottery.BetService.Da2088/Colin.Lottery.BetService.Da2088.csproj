@@ -5,6 +5,6 @@
     <LangVersion>7.2</LangVersion>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Colin.Lottery.Utils\Colin.Lottery.Utils.csproj" />
+    <ProjectReference Include="..\Colin.Lottery.Common\Colin.Lottery.Common.csproj" />
   </ItemGroup>
 </Project>
