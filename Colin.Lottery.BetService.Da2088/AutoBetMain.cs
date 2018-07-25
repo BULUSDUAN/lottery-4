@@ -1,8 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using Colin.Lottery.BetService.Da2088.Models;
+﻿using Colin.Lottery.BetService.Da2088.Models;
 using Colin.Lottery.Models;
 using Colin.Lottery.Utils;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace Colin.Lottery.BetService.Da2088
 {
@@ -22,13 +23,11 @@ namespace Colin.Lottery.BetService.Da2088
         /// <exception cref="ArgumentException"></exception>
         public void Login()
         {
-            var a = BetParam.BetRulePlayIdDict;
-
             // 1. 打开首页
             string content = _restHelper.Get("home/", null);
 
             // 2.登录
-//            account=song90273&password=c5cd3674f081bc66dc8e76dc2209a85d&pwdtext=200_daxl5306&loginSrc=0
+            //            account=song90273&password=c5cd3674f081bc66dc8e76dc2209a85d&pwdtext=200_daxl5306&loginSrc=0
             var parameters = new Dictionary<string, object>
             {
                 ["account"] = "song90273",
@@ -44,11 +43,10 @@ namespace Colin.Lottery.BetService.Da2088
                 throw new ArgumentException("登录失败，请检查用户名或密码是否正确。");
             }
 
-
             // 3. 同意协议
             _restHelper.Get("game/", null);
 
-            Console.WriteLine($"{DateTime.Now}\t登录成功! 余额：￥{result.Money}");
+            PrintLog($"{DateTime.Now}\t登录成功! 余额：￥{result.Money}");
         }
 
         /// <summary>
@@ -60,14 +58,44 @@ namespace Colin.Lottery.BetService.Da2088
         /// <param name="money">单个号码金额</param>
         public void Bet(long periodNo, Pk10Rule rule, string number, decimal money)
         {
+            PrintLog($"{Environment.NewLine}即将下注，玩法: {rule.GetAttributeValue()},号码: {number}, 金额: {money}.");
+
             string url = $"bet/bet.do?_t={DateTime.Now.Ticks}";
 
-            BetParam betParam = new BetParam(periodNo, rule, number, money);
-            
+            var betParam = new BetParam(periodNo, rule, number, money);
+
+            var postBodyBuilder = new StringBuilder();
+            postBodyBuilder.Append($"gameId={betParam.GameId}&turnNum={betParam.TurnNum}&totalNums={betParam.TotalNums}");
+            postBodyBuilder.Append($"&totalMoney={betParam.TotalMoney}&betSrc={betParam.BetSrc}");
+
+            for (int idx = 0; idx < betParam.BetBeanList.Count; idx++)
+            {
+                var bean = betParam.BetBeanList[idx];
+                postBodyBuilder.Append($"&betBean[{idx}].playId={bean.PlayId}&betBean[{idx}].money={bean.Money}");
+            }
+
+            try
+            {
+                BetResult result = _restHelper.Post<BetResult>(url, postBodyBuilder.ToString());
+
+                if (!result.Success)
+                {
+                    PrintLog($"ERROR : {result.Msg}, 状态码: {result.Code}.");
+                }
+                else
+                {
+                    PrintLog($"SUCCESS : 下注接口返回消息: {result.Msg}");
+                }
+            }
+            catch (Exception ex)
+            {
+                PrintLog($"EXCEPTION : 下注出现异常，导致下注失败, 详情: {ex.Message}");
+            }
         }
 
-        private void BetSingleNumber()
+        private void PrintLog(string logFormat, params object[] args)
         {
+            Console.WriteLine(string.Format(logFormat, args));
         }
     }
 }

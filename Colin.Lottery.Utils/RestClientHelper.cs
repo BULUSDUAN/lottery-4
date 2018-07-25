@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
-using Org.BouncyCastle.Bcpg;
+﻿using Newtonsoft.Json;
 using RestSharp;
+using System.Collections.Generic;
+using System.Net;
 
 namespace Colin.Lottery.Utils
 {
@@ -25,6 +22,13 @@ namespace Colin.Lottery.Utils
         public RestClientHelper(string domain)
         {
             _client = new RestClient(domain);
+            _client.UserAgent = UserAgent;
+            //_client.DefaultParameters
+            _client.Proxy = new WebProxy("127.0.0.1", 8888);
+
+            _client.CookieContainer = new CookieContainer();
+
+            _client.AddDefaultHeader("Accept-Language", AcceptLanguage);
         }
 
         /// <summary>
@@ -36,9 +40,6 @@ namespace Colin.Lottery.Utils
         public string Get(string relativeUrl, Dictionary<string, object> parameters = null)
         {
             var request = new RestRequest(relativeUrl, Method.GET).AddParameters(parameters);
-            request.AddHeader("User-Agent", UserAgent);
-            request.AddHeader("Accept-Language", AcceptLanguage);
-            request.AddHeader("Accept", Accept);
 
             IRestResponse respone = _client.Execute(request);
             string content = respone.Content;
@@ -55,13 +56,9 @@ namespace Colin.Lottery.Utils
         {
             var request =
                 new RestRequest(relativeUrl, Method.POST).AddParameters(parameters);
-            request.AddHeader("User-Agent", UserAgent);
-            request.AddHeader("Accept-Language", AcceptLanguage);
-            request.AddHeader("Accept", Accept);
-
-//            request.RequestFormat=DataFormat.
 
             IRestResponse respone = _client.Execute(request);
+
             string content = respone.Content;
             return content;
         }
@@ -75,8 +72,22 @@ namespace Colin.Lottery.Utils
         public T Post<T>(string relativeUrl, Dictionary<string, object> parameters = null) where T : class, new()
         {
             string content = Post(relativeUrl, parameters);
-            T data = JsonConvert.DeserializeObject<T>(content);
-            return data;
+            T result = JsonConvert.DeserializeObject<T>(content);
+            return result;
+        }
+
+        public T Post<T>(string relativeUrl, string postData) where T : class, new()
+        {
+            var request = new RestRequest(relativeUrl, Method.POST);
+
+            request.AddParameter("application/x-www-form-urlencoded", WebUtility.HtmlDecode(postData), ParameterType.RequestBody);
+
+            IRestResponse respone = _client.Execute(request);
+
+            string content = respone.Content;
+            T result = JsonConvert.DeserializeObject<T>(content);
+
+            return result;
         }
     }
 
@@ -88,21 +99,9 @@ namespace Colin.Lottery.Utils
         {
             if (parameters != null && parameters.Count > 0)
             {
-                request.AddHeader("content-type", "application/x-www-form-urlencoded");
-
                 foreach (var parameter in parameters)
                 {
-//                    if (parameter.Value is string)
-//                    {
                     request.AddParameter(parameter.Key, parameter.Value, parameterType);
-//                    }
-//                    else if (parameter.Value is IList values)
-//                    {
-//                        for (int idx = 0; idx < values.Count; idx++)
-//                        {
-//                            request.AddParameter($"{parameter.Key}[{idx}]", values[idx], parameterType);
-//                        }
-//                    }
                 }
             }
 

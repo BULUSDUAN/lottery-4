@@ -1,5 +1,4 @@
 ﻿using Colin.Lottery.Models;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +18,9 @@ namespace Colin.Lottery.BetService.Da2088.Models
         ///         }
         /// }
         /// </summary>
-        public static Dictionary<Pk10Rule, Dictionary<string, uint>> BetRulePlayIdDict;
+        private static Dictionary<Pk10Rule, Dictionary<string, uint>> BetRulePlayIdDict;
+
+        #region Constructors
 
         static BetParam()
         {
@@ -87,7 +88,7 @@ namespace Colin.Lottery.BetService.Da2088.Models
         {
             this.TurnNum = periodNo;
 
-            string[] arrNums = CheckNumberValid(number);
+            string[] arrNums = CheckNumberValid(rule, number);
 
             BetBeanList = new List<BetBean>();
             foreach (string num in arrNums)
@@ -106,12 +107,16 @@ namespace Colin.Lottery.BetService.Da2088.Models
             TotalMoney = arrNums.Length * money;
         }
 
+        #endregion Constructors
+
+        #region Private Methods
+
         /// <summary>
         /// 检查下注号码是否有效
         /// </summary>
         /// <param name="number"></param>
         /// <param name="arrNums"></param>
-        private static string[] CheckNumberValid(string number)
+        private string[] CheckNumberValid(Pk10Rule rule, string number)
         {
             string[] arrNums = number.Split(',');
 
@@ -121,8 +126,10 @@ namespace Colin.Lottery.BetService.Da2088.Models
             }
 
             // 委托，测试号码是否有效
-            Func<string, bool> IsNumberValidFunc = (n) =>
+            Func<string, bool> IsValidNumberFunc = (n) =>
             {
+                if (rule >= Pk10Rule.BigOrSmall && rule <= Pk10Rule.DragonOrTiger) return true;
+
                 bool parseResult = int.TryParse(n, out int m);
                 if (!parseResult) return false;
 
@@ -130,13 +137,17 @@ namespace Colin.Lottery.BetService.Da2088.Models
                 return true;
             };
 
-            if (!arrNums.Any(IsNumberValidFunc))
+            if (!arrNums.Any(IsValidNumberFunc))
             {
                 throw new ArgumentException($"下注失败! \t 详情: 下注号码({number})格式不正确，请检查后重试!");
             }
 
             return arrNums;
         }
+
+        #endregion Private Methods
+
+        #region Public Properties
 
         /// <summary>
         /// 50 - PK10
@@ -167,8 +178,9 @@ namespace Colin.Lottery.BetService.Da2088.Models
         /// <summary>
         /// 下注号码及金额
         /// </summary>
-        [JsonIgnore]
-        public List<BetBean> BetBeanList { get; private set; }
+        public List<BetBean> BetBeanList { get; }
+
+        #endregion Public Properties
 
         public class BetBean
         {
