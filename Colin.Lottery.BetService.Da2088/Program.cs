@@ -12,14 +12,16 @@ namespace Colin.Lottery.BetService.Da2088
         {
             try
             {
-                var autoBet = new SiteBet_Da2088();
 
                 /*
                  * 登录
                  */
                 string account = args[0];
                 string password = args[1];
-                autoBet.Login(account, password);
+
+                var autoBet = new SiteBet_Da2088(account, password);
+
+                autoBet.Login();
 
                 /*
                  * 投注
