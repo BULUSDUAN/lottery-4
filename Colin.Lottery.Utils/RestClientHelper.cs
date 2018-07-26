@@ -27,7 +27,7 @@ namespace Colin.Lottery.Utils
             _client.AddDefaultHeader("Accept-Language", AcceptLanguage);
 
             // 若使用Fiddler抓包，此处需要设置代理为Fiddler的监听端口
-            _client.Proxy = new WebProxy("127.0.0.1", 8888);
+            //_client.Proxy = new WebProxy("127.0.0.1", 8888);
         }
 
         /// <summary>

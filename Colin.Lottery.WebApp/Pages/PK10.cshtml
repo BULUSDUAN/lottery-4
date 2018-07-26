@@ -1,25 +1,43 @@
 ﻿@page "{rule?}"
 @{
-ViewData["Title"] = "北京PK10";
+    ViewData["Title"] = "北京PK10";
 }
+
 @section Styles {
-<link rel="stylesheet" href="~/css/lottery.css"/>
+    <link rel="stylesheet" href="~/css/lottery.css"/>
 }
 
 <div class="page-header">
-    <h4>北京PK10&nbsp;<small>人工5码3期计划</small>
+    <h4>
+        北京PK10&nbsp;<small>人工5码3期计划</small>
     </h4>
 </div>
 <div>
     <ul class="nav nav-tabs" role="tablist">
-        <li role="presentation" class="active"><a href="#1" id="1-tab" role="tab" data-toggle="tab" aria-controls="1" aria-expanded="true">冠军</a></li>
-        <li role="presentation" class=""><a href="#2" role="tab" id="2-tab" data-toggle="tab" aria-controls="2" aria-expanded="false">亚军</a></li>
-        <li role="presentation" class=""><a href="#3" role="tab" id="3-tab" data-toggle="tab" aria-controls="3" aria-expanded="false">季军</a></li>
-        <li role="presentation" class=""><a href="#4" role="tab" id="4-tab" data-toggle="tab" aria-controls="4" aria-expanded="false">第四名</a></li>
-        <li role="presentation" class=""><a href="#5" role="tab" id="5-tab" data-toggle="tab" aria-controls="5" aria-expanded="false">冠军大小</a></li>
-        <li role="presentation" class=""><a href="#6" role="tab" id="6-tab" data-toggle="tab" aria-controls="6" aria-expanded="false">冠军单双</a></li>
-        <li role="presentation" class=""><a href="#7" role="tab" id="7-tab" data-toggle="tab" aria-controls="7" aria-expanded="false">冠军龙虎</a></li>
-        <li role="presentation" class=""><a href="#8" role="tab" id="8-tab" data-toggle="tab" aria-controls="8" aria-expanded="false">冠亚和值</a></li>
+        <li role="presentation" class="active">
+            <a href="#1" id="1-tab" role="tab" data-toggle="tab" aria-controls="1" aria-expanded="true">冠军</a>
+        </li>
+        <li role="presentation" class="">
+            <a href="#2" role="tab" id="2-tab" data-toggle="tab" aria-controls="2" aria-expanded="false">亚军</a>
+        </li>
+        <li role="presentation" class="">
+            <a href="#3" role="tab" id="3-tab" data-toggle="tab" aria-controls="3" aria-expanded="false">季军</a>
+        </li>
+        <li role="presentation" class="">
+            <a href="#4" role="tab" id="4-tab" data-toggle="tab" aria-controls="4" aria-expanded="false">第四名</a>
+        </li>
+        <li role="presentation" class="">
+            <a href="#5" role="tab" id="5-tab" data-toggle="tab" aria-controls="5" aria-expanded="false">冠军大小</a>
+        </li>
+        <li role="presentation" class="">
+            <a href="#6" role="tab" id="6-tab" data-toggle="tab" aria-controls="6" aria-expanded="false">冠军单双</a>
+        </li>
+        <li role="presentation" class="">
+            <a href="#7" role="tab" id="7-tab" data-toggle="tab" aria-controls="7" aria-expanded="false">冠军龙虎</a>
+        </li>
+        <li role="presentation" class="">
+            <a href="#8" role="tab" id="8-tab" data-toggle="tab" aria-controls="8" aria-expanded="false">冠亚和值</a>
+        </li>
     </ul>
     <div class="tab-content">
         <div role="tabpanel" class="tab-pane fade active in" id="1" aria-labelledby="1-tab"></div>
@@ -77,39 +95,42 @@ ViewData["Title"] = "北京PK10";
                     </thead>
                     <tbody>
                     {{each forcastData}}
-                        {{if !$value.drawNo}}
-                            {{if score>=80}}
-                                <tr class="danger">
-                            {{else}}
-                                <tr class="success">
-                            {{/if}}
-                        {{else}}
-                            <tr>
+                    {{if !$value.drawNo}}
+                    {{if score>=80}}
+                    <tr class="danger">
+                    {{else}}
+                    <tr class="success">
+                    {{/if}}
+                    {{else}}
+                    <tr>
                         {{/if}}
-                            <td>{{$value.periodRange}}</td>
-                            <td>{{$value.forcastNo}}</td>
-                            <td>{{$value.lastPeriod.toString().padStart(3,'0')}}</td>
-                            <td>
-                                {{if $value.drawNo}}
-                                {{$value.drawNo}}
-                                {{else}}
-                                开奖中...
-                                {{/if}}
-                            </td>
-                            <td>{{$value.chaseTimes}}</td>
-                            <td>
-                                {{if $value.isWin==true}}
-                                <strong class="text-danger">中</strong>
-                                {{else if $value.isWin==false}}
-                                <strong class="text-success">挂</strong>
-                                {{else}}
-                                <button type="button" class="btn btn-danger btn-xs">
-                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                                    {{score|toFixed 0}}
-                                </button>
-                                {{/if}}
-                            </td>
-                        </tr>
+                        <td>{{$value.periodRange}}</td>
+                        <td>{{$value.forcastNo}}</td>
+                        <td>{{$value.lastPeriod.toString().padStart(3,'0')}}</td>
+                        <td>
+                            {{if $value.drawNo}}
+                            {{$value.drawNo}}
+                            {{else}}
+                            开奖中...
+                            {{/if}}
+                        </td>
+                        <td>{{$value.chaseTimes}}</td>
+                        <td>
+                            {{if $value.isWin==true}}
+                            <strong class="text-danger">中</strong>
+                            {{else if $value.isWin==false}}
+                            <strong class="text-success">挂</strong>
+                            {{else}}
+                            <button type="button" class="btn btn-danger btn-xs">
+                                <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                {{score|toFixed 0}}
+                            </button>
+                            <button type="button" class="btn btn-info btn-xs">
+                                下 注
+                            </button>
+                            {{/if}}
+                        </td>
+                    </tr>
                     {{/each}}
                     </tbody>
                     <tfoot>
