@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Runtime.InteropServices.ComTypes;
 using static Colin.Lottery.Models.Pk10Rule;
@@ -66,34 +67,42 @@ namespace Colin.Lottery.Models
         /// <summary>
         /// 冠军
         /// </summary>
+        [Desc("冠军")]
         Champion = 1,
         /// <summary>
         /// 亚军
         /// </summary>
+        [Desc("亚军")]
         Second = 2,
         /// <summary>
         /// 季军
         /// </summary>
+        [Desc("季军")]
         Third = 3,
         /// <summary>
         /// 第四名
         /// </summary>
+        [Desc("第四名")]
         Fourth = 4,
         /// <summary>
         /// 冠军大小
         /// </summary>
+        [Desc("冠军大小")]
         BigOrSmall = 5,
         /// <summary>
         /// 冠军单双
         /// </summary>
+        [Desc("冠军单双")]
         OddOrEven = 6,
         /// <summary>
         /// 冠军龙虎
         /// </summary>
+        [Desc("冠军龙虎")]
         DragonOrTiger = 7,
         /// <summary>
         /// 冠亚军和值
         /// </summary>
+        [Desc("冠亚军和值")]
         Sum = 8
     }
 
@@ -103,12 +112,12 @@ namespace Colin.Lottery.Models
         /// 单号 1～10
         /// </summary>
         SingleNo,
-        
+
         /// <summary>
         /// 两面盘
         /// </summary>
         TwoSides,
-        
+
         /// <summary>
         /// 冠亚组合
         /// </summary>
@@ -238,7 +247,7 @@ namespace Colin.Lottery.Models
         public static CqsscRule ToCqsscRule(this string rule) => CqsscRules.Keys.FirstOrDefault(r => CqsscRules[r] == rule);
 
         public static Pk10RuleType ToPk10RuleType(this Pk10Rule rule) =>
-            (int) rule <= 4 ? Pk10RuleType.SingleNo :(rule==Sum?Pk10RuleType.FirstAndSecondGroup:Pk10RuleType.TwoSides); 
+            (int)rule <= 4 ? Pk10RuleType.SingleNo : (rule == Sum ? Pk10RuleType.FirstAndSecondGroup : Pk10RuleType.TwoSides);
 
         private static readonly Dictionary<Planner, Plan> PlannerPlan = new Dictionary<Planner, Plan>
         {
@@ -254,5 +263,27 @@ namespace Colin.Lottery.Models
         public static int ToInt(this Pk10Rule rule) => (int)rule;
 
         public static int ToInt(this CqsscRule rule) => (int)rule;
+    }
+
+    /// <summary>
+    /// 字段或属性的中文解释属性
+    /// </summary>
+    [Serializable]
+    [AttributeUsage(AttributeTargets.Field, AllowMultiple = false, Inherited = false)]
+    public class Desc : Attribute
+    {
+        /// <summary>
+        /// 获得字段或属性的中文解释.
+        /// </summary>
+        /// <value>字段或属性的中文解释.</value>
+        public string Value { get; private set; }
+        /// <summary>
+        /// 初始化创建一个 <see cref="Desc"/> 类的实例, 用于指示字段或属性的解释说明.
+        /// </summary>
+        /// <param name="value">字段或属性的解释说明.</param>
+        public Desc(string value)
+        {
+            Value = value;
+        }
     }
 }
