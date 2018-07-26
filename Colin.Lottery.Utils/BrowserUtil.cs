@@ -23,7 +23,7 @@ namespace Colin.Lottery.Utils
         public BrowserUtil(Proxy proxy)
         {
             var chromeOptions = new ChromeOptions();
-            chromeOptions.AddArguments("headless", "disable-gpu", "disable-infobars", "--disable-extensions");
+            chromeOptions.AddArguments("headless", "disable-gpu", "disable-infobars", "--disable-extensions","--remote-debugging-port=9222");
             if (proxy != null)
                 chromeOptions.Proxy = proxy;
 
@@ -69,15 +69,9 @@ namespace Colin.Lottery.Utils
                     //返回条件和超时时间
                     if (operation?.Condition != null)
                     {
-                        var driverWait =
-                            new WebDriverWait(_chromeDriver, TimeSpan.FromMilliseconds(operation.Timeout));
-                        driverWait.Until(driver =>
-                        {
-                            //执行预操作
-                            operation.Action?.Invoke(_chromeDriver);
-
-                            return operation.Condition.Invoke(driver);
-                        });
+                        var driverWait =new WebDriverWait(_chromeDriver, TimeSpan.FromMilliseconds(operation.Timeout));
+                        driverWait.Until(driver =>operation.Condition.Invoke(driver));
+                        operation.Action?.Invoke(_chromeDriver);
                     }
 
                     watch.Stop();
@@ -111,28 +105,11 @@ namespace Colin.Lottery.Utils
             await Explore(url, null, null);
         }
 
-        /// <summary>
-        /// 执行Js脚本并等待完成
-        /// </summary>
-        /// <param name="script"></param>
-        /// <param name="operation"></param>
-        public void ExecuteScript(Script script, Operation operation)
+        public void ExecuteScript(Script script)
         {
             //执行JavaScript
             if (script != null)
                 _chromeDriver.ExecuteScript(script.Code, script.Args);
-
-            //返回条件和超时时间
-            if (operation?.Condition != null)
-            {
-                var driverWait =
-                    new WebDriverWait(_chromeDriver, TimeSpan.FromMilliseconds(operation.Timeout));
-                driverWait.Until(driver =>
-                {
-                    operation.Action?.Invoke(_chromeDriver);
-                    return operation.Condition.Invoke(driver);
-                });
-            }
         }
 
         public void Quit()

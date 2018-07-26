@@ -16,7 +16,7 @@ namespace Colin.Lottery.Models.BrowserModels
         /// <summary>
         /// 返回结果的等待条件（如等待Ajax请求数据渲染UI）
         /// </summary>
-        public Func<IWebDriver, bool> Condition { get; set; }
+        public Predicate<IWebDriver> Condition { get; set; }
 
         /// <summary>
         /// 等待Condition的超时时间

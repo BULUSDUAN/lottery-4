@@ -79,6 +79,13 @@ namespace Colin.Lottery.Models.BetService
         }
         
         
-        public int this[int index] => _times != null && _times.Any() ? _times.ElementAt(index%_times.Count()-1) : 1;
+        public int this[int index]
+        {
+            get
+            {
+                var time= index % _times.Count()-1;
+                return _times != null && _times.Any() ? _times.ElementAt(time<0?_times.Count()-1:time) : 1; 
+            }
+        }
     }
 }

@@ -170,6 +170,7 @@ namespace Colin.Lottery.BetService
              */
 
             var probability=ruleType == Pk10RuleType.SingleNo ? BetConfig.SingleNoMinProbability:BetConfig.TwoSidesMinProbability;
+            
             if (plan.WinProbability >= probability)
             {
                 if (plan.KeepGuaCnt >= 3)
