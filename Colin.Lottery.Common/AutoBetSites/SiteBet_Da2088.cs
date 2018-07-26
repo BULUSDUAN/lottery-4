@@ -12,8 +12,18 @@ namespace Colin.Lottery.Common.AutoBetSites
     /// </summary>
     public class SiteBet_Da2088 : SiteBetBase, ISiteBet
     {
-        public SiteBet_Da2088() : base("https://www.da2088.com/")
+        private string _account;
+        private string _password;
+
+        /// <summary>
+        /// True 表示登录超时，或者异地登录被踢下线
+        /// </summary>
+        public bool LoginTimeout { get; set; }
+
+        public SiteBet_Da2088(string account, string password) : base("https://www.da2088.com/")
         {
+            this._account = account;
+            this._password = password;
         }
 
         /// <summary>
@@ -21,9 +31,9 @@ namespace Colin.Lottery.Common.AutoBetSites
         /// </summary>
         /// <param name="account">账号名称</param>
         /// <param name="plainPassword">明文密码</param>
-        public void Login(string account, string password)
+        public void Login()
         {
-            if (string.IsNullOrWhiteSpace(account) || string.IsNullOrWhiteSpace(password))
+            if (string.IsNullOrWhiteSpace(_account) || string.IsNullOrWhiteSpace(_password))
             {
                 throw new ArgumentNullException($"登录失败！账号或密码不能为空.");
             }
@@ -33,12 +43,12 @@ namespace Colin.Lottery.Common.AutoBetSites
 
             // 2.登录
             //            account=song90273&password=c5cd3674f081bc66dc8e76dc2209a85d&pwdtext=200_daxl5306&loginSrc=0
-            string md5Password = EncryptUtil.CreateMD5(password.Trim());
+            string md5Password = EncryptUtil.CreateMD5(_password.Trim());
             var parameters = new Dictionary<string, object>
             {
-                ["account"] = account,
+                ["account"] = _account,
                 ["password"] = md5Password,
-                ["pwdtext"] = password,
+                ["pwdtext"] = _password,
                 ["loginSrc"] = "0"
             };
 
@@ -49,10 +59,10 @@ namespace Colin.Lottery.Common.AutoBetSites
                 throw new ArgumentException("登录失败，请检查用户名或密码是否正确。");
             }
 
+            LoginTimeout = false;
+
             // 3. 同意协议
             _restHelper.Get("game/", null);
-
-            PrintLog($"{DateTime.Now}\t用户 {result.UserName} 登录成功! 余额：￥{result.Money}");
         }
 
         /// <summary>
@@ -65,7 +75,7 @@ namespace Colin.Lottery.Common.AutoBetSites
         public void Bet(long periodNo, Pk10Rule rule, string number, decimal money)
         {
             LotteryData lotteryData = GetLotteryData();
-            PrintLog($"{Environment.NewLine}即将下注，账户余额: [{lotteryData.Balance}], 玩法: [{rule.GetAttributeValue()}],号码: [{number}], 下注金额: {money}.");
+            PrintLog($"{Environment.NewLine}即将下注，账户余额:￥ [{lotteryData.Balance}], 玩法: [{rule.GetAttributeValue()}],号码: [{number}], 下注金额: {money}.");
 
             string url = $"bet/bet.do?_t={DateTime.Now.Ticks}";
 
@@ -89,19 +99,20 @@ namespace Colin.Lottery.Common.AutoBetSites
 
                 if (!result.Success)
                 {
-                    PrintLog($"ERROR : {result.Msg}, 状态码: {result.Code}.");
+                    if (result.Msg.Contains("该账号在异地登陆"))
+                    {
+                        LoginTimeout = true;
+                        throw new ArgumentException("该账号在异地登陆, 请重试！");
+                    }
+                    else
+                    {
+                        throw new ArgumentException($"{result.Msg}, 状态码: {result.Code}.");
+                    }
                 }
-                else
-                {
-                    PrintLog($"下注成功！");
-                }
-
-                lotteryData = GetLotteryData();
-                PrintLog($"下注结束, 当前账户余额: {lotteryData.Balance}");
             }
             catch (Exception ex)
             {
-                PrintLog($"EXCEPTION : 下注出现异常，导致下注失败, 详情: {ex.Message}");
+                throw ex;
             }
         }
 

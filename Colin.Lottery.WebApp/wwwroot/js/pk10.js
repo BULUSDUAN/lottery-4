@@ -2,7 +2,7 @@
 
 (function () {
     //玩法
-    let rule = getLotteryRule()-0;
+    let rule = getLotteryRule() - 0;
     $(".nav-tabs li:eq(" + (rule - 1) + ") a").tab('show');
     loading();
 
@@ -26,12 +26,13 @@
             console.error(error.message);
         });
 
+
     //显示预测数据
     connection.on("ShowPlans", data => {
-        if (!data||data.length<2){
+        if (!data || data.length < 2) {
             console.error("预测数据格式错误");
             return;
-        } 
+        }
         data[0].name = "Plan A";
         data[1].name = "Plan B";
 
@@ -39,12 +40,43 @@
         container.append(template('planTemplate', data[0]));
         container.append(template('planTemplate', data[1]));
         $(".tab-pane.active").html(container);
+
+
+        $(".btnBet").on("click", function () {
+            rule = getLotteryRule() - 0;
+
+            let $tr = $(this).parent().parent();
+            let lastDrawedPeriod = $tr.find('input[name=lastDrawedPeriod]').val();
+            let $tds = $tr.find('td');
+            let periodRange = $tds.first().next().text().trim();
+
+            let $form = $("#formBetPreview");
+            $form.find("#hidRule").val(rule);
+            $form.find("#betPeriod").val(parseInt(lastDrawedPeriod) + 1);
+            $form.find("#betNumbersPreview").val(periodRange);
+
+            $("#confirmBet").modal()
+
+
+        });
     });
 
     //无数据返回
-    connection.on("NoResult", ()=> {
+    connection.on("NoResult", () => {
         $(".tab-pane.active").html($(template('noResultTemplate')()));
     });
+
+    //无数据返回
+    connection.on("ShowBetResult", (msg, level) => {
+        $.notify({
+            title: "<strong>投注结果:</strong>",
+            message: msg
+        }, {
+                type: level
+            });
+    });
+
+
 
     //切换Tab加载数据
     $(".nav-tabs a").on("click", function () {
@@ -59,6 +91,23 @@
     function loading(id) {
         $(".tab-pane" + (!id ? ".active" : "#" + id)).html(template('planLoading')());
     }
+
+    $("#btnBetConfirm").on("click", function () {
+        let $form = $("#formBetPreview");
+        let formData = $form.serializeJSON();
+        console.log(formData);
+
+        connection.invoke('BetDa2088', parseInt(formData.periodNo), parseInt(formData.rule), formData.numberRange, parseInt(formData.money))
+            .catch(err => console.error(err.toString()));
+
+
+        $("#confirmBet").modal("hide")
+    });
+
+
+
+
+
 
 
 })();

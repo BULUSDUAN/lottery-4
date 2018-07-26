@@ -185,6 +185,14 @@ namespace Colin.Lottery.Models
         Html
     }
 
+    public enum NotifyLevel
+    {
+        info,
+        success,
+        warning,
+        danger
+    }
+
     public static class EnumExt
     {
         private static readonly Dictionary<LotteryType, string> LotteryTypes = new Dictionary<LotteryType, string>

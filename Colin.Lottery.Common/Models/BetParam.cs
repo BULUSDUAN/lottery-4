@@ -1,4 +1,5 @@
 ﻿using Colin.Lottery.Models;
+using Colin.Lottery.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -96,7 +97,7 @@ namespace Colin.Lottery.Common.Models
                 var numberPlayIdDict = BetParam.BetRulePlayIdDict[rule];
                 if (!numberPlayIdDict.ContainsKey(num))
                 {
-                    throw new ArgumentOutOfRangeException($"不支持下注单个下注号码必须在1~10单个数字");
+                    throw new ArgumentOutOfRangeException($"玩法 {rule.GetAttributeValue()}， 下注号码: {num}， 下注号码不合规则！");
                 }
                 uint playId = numberPlayIdDict[num];
                 BetBeanList.Add(new BetBean(playId, money));
@@ -133,7 +134,7 @@ namespace Colin.Lottery.Common.Models
                 bool parseResult = int.TryParse(n, out int m);
                 if (!parseResult) return false;
 
-                if (m < 1 || m > 10) return false;
+                if (m < 1 || m > 19) return false;
                 return true;
             };
 

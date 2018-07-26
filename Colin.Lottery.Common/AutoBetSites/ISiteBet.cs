@@ -9,7 +9,7 @@ namespace Colin.Lottery.Common.AutoBetSites
         /// </summary>
         /// <param name="account">账号</param>
         /// <param name="password">密码</param>
-        void Login(string account, string password);
+        void Login();
 
         /// <summary>
         /// 投注
