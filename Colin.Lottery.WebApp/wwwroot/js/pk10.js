@@ -26,6 +26,37 @@
             console.error(error.message);
         });
 
+    function setTotalMoney() {
+        let count = $("#betNumbersPreview").val().split(' ').length;
+        let money = parseFloat($("#betMoney").val());
+        let total = count * money;
+        $("#totalMoney").text(total);
+    }
+
+    $("#betMoney").on("keyup mouseup", function () {
+        setTotalMoney();
+    });
+
+    function bindBetButtonClick() {
+        $(".btnBet").on("click", function () {
+            rule = getLotteryRule() - 0;
+
+            let $tr = $(this).parent().parent();
+            let lastDrawedPeriod = $tr.find('input[name=lastDrawedPeriod]').val();
+            let nextBetPeriod = parseInt(lastDrawedPeriod) + 1;
+            let $tds = $tr.find('td');
+            let periodRange = $tds.first().next().text().trim();
+
+            let $form = $("#formBetPreview");
+            $form.find("#hidRule").val(rule);
+            $form.find("#betPeriod").val(nextBetPeriod);
+            $form.find("#betNumbersPreview").val(periodRange);
+
+            $("#confirmBet").modal()
+            setTotalMoney();
+        });
+    }
+
 
     //显示预测数据
     connection.on("ShowPlans", data => {
@@ -41,42 +72,20 @@
         container.append(template('planTemplate', data[1]));
         $(".tab-pane.active").html(container);
 
-
-        $(".btnBet").on("click", function () {
-            rule = getLotteryRule() - 0;
-
-            let $tr = $(this).parent().parent();
-            let lastDrawedPeriod = $tr.find('input[name=lastDrawedPeriod]').val();
-            let $tds = $tr.find('td');
-            let periodRange = $tds.first().next().text().trim();
-
-            let $form = $("#formBetPreview");
-            $form.find("#hidRule").val(rule);
-            $form.find("#betPeriod").val(parseInt(lastDrawedPeriod) + 1);
-            $form.find("#betNumbersPreview").val(periodRange);
-
-            $("#confirmBet").modal()
-
-
-        });
+        notify("", "最新期预测号码已更新!", "info");
+        bindBetButtonClick();
     });
+
 
     //无数据返回
     connection.on("NoResult", () => {
         $(".tab-pane.active").html($(template('noResultTemplate')()));
     });
 
-    //无数据返回
+    // 提醒投注结果
     connection.on("ShowBetResult", (msg, level) => {
-        $.notify({
-            title: "<strong>投注结果:</strong>",
-            message: msg
-        }, {
-                type: level
-            });
+        notify("<strong>投注结果:</strong>", msg, level);
     });
-
-
 
     //切换Tab加载数据
     $(".nav-tabs a").on("click", function () {
@@ -92,6 +101,7 @@
         $(".tab-pane" + (!id ? ".active" : "#" + id)).html(template('planLoading')());
     }
 
+    // 点击“下注”
     $("#btnBetConfirm").on("click", function () {
         let $form = $("#formBetPreview");
         let formData = $form.serializeJSON();
@@ -100,14 +110,6 @@
         connection.invoke('BetDa2088', parseInt(formData.periodNo), parseInt(formData.rule), formData.numberRange, parseInt(formData.money))
             .catch(err => console.error(err.toString()));
 
-
         $("#confirmBet").modal("hide")
     });
-
-
-
-
-
-
-
 })();

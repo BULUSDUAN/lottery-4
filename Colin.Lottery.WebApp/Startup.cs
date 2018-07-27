@@ -34,6 +34,17 @@ namespace Colin.Lottery.WebApp
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            services.AddDistributedMemoryCache();
+
+            // AddSession 必须在 AddMvc() 之前执行
+            services.AddSession(options =>
+            {
+                // Set a short timeout for easy testing.
+                options.IdleTimeout = TimeSpan.FromMinutes(30);
+                options.Cookie.HttpOnly = true;
+            });
+
+
             services.AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
@@ -66,6 +77,7 @@ namespace Colin.Lottery.WebApp
 
             app.UseStaticFiles();
             app.UseCookiePolicy();
+            app.UseSession();
 
             //app.UseAuthentication();UseAuthentication
 

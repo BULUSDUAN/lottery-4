@@ -13,7 +13,7 @@ namespace Colin.Lottery.WebApp.Hubs
 {
     public class PK10Hub : BaseHub<PK10Hub>
     {
-        private static SiteBet_Da2088 siteBet = new SiteBet_Da2088("song90273", "200_daxiang5306");
+        private static SiteBet_Da2088 siteBet = new SiteBet_Da2088("ACCOUNT", "PASSWORD");
 
         static PK10Hub()
         {

@@ -14,6 +14,8 @@ namespace Colin.Lottery.WebApp.Pages
         public void OnGet()
         {
             RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier;
+
+            //Session
         }
     }
 }
