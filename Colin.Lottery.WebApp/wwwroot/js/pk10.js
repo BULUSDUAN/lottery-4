@@ -30,7 +30,7 @@
         let count = $("#betNumbersPreview").val().split(' ').length;
         let money = parseFloat($("#betMoney").val());
         let total = count * money;
-        $("#totalMoney").text(total);
+        $("#preTotalMoney").text(total);
     }
 
     $("#betMoney").on("keyup mouseup", function () {
@@ -59,7 +59,11 @@
 
 
     //显示预测数据
-    connection.on("ShowPlans", data => {
+    connection.on("ShowPlans", (data, lotterData) => {
+
+        $('#betBalance').text(lotterData && lotterData.balance);
+        $('#totalMoney').text(lotterData && lotterData.totalTotalMoney);
+
         if (!data || data.length < 2) {
             console.error("预测数据格式错误");
             return;
@@ -72,7 +76,7 @@
         container.append(template('planTemplate', data[1]));
         $(".tab-pane.active").html(container);
 
-        notify("", "最新期预测号码已更新!", "info");
+        jqNotify("", "最新期预测号码已更新!", "info");
         bindBetButtonClick();
     });
 
@@ -84,7 +88,7 @@
 
     // 提醒投注结果
     connection.on("ShowBetResult", (msg, level) => {
-        notify("<strong>投注结果:</strong>", msg, level);
+        jqNotify("<strong>投注结果:</strong>", msg, level);
     });
 
     //切换Tab加载数据

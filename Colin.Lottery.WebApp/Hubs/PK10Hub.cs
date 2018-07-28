@@ -8,17 +8,13 @@ using Colin.Lottery.Models;
 using Colin.Lottery.Utils;
 using Colin.Lottery.Common;
 using Colin.Lottery.Common.AutoBetSites;
+using Colin.Lottery.Common.Models;
 
 namespace Colin.Lottery.WebApp.Hubs
 {
     public class PK10Hub : BaseHub<PK10Hub>
     {
-        private static SiteBet_Da2088 siteBet = new SiteBet_Da2088("ACCOUNT", "PASSWORD");
 
-        static PK10Hub()
-        {
-            siteBet.Login();
-        }
 
         /// <summary>
         /// 获取指定玩法预测数据(最近15段)
@@ -36,7 +32,9 @@ namespace Colin.Lottery.WebApp.Hubs
             else
             {
                 JinMaAnalyzer.Instance.CalcuteScore(plans);
-                await Clients.Caller.SendAsync("ShowPlans", plans);
+
+                var lotteryData = Da2088Helper.SiteBetDa2088.GetLotteryData();
+                await Clients.Caller.SendAsync("ShowPlans", arg1: plans, arg2: lotteryData);
             }
 
 
@@ -99,9 +97,9 @@ namespace Colin.Lottery.WebApp.Hubs
         /// <param name="money">下注金额</param>
         public void BetDa2088(long periodNo, int rule, string numberRange, decimal money)
         {
-            if (siteBet.LoginTimeout)
+            if (Da2088Helper.SiteBetDa2088.LoginTimeout)
             {
-                siteBet.Login();
+                Da2088Helper.SiteBetDa2088.Login();
             }
 
             string betNumbers = numberRange;
@@ -119,9 +117,9 @@ namespace Colin.Lottery.WebApp.Hubs
             try
             {
                 // TODO: 当网页上登录时，此处会报“账号在异地登陆”的异常，需要才重新登录
-                siteBet.Bet(periodNo, pk10Rule, betNumbers, money);
+                Da2088Helper.SiteBetDa2088.Bet(periodNo, pk10Rule, betNumbers, money);
 
-                var lotteryData = siteBet.GetLotteryData();
+                var lotteryData = Da2088Helper.SiteBetDa2088.GetLotteryData();
                 notifyMessage = $"投注成功！ 当前余额: ￥{lotteryData.Balance}";
                 Clients.Caller.SendAsync("ShowBetResult", notifyMessage, NotifyLevel.success.ToString());
             }
@@ -134,6 +132,13 @@ namespace Colin.Lottery.WebApp.Hubs
             }
         }
 
+
+        public override async Task OnConnectedAsync()
+        {
+            Da2088Helper.SiteBetDa2088.Login();
+
+            await base.OnConnectedAsync();
+        }
 
         public override async Task OnDisconnectedAsync(Exception exception)
         {

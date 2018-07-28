@@ -1,0 +1,50 @@
+﻿@page
+@using Colin.Lottery.Common.Models
+@using Colin.Lottery.Utils
+
+@model PK10BillModel
+@{
+    ViewData["Title"] = "PK10 下单明细";
+}
+
+<div class="page-header">
+    <p>总下注:￥ @Model.Bills.OtherData.TotalBetMoney</p>
+    <p>总盈利:￥ @Model.Bills.OtherData.TotalResultMoney</p>
+</div>
+<div>
+    <div class="table-responsive">
+        <table class="table table-condensed table-hover table-striped">
+            <thead>
+                <tr>
+                    <th>期号</th>
+                    <th>玩法</th>
+                    <th>号码</th>
+                    <th>下注金额</th>
+                    <th>盈利</th>
+                    <th>时间</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    long turnNum = Model.Bills.Data[0].TurnNum;
+
+                    foreach (BetBill item in Model.Bills.Data)
+                    {
+                        RulePlayId rulePlay = Da2088Helper.GetRuleAndNum(item.playId);
+
+                        string clsName = turnNum == item.TurnNum ? "text-primary" : "text-muted";
+                        string isWinClass = item.Reward > 0 ? "danger" : "";
+                        <tr class="@clsName @isWinClass">
+                            <td>@item.TurnNum</td>
+                            <td>@rulePlay.Rule.GetAttributeValue()</td>
+                            <td>@rulePlay.Number</td>
+                            <td>@item.Money @@ @item.Odds</td>
+                            <td>@item.ResultMoney</td>
+                            <td>@item.AddTime</td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

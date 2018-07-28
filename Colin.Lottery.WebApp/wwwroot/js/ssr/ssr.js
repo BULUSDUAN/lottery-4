@@ -74,12 +74,12 @@ function ssrDecode(text) {
 
                 ssrs.push(ssr);
             }, function (err) {
-                notify('SSR解析错误', 'SSR解析出现错误,请稍后重试');
+                jqNotify('SSR解析错误', 'SSR解析出现错误,请稍后重试');
                 console.error(err);
             })
         },
         function (err) {
-            notify('SSR解析错误', 'SSR解析出现错误,请稍后重试');
+            jqNotify('SSR解析错误', 'SSR解析出现错误,请稍后重试');
             console.error(err);
         });
 }

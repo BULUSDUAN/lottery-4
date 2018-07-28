@@ -11,6 +11,10 @@
         /// 未结金额
         /// </summary>
         public float UnbalancedMoney { get; set; }
+
+        /// <summary>
+        /// 当前彩种输赢
+        /// </summary>
         public float TotalTotalMoney { get; set; }
         public object UserBetWinList { get; set; }
         public object UserBetNew { get; set; }

@@ -18,7 +18,7 @@ namespace Colin.Lottery.Common.AutoBetSites
         /// <summary>
         /// True 表示登录超时，或者异地登录被踢下线
         /// </summary>
-        public bool LoginTimeout { get; set; }
+        public bool LoginTimeout { get; set; } = true;
 
         public SiteBet_Da2088(string account, string password) : base("https://www.da2088.com/")
         {
@@ -31,12 +31,14 @@ namespace Colin.Lottery.Common.AutoBetSites
         /// </summary>
         /// <param name="account">账号名称</param>
         /// <param name="plainPassword">明文密码</param>
-        public void Login()
+        public bool Login()
         {
             if (string.IsNullOrWhiteSpace(_account) || string.IsNullOrWhiteSpace(_password))
             {
                 throw new ArgumentNullException($"登录失败！账号或密码不能为空.");
             }
+
+            if (!LoginTimeout) return true;
 
             // 1. 打开首页
             string content = _restHelper.Get("home/", null);
@@ -56,13 +58,17 @@ namespace Colin.Lottery.Common.AutoBetSites
 
             if (result.State != 1)
             {
-                throw new ArgumentException("登录失败，请检查用户名或密码是否正确。");
+                Console.WriteLine("登录失败，请检查用户名或密码是否正确。");
+                return false;
             }
 
             LoginTimeout = false;
 
             // 3. 同意协议
             _restHelper.Get("game/", null);
+
+            PrintLog($"{DateTime.Now}\t用户 {result.UserName} 登录成功! 余额：￥{result.Money}");
+            return true;
         }
 
         /// <summary>
@@ -109,6 +115,10 @@ namespace Colin.Lottery.Common.AutoBetSites
                         throw new ArgumentException($"{result.Msg}, 状态码: {result.Code}.");
                     }
                 }
+                else
+                {
+                    PrintLog($"下注成功, 当前账户余额: {lotteryData.Balance}");
+                }
             }
             catch (Exception ex)
             {
@@ -136,6 +146,25 @@ namespace Colin.Lottery.Common.AutoBetSites
                 Console.WriteLine($">>> 获取账号余额失败，详情: {ex.Message}");
             }
             return result;
+        }
+
+        /// <summary>
+        /// 获取“今天已结”账单
+        /// </summary>
+        public BetBills GetBetBills()
+        {
+            string url = $"bet/getBetBills.do?_t={DateTime.Now.Ticks}&settled=true&page=1&rows=50";
+
+            try
+            {
+                BetBills bills = _restHelper.Get<BetBills>(url);
+                return bills;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"获取今日已结异常: {ex.Message}{Environment.NewLine}{ex.StackTrace}");
+                return new BetBills();
+            }
         }
     }
 }

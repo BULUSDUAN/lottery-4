@@ -11,75 +11,7 @@ namespace Colin.Lottery.Common.Models
     /// </summary>
     public class BetParam
     {
-        /// <summary>
-        /// {
-        ///    "下注玩法" :
-        ///         {
-        ///             "下注号码" : playId
-        ///         }
-        /// }
-        /// </summary>
-        private static Dictionary<Pk10Rule, Dictionary<string, uint>> BetRulePlayIdDict;
-
         #region Constructors
-
-        static BetParam()
-        {
-            BetRulePlayIdDict = new Dictionary<Pk10Rule, Dictionary<string, uint>>();
-
-            /*
-             * 初始化 单号1-10(仅冠军、亚军、第三名、第四名) 的 playId
-             */
-            uint basePlayId = 501107;
-            for (ushort x = (ushort)Pk10Rule.Champion; x < (ushort)Pk10Rule.BigOrSmall; x++)
-            {
-                var betNumPlayIdDict = new Dictionary<string, uint>();
-                for (uint y = 0; y < 10; y++)
-                {
-                    uint betNumber = y + 1; // 下注号码（1-9数字）
-                    uint playId = basePlayId + y; // playId
-                    betNumPlayIdDict.Add(betNumber.ToString(), playId);
-                }
-
-                BetRulePlayIdDict.Add((Pk10Rule)x, betNumPlayIdDict);
-
-                // 个位重置到7，百分位加1，准备下一个玩法
-                basePlayId += 100;
-            }
-
-            /*
-             * 初始化 冠军大小、单双、龙虎 的 playId
-             */
-            basePlayId = 501100;
-            BetRulePlayIdDict.Add(Pk10Rule.BigOrSmall, new Dictionary<string, uint>
-            {
-                ["大"] = ++basePlayId,
-                ["小"] = ++basePlayId
-            });
-            BetRulePlayIdDict.Add(Pk10Rule.OddOrEven, new Dictionary<string, uint>
-            {
-                ["单"] = ++basePlayId,
-                ["双"] = ++basePlayId
-            });
-            BetRulePlayIdDict.Add(Pk10Rule.DragonOrTiger, new Dictionary<string, uint>
-            {
-                ["龙"] = ++basePlayId,
-                ["虎"] = ++basePlayId
-            });
-
-            /*
-             * 冠亚和值
-             */
-            basePlayId = 501005;
-            var sumDict = new Dictionary<string, uint>();
-            for (int betNumber = 3; betNumber <= 19; betNumber++)
-            {
-                sumDict.Add(betNumber.ToString(), basePlayId);
-                basePlayId++;
-            }
-
-            BetRulePlayIdDict.Add(Pk10Rule.Sum, sumDict);
-        }
 
         /// <param name="periodNo">期号</param>
         /// <param name="rule">玩法枚举</param>
@@ -94,13 +26,13 @@ namespace Colin.Lottery.Common.Models
             BetBeanList = new List<BetBean>();
             foreach (string num in arrNums)
             {
-                var numberPlayIdDict = BetParam.BetRulePlayIdDict[rule];
-                if (!numberPlayIdDict.ContainsKey(num))
+                RulePlayId rulePlayId = Da2088Helper.GetPlayId(rule, num);
+                if (rulePlayId == null)
                 {
                     throw new ArgumentOutOfRangeException($"玩法 {rule.GetAttributeValue()}， 下注号码: {num}， 下注号码不合规则！");
                 }
-                uint playId = numberPlayIdDict[num];
-                BetBeanList.Add(new BetBean(playId, money));
+
+                BetBeanList.Add(new BetBean(rulePlayId.PlayId, money));
             }
 
             // 初始化总金额

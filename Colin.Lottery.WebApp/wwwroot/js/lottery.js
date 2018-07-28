@@ -3,7 +3,7 @@ function getLotteryRule() {
     return /^\d+/.test(rule) ? rule : 1;
 }
 
-function notify(title, message, level) {
+function jqNotify(title, message, level) {
     $.notify({
         title: "<strong>" + title + "</strong>",
         message: message
