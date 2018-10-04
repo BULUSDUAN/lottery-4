@@ -140,9 +140,32 @@ namespace Colin.Lottery.WebApp.Hubs
             await base.OnConnectedAsync();
         }
 
+        public async Task GetAppNewForcast()
+        {
+            var forcast = new List<IForcastModel>();
+            var error = 0;
+            error += await GetNewForcast(forcast, Pk10Rule.Champion);
+            error += await GetNewForcast(forcast, Pk10Rule.Second);
+            error += await GetNewForcast(forcast, Pk10Rule.Third);
+            error += await GetNewForcast(forcast, Pk10Rule.Fourth);
+
+            if (error > 0)
+            {
+                await Clients.Caller.SendAsync("NoResult", "allRules");
+                LogUtil.Warn("目标网站扫水接口异常，请尽快检查恢复");
+            }
+
+            var liangua = forcast.Where(f => f.KeepGuaCnt >= Convert.ToInt32(ConfigUtil.Configuration["AppNotify:Min"]));
+            if (liangua.Any())
+                await Clients.Caller.SendAsync("ShowPlans", liangua.ToList());
+
+            await Groups.AddToGroupAsync(Context.ConnectionId, "App");
+        }
+
         public override async Task OnDisconnectedAsync(Exception exception)
         {
             await Groups.RemoveFromGroupAsync(Context.ConnectionId, "AllRules");
+            await Groups.RemoveFromGroupAsync(Context.ConnectionId, "App");
             Lotterys.Pk10Rules.ForEach(async rule =>
                 await Groups.RemoveFromGroupAsync(Context.ConnectionId, ((Pk10Rule)rule).ToString()));
 

@@ -13,8 +13,8 @@
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.App" Version="2.1.2" />
-        <PackageReference Include="Selenium.Chrome.WebDriver" Version="2.40.0" />
-        <PackageReference Include="Selenium.WebDriver" Version="3.13.1" />
+        <PackageReference Include="Selenium.Chrome.WebDriver" Version="2.42.0" />
+        <PackageReference Include="Selenium.WebDriver" Version="3.14.0" />
     </ItemGroup>
     <ItemGroup>
         <ProjectReference Include="..\Colin.Lottery.DataService\Colin.Lottery.DataService.csproj" />
