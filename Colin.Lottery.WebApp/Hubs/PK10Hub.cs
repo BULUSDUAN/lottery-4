@@ -14,24 +14,13 @@ namespace Colin.Lottery.WebApp.Hubs
     public class PK10Hub : BaseHub<PK10Hub>
     {
         /// <summary>
-        /// 获取指定玩法预测数据(最近15段)
+        /// 获取指定玩法预测数据(最近15段)并订阅玩法 Web端详情页调用
         /// </summary>
         /// <returns>The forcast data.</returns>
         /// <param name="rule">Rule.</param>
         public async Task GetForcastData(int rule = 1)
         {
-            var plans = await JinMaAnalyzer.Instance.GetForcastData(LotteryType.Pk10, rule);
-            if (plans == null || plans.Count < 2 || plans.Any(p => p == null))
-            {
-                await Clients.Caller.SendAsync("NoResult");
-                LogUtil.Warn("目标网站扫水接口异常，请尽快检查恢复");
-            }
-            else
-            {
-                JinMaAnalyzer.Instance.CalcuteScore(plans);
-                await Clients.Caller.SendAsync("ShowPlans", plans);
-            }
-
+            await GetForcastDataByRule(rule);
 
             Lotterys.Pk10Rules.ForEach(async r =>
                 await Groups.RemoveFromGroupAsync(Context.ConnectionId, r.ToString()));
@@ -39,7 +28,7 @@ namespace Colin.Lottery.WebApp.Hubs
         }
 
         /// <summary>
-        /// 获取PK10所有玩法最新期预测数据
+        /// 获取PK10所有玩法最新期预测数据并订阅所有玩法 Web端彩票大厅调用
         /// </summary>
         /// <returns>The all new forcast.</returns>
         public async Task GetAllNewForcast()
@@ -82,6 +71,52 @@ namespace Colin.Lottery.WebApp.Hubs
         /// </summary>
         /// <returns>The all rules.</returns>
         public async Task RegisterAllRules() => await Groups.AddToGroupAsync(Context.ConnectionId, "AllRules");
+
+        /// <summary>
+        /// 获取PK10前四名最新期预测数据 App端使用
+        /// </summary>
+        /// <returns></returns>
+        public async Task GetAppNewForcast()
+        {
+            var forcast = new List<IForcastModel>();
+            var error = 0;
+            error += await GetNewForcast(forcast, Pk10Rule.Champion);
+            error += await GetNewForcast(forcast, Pk10Rule.Second);
+            error += await GetNewForcast(forcast, Pk10Rule.Third);
+            error += await GetNewForcast(forcast, Pk10Rule.Fourth);
+
+            if (error > 0)
+            {
+                await Clients.Caller.SendAsync("NoResult", "allRules");
+                LogUtil.Warn("目标网站扫水接口异常，请尽快检查恢复");
+            }
+
+            var liangua = forcast.Where(f => f.KeepGuaCnt >= Convert.ToInt32(ConfigUtil.Configuration["AppNotify:Min"]));
+            if (liangua.Any())
+                await Clients.Caller.SendAsync("ShowPlans", liangua.ToList());
+
+            await Groups.AddToGroupAsync(Context.ConnectionId, "App");
+        }
+
+        /// <summary>
+        /// 获取指定玩法预测数据(最近15段)
+        /// </summary>
+        /// <returns>The forcast data by rule.</returns>
+        /// <param name="rule">Rule.</param>
+        public async Task GetForcastDataByRule(int rule)
+        {
+            var plans = await JinMaAnalyzer.Instance.GetForcastData(LotteryType.Pk10, rule);
+            if (plans == null || plans.Count() < 2 || plans.Any(p => p == null))
+            {
+                await Clients.Caller.SendAsync("NoResult");
+                LogUtil.Warn("目标网站扫水接口异常，请尽快检查恢复");
+            }
+            else
+            {
+                JinMaAnalyzer.Instance.CalcuteScore(plans);
+                await Clients.Caller.SendAsync("ShowPlans", plans);
+            }
+        }
 
         /*
                 /// <summary>
@@ -136,27 +171,7 @@ namespace Colin.Lottery.WebApp.Hubs
             await base.OnConnectedAsync();
         }
 
-        public async Task GetAppNewForcast()
-        {
-            var forcast = new List<IForcastModel>();
-            var error = 0;
-            error += await GetNewForcast(forcast, Pk10Rule.Champion);
-            error += await GetNewForcast(forcast, Pk10Rule.Second);
-            error += await GetNewForcast(forcast, Pk10Rule.Third);
-            error += await GetNewForcast(forcast, Pk10Rule.Fourth);
 
-            if (error > 0)
-            {
-                await Clients.Caller.SendAsync("NoResult", "allRules");
-                LogUtil.Warn("目标网站扫水接口异常，请尽快检查恢复");
-            }
-
-            var liangua = forcast.Where(f => f.KeepGuaCnt >= Convert.ToInt32(ConfigUtil.Configuration["AppNotify:Min"]));
-            if (liangua.Any())
-                await Clients.Caller.SendAsync("ShowPlans", liangua.ToList());
-
-            await Groups.AddToGroupAsync(Context.ConnectionId, "App");
-        }
 
         public override async Task OnDisconnectedAsync(Exception exception)
         {
