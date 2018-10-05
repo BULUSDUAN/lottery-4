@@ -45,6 +45,7 @@
     </ItemGroup>
     <ItemGroup>
         <Content Remove="wwwroot\images\logo-128.svg" />
+        <Content Remove="wwwroot\lib\signalr\signalr.js" />
     </ItemGroup>
     <ItemGroup>
         <Content Update="appsettings.json">

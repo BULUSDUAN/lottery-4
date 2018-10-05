@@ -2,11 +2,9 @@
 @{
     ViewData["Title"] = "北京PK10";
 }
-
 @section Styles {
     <link rel="stylesheet" href="~/css/lottery.css" />
 }
-
 <div class="page-header">
     <h4>
         北京PK10&nbsp;<small>人工5码3期计划</small>
@@ -48,137 +46,97 @@
         <div role="tabpanel" class="tab-pane fade" id="6" aria-labelledby="6-tab"></div>
         <div role="tabpanel" class="tab-pane fade" id="7" aria-labelledby="7-tab"></div>
         <div role="tabpanel" class="tab-pane fade" id="8" aria-labelledby="8-tab">
-
         </div>
     </div>
-
-    <!--下注前确认-->
-    <div class="modal fade" id="confirmBet" tabindex="-1" role="dialog" aria-labelledby="logOnModalLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="logOnModalLabel">下注预览</h4>
-                </div>
-                <div class="modal-body">
-                    <form id="formBetPreview">
-                        <input type="hidden" id="hidRule" name="rule" value="" />
-                        <div class="form-group">
-                            期号：<input class="form-control" id="betPeriod" name="periodNo" readonly value="" />
-                        </div>
-                        <div class="form-group">
-                            下注号码：<input class="form-control" id="betNumbersPreview" name="numberRange" readonly value="" />
-                        </div>
-                        <div class="form-group">
-                            下注金额: <input type="number" class="form-control" id="betMoney" name="money" required value="1">
-                            <h4>总下注额：￥<span id="preTotalMoney" class="label label-success"></span></h4>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                    <button type="button" class="btn btn-primary" id="btnBetConfirm">确定</button>
+    @section Scripts {
+        <partial name="_LoadingPartial" />
+        <partial name="_NoResultPartial" />
+        <script id="planContainer" type="text/html">
+            <div class="row"></div>
+        </script>
+        <script id="planTemplate" type="text/html">
+            <div class="col-md-6">
+                <div class="table-responsive">
+                    <table class="table table-condensed table-hover table-striped">
+                        <caption>
+                            <div class="btn-group pull-right" role="group">
+                                <button class="btn btn-primary btn-sm" type="button">
+                                    {{name}}&nbsp;
+                                    <span class="badge">{{score|toFixed 0}}</span>
+                                </button>
+                                <button class="btn btn-danger btn-sm" type="button">
+                                    挂&nbsp;
+                                    <span class="badge">{{guaScore|toFixed 0}}</span>
+                                </button>
+                                <button class="btn btn-warning btn-sm" type="button">
+                                    重&nbsp;
+                                    <span class="badge">{{repetitionScore|toFixed 0}}</span>
+                                </button>
+                                <button class="btn btn-info btn-sm" type="button">
+                                    追&nbsp;
+                                    <span class="badge">{{betChaseScore|toFixed 0}}</span>
+                                </button>
+                            </div>
+                        </caption>
+                        <thead>
+                            <tr>
+                                <th>期号区间</th>
+                                <th>预测号码</th>
+                                <th>追号期数</th>
+                                <th>开奖号码</th>
+                                <th>追号次数</th>
+                                <th>中奖结果</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{each forcastData}}
+                            {{if !$value.drawNo}}
+                            {{if score>=80}}
+                            <tr class="danger">
+                                {{else}}
+                            <tr class="success">
+                                {{/if}}
+                                {{else}}
+                            <tr>
+                                {{/if}}
+                                <input type="hidden" name="lastDrawedPeriod" value="{{$value.lastDrawedPeriod}}" />
+                                <td>{{$value.periodRange}}</td>
+                                <td>{{$value.forcastNo}}</td>
+                                <td>{{$value.lastPeriod.toString().padStart(3,'0')}}</td>
+                                <td>
+                                    {{if $value.drawNo}}
+                                    {{$value.drawNo}}
+                                    {{else}}
+                                    开奖中...
+                                    {{/if}}
+                                </td>
+                                <td>{{$value.chaseTimes}}</td>
+                                <td>
+                                    {{if $value.isWin==true}}
+                                    <strong class="text-danger">中</strong>
+                                    {{else if $value.isWin==false}}
+                                    <strong class="text-success">挂</strong>
+                                    {{else}}
+                                    <button type="button" class="btn btn-danger btn-xs">
+                                        <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                        {{score|toFixed 0}}
+                                    </button>
+                                    {{/if}}
+                                </td>
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th colspan="6">
+                                    当前{{totalCount}}期内，中奖：{{winCount}} 错误：{{loseCount}}，中奖概率：{{winProbability*100|toFixed}}%
+                                </th>
+                            </tr>
+                        </tfoot>
+                    </table>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
-
-@section Scripts {
-    <partial name="_LoadingPartial" />
-    <partial name="_NoResultPartial" />
-    <script id="planContainer" type="text/html">
-        <div class="row"></div>
-    </script>
-    <script id="planTemplate" type="text/html">
-        <div class="col-md-6">
-            <div class="table-responsive">
-                <table class="table table-condensed table-hover table-striped">
-                    <caption>
-                        <div class="btn-group pull-right" role="group">
-                            <button class="btn btn-primary btn-sm" type="button">
-                                {{name}}&nbsp;
-                                <span class="badge">{{score|toFixed 0}}</span>
-                            </button>
-                            <button class="btn btn-danger btn-sm" type="button">
-                                挂&nbsp;
-                                <span class="badge">{{guaScore|toFixed 0}}</span>
-                            </button>
-                            <button class="btn btn-warning btn-sm" type="button">
-                                重&nbsp;
-                                <span class="badge">{{repetitionScore|toFixed 0}}</span>
-                            </button>
-                            <button class="btn btn-info btn-sm" type="button">
-                                追&nbsp;
-                                <span class="badge">{{betChaseScore|toFixed 0}}</span>
-                            </button>
-                        </div>
-                    </caption>
-                    <thead>
-                        <tr>
-                            <th>期号区间</th>
-                            <th>预测号码</th>
-                            <th>追号期数</th>
-                            <th>开奖号码</th>
-                            <th>追号次数</th>
-                            <th>中奖结果</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {{each forcastData}}
-                        {{if !$value.drawNo}}
-                        {{if score>=80}}
-                        <tr class="danger">
-                            {{else}}
-                        <tr class="success">
-                            {{/if}}
-                            {{else}}
-                        <tr>
-                            {{/if}}
-                            <input type="hidden" name="lastDrawedPeriod" value="{{$value.lastDrawedPeriod}}" />
-                            <td>{{$value.periodRange}}</td>
-                            <td>{{$value.forcastNo}}</td>
-                            <td>{{$value.lastPeriod.toString().padStart(3,'0')}}</td>
-                            <td>
-                                {{if $value.drawNo}}
-                                {{$value.drawNo}}
-                                {{else}}
-                                开奖中...
-                                {{/if}}
-                            </td>
-                            <td>{{$value.chaseTimes}}</td>
-                            <td>
-                                {{if $value.isWin==true}}
-                                <strong class="text-danger">中</strong>
-                                {{else if $value.isWin==false}}
-                                <strong class="text-success">挂</strong>
-                                {{else}}
-                                <button type="button" class="btn btn-danger btn-xs">
-                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                                    {{score|toFixed 0}}
-                                </button>
-                                {{if $value.drawNo}}
-                                {{else}}
-                                <button type="button" class="btnBet btn btn-info btn-xs">
-                                    下 注
-                                </button>
-                                {{/if}}
-                                {{/if}}
-                            </td>
-                        </tr>
-                        {{/each}}
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <th colspan="6">
-                                当前{{totalCount}}期内，中奖：{{winCount}} 错误：{{loseCount}}，中奖概率：{{winProbability*100|toFixed}}%
-                            </th>
-                        </tr>
-                    </tfoot>
-                </table>
-            </div>
-        </div>
-    </script>
-    <script src="/js/lottery.js"></script>
-    <script src="/js/pk10.js"></script>
-}
+        </script>
+        <script src="/js/lottery.js"></script>
+        <script src="/js/pk10.js"></script>
+    }
