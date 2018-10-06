@@ -89,6 +89,8 @@ namespace Colin.Lottery.MobileApp.ViewModels
             //{
             //    IsBusy = false;
             //}
+
+            Console.WriteLine("我日");
         }
     }
 }

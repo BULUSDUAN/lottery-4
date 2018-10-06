@@ -91,9 +91,11 @@ namespace Colin.Lottery.WebApp.Hubs
                 LogUtil.Warn("目标网站扫水接口异常，请尽快检查恢复");
             }
 
+            //TODO:注释连挂条件仅供测试，发布时需反注释此处
             var liangua = forcast.Where(f => f.KeepGuaCnt >= Convert.ToInt32(ConfigUtil.Configuration["AppNotify:Min"]));
             if (liangua.Any())
-                await Clients.Caller.SendAsync("ShowPlans", liangua.ToList());
+            	await Clients.Caller.SendAsync("ShowPlans", liangua.ToList());
+            //await Clients.Caller.SendAsync("ShowPlans", forcast);
 
             await Groups.AddToGroupAsync(Context.ConnectionId, "App");
         }
