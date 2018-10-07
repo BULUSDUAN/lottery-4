@@ -7,12 +7,13 @@ using Xamarin.Forms;
 
 using Colin.Lottery.MobileApp.Models;
 using Colin.Lottery.MobileApp.Services;
+using Colin.Lottery.Models;
 
 namespace Colin.Lottery.MobileApp.ViewModels
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
-        public IDataStore<Item> DataStore => DependencyService.Get<IDataStore<Item>>() ?? new MockDataStore();
+        public IDataStore<JinMaForcastModel> DataStore => DependencyService.Get<IDataStore<JinMaForcastModel>>() ?? new MockDataStore();
 
         bool isBusy = false;
         public bool IsBusy

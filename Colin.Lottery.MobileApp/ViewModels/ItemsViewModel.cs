@@ -2,95 +2,94 @@
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Threading.Tasks;
-
 using Xamarin.Forms;
-
 using Colin.Lottery.MobileApp.Models;
 using Colin.Lottery.MobileApp.Views;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.Linq;
 using Colin.Lottery.Models;
+using Microsoft.AspNetCore.SignalR.Client;
+using Plugin.LocalNotifications;
+using Xamarin.Forms.Internals;
 
 namespace Colin.Lottery.MobileApp.ViewModels
 {
     public class ItemsViewModel : BaseViewModel
     {
-        public ObservableCollection<Item> Items { get; set; }
-        public Command LoadItemsCommand { get; set; }
+        private HubConnection connection;
+
+        public ObservableCollection<JinMaForcastModel> Forcasts { get; } =
+            new ObservableCollection<JinMaForcastModel>();
+
+        public Command LoadForcastsCommand { get; private set; }
 
         public ItemsViewModel()
         {
             Title = "PK10连挂";
-            Items = new ObservableCollection<Item>();
-            LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
 
-            MessagingCenter.Subscribe<NewItemPage, Item>(this, "AddItem", async (obj, item) =>
+            InitConnection();
+            LoadForcastsCommand = new Command(async () =>
             {
-                var newItem = item as Item;
-                Items.Add(newItem);
-                await DataStore.AddItemAsync(newItem);
+                if (IsBusy)
+                    return;
+
+                IsBusy = true;
+                await connection.InvokeAsync("GetAppNewForcast");
             });
-
-
-            Application.Current.Properties["ShowPlans"] = new Action<JArray>(ShowPlans);
+            LoadForcastsCommand.Execute(null);
         }
 
-        async Task ExecuteLoadItemsCommand()
+        private async void InitConnection()
         {
-            if (IsBusy)
+            if (Application.Current.Properties.ContainsKey("HubConnection") &&
+                Application.Current.Properties["HubConnection"] != null)
                 return;
 
-            IsBusy = true;
+            connection = new HubConnectionBuilder()
+                .WithUrl("http://192.168.31.191/hubs/pk10")
+                .Build();
+
+            connection.On<JArray>("ShowPlans", ShowPlans);
+            connection.On("NoResult", () => IsBusy = false);
+            connection.Closed += async (error) => await connection.StartAsync();
 
             try
             {
-                Items.Clear();
-                var items = await DataStore.GetItemsAsync(true);
-                foreach (var item in items)
-                {
-                    Items.Add(item);
-                }
+                await connection.StartAsync();
+                Application.Current.Properties["HubConnection"] = connection;
             }
             catch (Exception ex)
             {
-                Debug.WriteLine(ex);
-            }
-            finally
-            {
-                IsBusy = false;
+                //TODO:优化错误消息提醒
+//                CrossLocalNotifications.Current.Show("服务器错误", ex.Message);
+                
             }
         }
+
 
         //处理接收到的消息
         void ShowPlans(JArray planArray)
         {
-            //var plans = JsonConvert.DeserializeObject<List<JinMaForcastModel>>(planArray.ToString());
+            var forcasts = JsonConvert.DeserializeObject<List<JinMaForcastModel>>(planArray.ToString());
+            if (forcasts.Any())
+            {
+                var currentPeriod = forcasts.Max(f => f.LastDrawedPeriod);
+                Forcasts.ToList().ForEach(f =>
+                {
+                    if (f.LastDrawedPeriod < currentPeriod)
+                        Forcasts.Remove(f);
+                });
 
-            //if (IsBusy)
-            //    return;
+                foreach (var fc in forcasts)
+                    Forcasts.Add(fc);
 
-            //IsBusy = true;
+                //TODO:根据App状态确定是否推送通知
+                //CrossLocalNotifications.Current.Show("服务器消息", "牛逼了");
+            }
 
-            //try
-            //{
-            //    Items.Clear();
-            //    var plans = JsonConvert.DeserializeObject<List<JinMaForcastModel>>(planArray.ToString());
-            //    foreach (var plan in plans)
-            //    {
-            //        Items.Add(plan);
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    Debug.WriteLine(ex);
-            //}
-            //finally
-            //{
-            //    IsBusy = false;
-            //}
-
-            Console.WriteLine("我日");
+            IsBusy = false;
         }
     }
 }

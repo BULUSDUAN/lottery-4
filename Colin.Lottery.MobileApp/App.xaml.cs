@@ -1,11 +1,7 @@
-﻿using System;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using Microsoft.AspNetCore.SignalR.Client;
-using Newtonsoft.Json.Linq;
 
 using Colin.Lottery.MobileApp.Views;
-using Plugin.LocalNotifications;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace Colin.Lottery.MobileApp
@@ -21,28 +17,9 @@ namespace Colin.Lottery.MobileApp
             MainPage = new MainPage();
         }
 
-        protected async override void OnStart()
+        protected override void OnStart()
         {
             // Handle when your app starts
-
-            var connection = new HubConnectionBuilder()
-                  .WithUrl("http://localhost/hubs/pk10")
-                  .Build();
-
-            connection.On("ShowPlans", Properties["ShowPlans"] as Action<JArray>);
-            connection.Closed += async (error) => await connection.StartAsync();
-
-            try
-            {
-                await connection.StartAsync();
-                await connection.InvokeAsync("GetAppNewForcast");
-                Properties["GetAppNewForcast"]=new Action(async ()=>await connection.InvokeAsync("GetAppNewForcast"));
-            }
-            catch (Exception ex)
-            {
-                //TODO:优化错误消息提醒
-                CrossLocalNotifications.Current.Show("服务器错误", ex.Message);
-            }
         }
 
         protected override void OnSleep()
