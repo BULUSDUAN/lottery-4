@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.SignalR.Client;
 using Newtonsoft.Json.Linq;
 
 using Colin.Lottery.MobileApp.Views;
+using Plugin.LocalNotifications;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace Colin.Lottery.MobileApp
@@ -28,17 +29,19 @@ namespace Colin.Lottery.MobileApp
                   .WithUrl("http://localhost/hubs/pk10")
                   .Build();
 
-            connection.On<JArray>("ShowPlans", Application.Current.Properties["ShowPlans"] as Action<JArray>);
+            connection.On("ShowPlans", Properties["ShowPlans"] as Action<JArray>);
             connection.Closed += async (error) => await connection.StartAsync();
 
             try
             {
                 await connection.StartAsync();
                 await connection.InvokeAsync("GetAppNewForcast");
+                Properties["GetAppNewForcast"]=new Action(async ()=>await connection.InvokeAsync("GetAppNewForcast"));
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                //TODO:优化错误消息提醒
+                CrossLocalNotifications.Current.Show("服务器错误", ex.Message);
             }
         }
 

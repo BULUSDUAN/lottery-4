@@ -119,7 +119,6 @@ namespace Colin.Lottery.WebApp
                 if (plan.Any() && plan.LastOrDefault().KeepGuaCnt >= Convert.ToInt32(ConfigUtil.Configuration["AppNotify:Min"]))
                     await _pk10Context.Clients.Group("App").SendAsync("ShowPlans", plan);
             }
-
         }
 
         private static async void Service_DataCollectedError(object sender, CollectErrorEventArgs e)
