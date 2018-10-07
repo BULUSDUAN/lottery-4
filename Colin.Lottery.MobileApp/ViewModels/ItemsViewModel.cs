@@ -40,11 +40,12 @@ namespace Colin.Lottery.MobileApp.ViewModels
                 IsBusy = true;
                 try
                 {
+                    Forcasts.Clear();
                     await connection.InvokeAsync("GetAppNewForcast");
                 }
                 catch
                 {
-                    await Alert("服务器错误", "获取服务器预测数据失败", "确定");
+                    Device.BeginInvokeOnMainThread(() => Alert("服务器错误", "获取服务器预测数据失败", "确定"));
                     IsBusy = false;
                 }
             });
@@ -58,7 +59,7 @@ namespace Colin.Lottery.MobileApp.ViewModels
                 return;
 
             connection = new HubConnectionBuilder()
-                .WithUrl("http://192.168.31.191/hubs/pk10")
+                .WithUrl("http://bet518.win/hubs/pk10")
                 .Build();
 
             connection.On<JArray>("ShowPlans", ShowPlans);
@@ -66,7 +67,7 @@ namespace Colin.Lottery.MobileApp.ViewModels
             connection.Closed += async (error) =>
             {
                 await connection.StartAsync();
-                await Alert("提醒", "与服务器连接断开，已尝试重新连接", "确定");
+                Device.BeginInvokeOnMainThread(() => Alert("提醒", "与服务器连接断开，已尝试重新连接", "确定"));
             };
 
             try
@@ -76,7 +77,7 @@ namespace Colin.Lottery.MobileApp.ViewModels
             }
             catch
             {
-                await Alert("服务器错误", "与服务器建立连接失败", "确定");
+                Device.BeginInvokeOnMainThread(() => Alert("服务器错误", "与服务器建立连接失败", "确定"));
             }
         }
 
@@ -87,18 +88,29 @@ namespace Colin.Lottery.MobileApp.ViewModels
             var forcasts = JsonConvert.DeserializeObject<List<JinMaForcastModel>>(planArray.ToString());
             if (forcasts.Any())
             {
-                var currentPeriod = forcasts.Max(f => f.LastDrawedPeriod);
-                Forcasts.ToList().ForEach(f =>
+                bool refresh = forcasts.Count > 1;
+                if (refresh)
                 {
-                    if (f.LastDrawedPeriod < currentPeriod)
-                        Forcasts.Remove(f);
-                });
+                    Forcasts.Clear();
+                }
+                else
+                {
+                    var currentPeriod = forcasts.Max(f => f.LastDrawedPeriod);
+                    Forcasts.ToList().ForEach(f =>
+                    {
+                        if (f.LastDrawedPeriod < currentPeriod)
+                            Forcasts.Remove(f);
+                    });
+                }
 
                 foreach (var fc in forcasts)
                     Forcasts.Add(fc);
 
-                //TODO:根据App状态确定是否推送通知
-                //CrossLocalNotifications.Current.Show("服务器消息", "牛逼了");
+                if (!refresh)
+                {
+                    var forcast = forcasts.LastOrDefault();
+                    CrossLocalNotifications.Current.Show($"PK10连挂提醒", $"{forcast.LastDrawedPeriod + 1}期 {forcast.Rule} {forcast.KeepGuaCnt}连挂 {forcast.ForcastNo} 「{(DateTime.Now.ToString("t"))}」");
+                }
             }
 
             IsBusy = false;

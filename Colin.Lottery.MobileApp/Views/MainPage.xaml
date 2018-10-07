@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TabbedPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:views="clr-namespace:Colin.Lottery.MobileApp.Views" x:Class="Colin.Lottery.MobileApp.Views.MainPage">
     <TabbedPage.Children>
-        <NavigationPage Title="Browse">
+        <NavigationPage Title="连挂大厅">
             <NavigationPage.Icon>
                 <OnPlatform x:TypeArguments="FileImageSource">
                     <On Platform="iOS" Value="tab_feed.png" />
@@ -11,7 +11,7 @@
                 <views:ItemsPage />
             </x:Arguments>
         </NavigationPage>
-        <NavigationPage Title="About">
+        <NavigationPage Title="关于">
             <NavigationPage.Icon>
                 <OnPlatform x:TypeArguments="FileImageSource">
                     <On Platform="iOS" Value="tab_about.png" />
