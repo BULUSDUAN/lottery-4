@@ -24,10 +24,12 @@ namespace Colin.Lottery.MobileApp.ViewModels
             new ObservableCollection<JinMaForcastModel>();
 
         public Command LoadForcastsCommand { get; private set; }
+        private Func<string, string, string, Task> Alert;
 
-        public ItemsViewModel()
+        public ItemsViewModel(Func<string, string, string, Task> alert)
         {
             Title = "PK10连挂";
+            Alert = alert;
 
             InitConnection();
             LoadForcastsCommand = new Command(async () =>
@@ -36,7 +38,15 @@ namespace Colin.Lottery.MobileApp.ViewModels
                     return;
 
                 IsBusy = true;
-                await connection.InvokeAsync("GetAppNewForcast");
+                try
+                {
+                    await connection.InvokeAsync("GetAppNewForcast");
+                }
+                catch
+                {
+                    await Alert("服务器错误", "获取服务器预测数据失败", "确定");
+                    IsBusy = false;
+                }
             });
             LoadForcastsCommand.Execute(null);
         }
@@ -53,18 +63,20 @@ namespace Colin.Lottery.MobileApp.ViewModels
 
             connection.On<JArray>("ShowPlans", ShowPlans);
             connection.On("NoResult", () => IsBusy = false);
-            connection.Closed += async (error) => await connection.StartAsync();
+            connection.Closed += async (error) =>
+            {
+                await connection.StartAsync();
+                await Alert("提醒", "与服务器连接断开，已尝试重新连接", "确定");
+            };
 
             try
             {
                 await connection.StartAsync();
                 Application.Current.Properties["HubConnection"] = connection;
             }
-            catch (Exception ex)
+            catch
             {
-                //TODO:优化错误消息提醒
-//                CrossLocalNotifications.Current.Show("服务器错误", ex.Message);
-                
+                await Alert("服务器错误", "与服务器建立连接失败", "确定");
             }
         }
 

@@ -22,7 +22,7 @@ namespace Colin.Lottery.MobileApp.Views
         {
             InitializeComponent();
 
-            BindingContext = viewModel = new ItemsViewModel();
+            BindingContext = viewModel = new ItemsViewModel(DisplayAlert);            
         }
 
         async void OnItemSelected(object sender, SelectedItemChangedEventArgs args)
