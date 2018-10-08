@@ -24,7 +24,7 @@ namespace Colin.Lottery.WebApp.Hubs
 
             Lotterys.Pk10Rules.ForEach(async r =>
                 await Groups.RemoveFromGroupAsync(Context.ConnectionId, r.ToString()));
-            await Groups.AddToGroupAsync(Context.ConnectionId, ((Pk10Rule) rule).ToString());
+            await Groups.AddToGroupAsync(Context.ConnectionId, ((Pk10Rule)rule).ToString());
         }
 
         /// <summary>
@@ -57,7 +57,7 @@ namespace Colin.Lottery.WebApp.Hubs
 
         private static async Task<int> GetNewForcast(ICollection<IForcastModel> newForcast, Pk10Rule rule)
         {
-            var plans = await JinMaAnalyzer.Instance.GetForcastData(LotteryType.Pk10, (int) rule);
+            var plans = await JinMaAnalyzer.Instance.GetForcastData(LotteryType.Pk10, (int)rule);
             if (plans == null || plans.Count < 2 || plans.Any(p => p == null))
                 return 1;
 
@@ -94,12 +94,15 @@ namespace Colin.Lottery.WebApp.Hubs
             var liangua =
                 forcast.Where(f => f.KeepGuaCnt >= Convert.ToInt32(ConfigUtil.Configuration["AppNotify:Min"]));
             if (liangua.Any())
-                await Clients.Caller.SendAsync("ShowPlans", liangua.ToList());
+                await Clients.Caller.SendAsync("ShowForcasts", liangua.ToList());
             else
                 await Clients.Caller.SendAsync("NoResult");
 
             await Groups.AddToGroupAsync(Context.ConnectionId, "App");
         }
+
+        //心跳检测  App端使用
+        public void Heartbeat(){}
 
         /// <summary>
         /// 获取指定玩法预测数据(最近15段)
@@ -121,78 +124,79 @@ namespace Colin.Lottery.WebApp.Hubs
             }
         }
 
-//        public async Task GetDate()
-//        {
-//            Console.WriteLine(Context.ConnectionId);
-//            await Clients.Caller.SendAsync("ShowDate", DateTime.Now);
-//            await Groups.AddToGroupAsync(Context.ConnectionId, "App");
+        //        public async Task GetDate()
+        //        {
+        //            Console.WriteLine(Context.ConnectionId);
+        //            await Clients.Caller.SendAsync("ShowDate", DateTime.Now);
+        //            await Groups.AddToGroupAsync(Context.ConnectionId, "App");
 
-//            var timer = new Timer(10000);
-//            timer.Elapsed += (s, e) =>
-//            {
-//                Startup.GetService<IHubContext<PK10Hub>>().Clients.Group("App").SendAsync("ShowDate", DateTime.Now);
-//                Console.WriteLine($"我日了狗了\t{DateTime.Now}");
-//            };
-//            timer.Start();
-//        }
+        //            var timer = new Timer(10000);
+        //            timer.Elapsed += (s, e) =>
+        //            {
+        //                Startup.GetService<IHubContext<PK10Hub>>().Clients.Group("App").SendAsync("ShowDate", DateTime.Now);
+        //                Console.WriteLine($"我日了狗了\t{DateTime.Now}");
+        //            };
+        //            timer.Start();
+        //        }
 
 
-//        /// <summary>
-//        /// 投注
-//        /// </summary>
-//        /// <param name="periodNo">期号</param>
-//        /// <param name="rule">玩法</param>
-//        /// <param name="numberRange">02 04 08 09 10</param>
-//        /// <param name="money">下注金额</param>
-//        public void BetDa2088(long periodNo, int rule, string numberRange, decimal money)
-//        {
-//            if (Da2088Helper.SiteBetDa2088.LoginTimeout)
-//            {
-//                Da2088Helper.SiteBetDa2088.Login();
-//            }
-//
-//            string betNumbers = numberRange;
-//
-//            Pk10Rule pk10Rule = (Pk10Rule) rule;
-//            if (pk10Rule < Pk10Rule.BigOrSmall)
-//            {
-//                var arr = numberRange.Split(' ', StringSplitOptions.RemoveEmptyEntries).Select(x => int.Parse(x));
-//                betNumbers = string.Join(",", arr);
-//            }
-//
-//            if (money <= 0) money = 1;
-//
-//            string notifyMessage = string.Empty;
-//            try
-//            {
-//                // TODO: 当网页上登录时，此处会报“账号在异地登陆”的异常，需要才重新登录
-//                Da2088Helper.SiteBetDa2088.Bet(periodNo, pk10Rule, betNumbers, money);
-//
-//                var lotteryData = Da2088Helper.SiteBetDa2088.GetLotteryData();
-//                notifyMessage = $"投注成功！ 当前余额: ￥{lotteryData.Balance}";
-//                Clients.Caller.SendAsync("ShowBetResult", notifyMessage, NotifyLevel.success.ToString());
-//            }
-//            catch (Exception ex)
-//            {
-//                Console.WriteLine($"异常! {ex}");
-//
-//                notifyMessage = ex.Message;
-//                Clients.Caller.SendAsync("ShowBetResult", notifyMessage, NotifyLevel.danger.ToString());
-//            }
-//        }
-//
-//
-//        public override async Task OnConnectedAsync()
-//        {
-//            await base.OnConnectedAsync();
-//        }
+        //        /// <summary>
+        //        /// 投注
+        //        /// </summary>
+        //        /// <param name="periodNo">期号</param>
+        //        /// <param name="rule">玩法</param>
+        //        /// <param name="numberRange">02 04 08 09 10</param>
+        //        /// <param name="money">下注金额</param>
+        //        public void BetDa2088(long periodNo, int rule, string numberRange, decimal money)
+        //        {
+        //            if (Da2088Helper.SiteBetDa2088.LoginTimeout)
+        //            {
+        //                Da2088Helper.SiteBetDa2088.Login();
+        //            }
+        //
+        //            string betNumbers = numberRange;
+        //
+        //            Pk10Rule pk10Rule = (Pk10Rule) rule;
+        //            if (pk10Rule < Pk10Rule.BigOrSmall)
+        //            {
+        //                var arr = numberRange.Split(' ', StringSplitOptions.RemoveEmptyEntries).Select(x => int.Parse(x));
+        //                betNumbers = string.Join(",", arr);
+        //            }
+        //
+        //            if (money <= 0) money = 1;
+        //
+        //            string notifyMessage = string.Empty;
+        //            try
+        //            {
+        //                // TODO: 当网页上登录时，此处会报“账号在异地登陆”的异常，需要才重新登录
+        //                Da2088Helper.SiteBetDa2088.Bet(periodNo, pk10Rule, betNumbers, money);
+        //
+        //                var lotteryData = Da2088Helper.SiteBetDa2088.GetLotteryData();
+        //                notifyMessage = $"投注成功！ 当前余额: ￥{lotteryData.Balance}";
+        //                Clients.Caller.SendAsync("ShowBetResult", notifyMessage, NotifyLevel.success.ToString());
+        //            }
+        //            catch (Exception ex)
+        //            {
+        //                Console.WriteLine($"异常! {ex}");
+        //
+        //                notifyMessage = ex.Message;
+        //                Clients.Caller.SendAsync("ShowBetResult", notifyMessage, NotifyLevel.danger.ToString());
+        //            }
+        //        }
+        //
+        //
+        //public override async Task OnConnectedAsync()
+        //{
+        //    await base.OnConnectedAsync();
+        //    Console.WriteLine($"建立连接{Context.ConnectionId} - {DateTime.Now}");
+        //}
 
         public override async Task OnDisconnectedAsync(Exception exception)
         {
             await Groups.RemoveFromGroupAsync(Context.ConnectionId, "AllRules");
             await Groups.RemoveFromGroupAsync(Context.ConnectionId, "App");
             Lotterys.Pk10Rules.ForEach(async rule =>
-                await Groups.RemoveFromGroupAsync(Context.ConnectionId, ((Pk10Rule) rule).ToString()));
+                await Groups.RemoveFromGroupAsync(Context.ConnectionId, ((Pk10Rule)rule).ToString()));
 
             await base.OnDisconnectedAsync(exception);
         }

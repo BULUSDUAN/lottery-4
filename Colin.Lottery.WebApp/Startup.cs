@@ -117,7 +117,7 @@ namespace Colin.Lottery.WebApp
             {
                 var plan = e.LastForcastData;
                 if (plan.Any() && plan.LastOrDefault().KeepGuaCnt >= Convert.ToInt32(ConfigUtil.Configuration["AppNotify:Min"]))
-                    await _pk10Context.Clients.Group("App").SendAsync("ShowPlans", plan);
+                    await _pk10Context.Clients.Group("App").SendAsync("ShowForcasts", plan);
             }
         }
 

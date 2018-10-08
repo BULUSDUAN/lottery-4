@@ -1,19 +1,19 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:cvt="clr-namespace:Colin.Lottery.MobileApp.Expands.Convertors"
-             x:Class="Colin.Lottery.MobileApp.Views.ItemsPage"
+             x:Class="Colin.Lottery.MobileApp.Views.ForcastPage"
              Title="{Binding Title}"
              x:Name="ForcastsPage">
     
     <ContentPage.Resources>
         <ResourceDictionary>
-            <cvt:ForcastCnt2Enable x:Key="f2e" />
+            <cvt:ForcastCnt2EnableConverter x:Key="f2e" />
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="全部跟投" IsEnabled="{Binding Forcasts,Converter={StaticResource f2e}}" Clicked="AddItem_Clicked">
+        <ToolbarItem Text="全部跟投" IsEnabled="{Binding Forcasts,Converter={StaticResource f2e}}" Clicked="BetAll_Clicked">
             <ToolbarItem.Icon>
                 <OnPlatform x:TypeArguments="FileImageSource">
                     <On Platform="UWP" Value="add.png" />
@@ -23,17 +23,21 @@
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <Grid>
-            <ListView x:Name="ForcastsListView" ItemsSource="{Binding Forcasts}" VerticalOptions="FillAndExpand"
+            <ListView ItemsSource="{Binding Forcasts}" VerticalOptions="FillAndExpand"
                       HasUnevenRows="true" RefreshCommand="{Binding LoadForcastsCommand}" IsPullToRefreshEnabled="true"
                       IsRefreshing="{Binding IsBusy, Mode=OneWay}" CachingStrategy="RecycleElement"
                       ItemSelected="OnItemSelected">
                 <ListView.Resources>
-                    <cvt:PlanConvertor x:Key="planCvt" />
-                    <cvt:PeriodConvertor x:Key="periodCvt"></cvt:PeriodConvertor>
+                    <cvt:PlanConverter x:Key="planCvt" />
+                    <cvt:PeriodConverter x:Key="periodCvt"></cvt:PeriodConverter>
                 </ListView.Resources>
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
+                            <ViewCell.ContextActions>
+                                <MenuItem Text="More" />
+                                <MenuItem Text="Delete" IsDestructive="True" />
+                            </ViewCell.ContextActions>
                             <Grid Padding="10">
                                 <Grid.RowDefinitions>
                                     <RowDefinition />

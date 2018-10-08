@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Threading.Tasks;
 using Xamarin.Forms;
-using Colin.Lottery.MobileApp.Models;
-using Colin.Lottery.MobileApp.Views;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using System.Collections.Generic;
@@ -12,24 +9,21 @@ using System.Linq;
 using Colin.Lottery.Models;
 using Microsoft.AspNetCore.SignalR.Client;
 using Plugin.LocalNotifications;
-using Xamarin.Forms.Internals;
 
 namespace Colin.Lottery.MobileApp.ViewModels
 {
-    public class ItemsViewModel : BaseViewModel
+    public class ForcastViewModel : BaseViewModel
     {
-        private HubConnection connection;
+        private HubConnection _connection;
 
         public ObservableCollection<JinMaForcastModel> Forcasts { get; } =
             new ObservableCollection<JinMaForcastModel>();
 
         public Command LoadForcastsCommand { get; private set; }
-        private Func<string, string, string, Task> Alert;
 
-        public ItemsViewModel(Func<string, string, string, Task> alert)
+        public ForcastViewModel(Func<string, string, string, Task> alert) : base(alert)
         {
             Title = "PK10连挂";
-            Alert = alert;
 
             InitConnection();
             LoadForcastsCommand = new Command(async () =>
@@ -40,55 +34,66 @@ namespace Colin.Lottery.MobileApp.ViewModels
                 IsBusy = true;
                 try
                 {
-                    Forcasts.Clear();
-                    await connection.InvokeAsync("GetAppNewForcast");
+                    Forcasts?.Clear();
+                    await _connection.InvokeAsync("GetAppNewForcast");
                 }
                 catch
                 {
-                    Device.BeginInvokeOnMainThread(() => Alert("服务器错误", "获取服务器预测数据失败", "确定"));
+                    Alert("服务器错误", "获取预测数据失败,正在尝试重新连接", "确定");
+                    try
+                    {
+                        await _connection.StopAsync();
+                        await _connection.StartAsync();
+                        await _connection.InvokeAsync("GetAppNewForcast");
+                    }
+                    catch
+                    {
+                        Alert("服务器错误", "尝试重新连接失败,请重试重启程序", "确定");
+                    }
+
                     IsBusy = false;
                 }
             });
             LoadForcastsCommand.Execute(null);
         }
 
-        private async void InitConnection()
+        async void InitConnection()
         {
             if (Application.Current.Properties.ContainsKey("HubConnection") &&
                 Application.Current.Properties["HubConnection"] != null)
                 return;
-
-            connection = new HubConnectionBuilder()
+            
+            _connection = new HubConnectionBuilder()
                 .WithUrl("http://bet518.win/hubs/pk10")
                 .Build();
 
-            connection.On<JArray>("ShowPlans", ShowPlans);
-            connection.On("NoResult", () => IsBusy = false);
-            connection.Closed += async (error) =>
+            _connection.On<JArray>("ShowForcasts", ShowForcasts);
+            _connection.On("NoResult", () => IsBusy = false);
+            _connection.Closed += async (error) =>
             {
-                await connection.StartAsync();
-                Device.BeginInvokeOnMainThread(() => Alert("提醒", "与服务器连接断开，已尝试重新连接", "确定"));
+                await _connection.StartAsync();
+                Alert("提醒", "与服务器连接断开，已尝试重新连接", "确定");
             };
 
             try
             {
-                await connection.StartAsync();
-                Application.Current.Properties["HubConnection"] = connection;
+                await _connection.StartAsync();
+                Application.Current.Properties["HubConnection"] = _connection;
             }
             catch
             {
-                Device.BeginInvokeOnMainThread(() => Alert("服务器错误", "与服务器建立连接失败", "确定"));
+                Alert("服务器错误", "与服务器建立连接失败", "确定");
             }
         }
 
 
         //处理接收到的消息
-        void ShowPlans(JArray planArray)
+        void ShowForcasts(JArray forcastsArray)
         {
-            var forcasts = JsonConvert.DeserializeObject<List<JinMaForcastModel>>(planArray.ToString());
+            var forcasts = JsonConvert.DeserializeObject<List<JinMaForcastModel>>(forcastsArray.ToString());
             if (forcasts.Any())
             {
-                bool refresh = forcasts.Count > 1;
+                var refresh = forcasts.Count > 2;
                 if (refresh)
                 {
                     Forcasts.Clear();
@@ -109,7 +114,9 @@ namespace Colin.Lottery.MobileApp.ViewModels
                 if (!refresh)
                 {
                     var forcast = forcasts.LastOrDefault();
-                    CrossLocalNotifications.Current.Show($"PK10连挂提醒", $"{forcast.LastDrawedPeriod + 1}期 {forcast.Rule} {forcast.KeepGuaCnt}连挂 {forcast.ForcastNo} 「{(DateTime.Now.ToString("t"))}」");
+                    if (forcast != null)
+                        CrossLocalNotifications.Current.Show($"PK10连挂提醒",
+                            $"{forcast.LastDrawedPeriod + 1}期 {forcast.Rule} {forcast.KeepGuaCnt}连挂 {forcast.ForcastNo} 「{(DateTime.Now.ToString("t"))}」");
                 }
             }
 

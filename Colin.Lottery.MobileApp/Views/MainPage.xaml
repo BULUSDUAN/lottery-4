@@ -8,7 +8,7 @@
                 </OnPlatform>
             </NavigationPage.Icon>
             <x:Arguments>
-                <views:ItemsPage />
+                <views:ForcastPage />
             </x:Arguments>
         </NavigationPage>
         <NavigationPage Title="关于">

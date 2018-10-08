@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:cvt="clr-namespace:Colin.Lottery.MobileApp.Expands.Convertors"
+             x:Class="Colin.Lottery.MobileApp.Views.ForcastDetailPage" Title="{Binding Title}">
+
+    <ListView ItemsSource="{Binding Plans}"
+              IsGroupingEnabled="true"
+              GroupDisplayBinding="{Binding Plan}"
+              SeparatorVisibility="Default"
+              RowHeight="26"
+              IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+              IsPullToRefreshEnabled="true"
+              RefreshCommand="{Binding LoadPlansCommand}"
+              SelectionMode="None"
+              Margin="10"
+              x:Name="lv">
+        <ListView.Resources>
+            <cvt:IsWinConverter x:Key="wc" />
+            <cvt:IsWin2ColorConverter x:Key="wcc" />
+        </ListView.Resources>
+        <ListView.GroupHeaderTemplate>
+            <DataTemplate>
+                <ViewCell>
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="Fill" BackgroundColor="#dfdfdf" VerticalOptions="Center">
+                        <Label Text="    " />
+                        <Label VerticalTextAlignment="Center" Text="{Binding Plan}" FontAttributes="Bold" FontSize="14" />
+                        <StackLayout HorizontalOptions="EndAndExpand" Orientation="Horizontal">
+                            <Label VerticalTextAlignment="Center" Text="{Binding TotalCount,StringFormat='计:{0}'}"
+                                   FontSize="13" />
+                            <Label VerticalTextAlignment="Center"
+                                   Text="{Binding WinProbability,StringFormat='胜:{0:p}'}" FontSize="13" />
+                            <Label VerticalTextAlignment="Center" Text="{Binding GuaScore,StringFormat='挂:{0}'}"
+                                   FontSize="13" />
+                            <Label VerticalTextAlignment="Center" Text="{Binding RepetitionScore,StringFormat='重:{0}'}"
+                                   FontSize="13" />
+                            <Label VerticalTextAlignment="Center" Text="{Binding BetChaseScore,StringFormat='追:{0}'}"
+                                   FontSize="13" />
+                            <Label Text="    " />
+                        </StackLayout>
+                    </StackLayout>
+                </ViewCell>
+            </DataTemplate>
+        </ListView.GroupHeaderTemplate>
+        <ListView.ItemTemplate>
+            <DataTemplate>
+                <ViewCell>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*" />
+                            <ColumnDefinition Width="4*" />
+                            <ColumnDefinition Width="2*" />
+                            <ColumnDefinition Width="2*" />
+                        </Grid.ColumnDefinitions>
+                        <Label
+                            Text="{Binding LastPeriod,StringFormat='{0:D3}'}"
+                            LineBreakMode="NoWrap"
+                            Style="{DynamicResource ListItemTextStyle}" FontSize="14" VerticalTextAlignment="Center"
+                            HorizontalTextAlignment="Center" />
+                        <Label Text="{Binding ForcastNo}" LineBreakMode="NoWrap"
+                               Style="{DynamicResource ListItemDetailTextStyle}" FontSize="14"
+                               VerticalTextAlignment="Center" HorizontalTextAlignment="Center"
+                               Grid.Column="1" />
+                        <Label Text="{Binding ChaseTimes}"
+                               LineBreakMode="NoWrap"
+                               Style="{DynamicResource ListItemTextStyle}" FontSize="14" VerticalTextAlignment="Center"
+                               HorizontalTextAlignment="Center"
+                               Grid.Column="2" />
+                        <Label Text="{Binding IsWin,Converter={StaticResource wc}}"
+                               LineBreakMode="NoWrap"
+                               Style="{DynamicResource ListItemTextStyle}" FontSize="14" VerticalTextAlignment="Center"
+                               HorizontalTextAlignment="Center"
+                               Grid.Column="3"
+                               TextColor="{Binding IsWin,Converter={StaticResource wcc}}" />
+                    </Grid>
+                </ViewCell>
+            </DataTemplate>
+        </ListView.ItemTemplate>
+    </ListView>
+</ContentPage>
