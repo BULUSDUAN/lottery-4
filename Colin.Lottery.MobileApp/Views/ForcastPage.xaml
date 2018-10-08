@@ -35,8 +35,8 @@
                     <DataTemplate>
                         <ViewCell>
                             <ViewCell.ContextActions>
-                                <MenuItem Text="More" />
-                                <MenuItem Text="Delete" IsDestructive="True" />
+                                <MenuItem Text="下注" />
+                                <MenuItem Text="详情" />
                             </ViewCell.ContextActions>
                             <Grid Padding="10">
                                 <Grid.RowDefinitions>

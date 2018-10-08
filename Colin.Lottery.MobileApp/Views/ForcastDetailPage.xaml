@@ -10,8 +10,6 @@
               SeparatorVisibility="Default"
               RowHeight="26"
               IsRefreshing="{Binding IsBusy, Mode=OneWay}"
-              IsPullToRefreshEnabled="true"
-              RefreshCommand="{Binding LoadPlansCommand}"
               SelectionMode="None"
               Margin="10"
               x:Name="lv">
