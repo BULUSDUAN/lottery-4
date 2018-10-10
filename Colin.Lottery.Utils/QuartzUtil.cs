@@ -163,7 +163,7 @@ namespace Colin.Lottery.Utils
 
         public static ITrigger CreateTrigger(string name, string group, string cron)
         {
-            return CreateTrigger(name, group, cron, DateTime.Now);
+            return CreateTrigger(name, group, cron, DateTime.UtcNow);
         }
 
         /// <summary>

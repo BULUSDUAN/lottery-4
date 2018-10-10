@@ -67,7 +67,7 @@ namespace Colin.Lottery.Common.AutoBetSites
             // 3. 同意协议
             _restHelper.Get("game/", null);
 
-            PrintLog($"{DateTime.Now}\t用户 {result.UserName} 登录成功! 余额：￥{result.Money}");
+            PrintLog($"{DateTime.UtcNow}\t用户 {result.UserName} 登录成功! 余额：￥{result.Money}");
             return true;
         }
 
@@ -83,7 +83,7 @@ namespace Colin.Lottery.Common.AutoBetSites
             LotteryData lotteryData = GetLotteryData();
             PrintLog($"{Environment.NewLine}即将下注，账户余额:￥ [{lotteryData.Balance}], 玩法: [{rule.GetAttributeValue()}],号码: [{number}], 下注金额: {money}.");
 
-            string url = $"bet/bet.do?_t={DateTime.Now.Ticks}";
+            string url = $"bet/bet.do?_t={DateTime.UtcNow.Ticks}";
 
             // 构建表单参数
             var betParam = new BetParam(periodNo, rule, number, money);
@@ -132,7 +132,7 @@ namespace Colin.Lottery.Common.AutoBetSites
         /// <returns></returns>
         public LotteryData GetLotteryData()
         {
-            string url = $"game/getLotteryData.do?_t={DateTime.Now.Ticks}&gameId=50";
+            string url = $"game/getLotteryData.do?_t={DateTime.UtcNow.Ticks}&gameId=50";
 
             LotteryData result = null;
 
@@ -153,7 +153,7 @@ namespace Colin.Lottery.Common.AutoBetSites
         /// </summary>
         public BetBills GetBetBills()
         {
-            string url = $"bet/getBetBills.do?_t={DateTime.Now.Ticks}&settled=true&page=1&rows=50";
+            string url = $"bet/getBetBills.do?_t={DateTime.UtcNow.Ticks}&settled=true&page=1&rows=50";
 
             try
             {

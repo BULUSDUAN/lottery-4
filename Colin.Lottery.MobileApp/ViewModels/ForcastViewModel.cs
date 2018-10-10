@@ -62,9 +62,9 @@ namespace Colin.Lottery.MobileApp.ViewModels
             if (Application.Current.Properties.ContainsKey("HubConnection") &&
                 Application.Current.Properties["HubConnection"] != null)
                 return;
-            
+
             _connection = new HubConnectionBuilder()
-                .WithUrl("http://bet518.win/hubs/pk10")
+                .WithUrl("http://192.168.31.94/hubs/pk10")
                 .Build();
 
             _connection.On<JArray>("ShowForcasts", ShowForcasts);
@@ -116,7 +116,7 @@ namespace Colin.Lottery.MobileApp.ViewModels
                     var forcast = forcasts.LastOrDefault();
                     if (forcast != null)
                         CrossLocalNotifications.Current.Show($"PK10连挂提醒",
-                            $"{forcast.LastDrawedPeriod + 1}期 {forcast.Rule} {forcast.KeepGuaCnt}连挂 {forcast.ForcastNo} 「{(DateTime.Now.ToString("t"))}」");
+                            $"{forcast.LastDrawedPeriod + 1}期 {forcast.Rule} {forcast.KeepGuaCnt}连挂 {forcast.ForcastNo} 「{(TimeZoneInfo.ConvertTimeBySystemTimeZoneId(DateTime.Now, "PRC").ToString("t"))}」");
                 }
             }
 

@@ -3,7 +3,7 @@ namespace Colin.Lottery.Models
 {
     public class UserData
     {
-        public UserData(string connectionId, string userName) : this(connectionId, userName, true, DateTime.Now)
+        public UserData(string connectionId, string userName) : this(connectionId, userName, true, DateTime.UtcNow)
         {
         }
 

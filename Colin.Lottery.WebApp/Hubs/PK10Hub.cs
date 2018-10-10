@@ -124,22 +124,6 @@ namespace Colin.Lottery.WebApp.Hubs
             }
         }
 
-        //        public async Task GetDate()
-        //        {
-        //            Console.WriteLine(Context.ConnectionId);
-        //            await Clients.Caller.SendAsync("ShowDate", DateTime.Now);
-        //            await Groups.AddToGroupAsync(Context.ConnectionId, "App");
-
-        //            var timer = new Timer(10000);
-        //            timer.Elapsed += (s, e) =>
-        //            {
-        //                Startup.GetService<IHubContext<PK10Hub>>().Clients.Group("App").SendAsync("ShowDate", DateTime.Now);
-        //                Console.WriteLine($"我日了狗了\t{DateTime.Now}");
-        //            };
-        //            timer.Start();
-        //        }
-
-
         //        /// <summary>
         //        /// 投注
         //        /// </summary>
@@ -185,11 +169,6 @@ namespace Colin.Lottery.WebApp.Hubs
         //        }
         //
         //
-        //public override async Task OnConnectedAsync()
-        //{
-        //    await base.OnConnectedAsync();
-        //    Console.WriteLine($"建立连接{Context.ConnectionId} - {DateTime.Now}");
-        //}
 
         public override async Task OnDisconnectedAsync(Exception exception)
         {

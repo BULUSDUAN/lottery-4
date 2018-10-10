@@ -6,11 +6,11 @@ namespace Colin.Lottery.Common.Scheduler
     {
         //677148期 2018-4-24 9:00:00-9:05:00 
         private static readonly long StartPeriod = 678198;
-        private static readonly DateTime StartDatetime = new DateTime(2018, 4, 24, 9, 0, 0);
+        private static readonly DateTime StartDatetime = new DateTime(2018, 4, 24, 1, 0, 0);
 
         public override long GetPeriodNo()
         {
-            return GetPeriodNo(DateTime.Now);
+            return GetPeriodNo(DateTime.UtcNow);
         }
 
         public override long GetPeriodNo(DateTime time)

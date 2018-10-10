@@ -70,7 +70,7 @@ namespace Colin.Lottery.BetService
                         }
 
                         record.IsDrawed = true;
-                        record.DrawTime = DateTime.Now;
+                        record.DrawTime = DateTime.UtcNow;
                     }
                 }
 

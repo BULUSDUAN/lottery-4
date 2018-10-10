@@ -50,7 +50,7 @@ namespace Colin.Lottery.Models.BetService
             Odds = odds;
             BetType = betType;
             Balance = balance;
-            BetTime = DateTime.Now;
+            BetTime = DateTime.UtcNow;
             IsDrawed = false;
         }
     }
