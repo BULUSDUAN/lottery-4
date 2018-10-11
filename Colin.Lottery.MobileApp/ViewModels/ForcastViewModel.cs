@@ -64,7 +64,7 @@ namespace Colin.Lottery.MobileApp.ViewModels
                 return;
 
             _connection = new HubConnectionBuilder()
-                .WithUrl("http://192.168.31.94/hubs/pk10")
+                .WithUrl("http://bet518.win/hubs/pk10")
                 .Build();
 
             _connection.On<JArray>("ShowForcasts", ShowForcasts);

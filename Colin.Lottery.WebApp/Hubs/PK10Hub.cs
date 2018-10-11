@@ -101,8 +101,8 @@ namespace Colin.Lottery.WebApp.Hubs
             await Groups.AddToGroupAsync(Context.ConnectionId, "App");
         }
 
-        //心跳检测  App端使用
-        public void Heartbeat(){}
+//        //心跳检测  App端使用
+//        public void Heartbeat(){}
 
         /// <summary>
         /// 获取指定玩法预测数据(最近15段)

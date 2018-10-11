@@ -113,17 +113,20 @@ namespace Colin.Lottery.WebApp
             await _pk10Context.Clients.Group("AllRules").SendAsync("ShowPlans", e.LastForcastData);
 
             //3.推送App消息
-            if ((int)e.Rule <= 4)
+            if ((int) e.Rule <= 4)
             {
                 var plan = e.LastForcastData;
-                if (plan.Any() && plan.LastOrDefault().KeepGuaCnt >= Convert.ToInt32(ConfigUtil.Configuration["AppNotify:Min"]))
+                if (plan.Any() && plan.LastOrDefault().KeepGuaCnt >=
+                    Convert.ToInt32(ConfigUtil.Configuration["AppNotify:Min"]))
                     await _pk10Context.Clients.Group("App").SendAsync("ShowForcasts", plan);
+                else
+                    await _pk10Context.Clients.Group("App").SendAsync("NoResult");
             }
         }
 
         private static async void Service_DataCollectedError(object sender, CollectErrorEventArgs e)
         {
-            await _pk10Context.Clients.Groups(new List<string> { e.Rule.ToString(), "AllRules" })
+            await _pk10Context.Clients.Groups(new List<string> {e.Rule.ToString(), "AllRules"})
                 .SendAsync("NoResult", e.Rule.ToStringName());
             LogUtil.Warn("目标网站扫水接口异常，请尽快检查恢复");
         }

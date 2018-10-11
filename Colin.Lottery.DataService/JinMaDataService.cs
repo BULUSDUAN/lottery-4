@@ -94,7 +94,7 @@ namespace Colin.Lottery.DataService
                             //超时自毁
                             if ((DateTime.UtcNow - timestamp).TotalMinutes > 5)
                                 QuartzUtil.DeleteJob(JobName, JobGroup);
-
+                            
                             //扫水
                             var task = JinMaAnalyzer.Instance.GetForcastData(LotteryType.Pk10, (int) rule);
                             task.Wait();

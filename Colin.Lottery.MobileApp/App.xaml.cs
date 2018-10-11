@@ -12,7 +12,7 @@ namespace Colin.Lottery.MobileApp
 {
     public partial class App : Application
     {
-        private readonly Timer _timer;
+//        private readonly Timer _timer;
 
         public App()
         {
@@ -20,8 +20,8 @@ namespace Colin.Lottery.MobileApp
 
             MainPage = new MainPage();
 
-            _timer = new Timer(300000);
-            _timer.Elapsed += Heartbeat;
+//            _timer = new Timer(300000);
+//            _timer.Elapsed += Heartbeat;
         }
 
         protected override void OnStart()
@@ -30,28 +30,28 @@ namespace Colin.Lottery.MobileApp
         }
 
 
-        async void Heartbeat(object sender, ElapsedEventArgs er)
-        {
-            var conn = Properties["HubConnection"] as HubConnection;
-            try
-            {
-                await conn.InvokeAsync("Heartbeat");
-            }
-            catch
-            {
-                CrossLocalNotifications.Current.Show("连接断开提醒", "与服务器断开连接,正在尝试重新连接");
-                try
-                {
-                    await conn.StopAsync();
-                    await conn.StartAsync();
-                    await conn.InvokeAsync("Heartbeat");
-                }
-                catch
-                {
-                    CrossLocalNotifications.Current.Show("服务器连接错误", "尝试重新连接服务器失败,请重试重启程序");
-                }
-            }
-        }
+//        async void Heartbeat(object sender, ElapsedEventArgs er)
+//        {
+//            var conn = Properties["HubConnection"] as HubConnection;
+//            try
+//            {
+//                await conn.InvokeAsync("Heartbeat");
+//            }
+//            catch
+//            {
+//                CrossLocalNotifications.Current.Show("连接断开提醒", "与服务器断开连接,正在尝试重新连接");
+//                try
+//                {
+//                    await conn.StopAsync();
+//                    await conn.StartAsync();
+//                    await conn.InvokeAsync("Heartbeat");
+//                }
+//                catch
+//                {
+//                    CrossLocalNotifications.Current.Show("服务器连接错误", "尝试重新连接服务器失败,请重试重启程序");
+//                }
+//            }
+//        }
 
         /*
          * Android设备
@@ -64,9 +64,9 @@ namespace Colin.Lottery.MobileApp
         {
             // Handle when your app sleeps
 
-            //启动心跳检测
-            if (Device.RuntimePlatform == Device.Android)
-                _timer.Start();
+//            //启动心跳检测
+//            if (Device.RuntimePlatform == Device.Android)
+//                _timer.Start();
         }
 
 
@@ -74,9 +74,9 @@ namespace Colin.Lottery.MobileApp
         {
             // Handle when your app resumes
 
-            //停止心跳检测
-            if (Device.RuntimePlatform == Device.Android)
-                _timer.Stop();
+//            //停止心跳检测
+//            if (Device.RuntimePlatform == Device.Android)
+//                _timer.Stop();
         }
     }
 }
