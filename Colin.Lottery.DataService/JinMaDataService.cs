@@ -96,7 +96,7 @@ namespace Colin.Lottery.DataService
                                 QuartzUtil.DeleteJob(JobName, JobGroup);
                             
                             //扫水
-                            var task = JinMaAnalyzer.Instance.GetForcastData(LotteryType.Pk10, (int) rule);
+                            var task = JinMaAnalyzer.Instance.GetForecastData(LotteryType.Pk10, (int) rule);
                             task.Wait();
                             var plans = task.Result;
                             /*
@@ -110,7 +110,7 @@ namespace Colin.Lottery.DataService
 
                             JinMaAnalyzer.Instance.CalcuteScore(plans);
 
-                            if (plans.Any(p => p.LastDrawedPeriod + 1 < periodNo)) return;
+                            if (plans.Any(p => p.LastDrawnPeriod + 1 < periodNo)) return;
 
                             DataCollectedSuccess?.Invoke(this, new DataCollectedEventArgs(rule, plans));
                             QuartzUtil.DeleteJob(JobName, JobGroup);

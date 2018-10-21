@@ -58,14 +58,14 @@ namespace Colin.Lottery.DataService
         /// <summary>
         /// 完整15期计划
         /// </summary>
-        public List<IForcastPlanModel> Plans { get; }
+        public List<IForecastPlanModel> Plans { get; }
 
         /// <summary>
         /// 最新期计划
         /// </summary>
-        public List<IForcastModel> LastForcastData => Plans.Select(p => p.ForcastData.LastOrDefault())?.ToList();
+        public List<IForecastModel> LastForecastData => Plans.Select(p => p.ForecastData.LastOrDefault())?.ToList();
 
-        public DataCollectedEventArgs(Pk10Rule rule,List<IForcastPlanModel> plans)
+        public DataCollectedEventArgs(Pk10Rule rule,List<IForecastPlanModel> plans)
         {
             this.Rule = rule;
             this.Plans = plans;

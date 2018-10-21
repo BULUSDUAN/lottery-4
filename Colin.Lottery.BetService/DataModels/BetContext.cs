@@ -8,7 +8,7 @@ namespace Colin.Lottery.BetService.DataModels
     public class BetContext : DbContext
     {
         public DbSet<BetRecord> BetRecord { get; set; }
-        public DbSet<Pk10ForcastRecord> Pk10ForcastRecord { get; set; }
+        public DbSet<Pk10ForecastRecord> Pk10ForecastRecord { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

@@ -41,7 +41,7 @@ namespace Colin.Lottery.BetService
 
         private static void BetPk10(JArray arg)
         {
-            var plans = JsonConvert.DeserializeObject<List<JinMaForcastModel>>(arg.ToString());
+            var plans = JsonConvert.DeserializeObject<List<JinMaForecastModel>>(arg.ToString());
 
             //加锁去异步，防止多线程并发下注引起余额等字段重入
             lock (Db)
@@ -49,7 +49,7 @@ namespace Colin.Lottery.BetService
                 //自动开奖
                 //上期所有玩法开奖
                 var records = Db.BetRecord.Where(p =>
-                    !p.IsDrawed && p.PeriodNo == plans.FirstOrDefault().LastDrawedPeriod);
+                    !p.IsDrawn && p.PeriodNo == plans.FirstOrDefault().LastDrawnPeriod);
                 if (records.Any())
                 {
                     foreach (var record in records)
@@ -69,14 +69,14 @@ namespace Colin.Lottery.BetService
                             record.WinMoney = -record.BetMoney;
                         }
 
-                        record.IsDrawed = true;
+                        record.IsDrawn = true;
                         record.DrawTime = DateTime.UtcNow;
                     }
                 }
 
                 //自动下注
                 var balance = Db.BetRecord.LastOrDefault()?.Balance ?? (decimal)BetConfig.StartBalance;
-                foreach (IForcastModel plan in plans)
+                foreach (IForecastModel plan in plans)
                 {
                     //var lastPeriod = Db.BetRecord.LastOrDefault();
                     //var balance = lastPeriod?.Balance ?? (decimal)BetConfig.StartBalance;
@@ -101,7 +101,7 @@ namespace Colin.Lottery.BetService
 
 
                     Db.BetRecord.Add(new BetRecord(LotteryType.Pk10, (int)plan.Rule.ToPk10Rule(),
-                        plan.Plan, plan.LastDrawedPeriod + 1, plan.ForcastNo, plan.ChaseTimes, betMoneyAll,
+                        plan.Plan, plan.LastDrawnPeriod + 1, plan.ForecastNo, plan.ChaseTimes, betMoneyAll,
                         BetConfig.Odds, info.BetType, balance));
                 }
 
@@ -144,7 +144,7 @@ namespace Colin.Lottery.BetService
 
         private static readonly BetConfig BetConfig = ConfigUtil.GetAppSettings<BetConfig>("BetConfig");
 
-        private static (float BetMoney, BetType BetType) GetBetInfo(IForcastModel plan)
+        private static (float BetMoney, BetType BetType) GetBetInfo(IForecastModel plan)
         {
             float betMoney = 0, money;
             var type = BetType.Every;

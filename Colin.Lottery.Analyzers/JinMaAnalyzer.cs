@@ -23,20 +23,20 @@ namespace Colin.Lottery.Analyzers
         /// <param name="planer">计划员</param>
         /// <param name="rule">玩法(请使用具体玩法枚举,如"PK10Rule","CQSSCRule")</param>
         /// <returns>预测数据</returns>
-        public override async Task<IForcastPlanModel> GetForcastData(LotteryType type, Planner planer, int rule)
+        public override async Task<IForecastPlanModel> GetForecastData(LotteryType type, Planner planer, int rule)
         {
-            return await JinMaCollector.GetForcastData(type, planer, rule);
+            return await JinMaCollector.GetForecastData(type, planer, rule);
         }
 
-        public override async Task<List<IForcastPlanModel>> GetForcastData(LotteryType type,
+        public override async Task<List<IForecastPlanModel>> GetForecastData(LotteryType type,
             int rule)
         {
-            var planA = await GetForcastData(type, Planner.Planner1, rule);
-            var planB = await GetForcastData(type, Planner.Planner2, rule);
-            return new List<IForcastPlanModel>{planA,planB};
+            var planA = await GetForecastData(type, Planner.Planner1, rule);
+            var planB = await GetForecastData(type, Planner.Planner2, rule);
+            return new List<IForecastPlanModel>{planA,planB};
         }
 
-        public override async Task<List<IForcastPlanModel>> GetForcastData(LotteryType type)
+        public override async Task<List<IForecastPlanModel>> GetForecastData(LotteryType type)
         {
             int rule;
             switch (type)
@@ -51,12 +51,12 @@ namespace Colin.Lottery.Analyzers
                     throw new Exception("彩种暂不支持");
             }
 
-            return await GetForcastData(type, rule);
+            return await GetForecastData(type, rule);
         }
 
-        public override async Task<List<IForcastPlanModel>> GetForcastData()
+        public override async Task<List<IForecastPlanModel>> GetForecastData()
         {
-            return await GetForcastData(LotteryType.Pk10, (int) Pk10Rule.Champion);
+            return await GetForecastData(LotteryType.Pk10, (int) Pk10Rule.Champion);
         }
 
         #endregion
@@ -103,20 +103,20 @@ namespace Colin.Lottery.Analyzers
         */
 
         private static readonly AnalyzeConfig Config = ConfigUtil.GetAppSettings<AnalyzeConfig>("AnalyzeConfig");
-        public override void CalcuteScore(List<IForcastPlanModel> plans)
+        public override void CalcuteScore(List<IForecastPlanModel> plans)
         {
             if (plans == null || plans.Count<2)
             return;            
 
-            var repetition = CalcuteRepetition(plans[0].ForcastDrawNo,plans[1].ForcastDrawNo);
+            var repetition = CalcuteRepetition(plans[0].ForecastDrawNo,plans[1].ForecastDrawNo);
             plans.ForEach(plan =>
             {
                 plan.RepetitionScore = repetition;
-                plan.GuaScore = CalcuteGua(plan.ForcastData, out var keepGuaCnt,out var chaseTimesAfterEndGua,out var keepGuaingCnt);
+                plan.GuaScore = CalculateGua(plan.ForecastData, out var keepGuaCnt,out var chaseTimesAfterEndGua,out var keepGuaingCnt);
                 plan.KeepGuaCnt = keepGuaCnt;
                 plan.ChaseTimesAfterEndGua = chaseTimesAfterEndGua;
                 plan.KeepGuaingCnt = keepGuaingCnt;
-                plan.BetChaseScore = CalcuteBetChase(plan.ForcastData.LastOrDefault().ChaseTimes);
+                plan.BetChaseScore = CalcuteBetChase(plan.ForecastData.LastOrDefault().ChaseTimes);
                 
                 if (plan.GuaScore >= 90 || repetition >= Config.Repetition)
                     plan.Score = 100;
@@ -133,12 +133,12 @@ namespace Colin.Lottery.Analyzers
         /// <summary>
         /// 计算"挂"分数 (结束挂优先)
         /// </summary>
-        /// <param name="forcastData"></param>
+        /// <param name="forecastData"></param>
         /// <param name="keepGuaCnt">有效连挂次数(连挂已结束)</param>
         /// <param name="chaseTimesAfterEndGua">第几段跟投(连挂结束后)</param>
         /// <param name="keepGuaingCnt">连挂次数(连挂中)</param>
         /// <returns></returns>
-        private static float CalcuteGua(IReadOnlyCollection<IForcastModel> forcastData, out int keepGuaCnt,out int chaseTimesAfterEndGua,out int keepGuaingCnt)
+        private static float CalculateGua(IReadOnlyCollection<IForecastModel> forecastData, out int keepGuaCnt,out int chaseTimesAfterEndGua,out int keepGuaingCnt)
         {
             float total = 0;
             //从最新期开始连挂次数
@@ -146,13 +146,13 @@ namespace Colin.Lottery.Analyzers
             chaseTimesAfterEndGua = 0;
             keepGuaingCnt = 0;
 
-            if (forcastData.Count < 2)
+            if (forecastData.Count < 2)
             {
                 LogUtil.Error("预测历史数据不足,无法进行评估");
                 return 0;
             }
 
-            var results = forcastData.Take(forcastData.Count - 1).Select(f => f.IsWin).Reverse().ToList();
+            var results = forecastData.Take(forecastData.Count - 1).Select(f => f.IsWin).Reverse().ToList();
             //第一个非挂
             var firstWinIndex = results.FindIndex(f => f == true);
             //最近挂尚未结束

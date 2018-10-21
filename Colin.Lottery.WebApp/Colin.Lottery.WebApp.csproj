@@ -13,8 +13,6 @@
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.App" Version="2.1.2" />
-        <PackageReference Include="Selenium.Chrome.WebDriver" Version="2.42.0" />
-        <PackageReference Include="Selenium.WebDriver" Version="3.14.0" />
     </ItemGroup>
     <ItemGroup>
         <ProjectReference Include="..\Colin.Lottery.DataService\Colin.Lottery.DataService.csproj" />
@@ -25,9 +23,10 @@
     </ItemGroup>
     <ItemGroup>
         <Folder Include="wwwroot\lib\art-template\" />
-        <Folder Include="wwwroot\js\ssr\" />
-        <Folder Include="wwwroot\images\ssr\" />
-        <Folder Include="wwwroot\others\" />
+    </ItemGroup>
+    <ItemGroup>
+      <None Remove="wwwroot\js\ssr\base64.js" />
+      <None Remove="wwwroot\images\ssr\andriod-guid.gif" />
     </ItemGroup>
     <ItemGroup>
         <None Include="wwwroot\js\settings.js" />
@@ -37,10 +36,6 @@
         <None Include="wwwroot\images\wechat.jpg" />
         <None Include="wwwroot\images\logo.png" />
         <None Include="wwwroot\images\logo.svg" />
-        <None Include="wwwroot\js\ssr\base64.js" />
-        <None Include="wwwroot\js\ssr\qrcode.min.js" />
-        <None Include="wwwroot\images\ssr\andriod-guid.gif" />
-        <None Include="wwwroot\images\ssr\ios-guid.gif" />
         <None Include="wwwroot\images\logo-128.svg" />
     </ItemGroup>
     <ItemGroup>

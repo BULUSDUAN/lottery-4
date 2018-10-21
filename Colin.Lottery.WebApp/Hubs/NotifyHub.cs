@@ -48,13 +48,13 @@ namespace Colin.Lottery.WebApp.Hubs
         /// <param name="criticalScore">Critical score.</param>
         private static async Task GetNotifications(ICollection<string> notifications, LotteryType lottery, int rule, float criticalScore)
         {
-            var plans = await JinMaAnalyzer.Instance.GetForcastData(lottery, rule);
+            var plans = await JinMaAnalyzer.Instance.GetForecastData(lottery, rule);
             JinMaAnalyzer.Instance.CalcuteScore(plans);
 
             //plans.ForEach(p =>
             //{
             //    if (p.Score >= criticalScore)
-            //        notifications.Add(JinMaStrategyService.Instance.CreateNotification(lottery, rule, Plan.PlanA, p.ForcastDrawNo, p.Score));
+            //        notifications.Add(JinMaStrategyService.Instance.CreateNotification(lottery, rule, Plan.PlanA, p.ForecastDrawNo, p.Score));
             //});
         }
 

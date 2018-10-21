@@ -13,6 +13,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Notification.cs" />
+    <Compile Remove="Notification\JPush.cs" />
+    <Compile Remove="Notification\JPushNotify.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Notification\MailNotifyTemplate.html" />

@@ -75,7 +75,7 @@
                     #foreach($period in $Model.PassedPeriod)
                     <tr>
                         <td>$period.PeriodRange</td>
-                        <td>$period.ForcastNo</td>
+                        <td>$period.ForecastNo</td>
                         <td>$Model.ToPeriodNo($period.LastPeriod)</td>
                         <td>
                             $period.DrawNo
@@ -92,10 +92,10 @@
                     #afterall
                     <tr class="danger">
                         <td>$Model.CurrentPeriod.PeriodRange</td>
-                        <td>$Model.CurrentPeriod.ForcastNo</td>
+                        <td>$Model.CurrentPeriod.ForecastNo</td>
                         <td>$Model.ToPeriodNo($Model.CurrentPeriod.LastPeriod)</td>
                         <td>
-                            $Model.PartnerForcastNo &nbsp;
+                            $Model.PartnerForecastNo &nbsp;
                             <span class="label label-primary">$Model.PartnerPlan</span>
                         </td>
                         <td>$Model.CurrentPeriod.ChaseTimes</td>
@@ -111,7 +111,7 @@
                 <tfoot>
                     <tr>
                         <th colspan="6">
-                            当前$Model.ForcastPlan.TotalCount期内，中奖：$Model.ForcastPlan.WinCount 错误：$Model.ForcastPlan.LoseCount，中奖概率：$Model.ForcastPlan.WinProbability.ToString("p")
+                            当前$Model.ForecastPlan.TotalCount期内，中奖：$Model.ForecastPlan.WinCount 错误：$Model.ForecastPlan.LoseCount，中奖概率：$Model.ForecastPlan.WinProbability.ToString("p")
                         </th>
                     </tr>
                 </tfoot>

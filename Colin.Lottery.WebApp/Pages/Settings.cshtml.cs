@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.RazorPages;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Colin.Lottery.WebApp.Pages
 {
@@ -6,7 +7,6 @@ namespace Colin.Lottery.WebApp.Pages
     {
         public void OnGet()
         {
-
         }
     }
 }

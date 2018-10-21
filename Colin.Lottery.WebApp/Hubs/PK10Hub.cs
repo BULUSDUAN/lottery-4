@@ -16,53 +16,55 @@ namespace Colin.Lottery.WebApp.Hubs
         /// <summary>
         /// 获取指定玩法预测数据(最近15段)并订阅玩法 Web端详情页调用
         /// </summary>
-        /// <returns>The forcast data.</returns>
+        /// <returns>The forecast data.</returns>
         /// <param name="rule">Rule.</param>
-        public async Task GetForcastData(int rule = 1)
+        public async Task GetForecastData(int rule = 1)
         {
-            await GetForcastDataByRule(rule);
+            await GetForecastDataByRule(rule);
 
             Lotterys.Pk10Rules.ForEach(async r =>
                 await Groups.RemoveFromGroupAsync(Context.ConnectionId, r.ToString()));
-            await Groups.AddToGroupAsync(Context.ConnectionId, ((Pk10Rule)rule).ToString());
+            await Groups.AddToGroupAsync(Context.ConnectionId, ((Pk10Rule) rule).ToString());
         }
 
         /// <summary>
         /// 获取PK10所有玩法最新期预测数据并订阅所有玩法 Web端彩票大厅调用
         /// </summary>
-        /// <returns>The all new forcast.</returns>
-        public async Task GetAllNewForcast()
+        /// <returns>The all new forecast.</returns>
+        public async Task GetAllNewForecast()
         {
-            var forcast = new List<IForcastModel>();
+            var forecast = new List<IForecastModel>();
             var error = 0;
-            error += await GetNewForcast(forcast, Pk10Rule.Champion);
-            error += await GetNewForcast(forcast, Pk10Rule.Second);
-            error += await GetNewForcast(forcast, Pk10Rule.Third);
-            error += await GetNewForcast(forcast, Pk10Rule.Fourth);
-            error += await GetNewForcast(forcast, Pk10Rule.BigOrSmall);
-            error += await GetNewForcast(forcast, Pk10Rule.OddOrEven);
-            error += await GetNewForcast(forcast, Pk10Rule.DragonOrTiger);
-            error += await GetNewForcast(forcast, Pk10Rule.Sum);
+            error += await GetNewForecast(forecast, Pk10Rule.Champion);
+            error += await GetNewForecast(forecast, Pk10Rule.Second);
+            error += await GetNewForecast(forecast, Pk10Rule.Third);
+            error += await GetNewForecast(forecast, Pk10Rule.Fourth);
+            error += await GetNewForecast(forecast, Pk10Rule.BigOrSmall);
+            error += await GetNewForecast(forecast, Pk10Rule.OddOrEven);
+            error += await GetNewForecast(forecast, Pk10Rule.DragonOrTiger);
+            error += await GetNewForecast(forecast, Pk10Rule.Sum);
 
             if (error > 0)
             {
                 await Clients.Caller.SendAsync("NoResult", "allRules");
                 LogUtil.Warn("目标网站扫水接口异常，请尽快检查恢复");
             }
-
-            await Clients.Caller.SendAsync("ShowPlans", forcast);
+            else
+            {
+                await Clients.Caller.SendAsync("ShowPlans", forecast);    
+            }
 
             await RegisterAllRules();
         }
 
-        private static async Task<int> GetNewForcast(ICollection<IForcastModel> newForcast, Pk10Rule rule)
+        private static async Task<int> GetNewForecast(ICollection<IForecastModel> newForecast, Pk10Rule rule)
         {
-            var plans = await JinMaAnalyzer.Instance.GetForcastData(LotteryType.Pk10, (int)rule);
+            var plans = await JinMaAnalyzer.Instance.GetForecastData(LotteryType.Pk10, (int) rule);
             if (plans == null || plans.Count < 2 || plans.Any(p => p == null))
                 return 1;
 
             JinMaAnalyzer.Instance.CalcuteScore(plans);
-            plans.ForEach(p => newForcast.Add(p.ForcastData.LastOrDefault()));
+            plans.ForEach(p => newForecast.Add(p.ForecastData.LastOrDefault()));
             return 0;
         }
 
@@ -72,46 +74,15 @@ namespace Colin.Lottery.WebApp.Hubs
         /// <returns>The all rules.</returns>
         public async Task RegisterAllRules() => await Groups.AddToGroupAsync(Context.ConnectionId, "AllRules");
 
-        /// <summary>
-        /// 获取PK10前四名最新期预测数据 App端使用
-        /// </summary>
-        /// <returns></returns>
-        public async Task GetAppNewForcast()
-        {
-            var forcast = new List<IForcastModel>();
-            var error = 0;
-            error += await GetNewForcast(forcast, Pk10Rule.Champion);
-            error += await GetNewForcast(forcast, Pk10Rule.Second);
-            error += await GetNewForcast(forcast, Pk10Rule.Third);
-            error += await GetNewForcast(forcast, Pk10Rule.Fourth);
-
-            if (error > 0)
-            {
-                await Clients.Caller.SendAsync("NoResult", "allRules");
-                LogUtil.Warn("目标网站扫水接口异常，请尽快检查恢复");
-            }
-
-            var liangua =
-                forcast.Where(f => f.KeepGuaCnt >= Convert.ToInt32(ConfigUtil.Configuration["AppNotify:Min"]));
-            if (liangua.Any())
-                await Clients.Caller.SendAsync("ShowForcasts", liangua.ToList());
-            else
-                await Clients.Caller.SendAsync("NoResult");
-
-            await Groups.AddToGroupAsync(Context.ConnectionId, "App");
-        }
-
-//        //心跳检测  App端使用
-//        public void Heartbeat(){}
 
         /// <summary>
         /// 获取指定玩法预测数据(最近15段)
         /// </summary>
-        /// <returns>The forcast data by rule.</returns>
+        /// <returns>The forecast data by rule.</returns>
         /// <param name="rule">Rule.</param>
-        public async Task GetForcastDataByRule(int rule)
+        public async Task GetForecastDataByRule(int rule)
         {
-            var plans = await JinMaAnalyzer.Instance.GetForcastData(LotteryType.Pk10, rule);
+            var plans = await JinMaAnalyzer.Instance.GetForecastData(LotteryType.Pk10, rule);
             if (plans == null || plans.Count() < 2 || plans.Any(p => p == null))
             {
                 await Clients.Caller.SendAsync("NoResult");
@@ -173,9 +144,8 @@ namespace Colin.Lottery.WebApp.Hubs
         public override async Task OnDisconnectedAsync(Exception exception)
         {
             await Groups.RemoveFromGroupAsync(Context.ConnectionId, "AllRules");
-            await Groups.RemoveFromGroupAsync(Context.ConnectionId, "App");
             Lotterys.Pk10Rules.ForEach(async rule =>
-                await Groups.RemoveFromGroupAsync(Context.ConnectionId, ((Pk10Rule)rule).ToString()));
+                await Groups.RemoveFromGroupAsync(Context.ConnectionId, ((Pk10Rule) rule).ToString()));
 
             await base.OnDisconnectedAsync(exception);
         }

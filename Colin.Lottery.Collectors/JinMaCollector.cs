@@ -69,7 +69,7 @@ namespace Colin.Lottery.Collectors
             return JsonConvert.DeserializeObject<JinMaLotteryModelCollection>(response);
         }
 
-        public static async Task<IForcastPlanModel> GetForcastData(LotteryType type, Planner planer, int rule)
+        public static async Task<IForecastPlanModel> GetForecastData(LotteryType type, Planner planer, int rule)
         {
             var response = await HttpUtil.GetStringAsync(GetForecastUrl(type, planer, rule));
             try
@@ -77,7 +77,7 @@ namespace Colin.Lottery.Collectors
                 if (string.IsNullOrWhiteSpace(response))
                     return null;
                 
-                var result = JsonConvert.DeserializeObject<JinMaForcastPlanModel>(response);
+                var result = JsonConvert.DeserializeObject<JinMaForecastPlanModel>(response);
                 result.Plan = planer.GetPlan();
                 return result;
             }

@@ -16,24 +16,24 @@ namespace Colin.Lottery.Models.Notification
 
         public Plan PartnerPlan => Plan == Plan.PlanA ? Plan.PlanB : Plan.PlanA;
 
-        public IForcastPlanModel ForcastPlan { get; }
+        public IForecastPlanModel ForecastPlan { get; }
 
-        public IForcastModel CurrentPeriod { get; }
+        public IForecastModel CurrentPeriod { get; }
 
-        public IEnumerable<IForcastModel> PassedPeriod { get; }
+        public IEnumerable<IForecastModel> PassedPeriod { get; }
 
-        public string PartnerForcastNo { get; }
+        public string PartnerForecastNo { get; }
 
-        public MailNotifyModel(LotteryType lottery, int rule, Plan plan, IForcastPlanModel forcastPlan, string partnerForcastNo)
+        public MailNotifyModel(LotteryType lottery, int rule, Plan plan, IForecastPlanModel forecastPlan, string partnerForecastNo)
         {
             Lottery = lottery.ToStringName();
             Rule = rule.ToStringName(lottery);
             Plan = plan;
-            ForcastPlan = forcastPlan;
+            ForecastPlan = forecastPlan;
 
-            CurrentPeriod = ForcastPlan.ForcastData.LastOrDefault();
-            PassedPeriod = ForcastPlan.ForcastData.Take(ForcastPlan.ForcastData.Count - 1);
-            PartnerForcastNo = partnerForcastNo;
+            CurrentPeriod = ForecastPlan.ForecastData.LastOrDefault();
+            PassedPeriod = ForecastPlan.ForecastData.Take(ForecastPlan.ForecastData.Count - 1);
+            PartnerForecastNo = partnerForecastNo;
         }
 
         #region NVelocity模板帮助方法

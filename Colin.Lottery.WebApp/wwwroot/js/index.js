@@ -51,7 +51,7 @@
         //启动连接并初始化数据
         connection.start().then(
             function () {
-                connection.invoke('GetAllNewForcast');
+                connection.invoke('GetAllNewForecast');
             },
             function () {
                 console.error("服务器(" + hub + ")连接失败");

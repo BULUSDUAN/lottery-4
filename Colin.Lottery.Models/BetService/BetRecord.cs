@@ -34,7 +34,7 @@ namespace Colin.Lottery.Models.BetService
 
         public DateTime BetTime { get; set; }
 
-        public bool IsDrawed { get; set; }
+        public bool IsDrawn { get; set; }
 
         public DateTime? DrawTime { get; set; }
 
@@ -51,7 +51,7 @@ namespace Colin.Lottery.Models.BetService
             BetType = betType;
             Balance = balance;
             BetTime = DateTime.UtcNow;
-            IsDrawed = false;
+            IsDrawn = false;
         }
     }
 }

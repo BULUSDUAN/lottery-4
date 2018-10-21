@@ -9,10 +9,12 @@ using Colin.Lottery.WebApp.Hubs;
 using Colin.Lottery.DataService;
 using Microsoft.AspNetCore.SignalR;
 using System.Collections.Generic;
+using System.Linq;
 using Colin.Lottery.Models;
 using Colin.Lottery.Utils;
 using Microsoft.AspNetCore.HttpOverrides;
-using System.Linq;
+using Microsoft.EntityFrameworkCore.Internal;
+using Newtonsoft.Json;
 
 namespace Colin.Lottery.WebApp
 {
@@ -104,24 +106,75 @@ namespace Colin.Lottery.WebApp
             _pk10Context = GetService<IHubContext<PK10Hub>>();
         }
 
+
         private async void Service_DataCollectedSuccess(object sender, DataCollectedEventArgs e)
         {
             //1.推送完整15期计划
             await _pk10Context.Clients.Group(e.Rule.ToString()).SendAsync("ShowPlans", e.Plans);
 
             //2.推送最新期计划
-            await _pk10Context.Clients.Group("AllRules").SendAsync("ShowPlans", e.LastForcastData);
+            await _pk10Context.Clients.Group("AllRules").SendAsync("ShowPlans", e.LastForecastData);
 
             //3.推送App消息
-            if ((int) e.Rule <= 4)
+            if (e.Rule == Pk10Rule.Sum)
+                return;
+
+            var plans = e.LastForecastData;
+            if (plans == null || !plans.Any())
+                return;
+            bool isTwoSide = (int) e.Rule > 4;
+
+            //实时更新
+            var realTimeAudience = isTwoSide
+                ? new {tag_and = new string[] {"realtime", "twoside"}}
+                : (object) new {tag = new string[] {"realtime"}};
+            await JPushUtil.PushMessageAsync("PK10最新预测", JsonConvert.SerializeObject(plans), realTimeAudience);
+
+            //连挂提醒
+            plans.ForEach(async p =>
             {
-                var plan = e.LastForcastData;
-                if (plan.Any() && plan.LastOrDefault().KeepGuaCnt >=
-                    Convert.ToInt32(ConfigUtil.Configuration["AppNotify:Min"]))
-                    await _pk10Context.Clients.Group("App").SendAsync("ShowForcasts", plan);
-                else
-                    await _pk10Context.Clients.Group("App").SendAsync("NoResult");
+                var tags = new List<string>();
+                for (var i = 1; i <= 5; i++)
+                {
+                    if (p.KeepGuaCnt < i)
+                        break;
+
+                    tags.Add($"liangua{i}");
+                }
+
+                if (tags.Any())
+                {
+                    var audience = isTwoSide
+                        ? new {tag = tags, tag_and = new string[] {"twoside"}}
+                        : (object) new {tag = tags};
+                    await JPushUtil.PushNotificationAsync(
+                        "PK10连挂提醒",
+                        $"{p.LastDrawnPeriod + 1}期 {p.Rule} {p.KeepGuaCnt}连挂 {p.ForecastNo}",
+                        audience
+                    );
+                }
+            });
+
+            //重复度提醒
+            if (isTwoSide)
+                return;
+
+            var repetition = new List<string>();
+            var plan = plans.FirstOrDefault();
+            for (var i = 60; i <= 100; i += 20)
+            {
+                if (plan.RepetitionScore < i)
+                    break;
+
+                repetition.Add($"repetition{i}");
             }
+
+            if (repetition.Any())
+                await JPushUtil.PushNotificationAsync(
+                    "PK10高重复提醒",
+                    $"{plan.LastDrawnPeriod + 1}期 {plan.Rule} 重{plan.RepetitionScore}% {plan.ForecastNo}/{plans.LastOrDefault().ForecastNo}",
+                    new {tag = repetition}
+                );
         }
 
         private static async void Service_DataCollectedError(object sender, CollectErrorEventArgs e)

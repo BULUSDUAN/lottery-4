@@ -1,4 +1,5 @@
-﻿@page
+﻿@page "{handler?}/{rule?}"
+@model IndexModel
 @{
     ViewData["Title"] = "彩票大厅";
 }
@@ -226,7 +227,7 @@
     <partial name="_NoResultPartial"/>
 
     <script id="planTemplate" type="text/html">
-        <td class="{{cls}}">{{forcastNo}}</td>
+        <td class="{{cls}}">{{forecastNo}}</td>
         <td class="{{cls}}">{{chaseTimes}}</td>
         <td class="{{cls}}">{{winProbability*100|toFixed}}%</td>
         <td class="{{cls}}">

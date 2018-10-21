@@ -9,14 +9,14 @@ namespace Colin.Lottery.Analyzers
         : Singleton<T>, IAnalyzer
         where T : Analyzer<T>, new()
     {
-        public abstract Task<IForcastPlanModel> GetForcastData(LotteryType type, Planner planer, int rule);
+        public abstract Task<IForecastPlanModel> GetForecastData(LotteryType type, Planner planer, int rule);
 
-        public abstract Task<List<IForcastPlanModel>> GetForcastData(LotteryType type, int rule);
+        public abstract Task<List<IForecastPlanModel>> GetForecastData(LotteryType type, int rule);
 
-        public abstract Task<List<IForcastPlanModel>> GetForcastData(LotteryType type);
+        public abstract Task<List<IForecastPlanModel>> GetForecastData(LotteryType type);
 
-        public abstract Task<List<IForcastPlanModel>> GetForcastData();
+        public abstract Task<List<IForecastPlanModel>> GetForecastData();
 
-        public abstract void CalcuteScore(List<IForcastPlanModel> plans);
+        public abstract void CalcuteScore(List<IForecastPlanModel> plans);
     }
 }

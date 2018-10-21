@@ -93,7 +93,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    {{each forcastData}}
+                    {{each forecastData}}
                     {{if !$value.drawNo}}
                     {{if score>=80}}
                     <tr class="danger">
@@ -103,9 +103,9 @@
                     {{else}}
                     <tr>
                         {{/if}}
-                        <input type="hidden" name="lastDrawedPeriod" value="{{$value.lastDrawedPeriod}}"/>
+                        <input type="hidden" name="lastDrawnPeriod" value="{{$value.lastDrawnPeriod}}"/>
                         <td>{{$value.periodRange}}</td>
-                        <td>{{$value.forcastNo}}</td>
+                        <td>{{$value.forecastNo}}</td>
                         <td>{{$value.lastPeriod.toString().padStart(3,'0')}}</td>
                         <td>
                             {{if $value.drawNo}}
