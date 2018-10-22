@@ -1,0 +1,82 @@
+<ion-header>
+  <ion-navbar>
+    <ion-buttons left>
+      <button ion-button icon-only color="primary" (click)="goBack()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>
+      {{rule}}形态
+    </ion-title>
+    <ion-buttons right>
+      <button ion-button icon-only color="primary" (click)="bet()">
+        <ion-icon name="cart"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+  <ion-toolbar *ngIf="isiOS">
+    <ion-segment [(ngModel)]="plansSeg">
+      <ion-segment-button *ngFor="let plan of plans"
+                          value="{{plan.Plan}}"
+                          [class.segment-activated]="plansSeg==plan.Plan"
+                          (click)="switchSeg(plan.Plan)">
+        Plan {{plan.Plan==0?'A':'B'}}
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-segment *ngIf="!isiOS" [(ngModel)]="plansSeg">
+    <ion-segment-button *ngFor="let plan of plans"
+                        value="{{plan.Plan}}"
+                        [class.segment-activated]="plansSeg==plan.Plan"
+                        (click)="switchSeg(plan.Plan)">
+      Plan {{plan.Plan==0?'A':'B'}}
+    </ion-segment-button>
+  </ion-segment>
+
+  <div [ngSwitch]="plansSeg">
+    <div *ngFor="let plan of plans">
+      <ion-list *ngSwitchCase="plan.Plan">
+        <ion-item-divider>
+          <ion-grid no-padding fixed>
+            <ion-row>
+              <ion-col [class.txt-center]="twoSide">期号</ion-col>
+              <ion-col col-5 [class.txt-center]="twoSide">预测号码</ion-col>
+              <ion-col text-center>追号</ion-col>
+              <ion-col text-center>中奖</ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item-divider>
+        <ion-item *ngFor="let fc of plan.ForecastData;let i=index;" [class.light]="i%2==0" no-lines>
+          <ion-grid no-padding fixed>
+            <ion-row>
+              <ion-col [class.txt-center]="twoSide">{{fc.LastPeriod.toString().padStart(3,'0')}}</ion-col>
+              <ion-col col-5 [class.txt-center]="twoSide">{{fc.ForecastNo}}</ion-col>
+              <ion-col text-center>{{fc.ChaseTimes}}</ion-col>
+              <ion-col text-center [ngClass]="{true:'secondary',false:'danger'}[fc.IsWin==false]">
+                <strong>{{fc.IsWin==null?'...':(fc.IsWin?'中':'挂')}}</strong>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+        <ion-list-header>
+          <ion-grid no-padding fixed>
+            <ion-row [class.ios-header]="isiOS">
+              <ion-col col-3>计:{{plan.TotalCount}}</ion-col>
+              <ion-col col-3 [class.danger]="plan.WinProbability >= 0.88">
+                胜:{{(plan.WinProbability*100).toString().substr(0,5)}}%
+              </ion-col>
+              <ion-col>挂:{{plan.GuaScore}}</ion-col>
+              <ion-col [class.danger]="plan.RepetitionScore >= 80">
+                重:{{plan.RepetitionScore}}
+              </ion-col>
+              <ion-col>追:{{plan.BetChaseScore}}</ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-list-header>
+      </ion-list>
+    </div>
+  </div>
+</ion-content>

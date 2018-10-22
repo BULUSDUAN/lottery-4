@@ -1,0 +1,7 @@
+{
+  "name": "Colin.Lottery.MobileApp",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
+}
