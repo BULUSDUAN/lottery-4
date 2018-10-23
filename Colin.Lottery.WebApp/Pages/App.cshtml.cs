@@ -9,7 +9,7 @@ using Newtonsoft.Json;
 
 namespace Colin.Lottery.WebApp.Pages
 {
-    public class IndexModel : PageModel
+    public class AppModel : PageModel
     {
         public async Task<IActionResult> OnGetAppPlansAsync(int rule = 0)
         {

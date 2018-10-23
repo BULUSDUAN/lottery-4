@@ -1,11 +1,10 @@
-﻿@page "{handler?}/{rule?}"
-@model IndexModel
+﻿@page
 @{
     ViewData["Title"] = "彩票大厅";
 }
 
 @section Styles {
-    <link rel="stylesheet" href="~/css/index.css" />
+    <link rel="stylesheet" href="~/css/index.css"/>
 }
 
 <div class="page-header">
@@ -15,90 +14,106 @@
     </h4>
 </div>
 <div class="row lotter-pannel">
-    <div class="col-md-6">
-        <div class="panel panel-info">
-            <div class="panel-heading">
-                北京PK10
-                <span class="pull-right">
-                    <span class="glyphicon glyphicon-time" aria-hidden="true"></span>&nbsp;
-                    <span id="timer-pk10" class="text-danger"></span>
-                </span>
-            </div>
-            <div class="panel-body pk10-panel">
-                <p class="hide">
-                    9:00 - 23:55 每5分钟一期，全天共179期
-                    当前期号: <strong class="text-danger pk-period"></strong>
-                </p>
-            </div>
-
-            <table class="table table-striped table-bordered table-hover table-condensed hide">
-                <thead>
-                    <tr>
-                        <th class="text-center">玩法</th>
-                        <th>预测号码</th>
-                        <th>追号</th>
-                        <th>中奖率</th>
-                        <th>连挂</th>
-                        <th>挂分</th>
-                        <th>重复分</th>
-                        <th>追号分</th>
-                        <th>综合分</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr id="champion">
-                        <td rowspan="2"><a href="/PK10/1">冠军</a></td>
-                    </tr>
-                    <tr></tr>
-                    <tr id="second">
-                        <td rowspan="2"><a href="/PK10/2">亚军</a></td>
-                    </tr>
-                    <tr></tr>
-                    <tr id="third">
-                        <td rowspan="2"><a href="/PK10/3">季军</a></td>
-                    </tr>
-                    <tr></tr>
-                    <tr id="fourth">
-                        <td rowspan="2"><a href="/PK10/4">第四名</a></td>
-                    </tr>
-                    <tr></tr>
-                    <tr id="bigOrSmall">
-                        <td rowspan="2"><a href="/PK10/5">冠军大小</a></td>
-                    </tr>
-                    <tr></tr>
-                    <tr id="oddOrEven">
-                        <td rowspan="2"><a href="/PK10/6">冠军单双</a></td>
-                    </tr>
-                    <tr></tr>
-                    <tr id="dragonOrTiger">
-                        <td rowspan="2"><a href="/PK10/7">冠军龙虎</a></td>
-                    </tr>
-                    <tr></tr>
-                    <tr id="sum">
-                        <td rowspan="2"><a href="/PK10/8">冠亚和值</a></td>
-                    </tr>
-                    <tr></tr>
-                </tbody>
-            </table>
+<div class="col-md-6">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            北京PK10
+            <span class="pull-right">
+                <span class="glyphicon glyphicon-time" aria-hidden="true"></span>&nbsp;
+                <span id="timer-pk10" class="text-danger"></span>
+            </span>
         </div>
+        <div class="panel-body pk10-panel">
+            <p class="hide">
+                9:00 - 23:55 每5分钟一期，全天共179期
+                当前期号: <strong class="text-danger pk-period"></strong>
+            </p>
+        </div>
+
+        <table class="table table-striped table-bordered table-hover table-condensed hide">
+            <thead>
+            <tr>
+                <th class="text-center">玩法</th>
+                <th>预测号码</th>
+                <th>追号</th>
+                <th>中奖率</th>
+                <th>连挂</th>
+                <th>挂分</th>
+                <th>重复分</th>
+                <th>追号分</th>
+                <th>综合分</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr id="champion">
+                <td rowspan="2">
+                    <a href="/PK10/1">冠军</a>
+                </td>
+            </tr>
+            <tr></tr>
+            <tr id="second">
+                <td rowspan="2">
+                    <a href="/PK10/2">亚军</a>
+                </td>
+            </tr>
+            <tr></tr>
+            <tr id="third">
+                <td rowspan="2">
+                    <a href="/PK10/3">季军</a>
+                </td>
+            </tr>
+            <tr></tr>
+            <tr id="fourth">
+                <td rowspan="2">
+                    <a href="/PK10/4">第四名</a>
+                </td>
+            </tr>
+            <tr></tr>
+            <tr id="bigOrSmall">
+                <td rowspan="2">
+                    <a href="/PK10/5">冠军大小</a>
+                </td>
+            </tr>
+            <tr></tr>
+            <tr id="oddOrEven">
+                <td rowspan="2">
+                    <a href="/PK10/6">冠军单双</a>
+                </td>
+            </tr>
+            <tr></tr>
+            <tr id="dragonOrTiger">
+                <td rowspan="2">
+                    <a href="/PK10/7">冠军龙虎</a>
+                </td>
+            </tr>
+            <tr></tr>
+            <tr id="sum">
+                <td rowspan="2">
+                    <a href="/PK10/8">冠亚和值</a>
+                </td>
+            </tr>
+            <tr></tr>
+            </tbody>
+        </table>
     </div>
-    <div class="col-md-6">
-        <div class="panel panel-success">
-            <div class="panel-heading">
-                重庆时时彩
-                <span class="pull-right">
-                    <span class="glyphicon glyphicon-time" aria-hidden="true"></span>&nbsp;
-                    <span class="text-danger">2:38</span>
-                </span>
-            </div>
-            <div class="panel-body">
-                <p class="lead">正在开发中...</p>
-                @*<p>
+</div>
+<div class="col-md-6">
+    <div class="panel panel-success">
+        <div class="panel-heading">
+            重庆时时彩
+            <span class="pull-right">
+                <span class="glyphicon glyphicon-time" aria-hidden="true"></span>&nbsp;
+                <span class="text-danger">2:38</span>
+            </span>
+        </div>
+        <div class="panel-body">
+            <p class="lead">正在开发中...</p>
+            @*<p>
                         每5/10分钟一期，全天120期
                         当前 <strong class=text-danger>83</strong> 期，剩余37期
                     </p>*@
-            </div>
-            @*
+        </div>
+        @*
                 <table class="table table-striped table-bordered table-hover table-condensed">
                     <thead>
                     <tr>
@@ -217,8 +232,8 @@
                     </tbody>
                 </table>
             *@
-        </div>
     </div>
+</div>
 </div>
 
 

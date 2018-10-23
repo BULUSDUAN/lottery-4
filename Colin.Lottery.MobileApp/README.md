@@ -47,7 +47,7 @@ $ cp -i platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk
 $ jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore lottery-release-key.jks app-release-unsigned.apk lottery
 
 # 优化
-$ cp -i app-release-unsigned.apk /Users/zhangcheng/Library/Developer/Xamarin/android-sdk-macosx/build-tools/27.0.3
+$ mv app-release-unsigned.apk /Users/zhangcheng/Library/Developer/Xamarin/android-sdk-macosx/build-tools/27.0.3
 $ cd /Users/zhangcheng/Library/Developer/Xamarin/android-sdk-macosx/build-tools/27.0.3
 $ ./zipalign -v 4 app-release-unsigned.apk pk10.apk
 
