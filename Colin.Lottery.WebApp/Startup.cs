@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Concurrent;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -13,7 +14,7 @@ using System.Linq;
 using Colin.Lottery.Models;
 using Colin.Lottery.Utils;
 using Microsoft.AspNetCore.HttpOverrides;
-using Microsoft.EntityFrameworkCore.Internal;
+using Microsoft.Extensions.Caching.Memory;
 using Newtonsoft.Json;
 
 namespace Colin.Lottery.WebApp
@@ -60,6 +61,9 @@ namespace Colin.Lottery.WebApp
 
             //services.AddScoped<PK10Hub>();
 
+            //启用内存缓存
+            services.AddMemoryCache();
+
             //启动策略
             var service = JinMaDataService.Instance;
             service.DataCollectedSuccess += Service_DataCollectedSuccess;
@@ -102,13 +106,23 @@ namespace Colin.Lottery.WebApp
                 //routes.MapHub<NotifyHub>("/hubs/notify");
             });
 
+
             _provider = app.ApplicationServices;
+            MemoryCache = GetService<IMemoryCache>();
             _pk10Context = GetService<IHubContext<PK10Hub>>();
         }
 
 
         private async void Service_DataCollectedSuccess(object sender, DataCollectedEventArgs e)
         {
+            //缓存计划
+            if (MemoryCache.TryGetValue(e.Lottery, out ConcurrentDictionary<int, List<IForecastPlanModel>> ps))
+                ps[(int) e.Rule] = e.Plans;
+            else
+                MemoryCache.Set(e.Lottery,
+                    new ConcurrentDictionary<int, List<IForecastPlanModel>>() {[(int) e.Rule] = e.Plans});
+
+
             //1.推送完整15期计划
             await _pk10Context.Clients.Group(e.Rule.ToString()).SendAsync("ShowPlans", e.Plans);
 
@@ -192,6 +206,7 @@ namespace Colin.Lottery.WebApp
             return _provider.GetService(typeof(T)) as T;
         }
 
+        public static IMemoryCache MemoryCache;
         private static IHubContext<PK10Hub> _pk10Context;
     }
 }

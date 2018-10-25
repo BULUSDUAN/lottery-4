@@ -1,3 +1,4 @@
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -5,48 +6,50 @@ using Colin.Lottery.Analyzers;
 using Colin.Lottery.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Caching.Memory;
 using Newtonsoft.Json;
+using Org.BouncyCastle.Crypto;
 
 namespace Colin.Lottery.WebApp.Pages
 {
     public class AppModel : PageModel
     {
-        public async Task<IActionResult> OnGetAppPlansAsync(int rule = 0)
-        {
-            var forecast = new List<IForecastModel>();
-            await GetNewForecast(forecast, Pk10Rule.Champion);
-            await GetNewForecast(forecast, Pk10Rule.Second);
-            await GetNewForecast(forecast, Pk10Rule.Third);
-            await GetNewForecast(forecast, Pk10Rule.Fourth);
+        private IMemoryCache _cache;
 
-            if (rule > 0)
+        public AppModel(IMemoryCache memoryCache)
+        {
+            _cache = memoryCache;
+        }
+
+        public async Task<IActionResult> OnGetAppPlansAsync(int lottery = 0, int rule = 0)
+        {
+            var forecasts = new List<IForecastModel>();
+
+            if (_cache.TryGetValue<ConcurrentDictionary<int, List<IForecastPlanModel>>>((LotteryType) lottery,
+                out var ps))
             {
-                await GetNewForecast(forecast, Pk10Rule.BigOrSmall);
-                await GetNewForecast(forecast, Pk10Rule.OddOrEven);
-                await GetNewForecast(forecast, Pk10Rule.DragonOrTiger);
+                var endRule = rule > 0 ? Pk10Rule.DragonOrTiger : Pk10Rule.Fourth;
+                for (var i = 1; i <= (int) endRule; i++)
+                {
+                    if (!ps.TryGetValue(i, out var plans))
+                        continue;
+
+                    plans.ForEach(p => forecasts.Add(p.ForecastData.LastOrDefault()));
+                }
             }
 
-            return Content(JsonConvert.SerializeObject(forecast));
+            return Content(JsonConvert.SerializeObject(forecasts));
         }
 
-        private static async Task GetNewForecast(ICollection<IForecastModel> newForecast, Pk10Rule rule)
+        public async Task<IActionResult> OnGetAppPlanDetailsAsync(int lottery = 0, int rule = 1)
         {
-            var plans = await JinMaAnalyzer.Instance.GetForecastData(LotteryType.Pk10, (int) rule);
-            if (plans == null || plans.Count < 2 || plans.Any(p => p == null))
-                return;
+            List<IForecastPlanModel> plans = null;
 
-            JinMaAnalyzer.Instance.CalcuteScore(plans);
-            plans.ForEach(p => newForecast.Add(p.ForecastData.LastOrDefault()));
-        }
+            if (_cache.TryGetValue<ConcurrentDictionary<int, List<IForecastPlanModel>>>((LotteryType) lottery,
+                out var ps))
+                ps.TryGetValue(rule, out plans);
 
-        public async Task<IActionResult> OnGetAppPlanDetailsAsync(int rule = 1)
-        {
-            var plans = await JinMaAnalyzer.Instance.GetForecastData(LotteryType.Pk10, rule);
-            if (plans == null || plans.Count() < 2 || plans.Any(p => p == null))
-                return null;
-
-            JinMaAnalyzer.Instance.CalcuteScore(plans);
-            return Content(JsonConvert.SerializeObject(plans));
+            return Content(JsonConvert.SerializeObject(plans ?? new List<IForecastPlanModel>()));
         }
     }
 }

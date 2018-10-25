@@ -13,14 +13,15 @@ namespace Colin.Lottery.Models
     public enum LotteryType
     {
         /// <summary>
-        /// 重庆时时彩
-        /// </summary>
-        Cqssc,
-
-        /// <summary>
         /// 北京赛车PK10
         /// </summary>
-        Pk10
+        Pk10 = 0,
+        
+        
+        /// <summary>
+        /// 重庆时时彩
+        /// </summary>
+        Cqssc = 1,
     }
 
     public enum CqsscRule
@@ -29,30 +30,37 @@ namespace Colin.Lottery.Models
         /// 单双
         /// </summary>
         OddOrEven = 1,
+
         /// <summary>
         /// 大小
         /// </summary>
         BigOrSmall = 2,
+
         /// <summary>
         /// 龙虎
         /// </summary>
         DragonOrTiger = 3,
+
         /// <summary>
         /// 后二组选
         /// </summary>
         Last2Group = 4,
+
         /// <summary>
         /// 后三组选
         /// </summary>
         Last3Group = 5,
+
         /// <summary>
         /// 个位单双
         /// </summary>
         OneOddOrEven = 6,
+
         /// <summary>
         /// 个位大小
         /// </summary>
         OneBigOrSmall = 7,
+
         /// <summary>
         /// 个位
         /// </summary>
@@ -67,43 +75,42 @@ namespace Colin.Lottery.Models
         /// <summary>
         /// 冠军
         /// </summary>
-        [Desc("冠军")]
-        Champion = 1,
+        [Desc("冠军")] Champion = 1,
+
         /// <summary>
         /// 亚军
         /// </summary>
-        [Desc("亚军")]
-        Second = 2,
+        [Desc("亚军")] Second = 2,
+
         /// <summary>
         /// 季军
         /// </summary>
-        [Desc("季军")]
-        Third = 3,
+        [Desc("季军")] Third = 3,
+
         /// <summary>
         /// 第四名
         /// </summary>
-        [Desc("第四名")]
-        Fourth = 4,
+        [Desc("第四名")] Fourth = 4,
+
         /// <summary>
         /// 冠军大小
         /// </summary>
-        [Desc("冠军大小")]
-        BigOrSmall = 5,
+        [Desc("冠军大小")] BigOrSmall = 5,
+
         /// <summary>
         /// 冠军单双
         /// </summary>
-        [Desc("冠军单双")]
-        OddOrEven = 6,
+        [Desc("冠军单双")] OddOrEven = 6,
+
         /// <summary>
         /// 冠军龙虎
         /// </summary>
-        [Desc("冠军龙虎")]
-        DragonOrTiger = 7,
+        [Desc("冠军龙虎")] DragonOrTiger = 7,
+
         /// <summary>
         /// 冠亚军和值
         /// </summary>
-        [Desc("冠亚军和值")]
-        Sum = 8
+        [Desc("冠亚军和值")] Sum = 8
     }
 
     public enum Pk10RuleType
@@ -155,14 +162,17 @@ namespace Colin.Lottery.Models
         /// 每期跟投
         /// </summary>
         Every,
+
         /// <summary>
         /// 大额挂结束
         /// </summary>
         HighEndGua,
+
         /// <summary>
         /// 小额挂结束
         /// </summary>
         LowEndGua,
+
         /// <summary>
         /// 相同号码
         /// </summary>
@@ -179,6 +189,7 @@ namespace Colin.Lottery.Models
         /// 文本格式
         /// </summary>
         Plain,
+
         /// <summary>
         /// HTML格式
         /// </summary>
@@ -224,6 +235,7 @@ namespace Colin.Lottery.Models
             [DragonOrTiger] = "冠军龙虎",
             [Sum] = "冠亚和值"
         };
+
         private static readonly Dictionary<CqsscRule, string> CqsscRules = new Dictionary<CqsscRule, string>
         {
             [CqsscRule.OddOrEven] = "总和单双",
@@ -238,39 +250,45 @@ namespace Colin.Lottery.Models
 
         public static string ToStringName(this Pk10Rule rule) => Pk10Rules[rule];
         public static string ToStringName(this CqsscRule rule) => CqsscRules[rule];
+
         public static string ToStringName(this int rule, LotteryType lottery)
         {
             switch (lottery)
             {
                 case LotteryType.Pk10:
-                    return ((Pk10Rule)rule).ToStringName();
+                    return ((Pk10Rule) rule).ToStringName();
                 case LotteryType.Cqssc:
-                    return ((CqsscRule)rule).ToStringName();
+                    return ((CqsscRule) rule).ToStringName();
             }
 
             throw new ArgumentException($"彩种 - “{lottery}” 暂不支持");
         }
 
         public static Pk10Rule ToPk10Rule(this string rule) => Pk10Rules.Keys.FirstOrDefault(r => Pk10Rules[r] == rule);
-        public static CqsscRule ToCqsscRule(this string rule) => CqsscRules.Keys.FirstOrDefault(r => CqsscRules[r] == rule);
+
+        public static CqsscRule ToCqsscRule(this string rule) =>
+            CqsscRules.Keys.FirstOrDefault(r => CqsscRules[r] == rule);
 
         public static Pk10RuleType ToPk10RuleType(this Pk10Rule rule) =>
-            (int)rule <= 4 ? Pk10RuleType.SingleNo : (rule == Sum ? Pk10RuleType.FirstAndSecondGroup : Pk10RuleType.TwoSides);
+            (int) rule <= 4
+                ? Pk10RuleType.SingleNo
+                : (rule == Sum ? Pk10RuleType.FirstAndSecondGroup : Pk10RuleType.TwoSides);
 
         private static readonly Dictionary<Planner, Plan> PlannerPlan = new Dictionary<Planner, Plan>
         {
             [Planner.Planner1] = Plan.PlanA,
             [Planner.Planner2] = Plan.PlanB
         };
+
         public static Plan GetPlan(this Planner planner) => PlannerPlan[planner];
 
-        public static int ToInt(this LotteryType lottery) => (int)lottery;
+        public static int ToInt(this LotteryType lottery) => (int) lottery;
 
-        public static int ToInt(this Plan plan) => (int)plan;
+        public static int ToInt(this Plan plan) => (int) plan;
 
-        public static int ToInt(this Pk10Rule rule) => (int)rule;
+        public static int ToInt(this Pk10Rule rule) => (int) rule;
 
-        public static int ToInt(this CqsscRule rule) => (int)rule;
+        public static int ToInt(this CqsscRule rule) => (int) rule;
     }
 
     /// <summary>
@@ -285,6 +303,7 @@ namespace Colin.Lottery.Models
         /// </summary>
         /// <value>字段或属性的中文解释.</value>
         public string Value { get; private set; }
+
         /// <summary>
         /// 初始化创建一个 <see cref="Desc"/> 类的实例, 用于指示字段或属性的解释说明.
         /// </summary>

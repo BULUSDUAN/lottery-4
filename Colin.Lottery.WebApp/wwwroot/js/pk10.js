@@ -38,26 +38,26 @@
         let container = $(template('planContainer')());
         container.append(template('planTemplate', data[0]));
         container.append(template('planTemplate', data[1]));
-        $(".tab-pane.active").html(container);
+        $(".tab-pane#" + rule).html(container);
     });
 
 
     //无数据返回
     connection.on("NoResult", () => {
         $(".tab-pane.active").html($(template('noResultTemplate')()));
-    });    
+    });
 
     //切换Tab加载数据
     $(".nav-tabs a").on("click", function () {
-        let id = $(this).attr("aria-controls");
-        loading(id);
-        connection.invoke('GetForecastData', id).catch(err => console.error(err.toString()));
+        rule = $(this).attr("aria-controls");
+        loading(rule);
+        connection.invoke('GetForecastData', rule).catch(err => console.error(err.toString()));
         //无刷新更新URL
-        history.replaceState(null, null, id);
+        history.replaceState(null, null, rule);
     });
 
     //加载动画
-    function loading(id) {
-        $(".tab-pane" + (!id ? ".active" : "#" + id)).html(template('planLoading')());
+    function loading() {
+        $(".tab-pane" + (!rule ? ".active" : "#" + rule)).html(template('planLoading')());
     }
 })();

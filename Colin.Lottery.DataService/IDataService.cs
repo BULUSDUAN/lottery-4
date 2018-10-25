@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
 using Colin.Lottery.Models;
 
 namespace Colin.Lottery.DataService
@@ -20,7 +19,7 @@ namespace Colin.Lottery.DataService
         /// <param name="typeRules">彩种和玩法</param>
         void Start(Dictionary<LotteryType, List<int>> typeRules);
 
-        
+
         /// <summary>
         /// 访问结束后
         /// </summary>
@@ -38,7 +37,7 @@ namespace Colin.Lottery.DataService
 
         public Exception Exception { get; set; }
 
-        public CollectErrorEventArgs(Pk10Rule rule,Exception exception)
+        public CollectErrorEventArgs(Pk10Rule rule, Exception exception)
         {
             this.Rule = rule;
             this.Exception = exception;
@@ -53,6 +52,7 @@ namespace Colin.Lottery.DataService
 
     public class DataCollectedEventArgs
     {
+        public LotteryType Lottery { get; }
         public Pk10Rule Rule { get; }
 
         /// <summary>
@@ -65,8 +65,9 @@ namespace Colin.Lottery.DataService
         /// </summary>
         public List<IForecastModel> LastForecastData => Plans.Select(p => p.ForecastData.LastOrDefault())?.ToList();
 
-        public DataCollectedEventArgs(Pk10Rule rule,List<IForecastPlanModel> plans)
+        public DataCollectedEventArgs(LotteryType lottery, Pk10Rule rule, List<IForecastPlanModel> plans)
         {
+            this.Lottery = lottery;
             this.Rule = rule;
             this.Plans = plans;
         }
