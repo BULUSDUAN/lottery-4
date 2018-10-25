@@ -21,7 +21,7 @@ namespace Colin.Lottery.WebApp.Pages
             _cache = memoryCache;
         }
 
-        public async Task<IActionResult> OnGetAppPlansAsync(int lottery = 0, int rule = 0)
+        public IActionResult OnGetAppPlans(int lottery = 0, int rule = 0)
         {
             var forecasts = new List<IForecastModel>();
 
@@ -41,7 +41,7 @@ namespace Colin.Lottery.WebApp.Pages
             return Content(JsonConvert.SerializeObject(forecasts));
         }
 
-        public async Task<IActionResult> OnGetAppPlanDetailsAsync(int lottery = 0, int rule = 1)
+        public IActionResult OnGetAppPlanDetails(int lottery = 0, int rule = 1)
         {
             List<IForecastPlanModel> plans = null;
 
