@@ -85,9 +85,9 @@
     <plugin name="cordova-plugin-ionic-keyboard" spec="^2.0.5" />
     <plugin name="cordova-plugin-advanced-http" spec="2.0.1" />
     <plugin name="cordova-sqlite-storage" spec="2.5.0" />
-    <plugin name="jpush-phonegap-plugin" spec="^3.4.5">
-        <variable name="APP_KEY" value="493d90bbbe59aeec73b99704" />
+    <plugin name="jpush-phonegap-plugin" spec="^3.4.6">
+        <variable name="APP_KEY" value="b58f580565828bd8e3ecd57e" />
     </plugin>
-    <engine name="android" spec="7.1.1" />
-    <engine name="ios" spec="4.5.5" />
+    <engine name="ios" spec="^4.5.5" />
+    <engine name="android" spec="^7.1.1" />
 </widget>

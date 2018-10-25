@@ -7,23 +7,24 @@ import {JPush} from '@jiguang-ionic/jpush';
 import {TabsPage} from '../pages/tabs/tabs';
 
 @Component({
-  templateUrl: 'app.html'
+    templateUrl: 'app.html'
 })
 export class AppComponent {
-  rootPage: any = TabsPage;
+    rootPage: any = TabsPage;
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, jpush: JPush) {
-    platform.ready().then(() => {
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
-      if (platform.is('android'))
-        statusBar.styleLightContent();
-      else
-        statusBar.styleDefault();
+    constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, jpush: JPush) {
+        platform.ready().then(() => {
+            // Okay, so the platform is ready and our plugins are available.
+            // Here you can do any higher level native things you might need.
+            if (platform.is('android'))
+                statusBar.styleLightContent();
+            else
+                statusBar.styleDefault();
 
-      splashScreen.hide();
+            splashScreen.hide();
 
-      jpush.init();
-    });
-  }
+            jpush.init();
+            // jpush.setDebugMode(true);
+        });
+    }
 }
