@@ -56,8 +56,31 @@ export class HomePage {
                     complete();
                     if (data.status != 200)
                         this.presentToast("请求数据失败。状态码:" + data.status);
-                    else
-                        this.forecasts = JSON.parse(data.data);
+                    else {
+                        let fcs = JSON.parse(data.data);
+                        let newPeriod = -1;
+                        for (let i = 0; i < fcs.length; i++) {
+                            let fc = fcs[i];
+                            //处理期号异常数据
+                            fc.LastDrawnPeriod =
+                                fc.LastDrawnPeriod % 1000 >= fc.LastPeriod
+                                    ? Math.floor(fc.LastDrawnPeriod / 1000) * 1000 + fc.LastPeriod - 1
+                                    : fc.LastDrawnPeriod;
+                            if (fc.LastDrawnPeriod <= newPeriod)
+                                continue;
+
+                            newPeriod = fc.LastDrawnPeriod;
+                        }
+                        let newFcs: any[] = [];
+                        for (let i = 0; i < fcs.length; i++) {
+                            let fc = fcs[i];
+                            if (fc.LastDrawnPeriod < newPeriod)
+                                continue;
+
+                            newFcs.push(fc);
+                        }
+                        this.forecasts = newFcs;
+                    }
                 })
                 .catch(error => {
                     complete();
@@ -76,6 +99,14 @@ export class HomePage {
             let plans: any[] = JSON.parse(message);
             if (!plans || plans.length <= 0) {
                 return;
+            }
+            //处理期号异常数据
+            for (let i = 0; i < plans.length; i++) {
+                let fc = plans[i];
+                fc.LastDrawnPeriod =
+                    fc.LastDrawnPeriod % 1000 >= fc.LastPeriod
+                        ? Math.floor(fc.LastDrawnPeriod / 1000) * 1000 + fc.LastPeriod - 1
+                        : fc.LastDrawnPeriod;
             }
 
             let allFcs = current.forecasts.concat(plans);
@@ -99,20 +130,30 @@ export class HomePage {
 
                 newFcs.push(fc);
             }
+            let rules = {'冠军': 1, '亚军': 2, '季军': 3, '第4名': 4, '冠军大小': 5, '冠军单双': 6, '冠军龙虎': 7};
+            let compare = function (fc1, fc2) {
+                if (rules[fc1.Rule] < rules[fc2.Rule])
+                    return -1;
+                else if (rules[fc1.Rule] > rules[fc2.Rule])
+                    return 1;
+                else {
+                    if (fc1.Plan < fc2.Plan)
+                        return -1;
+                    else if (fc1.Plan > fc2.Plan)
+                        return 1;
+                }
+                return 0;
+            };
+            newFcs.sort(compare);
             current.forecasts = newFcs;
             current.cdRef.detectChanges();
-        }, false)
+        }, false);
     }
 
     //查看详情
     viewDetailModal(rule, plan) {
         let profileModal = this.modalCtrl.create(DetailPage, {rule: rule, plan: plan});
         profileModal.present();
-    }
-
-    //下注
-    bet(index: number) {
-        alert('敬请期待');
     }
 
     //删除

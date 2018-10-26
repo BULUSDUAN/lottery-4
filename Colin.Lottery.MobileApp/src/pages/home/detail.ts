@@ -63,10 +63,6 @@ export class DetailPage {
         });
     }
 
-    bet() {
-        this.presentToast('敬请期待');
-    }
-
     switchSeg(seg) {
         this.plansSeg = seg;
     }

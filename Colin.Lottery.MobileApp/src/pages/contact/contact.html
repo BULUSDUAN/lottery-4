@@ -1,21 +1,26 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>
-      关于我们
-    </ion-title>
-  </ion-navbar>
+    <ion-navbar>
+        <ion-title>
+            我的
+        </ion-title>
+    </ion-navbar>
 </ion-header>
 
 <ion-content>
-  <ion-list>
-    <ion-list-header>关注我们</ion-list-header>
-    <ion-item>
-      <ion-icon name="logo-facebook" item-start></ion-icon>
-      colinchang.zc@gmail.com
-    </ion-item>
-    <ion-item>
-      <ion-icon name="logo-google" item-start></ion-icon>
-      zhangcheng5468@gmail.com
-    </ion-item>
-  </ion-list>
+    <ion-list>
+        <ion-list-header>自定义</ion-list-header>
+        <ion-item (click)="viewSettingslModal()" detail-push>
+            <ion-icon name="cog" item-start></ion-icon>
+            设置
+        </ion-item>
+        <ion-list-header>关注我们</ion-list-header>
+        <ion-item>
+            <ion-icon name="logo-facebook" item-start></ion-icon>
+            colinchang.zc@gmail.com
+        </ion-item>
+        <ion-item>
+            <ion-icon name="logo-google" item-start></ion-icon>
+            zhangcheng5468@gmail.com
+        </ion-item>
+    </ion-list>
 </ion-content>

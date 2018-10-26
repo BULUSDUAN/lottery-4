@@ -1,63 +1,59 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>PK10预测</ion-title>
-  </ion-navbar>
+    <ion-navbar>
+        <ion-title>PK10预测</ion-title>
+    </ion-navbar>
 </ion-header>
 
 <ion-content>
-  <ion-refresher (ionRefresh)="loadData($event)">
-    <ion-refresher-content></ion-refresher-content>
-  </ion-refresher>
-  <ion-list>
-    <ion-item-sliding *ngFor="let fc of forecasts;let i=index" (ionSwipe)="remove(i)">
-      <ion-item (click)="viewDetailModal(fc.Rule,fc.Plan)" no-lines [class.light]="i%2==0">
-        <ion-grid no-padding fixed>
-          <ion-row>
-            <ion-col col-3>
-              <strong>{{fc.Rule}} {{fc.Plan<=0?'A':'B'}}</strong>
-            </ion-col>
-            <ion-col col-3>
-              {{fc.LastDrawnPeriod+1}}期
-            </ion-col>
-            <ion-col col-4 text-left class="primary">
-              {{fc.ForecastNo}}
-              <span *ngIf="!isiOS" style="visibility:collapse">一</span>
-            </ion-col>
-            <ion-col text-end [ngClass]="{true:'warning',false:'danger'}[fc.RepetitionScore < 80]">
-              重{{fc.RepetitionScore}}%
-            </ion-col>
-          </ion-row>
+    <ion-refresher (ionRefresh)="loadData($event)">
+        <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+    <ion-list>
+        <ion-item-sliding *ngFor="let fc of forecasts;let i=index" (ionSwipe)="remove(i)">
+            <ion-item (click)="viewDetailModal(fc.Rule,fc.Plan)" no-lines [class.light]="i%2==0">
+                <ion-grid no-padding fixed>
+                    <ion-row>
+                        <ion-col col-3>
+                            <strong>{{fc.Rule}} {{fc.Plan<=0?'A':'B'}}</strong>
+                        </ion-col>
+                        <ion-col col-3>
+                            {{fc.LastDrawnPeriod+1}}期
+                        </ion-col>
+                        <ion-col col-4 text-left class="primary">
+                            {{fc.ForecastNo}}
+                            <span *ngIf="!isiOS" style="visibility:collapse">一</span>
+                        </ion-col>
+                        <ion-col text-end [ngClass]="{true:'warning',false:'danger'}[fc.RepetitionScore < 80]">
+                            重{{fc.RepetitionScore}}%
+                        </ion-col>
+                    </ion-row>
 
-          <ion-row [class.ios-margin]="isiOS">
-            <ion-col [class.danger]="fc.KeepGuaCnt >= 2">
-              {{fc.KeepGuaCnt}}连挂
-            </ion-col>
-            <ion-col>
-              第{{fc.ChaseTimesAfterEndGua}}段
-            </ion-col>
-            <ion-col>
-              追{{fc.ChaseTimes}}期
-            </ion-col>
-            <ion-col col-3 [class.danger]="fc.WinProbability >= 0.88">
-              胜{{(fc.WinProbability*100).toString().substr(0,5)}}%
-            </ion-col>
-            <ion-col col-3 text-end>
-              计{{fc.TotalCount}}
-            </ion-col>
-          </ion-row>
-        </ion-grid>
-      </ion-item>
-      <ion-item-options icon-start>
-        <button ion-button (click)="bet(i)">
-          <ion-icon name="logo-usd"></ion-icon>
-          下注
-        </button>
-        <button ion-button expandable color="danger" (click)="remove(i)">
-          <ion-icon name="trash"></ion-icon>
-          删除
-        </button>
-      </ion-item-options>
-    </ion-item-sliding>
-  </ion-list>
+                    <ion-row [class.ios-margin]="isiOS">
+                        <ion-col [class.danger]="fc.KeepGuaCnt >= 2">
+                            {{fc.KeepGuaCnt}}连挂
+                        </ion-col>
+                        <ion-col>
+                            第{{fc.ChaseTimesAfterEndGua}}段
+                        </ion-col>
+                        <ion-col>
+                            追{{fc.ChaseTimes}}期
+                        </ion-col>
+                        <ion-col col-3 [class.danger]="fc.WinProbability >= 0.88">
+                            胜{{(fc.WinProbability*100).toString().substr(0,5)}}%
+                        </ion-col>
+                        <ion-col col-3 text-end>
+                            计{{fc.TotalCount}}
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </ion-item>
+            <ion-item-options icon-start>
+                <button ion-button expandable color="danger" (click)="remove(i)">
+                    <ion-icon name="trash"></ion-icon>
+                    删除
+                </button>
+            </ion-item-options>
+        </ion-item-sliding>
+    </ion-list>
 
 </ion-content>

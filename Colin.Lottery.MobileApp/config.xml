@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="colin.lottery.mobileapp" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="colin.lottery.mobileapp" version="2.1.3" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>PK10策略助赢</name>
     <description>PK10策略助赢软件,提供PK10定位胆玩法预测</description>
     <author email="zhangcheng5468@gmail.com" href="http://colin-chang.site/">Colin Chang</author>
@@ -88,6 +88,8 @@
     <plugin name="jpush-phonegap-plugin" spec="^3.4.6">
         <variable name="APP_KEY" value="b58f580565828bd8e3ecd57e" />
     </plugin>
-    <engine name="ios" spec="^4.5.5" />
+    <plugin name="cordova-plugin-background-mode" spec="^0.7.2" />
+    <plugin name="cordova-plugin-autostart" spec="2.3.0" />
     <engine name="android" spec="^7.1.1" />
+    <engine name="ios" spec="4.5.5" />
 </widget>

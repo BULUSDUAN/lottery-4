@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {AlertController, ToastController} from 'ionic-angular';
+import {ToastController, ViewController, LoadingController} from 'ionic-angular';
 import {JPush} from "@jiguang-ionic/jpush";
 import {Storage} from '@ionic/storage';
 
@@ -8,14 +8,32 @@ import {Storage} from '@ionic/storage';
     templateUrl: 'settings.html'
 })
 export class SettingsPage {
+    presentLoader: any;
+    dismissLoader: any;
     sequence: number = 0;
     config: any;
     betPlatform: any[];
+    oldConfig: any = {};
 
-    constructor(public alertCtrl: AlertController,
+    constructor(public viewCtrl: ViewController,
                 public toastCtrl: ToastController,
+                public loadingCtrl: LoadingController,
                 public jpush: JPush,
                 private storage: Storage) {
+
+        //进度条
+        let loader;
+        this.presentLoader = function () {
+            loader = this.loadingCtrl.create({
+                content: "加载中...",
+            });
+            loader.present();
+        };
+        this.dismissLoader = function () {
+            loader.dismiss();
+        };
+
+        //默认配置
         this.betPlatform = [
             {name: '谦喜彩票(9.96)', url: 'https://qxbet.com/wap#/home'},
             {name: '大象彩(9.95)', url: 'https://da8088.com/mobile/#/home/'},
@@ -34,15 +52,60 @@ export class SettingsPage {
                 repetition: 80
             };
 
+        //加载配置
         storage.get('config').then(cfg => {
             if (!cfg)
                 storage.set('config', this.config);
             else
                 this.config = cfg;
+
+            for (let k in this.config)
+                this.oldConfig[k] = this.config[k];
+
+        }).catch(reason => {
+            this.presentToast('抱歉，加载配置出现错误，请稍后重试')
+            this.oldConfig = this.config;//引用复制，将不保存任何配置修改
         });
     }
 
-    onSave() {
+    goBack() {
+        this.viewCtrl.dismiss();
+    }
+
+    //保存配置
+    saveSettings() {
+        let jpushChanged = this.oldConfig.realTimeUpdate != this.config.realTimeUpdate
+            || this.oldConfig.twoSide != this.config.twoSide
+            || this.oldConfig.keepGuaAlert != this.config.keepGuaAlert
+            || (this.config.keepGuaAlert && this.oldConfig.keepGuaCnt != this.config.keepGuaCnt)
+            || this.oldConfig.repetitionAlert != this.config.repetitionAlert
+            || (this.config.repetitionAlert && this.oldConfig.repetition != this.config.repetition);
+
+        let baseChanged = this.oldConfig.initUrl != this.config.initUrl
+            || this.oldConfig.betPlatform != this.config.betPlatform;
+
+        if (!jpushChanged && baseChanged)
+            this.saveBaseSettings(null);
+        else if (jpushChanged)
+            this.saveJpushSettings(baseChanged);
+    }
+
+    //保存基本配置
+    saveBaseSettings(jpushErrMsg: string) {
+        this.oldConfig.initUrl = this.config.initUrl;
+        this.oldConfig.betPlatform = this.config.betPlatform;
+        this.storage.set('config', this.oldConfig);
+
+        let msg = "配置保存成功,重新打开后生效。";
+        msg += (!jpushErrMsg ? '' : '"更新配置"出错,错误信息:' + jpushErrMsg);
+
+        this.presentToast(msg);
+    }
+
+    //Jpush变更
+    saveJpushSettings(baseSettingsChanged: boolean) {
+        this.presentLoader();
+
         let tags: string[] = [];
         if (this.config.realTimeUpdate)
             tags.push('realtime');
@@ -58,57 +121,85 @@ export class SettingsPage {
             .then(data => {
                 if (tags.length <= 0) {
                     this.storage.set('config', this.config);
-                    this.presentToast("配置保存成功,但未开启数据更新");
+                    let msg = "配置保存成功。";
+                    this.dismissLoader();
+                    if (baseSettingsChanged)
+                        this.presentToast(msg + "重新打开后生效");
+                    else
+                        this.presentToast(msg);
                     return;
                 }
 
                 //重新设置Tags
-                this.setTags(tags);
+                this.setTags(tags, baseSettingsChanged);
             })
             .catch(err => {
-                this.saveExceptJpush("Tag清理失败" + "\nCode: " + err.code);
+                let msg = "Tag清理失败" + "\n错误码: " + err.code;
+                this.dismissLoader();
+
+                if (baseSettingsChanged)
+                    this.saveBaseSettings(msg);
+                else
+                    this.presentToast("配置保存失败。" + msg);
             });
     }
 
     //覆盖设置Tags
-    setTags(tagsName: string[]) {
+    setTags(tagsName: string[], baseSettingsChanged: boolean) {
         this.jpush
             .setTags({sequence: this.sequence++, tags: tagsName})
             .then(result => {
                 this.storage.set('config', this.config);
-                let tags: Array<string> = result.tags == null ? [] : result.tags;
-                this.presentToast("配置保存成功，并成功开启数据更新。注册标签组:\n" + tags.toString());
+                let msg = "配置保存成功。";
+                this.dismissLoader();
+                if (baseSettingsChanged)
+                    this.presentToast(msg + "重新打开后生效");
+                let tags: string[] = result.tags == null ? [] : result.tags;
+                this.presentToast(msg + "注册标签组:\n" + this.getTagsName(tags));
             })
             .catch(err => {
-                this.saveExceptJpush("Tag设置失败" + "\nCode: " + err.code);
+                let msg = "Tag设置失败" + "\n错误码: " + err.code;
+                this.dismissLoader();
+                if (baseSettingsChanged)
+                    this.saveBaseSettings(msg);
+                else
+                    this.presentToast("配置保存失败。" + msg);
             });
-    }
-
-    //保存基本配置(除Jpush操作)
-    saveExceptJpush(baseErrMsg: string) {
-        this.storage.get('config').then(cfg => {
-            let oldConfig = cfg;
-            oldConfig.initUrl = this.config.initUrl;
-            oldConfig.betPlatform = this.config.betPlatform;
-            this.storage.set('config', oldConfig);
-            this.presentToast("配置保存成功，但数据刚更新配置出现错误。错误信息:" + baseErrMsg);
-        }).catch(err => {
-            this.presentToast("配置保存失败,请联系管理员");
-        });
     }
 
     //获取所有Tags
     getAllTags() {
+        this.presentLoader();
         this.jpush
             .getAllTags({sequence: this.sequence++})
             .then(result => {
-                var sequence: number = result.sequence;
-                var tags: Array<string> = result.tags == null ? [] : result.tags;
-                this.presentToast("注册标签组: " + tags.toString());
+                let tags: string[] = result.tags == null ? [] : result.tags;
+                this.dismissLoader();
+                this.presentToast("注册标签组: " + this.getTagsName(tags));
             })
             .catch(err => {
-                this.presentToast("获取所有Tags失败" + "\nSequence: " + err.sequence + "\nCode: " + err.code);
+                this.dismissLoader();
+                this.presentToast("查询标签组失败" + "\n错误码: " + err.code);
             });
+    }
+
+    getTagsName(tags: string[]) {
+        let tagDict = {
+            'realtime': '实时更新',
+            'twoside': '两面盘',
+            'liangua1': '1连挂',
+            'liangua2': '2连挂',
+            'liangua3': '3连挂',
+            'liangua4': '4连挂',
+            'repetition60': '60%重复',
+            'repetition80': '80%重复',
+            'repetition100': '100%重复'
+        };
+        let names = [];
+        for (let i = 0; i < tags.length; i++)
+            names.push(tagDict[tags[i]]);
+
+        return names.toString();
     }
 
     //悬浮消息

@@ -148,7 +148,7 @@ namespace Colin.Lottery.WebApp
             plans.ForEach(async p =>
             {
                 var tags = new List<string>();
-                for (var i = 1; i <= 5; i++)
+                for (var i = 1; i <= 4; i++)
                 {
                     if (p.KeepGuaCnt < i)
                         break;

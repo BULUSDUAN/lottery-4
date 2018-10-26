@@ -64,7 +64,11 @@ $ rm -f app-release-unsigned.apk
 $ ionic cordova build ios --prod --release
 ```
 具体使用不同版本证书发布请流程请自行百度。
-
+> ToubleShotting
+```
+Terminating app due to uncaught exception 'NSUnknownKeyException', reason: '[<WKWebViewConfiguration 0x103e1b5b0> setValue:forUndefinedKey:]: this class is not key value coding-compliant for the key _requiresUserActionForMediaPlayback.'
+```
+出现类似错误解决方案：https://www.cnblogs.com/crazyprogrammer/p/7874866.html
 
 # My Opinion
 

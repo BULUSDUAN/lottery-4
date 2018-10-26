@@ -6,6 +6,8 @@ import {JPush} from '@jiguang-ionic/jpush';
 import {Device} from "@ionic-native/device";
 import {HTTP} from '@ionic-native/http';
 import {IonicStorageModule} from '@ionic/storage';
+import {BackgroundMode} from '@ionic-native/background-mode';
+import { Autostart } from '@ionic-native/autostart';
 
 import {ContactPage} from '../pages/contact/contact';
 import {SettingsPage} from '../pages/settings/settings';
@@ -48,6 +50,8 @@ import {SplashScreen} from '@ionic-native/splash-screen';
         JPush,
         Device,
         HTTP,
+        BackgroundMode,
+        Autostart,
         {provide: ErrorHandler, useClass: IonicErrorHandler}
     ]
 })
