@@ -50,28 +50,33 @@ function getLastParameter() {
     return location.pathname.split('/').pop();
 }
 
-function notify(title, content) {
+function notifyMe(title, content) {
     if (!title || !content) {
         console.error('消息通知参数错误');
         return;
     }
 
-    let options = {body: content, icon: '/images/logo.png'};
+    let options = { body: content, icon: '/images/logo.png' };
+    let timeout = 3000;
 
     // 先检查浏览器是否支持
     if (!("Notification" in window))
         alert("抱歉，您的浏览器不支持通知提醒");
 
     // 检查用户是否同意接受通知
-    else if (Notification.permission === "granted")
-        new Notification(title, options);
+    else if (Notification.permission === "granted") {
+        var n = new Notification(title, options);
+        setTimeout(n.close.bind(n), timeout);
+    }
 
     // 否则我们需要向用户获取权限
     else if (Notification.permission === 'default') {
         Notification.requestPermission(function (permission) {
             // 如果用户同意，就可以向他们发送通知
-            if (permission === "granted") 
-                new Notification(title, options);
+            if (permission === "granted") {
+                var n = new Notification(title, options);
+                setTimeout(n.close.bind(n), timeout);
+            }
         });
     }
     // 最后，如果执行到这里，说明用户已经拒绝对相关通知进行授权
