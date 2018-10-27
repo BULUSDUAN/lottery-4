@@ -11,7 +11,10 @@ import {DetailPage} from "./detail";
 })
 export class HomePage {
     isiOS: boolean;
+    ready: boolean = false;
+    srcUrl: string;
     forecasts: any[] = [];
+
 
     constructor(
         public toastCtrl: ToastController,
@@ -29,10 +32,24 @@ export class HomePage {
         this.receiveMessage();
     }
 
+    ionViewWillEnter() {
+        if (!this.ready)
+            return;
+
+        this.storage.get('config').then(config => {
+            let url = (!config || !config.initUrl) ? 'http://bet518.win' : config.initUrl;
+            if (this.srcUrl.indexOf(url) >= 0)
+                return;
+
+            this.loadData();
+        });
+    }
+
     //加载数据
     loadData(refresher?) {
         //进度条
         let complete;
+        let current = this;
         if (!refresher) {
             const loader = this.loadingCtrl.create({
                 content: "加载中...",
@@ -40,6 +57,7 @@ export class HomePage {
             loader.present();
             complete = function () {
                 loader.dismiss()
+                current.ready = true;
             };
         }
         else {
@@ -49,9 +67,9 @@ export class HomePage {
         }
 
         this.storage.get('config').then(config => {
-            let url: string = (!config || !config.initUrl) ? 'http://bet518.win' : config.initUrl;
+            this.srcUrl = (!config || !config.initUrl) ? 'http://bet518.win' : config.initUrl;
             let requireTwoSide: number = (!config || !config.twoSide) ? 0 : (config.twoSide ? 1 : 0);
-            this.http.get(url + '/App/AppPlans/0/' + requireTwoSide, {}, {})
+            this.http.get(this.srcUrl + '/App/Plans/0/' + requireTwoSide, {}, {})
                 .then(data => {
                     complete();
                     if (data.status != 200)

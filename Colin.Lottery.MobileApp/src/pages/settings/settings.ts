@@ -96,7 +96,7 @@ export class SettingsPage {
         this.oldConfig.betPlatform = this.config.betPlatform;
         this.storage.set('config', this.oldConfig);
 
-        let msg = "配置保存成功,重新打开后生效。";
+        let msg = "配置保存成功。";
         msg += (!jpushErrMsg ? '' : '"更新配置"出错,错误信息:' + jpushErrMsg);
 
         this.presentToast(msg);
@@ -124,7 +124,7 @@ export class SettingsPage {
                     let msg = "配置保存成功。";
                     this.dismissLoader();
                     if (baseSettingsChanged)
-                        this.presentToast(msg + "重新打开后生效");
+                        this.presentToast(msg);
                     else
                         this.presentToast(msg);
                     return;
@@ -153,7 +153,7 @@ export class SettingsPage {
                 let msg = "配置保存成功。";
                 this.dismissLoader();
                 if (baseSettingsChanged)
-                    this.presentToast(msg + "重新打开后生效");
+                    this.presentToast(msg);
                 let tags: string[] = result.tags == null ? [] : result.tags;
                 this.presentToast(msg + "注册标签组:\n" + this.getTagsName(tags));
             })

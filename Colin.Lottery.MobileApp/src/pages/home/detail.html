@@ -10,11 +10,12 @@
         </ion-title>
     </ion-navbar>
     <ion-toolbar *ngIf="isiOS">
-        <ion-segment [(ngModel)]="plansSeg">
-            <ion-segment-button *ngFor="let plan of plans"
-                                value="{{plan.Plan}}"
-                                [class.segment-activated]="plansSeg==plan.Plan"
-                                (click)="switchSeg(plan.Plan)">
+        <ion-segment [(ngModel)]="plansSeg" color="light">
+            <ion-segment-button
+                    *ngFor="let plan of plans"
+                    value="{{plan.Plan}}"
+                    [class.segment-activated]="plansSeg==plan.Plan"
+                    (click)="switchSeg(plan.Plan)">
                 Plan {{plan.Plan==0?'A':'B'}}
             </ion-segment-button>
         </ion-segment>

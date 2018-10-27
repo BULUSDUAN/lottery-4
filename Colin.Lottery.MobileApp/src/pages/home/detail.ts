@@ -40,7 +40,7 @@ export class DetailPage {
 
         this.storage.get('config').then(config => {
             let url: string = (!config || !config.initUrl) ? 'http://bet518.win' : config.initUrl;
-            this.http.get(url + '/App/AppPlanDetails/0/' + rule, {}, {})
+            this.http.get(url + '/App/PlanDetails/0/' + rule, {}, {})
                 .then(data => {
                     loader.dismiss();
 

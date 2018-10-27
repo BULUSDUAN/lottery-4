@@ -68,7 +68,7 @@ $ ionic cordova build ios --prod --release
 ```
 Terminating app due to uncaught exception 'NSUnknownKeyException', reason: '[<WKWebViewConfiguration 0x103e1b5b0> setValue:forUndefinedKey:]: this class is not key value coding-compliant for the key _requiresUserActionForMediaPlayback.'
 ```
-出现类似错误解决方案：https://www.cnblogs.com/crazyprogrammer/p/7874866.html
+出现类似错误解决方案：https://www.cnblogs.com/caiyaming/p/9211420.html
 
 # My Opinion
 
