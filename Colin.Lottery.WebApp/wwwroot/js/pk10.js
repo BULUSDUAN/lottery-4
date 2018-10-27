@@ -26,6 +26,31 @@
             console.error(error.message);
         });
 
+    /*
+     * 是否显示浏览器通知
+     */
+    function showBrowserNotify(data) {
+        var rule = data[0]['rule'];
+        data.forEach(function (sourceArr) {
+            var reverseArray = sourceArr['forecastData'].reverse();
+            var chaseOnlyOneTimeCount = 0;
+            for (var idx = 0; idx < reverseArray.length; idx++) {
+                var elem = reverseArray[idx];
+                if (elem['chaseTimes'] == 1) {
+                    chaseOnlyOneTimeCount++;
+                } else {
+                    break;
+                }
+            }
+
+            if (chaseOnlyOneTimeCount > 3) {
+                notifyMe(rule, sourceArr['name'] + ' : ' + (chaseOnlyOneTimeCount - 1).toString() + "  +  1 ");
+            }
+
+            sourceArr['forecastData'].reverse();
+        });
+    }
+
     //显示预测数据
     connection.on("ShowPlans", (data) => {
         if (!data || data.length < 2) {
@@ -34,6 +59,8 @@
         }
         data[0].name = "Plan A";
         data[1].name = "Plan B";
+
+        //showBrowserNotify(data);
 
         let container = $(template('planContainer')());
         container.append(template('planTemplate', data[0]));
