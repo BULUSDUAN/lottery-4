@@ -21,7 +21,7 @@ namespace Colin.Lottery.WebApp.Pages
             _cache = memoryCache;
         }
 
-        public IActionResult OnGetAppPlans(int lottery = 0, int rule = 0)
+        public IActionResult OnGetPlans(int lottery = 0, int rule = 0)
         {
             var forecasts = new List<IForecastModel>();
 
@@ -41,7 +41,7 @@ namespace Colin.Lottery.WebApp.Pages
             return Content(JsonConvert.SerializeObject(forecasts));
         }
 
-        public IActionResult OnGetAppPlanDetails(int lottery = 0, int rule = 1)
+        public IActionResult OnGetPlanDetails(int lottery = 0, int rule = 1)
         {
             List<IForecastPlanModel> plans = null;
 

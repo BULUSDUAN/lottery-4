@@ -63,7 +63,7 @@ export class SettingsPage {
                 this.oldConfig[k] = this.config[k];
 
         }).catch(reason => {
-            this.presentToast('抱歉，加载配置出现错误，请稍后重试')
+            this.presentToast('抱歉，加载配置出现错误，请稍后重试');
             this.oldConfig = this.config;//引用复制，将不保存任何配置修改
         });
     }
@@ -96,8 +96,8 @@ export class SettingsPage {
         this.oldConfig.betPlatform = this.config.betPlatform;
         this.storage.set('config', this.oldConfig);
 
-        let msg = "配置保存成功。";
-        msg += (!jpushErrMsg ? '' : '"更新配置"出错,错误信息:' + jpushErrMsg);
+        let msg = "配置保存成功";
+        msg += (!jpushErrMsg ? '' : '。"更新配置"出错,错误信息:' + jpushErrMsg);
 
         this.presentToast(msg);
     }
@@ -121,12 +121,8 @@ export class SettingsPage {
             .then(data => {
                 if (tags.length <= 0) {
                     this.storage.set('config', this.config);
-                    let msg = "配置保存成功。";
                     this.dismissLoader();
-                    if (baseSettingsChanged)
-                        this.presentToast(msg);
-                    else
-                        this.presentToast(msg);
+                    this.presentToast("配置保存成功");
                     return;
                 }
 
@@ -150,12 +146,9 @@ export class SettingsPage {
             .setTags({sequence: this.sequence++, tags: tagsName})
             .then(result => {
                 this.storage.set('config', this.config);
-                let msg = "配置保存成功。";
                 this.dismissLoader();
-                if (baseSettingsChanged)
-                    this.presentToast(msg);
                 let tags: string[] = result.tags == null ? [] : result.tags;
-                this.presentToast(msg + "注册标签组:\n" + this.getTagsName(tags));
+                this.presentToast("配置保存成功" + "。注册标签组:\n" + this.getTagsName(tags));
             })
             .catch(err => {
                 let msg = "Tag设置失败" + "\n错误码: " + err.code;
