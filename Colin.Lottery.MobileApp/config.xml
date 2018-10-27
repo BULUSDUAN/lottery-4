@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="colin.lottery.mobileapp" version="3.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="colin.lottery.mobileapp" version="3.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>PK10策略助赢</name>
     <description>PK10策略助赢软件,提供PK10定位胆玩法预测</description>
     <author email="zhangcheng5468@gmail.com" href="http://colin-chang.site/">Colin Chang</author>
