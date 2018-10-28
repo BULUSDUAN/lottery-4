@@ -65,13 +65,13 @@ namespace Colin.Lottery.Collectors
 
         public override async Task<IDrawCollectionModel> GetDrawNoHistory(LotteryType type)
         {
-            var response = await HttpUtil.GetStringAsync(GetHistoryUrl(type));
+            var response = await HttpUtil.GetAsync(GetHistoryUrl(type));
             return JsonConvert.DeserializeObject<JinMaLotteryModelCollection>(response);
         }
 
         public static async Task<IForecastPlanModel> GetForecastData(LotteryType type, Planner planer, int rule)
         {
-            var response = await HttpUtil.GetStringAsync(GetForecastUrl(type, planer, rule));
+            var response = await HttpUtil.GetAsync(GetForecastUrl(type, planer, rule));
             try
             {
                 if (string.IsNullOrWhiteSpace(response))

@@ -145,6 +145,7 @@ namespace Colin.Lottery.WebApp
             await JPushUtil.PushMessageAsync("PK10最新预测", JsonConvert.SerializeObject(plans), realTimeAudience);
 
             //连挂提醒
+            string msg;
             plans.ForEach(async p =>
             {
                 var tags = new List<string>();
@@ -156,17 +157,17 @@ namespace Colin.Lottery.WebApp
                     tags.Add($"liangua{i}");
                 }
 
+                msg = $"{p.LastDrawnPeriod + 1}期 {p.Rule} {p.KeepGuaCnt}连挂 {p.ForecastNo}";
                 if (tags.Any())
                 {
                     var audience = isTwoSide
                         ? new {tag = tags, tag_and = new string[] {"twoside"}}
                         : (object) new {tag = tags};
-                    await JPushUtil.PushNotificationAsync(
-                        "PK10连挂提醒",
-                        $"{p.LastDrawnPeriod + 1}期 {p.Rule} {p.KeepGuaCnt}连挂 {p.ForecastNo}",
-                        audience
-                    );
+                    await JPushUtil.PushNotificationAsync("PK10连挂提醒", msg, audience);
                 }
+
+                if (p.KeepGuaCnt >= Convert.ToInt32(ConfigUtil.Configuration["TelegramBot:MinKeepGua"]))
+                    await TelegramBot.SendMessageAsync(msg);
             });
 
             //重复度提醒
@@ -183,12 +184,12 @@ namespace Colin.Lottery.WebApp
                 repetition.Add($"repetition{i}");
             }
 
+            msg =
+                $"{plan.LastDrawnPeriod + 1}期 {plan.Rule} 重{plan.RepetitionScore}% {plan.ForecastNo}/{plans.LastOrDefault().ForecastNo}";
             if (repetition.Any())
-                await JPushUtil.PushNotificationAsync(
-                    "PK10高重复提醒",
-                    $"{plan.LastDrawnPeriod + 1}期 {plan.Rule} 重{plan.RepetitionScore}% {plan.ForecastNo}/{plans.LastOrDefault().ForecastNo}",
-                    new {tag = repetition}
-                );
+                await JPushUtil.PushNotificationAsync("PK10高重复提醒", msg, new {tag = repetition});
+            if (plan.RepetitionScore >= Convert.ToInt32(ConfigUtil.Configuration["TelegramBot:MinRepetition"]))
+                await TelegramBot.SendMessageAsync(msg);
         }
 
         private static async void Service_DataCollectedError(object sender, CollectErrorEventArgs e)
