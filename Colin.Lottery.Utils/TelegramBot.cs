@@ -6,12 +6,12 @@ using Newtonsoft.Json;
 
 namespace Colin.Lottery.Utils
 {
-    public static class TelegramBot
+    public static class TelegramBotUtil
     {
         private static readonly string Url;
         private static readonly dynamic Content;
 
-        static TelegramBot()
+        static TelegramBotUtil()
         {
             Url = $"https://api.telegram.org/bot{ConfigUtil.Configuration["TelegramBot:Token"]}/sendMessage";
             Content = new ExpandoObject();

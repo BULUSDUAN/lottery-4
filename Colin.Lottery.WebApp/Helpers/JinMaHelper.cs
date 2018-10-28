@@ -110,7 +110,7 @@ namespace Colin.Lottery.WebApp.Helpers
                 }
 
                 if (p.KeepGuaCnt >= MinKeepGua)
-                    await TelegramBot.SendMessageAsync(msg);
+                    await TelegramBotUtil.SendMessageAsync(msg);
             });
 
             //重复度提醒
@@ -133,7 +133,7 @@ namespace Colin.Lottery.WebApp.Helpers
                 await JPushUtil.PushNotificationAsync("PK10高重复提醒", msg, new {tag = repetition});
 
             if (plan.RepetitionScore >= MinRepetition)
-                await TelegramBot.SendMessageAsync(msg);
+                await TelegramBotUtil.SendMessageAsync(msg);
         }
 
 
