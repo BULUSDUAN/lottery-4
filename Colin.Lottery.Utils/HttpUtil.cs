@@ -10,12 +10,12 @@ namespace Colin.Lottery.Utils
     {
         public static async Task<string> GetAsync(string url)
         {
-            return await RequestAsync(url, null, "get", null);
+            return await RequestAsync(url, null, "get", TimeSpan.FromMinutes(5));
         }
 
         public static async Task<string> PostAsync(string url, object parameter)
         {
-            return await RequestAsync(url, parameter, "post", null);
+            return await RequestAsync(url, parameter, "post", TimeSpan.FromMinutes(1));
         }
 
         private static async Task<string> RequestAsync(string url, object parameter, string method, TimeSpan? timeout)
@@ -29,9 +29,7 @@ namespace Colin.Lottery.Utils
                 try
                 {
                     if (string.Equals(method, "get", StringComparison.OrdinalIgnoreCase))
-                    {
                         response = await hc.GetAsync(url);
-                    }
                     else if (string.Equals(method, "post", StringComparison.OrdinalIgnoreCase))
                     {
                         var content = new StringContent(JsonConvert.SerializeObject(parameter), Encoding.UTF8,
@@ -48,7 +46,7 @@ namespace Colin.Lottery.Utils
                 }
                 catch (Exception ex)
                 {
-                    LogUtil.Warn($"网络请求出错,错误消息:{ex.Message},堆栈信息:{ex.StackTrace}");
+                    LogUtil.Warn($"网络请求出错{url},错误消息:{ex.Message},堆栈信息:{ex.StackTrace}");
                     return null;
                 }
             }

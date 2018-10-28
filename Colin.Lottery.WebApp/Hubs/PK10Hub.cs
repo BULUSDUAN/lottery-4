@@ -12,7 +12,7 @@ namespace Colin.Lottery.WebApp.Hubs
 {
     public class PK10Hub : BaseHub<PK10Hub>
     {
-        private static IMemoryCache _cache = Startup.MemoryCache;
+        private static readonly IMemoryCache Cache = Startup.GetService<IMemoryCache>();
 
         /// <summary>
         /// 获取指定玩法预测数据(最近15段)并订阅玩法 Web端详情页调用
@@ -22,7 +22,7 @@ namespace Colin.Lottery.WebApp.Hubs
         public async Task GetForecastData(int rule = 1)
         {
             List<IForecastPlanModel> plans = null;
-            if (_cache.TryGetValue<ConcurrentDictionary<int, List<IForecastPlanModel>>>(LotteryType.Pk10,
+            if (Cache.TryGetValue<ConcurrentDictionary<int, List<IForecastPlanModel>>>(LotteryType.Pk10,
                 out var ps))
                 ps.TryGetValue(rule, out plans);
             if (plans == null)
@@ -42,7 +42,7 @@ namespace Colin.Lottery.WebApp.Hubs
         public async Task GetAllNewForecast()
         {
             var forecasts = new List<IForecastModel>();
-            if (_cache.TryGetValue<ConcurrentDictionary<int, List<IForecastPlanModel>>>(LotteryType.Pk10,
+            if (Cache.TryGetValue<ConcurrentDictionary<int, List<IForecastPlanModel>>>(LotteryType.Pk10,
                 out var ps))
             {
                 for (var i = 1; i <= (int) Pk10Rule.Sum; i++)
@@ -72,7 +72,7 @@ namespace Colin.Lottery.WebApp.Hubs
         {
             await Groups.RemoveFromGroupAsync(Context.ConnectionId, "AllRules");
             Lotterys.Pk10Rules.ForEach(async rule =>
-                await Groups.RemoveFromGroupAsync(Context.ConnectionId, ((Pk10Rule) rule).ToString()));
+                await Groups.RemoveFromGroupAsync(Context.ConnectionId, rule.ToString()));
 
             await base.OnDisconnectedAsync(exception);
         }

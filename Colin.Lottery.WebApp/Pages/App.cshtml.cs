@@ -1,14 +1,11 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Colin.Lottery.Analyzers;
 using Colin.Lottery.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Caching.Memory;
 using Newtonsoft.Json;
-using Org.BouncyCastle.Crypto;
 
 namespace Colin.Lottery.WebApp.Pages
 {
@@ -25,11 +22,11 @@ namespace Colin.Lottery.WebApp.Pages
         {
             var forecasts = new List<IForecastModel>();
 
-            if (_cache.TryGetValue<ConcurrentDictionary<int, List<IForecastPlanModel>>>((LotteryType) lottery,
+            if (_cache.TryGetValue<ConcurrentDictionary<int, List<IForecastPlanModel>>>((LotteryType)lottery,
                 out var ps))
             {
                 var endRule = rule > 0 ? Pk10Rule.DragonOrTiger : Pk10Rule.Fourth;
-                for (var i = 1; i <= (int) endRule; i++)
+                for (var i = 1; i <= (int)endRule; i++)
                 {
                     if (!ps.TryGetValue(i, out var plans))
                         continue;
@@ -45,7 +42,7 @@ namespace Colin.Lottery.WebApp.Pages
         {
             List<IForecastPlanModel> plans = null;
 
-            if (_cache.TryGetValue<ConcurrentDictionary<int, List<IForecastPlanModel>>>((LotteryType) lottery,
+            if (_cache.TryGetValue<ConcurrentDictionary<int, List<IForecastPlanModel>>>((LotteryType)lottery,
                 out var ps))
                 ps.TryGetValue(rule, out plans);
 

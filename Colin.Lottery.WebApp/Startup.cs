@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Colin.Lottery.Models;
 using Colin.Lottery.Utils;
+using Colin.Lottery.WebApp.Helpers;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.Extensions.Caching.Memory;
 using Newtonsoft.Json;
@@ -29,7 +30,7 @@ namespace Colin.Lottery.WebApp
         public static IConfiguration Configuration { get; private set; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public async void ConfigureServices(IServiceCollection services)
+        public void ConfigureServices(IServiceCollection services)
         {
             services.Configure<CookiePolicyOptions>(options =>
             {
@@ -52,27 +53,17 @@ namespace Colin.Lottery.WebApp
             services.AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-            //services.AddSignalR(hubOptions =>
-            //{
-            //    hubOptions.KeepAliveInterval = TimeSpan.FromMinutes(10);
-            //})
-            //.AddMessagePackProtocol();
-            services.AddSignalR();
+            services.AddSignalR(hubOptions => hubOptions.KeepAliveInterval = TimeSpan.FromMinutes(15));
+            //services.AddSignalR();
 
             //services.AddScoped<PK10Hub>();
 
             //启用内存缓存
             services.AddMemoryCache();
-
-            //启动策略
-            var service = JinMaDataService.Instance;
-            service.DataCollectedSuccess += Service_DataCollectedSuccess;
-            service.DataCollectedError += Service_DataCollectedError;
-            await service.Start();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public async void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -106,108 +97,18 @@ namespace Colin.Lottery.WebApp
                 //routes.MapHub<NotifyHub>("/hubs/notify");
             });
 
-
             _provider = app.ApplicationServices;
-            MemoryCache = GetService<IMemoryCache>();
-            _pk10Context = GetService<IHubContext<PK10Hub>>();
-        }
 
-
-        private async void Service_DataCollectedSuccess(object sender, DataCollectedEventArgs e)
-        {
-            //缓存计划
-            if (MemoryCache.TryGetValue(e.Lottery, out ConcurrentDictionary<int, List<IForecastPlanModel>> ps))
-                ps[(int) e.Rule] = e.Plans;
-            else
-                MemoryCache.Set(e.Lottery,
-                    new ConcurrentDictionary<int, List<IForecastPlanModel>>() {[(int) e.Rule] = e.Plans});
-
-
-            //1.推送完整15期计划
-            await _pk10Context.Clients.Group(e.Rule.ToString()).SendAsync("ShowPlans", e.Plans);
-
-            //2.推送最新期计划
-            await _pk10Context.Clients.Group("AllRules").SendAsync("ShowPlans", e.LastForecastData);
-
-            //3.推送App消息
-            if (e.Rule == Pk10Rule.Sum)
-                return;
-
-            var plans = e.LastForecastData;
-            if (plans == null || !plans.Any())
-                return;
-            bool isTwoSide = (int) e.Rule > 4;
-
-            //实时更新
-            var realTimeAudience = isTwoSide
-                ? new {tag_and = new string[] {"realtime", "twoside"}}
-                : (object) new {tag = new string[] {"realtime"}};
-            await JPushUtil.PushMessageAsync("PK10最新预测", JsonConvert.SerializeObject(plans), realTimeAudience);
-
-            //连挂提醒
-            string msg;
-            plans.ForEach(async p =>
-            {
-                var tags = new List<string>();
-                for (var i = 1; i <= 4; i++)
-                {
-                    if (p.KeepGuaCnt < i)
-                        break;
-
-                    tags.Add($"liangua{i}");
-                }
-
-                msg = $"{p.LastDrawnPeriod + 1}期 {p.Rule} {p.KeepGuaCnt}连挂 {p.ForecastNo}";
-                if (tags.Any())
-                {
-                    var audience = isTwoSide
-                        ? new {tag = tags, tag_and = new string[] {"twoside"}}
-                        : (object) new {tag = tags};
-                    await JPushUtil.PushNotificationAsync("PK10连挂提醒", msg, audience);
-                }
-
-                if (p.KeepGuaCnt >= Convert.ToInt32(ConfigUtil.Configuration["TelegramBot:MinKeepGua"]))
-                    await TelegramBot.SendMessageAsync(msg);
-            });
-
-            //重复度提醒
-            if (isTwoSide)
-                return;
-
-            var repetition = new List<string>();
-            var plan = plans.FirstOrDefault();
-            for (var i = 60; i <= 100; i += 20)
-            {
-                if (plan.RepetitionScore < i)
-                    break;
-
-                repetition.Add($"repetition{i}");
-            }
-
-            msg =
-                $"{plan.LastDrawnPeriod + 1}期 {plan.Rule} 重{plan.RepetitionScore}% {plan.ForecastNo}/{plans.LastOrDefault().ForecastNo}";
-            if (repetition.Any())
-                await JPushUtil.PushNotificationAsync("PK10高重复提醒", msg, new {tag = repetition});
-            if (plan.RepetitionScore >= Convert.ToInt32(ConfigUtil.Configuration["TelegramBot:MinRepetition"]))
-                await TelegramBot.SendMessageAsync(msg);
-        }
-
-        private static async void Service_DataCollectedError(object sender, CollectErrorEventArgs e)
-        {
-            await _pk10Context.Clients.Groups(new List<string> {e.Rule.ToString(), "AllRules"})
-                .SendAsync("NoResult", e.Rule.ToStringName());
-            LogUtil.Warn("目标网站扫水接口异常，请尽快检查恢复");
+            //启动策略
+            await JinMaHelper.StartService();
         }
 
 
         private static IServiceProvider _provider;
 
-        private static T GetService<T>() where T : class
+        public static T GetService<T>() where T : class
         {
             return _provider.GetService(typeof(T)) as T;
         }
-
-        public static IMemoryCache MemoryCache;
-        private static IHubContext<PK10Hub> _pk10Context;
     }
 }
