@@ -27,7 +27,7 @@
         </ion-item>
         <ion-list-header>
             数据更新
-            <button disabled ion-button outline item-end round icon-start (click)="getAllTags()">
+            <button ion-button outline item-end round icon-start (click)="getAllTags()">
                 <ion-icon name="eye"></ion-icon>
                 Tags
             </button>
@@ -35,15 +35,15 @@
 
         <ion-item>
             <ion-label>实时更新</ion-label>
-            <ion-toggle disabled [(ngModel)]="config.realTimeUpdate"></ion-toggle>
+            <ion-toggle [(ngModel)]="config.realTimeUpdate"></ion-toggle>
         </ion-item>
         <ion-item>
             <ion-label>关注两面盘</ion-label>
-            <ion-toggle disabled [(ngModel)]="config.twoSide"></ion-toggle>
+            <ion-toggle [(ngModel)]="config.twoSide"></ion-toggle>
         </ion-item>
         <ion-item>
             <ion-label>连挂提醒</ion-label>
-            <ion-toggle disabled [(ngModel)]="config.keepGuaAlert"></ion-toggle>
+            <ion-toggle [(ngModel)]="config.keepGuaAlert"></ion-toggle>
         </ion-item>
         <ion-item>
             <ion-range [disabled]="!config.keepGuaAlert" min="1" max="4" step="1" snaps="true" pin="true" color="secondary"
@@ -52,7 +52,7 @@
         </ion-item>
         <ion-item>
             <ion-label>重复度提醒</ion-label>
-            <ion-toggle disabled [(ngModel)]="config.repetitionAlert"></ion-toggle>
+            <ion-toggle [(ngModel)]="config.repetitionAlert"></ion-toggle>
         </ion-item>
         <ion-item>
             <ion-range [disabled]="!config.repetitionAlert" min="60" max="100" step="20" pin="true" snaps="true" color="secondary"

@@ -68,7 +68,7 @@ export class HomePage {
 
         this.storage.get('config').then(config => {
             this.srcUrl = (!config || !config.initUrl) ? 'http://bet518.win' : config.initUrl;
-            let requireTwoSide: number = (!config || !config.twoSide) ? 1 : (config.twoSide ? 1 : 0);
+            let requireTwoSide: number = (!config || !config.twoSide) ? 0 : (config.twoSide ? 1 : 0);
             this.http.get(this.srcUrl + '/App/Plans/0/' + requireTwoSide, {}, {})
                 .then(data => {
                     complete();

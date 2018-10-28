@@ -45,7 +45,7 @@ export class SettingsPage {
                 initUrl: "http://bet518.win",
                 betPlatform: this.betPlatform[0].url,
                 realTimeUpdate: false,
-                twoSide: true,
+                twoSide: false,
                 keepGuaAlert: false,
                 keepGuaCnt: 2,
                 repetitionAlert: false,
