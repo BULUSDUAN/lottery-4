@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Concurrent;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -7,16 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Colin.Lottery.WebApp.Hubs;
-using Colin.Lottery.DataService;
-using Microsoft.AspNetCore.SignalR;
-using System.Collections.Generic;
-using System.Linq;
-using Colin.Lottery.Models;
-using Colin.Lottery.Utils;
 using Colin.Lottery.WebApp.Helpers;
 using Microsoft.AspNetCore.HttpOverrides;
-using Microsoft.Extensions.Caching.Memory;
-using Newtonsoft.Json;
 
 namespace Colin.Lottery.WebApp
 {
