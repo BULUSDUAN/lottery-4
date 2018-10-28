@@ -12,7 +12,7 @@
         <LangVersion>Latest</LangVersion>
     </PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.App" Version="2.1.2" />
+        <PackageReference Include="Microsoft.AspNetCore.App" Version="2.1.5" />
     </ItemGroup>
     <ItemGroup>
         <ProjectReference Include="..\Colin.Lottery.DataService\Colin.Lottery.DataService.csproj" />
@@ -25,8 +25,8 @@
         <Folder Include="wwwroot\lib\art-template\" />
     </ItemGroup>
     <ItemGroup>
-      <None Remove="wwwroot\js\ssr\base64.js" />
-      <None Remove="wwwroot\images\ssr\andriod-guid.gif" />
+        <None Remove="wwwroot\js\ssr\base64.js" />
+        <None Remove="wwwroot\images\ssr\andriod-guid.gif" />
     </ItemGroup>
     <ItemGroup>
         <None Include="wwwroot\js\settings.js" />
