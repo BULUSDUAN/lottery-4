@@ -91,7 +91,7 @@ namespace Colin.Lottery.WebApp
             _provider = app.ApplicationServices;
 
             //启动策略
-//            await JinMaHelper.StartService();
+            await JinMaHelper.StartService();
         }
 
 
