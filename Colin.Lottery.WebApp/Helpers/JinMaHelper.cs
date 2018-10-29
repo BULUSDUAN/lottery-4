@@ -100,7 +100,7 @@ namespace Colin.Lottery.WebApp.Helpers
                     tags.Add($"liangua{i}");
                 }
 
-                msg = $"{p.LastDrawnPeriod + 1}期 {p.Rule} {p.KeepGuaCnt}连挂 {p.ForecastNo}";
+                msg = $"{p.KeepGuaCnt}连挂 {p.LastDrawnPeriod + 1}期 {p.Rule} {p.ForecastNo}";
                 if (tags.Any())
                 {
                     var audience = isTwoSide
@@ -128,9 +128,9 @@ namespace Colin.Lottery.WebApp.Helpers
             }
 
             msg =
-                $"{plan.LastDrawnPeriod + 1}期 {plan.Rule} 重{plan.RepetitionScore}% {plan.ForecastNo}/{plans.LastOrDefault().ForecastNo}";
+                $"重{plan.RepetitionScore}% {plan.LastDrawnPeriod + 1}期 {plan.Rule} {plan.ForecastNo}/{plans.LastOrDefault().ForecastNo}";
             if (repetition.Any())
-                await JPushUtil.PushNotificationAsync("PK10高重复提醒", msg, new {tag = repetition});
+                await JPushUtil.PushNotificationAsync("PK10高重提醒", msg, new {tag = repetition});
 
             if (plan.RepetitionScore >= MinRepetition)
                 await TelegramBotUtil.SendMessageAsync(msg);

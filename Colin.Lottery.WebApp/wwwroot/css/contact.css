@@ -1,0 +1,33 @@
+.contact {
+    margin-top: 15px;
+    list-style-type: none;
+    padding-left: 0;
+    line-height: 28px;
+}
+
+.iconfont {
+    margin-right: 10px;
+}
+
+.icon-telegram {
+    color: #3DABE4;
+}
+
+.icon-google {
+    color: #DB5048;
+}
+
+.icon-Facebook {
+    color: #4469B0;
+}
+
+.icon-andriod {
+    color: #9ABE4E;
+    font-size: 115%;
+    margin: 0;
+}
+
+.download {
+    position: relative;
+    top: 30px;
+}

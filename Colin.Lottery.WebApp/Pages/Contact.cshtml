@@ -3,10 +3,15 @@
     ViewData["Title"] = "关于我们";
 }
 
+@section Styles {
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_680567_g15fsqqh6l6.css"/>
+    <link rel="stylesheet" href="css/contact.css"/>
+}
+
 
 <div class="page-header">
     <h4>
-        关于我们
+        订阅我们
         <small>联系我们以获得更多帮助</small>
     </h4>
 </div>
@@ -14,15 +19,30 @@
 <div class="container">
     <div class="media">
         <div class="media-body">
-            <h4 class="media-heading">联系我们</h4>
-            <address>
-                <strong>Support:</strong> <a href="mailto:zhangcheng5468@gmail.com">zhangcheng5468@gmail.com</a><br />
-                <strong>Marketing:</strong> <a href="mailto:zhangcheng5468@gmail.com">zhangcheng5468@gmail.com</a>
-            </address>
+            <h4 class="media-heading">订阅频道/联系我们</h4>
+            <ul class="contact">
+                <li>
+                    <i class="iconfont icon-telegram"></i><a target="_blank" href="https://t.me/pk10forecast">https://t.me/pk10forecast</a>「官方预测广播频道」
+                </li>
+                <li>
+                    <i class="iconfont icon-telegram"></i><a target="_blank" href="https://t.me/joinchat/G0Zq5g1K9jQLr8fJhcmHNg">https://t.me/joinchat/G0Zq5g1K9jQLr8fJhcmHNg</a>「官方交流群」
+                </li>
+                <li>
+                    <i class="iconfont icon-google"></i> <a href="mailto:zhangcheng5468@gmail.com">zhangcheng5468@gmail.com</a>
+                </li>
+                <li>
+                    <i class="iconfont icon-Facebook"></i><a target="_blank" href="https://www.facebook.com/colinchang.zc"> colinchang.zc@gmail.com</a>
+                </li>
+            </ul>
+            <h4 class="media-heading download">
+                扫码下载APP
+                <i class="iconfont icon-andriod"></i>
+                <i class="iconfont icon-xiangyou text-info"></i>
+            </h4>
         </div>
         <div class="media-right">
-            <a href="#">
-                <img class="media-object" src="/images/wechat.jpg" style="height:250px;" alt="微信二维码">
+            <a href="/app/download/android">
+                <img class="media-object" src="/images/android_download.png" style="height: 250px;" alt="微信二维码">
             </a>
         </div>
     </div>
