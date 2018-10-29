@@ -88,7 +88,6 @@ namespace Colin.Lottery.WebApp.Helpers
             await JPushUtil.PushMessageAsync("PK10最新预测", JsonConvert.SerializeObject(plans), realTimeAudience);
 
             //连挂提醒
-            string msg;
             plans.ForEach(async p =>
             {
                 var tags = new List<string>();
@@ -100,7 +99,7 @@ namespace Colin.Lottery.WebApp.Helpers
                     tags.Add($"liangua{i}");
                 }
 
-                msg = $"{p.KeepGuaCnt}连挂 {p.LastDrawnPeriod + 1}期 {p.Rule} {p.ForecastNo}";
+                var msg = $"{p.KeepGuaCnt}连挂 {p.LastDrawnPeriod + 1}期 {p.Rule} {p.ForecastNo}";
                 if (tags.Any())
                 {
                     var audience = isTwoSide
@@ -127,13 +126,13 @@ namespace Colin.Lottery.WebApp.Helpers
                 repetition.Add($"repetition{i}");
             }
 
-            msg =
+            var rMsg =
                 $"重{plan.RepetitionScore}% {plan.LastDrawnPeriod + 1}期 {plan.Rule} {plan.ForecastNo}/{plans.LastOrDefault().ForecastNo}";
             if (repetition.Any())
-                await JPushUtil.PushNotificationAsync("PK10高重提醒", msg, new {tag = repetition});
+                await JPushUtil.PushNotificationAsync("PK10高重提醒", rMsg, new {tag = repetition});
 
             if (plan.RepetitionScore >= MinRepetition)
-                await TelegramBotUtil.SendMessageAsync(msg);
+                await TelegramBotUtil.SendMessageAsync(rMsg);
         }
 
 
