@@ -49,13 +49,13 @@ $ jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore lottery-relea
 # 优化
 $ mv app-release-unsigned.apk /Users/zhangcheng/Library/Developer/Xamarin/android-sdk-macosx/build-tools/27.0.3
 $ cd /Users/zhangcheng/Library/Developer/Xamarin/android-sdk-macosx/build-tools/27.0.3
-$ ./zipalign -v 4 app-release-unsigned.apk pk10.apk
+$ ./zipalign -v 4 app-release-unsigned.apk treasure_in_hand.apk
 
 # 审核
-$ ./apksigner verify pk10.apk
+$ ./apksigner verify treasure_in_hand.apk
 
 # 清理
-$ mv pk10.apk ~/Desktop
+$ mv treasure_in_hand.apk ~/Desktop
 $ rm -f app-release-unsigned.apk
 ```
 
