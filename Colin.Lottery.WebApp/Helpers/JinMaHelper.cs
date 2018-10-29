@@ -77,8 +77,6 @@ namespace Colin.Lottery.WebApp.Helpers
                 return;
 
             var plans = e.LastForecastData;
-            if (plans == null || !plans.Any())
-                return;
             bool isTwoSide = (int) e.Rule > 4;
 
             //实时更新

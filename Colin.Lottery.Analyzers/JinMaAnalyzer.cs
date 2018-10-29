@@ -33,7 +33,11 @@ namespace Colin.Lottery.Analyzers
         {
             var planA = await GetForecastData(type, Planner.Planner1, rule);
             var planB = await GetForecastData(type, Planner.Planner2, rule);
-            return new List<IForecastPlanModel>{planA,planB};
+
+            if (planA == null || planB == null || planA.LastDrawnPeriod != planB.LastDrawnPeriod)
+                return null;
+
+            return new List<IForecastPlanModel> {planA, planB};
         }
 
         public override async Task<List<IForecastPlanModel>> GetForecastData(LotteryType type)
@@ -103,27 +107,28 @@ namespace Colin.Lottery.Analyzers
         */
 
         private static readonly AnalyzeConfig Config = ConfigUtil.GetAppSettings<AnalyzeConfig>("AnalyzeConfig");
+
         public override void CalcuteScore(List<IForecastPlanModel> plans)
         {
-            if (plans == null || plans.Count<2)
-            return;            
-
-            var repetition = CalcuteRepetition(plans[0].ForecastDrawNo,plans[1].ForecastDrawNo);
+            var repetition = CalcuteRepetition(plans[0].ForecastDrawNo, plans[1].ForecastDrawNo);
             plans.ForEach(plan =>
             {
                 plan.RepetitionScore = repetition;
-                plan.GuaScore = CalculateGua(plan.ForecastData, out var keepGuaCnt,out var chaseTimesAfterEndGua,out var keepGuaingCnt);
+                plan.GuaScore = CalculateGua(plan.ForecastData, out var keepGuaCnt, out var chaseTimesAfterEndGua,
+                    out var keepGuaingCnt);
                 plan.KeepGuaCnt = keepGuaCnt;
                 plan.ChaseTimesAfterEndGua = chaseTimesAfterEndGua;
                 plan.KeepGuaingCnt = keepGuaingCnt;
                 plan.BetChaseScore = CalcuteBetChase(plan.ForecastData.LastOrDefault().ChaseTimes);
-                
+
                 if (plan.GuaScore >= 90 || repetition >= Config.Repetition)
                     plan.Score = 100;
                 else
                 {
-                    var score = (plan.GuaScore * Config.Pgb + repetition * Config.Prb + plan.BetChaseScore * Config.Pcb) * (plan.WinProbability - Config.MinPrpbability) /
-                                (Config.MaxPrpbability - Config.MinPrpbability);
+                    var score =
+                        (plan.GuaScore * Config.Pgb + repetition * Config.Prb + plan.BetChaseScore * Config.Pcb) *
+                        (plan.WinProbability - Config.MinPrpbability) /
+                        (Config.MaxPrpbability - Config.MinPrpbability);
                     plan.Score = repetition >= Config.Repetition ? repetition : score;
                 }
             });
@@ -138,7 +143,8 @@ namespace Colin.Lottery.Analyzers
         /// <param name="chaseTimesAfterEndGua">第几段跟投(连挂结束后)</param>
         /// <param name="keepGuaingCnt">连挂次数(连挂中)</param>
         /// <returns></returns>
-        private static float CalculateGua(IReadOnlyCollection<IForecastModel> forecastData, out int keepGuaCnt,out int chaseTimesAfterEndGua,out int keepGuaingCnt)
+        private static float CalculateGua(IReadOnlyCollection<IForecastModel> forecastData, out int keepGuaCnt,
+            out int chaseTimesAfterEndGua, out int keepGuaingCnt)
         {
             float total = 0;
             //从最新期开始连挂次数
@@ -177,7 +183,7 @@ namespace Colin.Lottery.Analyzers
                     var baseScore = validGua >= Config.KeepGuaTime
                         ? Config.Gua
                         : (1 - (Config.KeepGuaTime - validGua) * Config.DeltaReduce) * Config.Gua;
-                    total += baseScore - (firstValidWrongIndex+1) * Config.DeltaReduce * Config.Gua;
+                    total += baseScore - (firstValidWrongIndex + 1) * Config.DeltaReduce * Config.Gua;
 
                     keepGuaCnt = validGua;
                 }
@@ -204,7 +210,9 @@ namespace Colin.Lottery.Analyzers
             var n2 = no2.Split(' ').ToList();
             n2.ForEach(n => repetition.Add(n));
 
-            return float.Parse((Config.Repetition * (n2.Count * 2 - repetition.Count) * 1.0 / n2.Count).ToString(CultureInfo.InvariantCulture));
+            return float.Parse(
+                (Config.Repetition * (n2.Count * 2 - repetition.Count) * 1.0 / n2.Count).ToString(CultureInfo
+                    .InvariantCulture));
         }
 
         /// <summary>

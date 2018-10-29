@@ -1,10 +1,10 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
-
 using Newtonsoft.Json;
-
 using Colin.Lottery.Utils;
 using Colin.Lottery.Models;
+using OpenQA.Selenium.Internal;
 
 
 namespace Colin.Lottery.Collectors
@@ -49,7 +49,7 @@ namespace Colin.Lottery.Collectors
         private static string GetForecastUrl(LotteryType type, Planner planner, int rule)
         {
             var format =
-                $"{RootUrl}ajax_getapi.php?type={{0}}{((int)planner > 1 ? ((int)planner).ToString() : string.Empty)}&a={rule}&t=0.{new Random().Next()}";
+                $"{RootUrl}ajax_getapi.php?type={{0}}{((int) planner > 1 ? ((int) planner).ToString() : string.Empty)}&a={rule}&t=0.{new Random().Next()}";
 
             switch (type)
             {
@@ -76,9 +76,20 @@ namespace Colin.Lottery.Collectors
             {
                 if (string.IsNullOrWhiteSpace(response))
                     return null;
-                
+
                 var result = JsonConvert.DeserializeObject<JinMaForecastPlanModel>(response);
                 result.Plan = planer.GetPlan();
+                if (result.ForecastData != null && result.ForecastData.Any())
+                {
+                    var current = result.ForecastData.LastOrDefault();
+                    var pn = current.LastDrawnPeriod % 1000 >= current.LastPeriod
+                        ? current.LastPeriod / 1000 * 1000 + current.LastPeriod - 1
+                        : current.LastDrawnPeriod;
+
+                    current.LastDrawnPeriod = pn;
+                    result.LastDrawnPeriod = pn;
+                }
+
                 return result;
             }
             catch (Exception ex)

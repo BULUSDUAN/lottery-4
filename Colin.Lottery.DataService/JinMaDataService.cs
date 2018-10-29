@@ -76,7 +76,7 @@ namespace Colin.Lottery.DataService
             //大管家Job，负责创建每期的扫水Job
             var stewardJob = QuartzUtil.CreateSimpleJob($"{prefix}_Steward_Job", $"{LotteryType.Pk10}_JobGroup",
                 Scan);
-            
+
             /* 
              * 北京赛车时间为每天9:00到23:50，每5分钟开一期，共179期 (北京时间)
              * 
@@ -89,13 +89,10 @@ namespace Colin.Lottery.DataService
             var pk10Trigger = QuartzUtil.CreateTrigger($"{LotteryType.Pk10}_{Guid.NewGuid()}", "JinMaTrigger",
                 $"0 1/5 {ToLocalHour(1)}-{ToLocalHour(15)} * * ?");
 
-            //启动立即扫水(第一次初始化数据)
-            Scan();
             //启动定时扫水
             await QuartzUtil.GetScheduler().ScheduleJob(stewardJob, pk10Trigger);
-            
-            
-            
+
+
             async void Scan()
             {
                 var timestamp = DateTime.UtcNow;
@@ -115,7 +112,10 @@ namespace Colin.Lottery.DataService
 
                         //超时自毁
                         if ((DateTime.UtcNow - timestamp).TotalMinutes > 5)
+                        {
                             QuartzUtil.DeleteJob(JobName, JobGroup);
+                            return;
+                        }
 
                         //扫水
                         var task = JinMaAnalyzer.Instance.GetForecastData(LotteryType.Pk10, (int) rule);
@@ -124,20 +124,18 @@ namespace Colin.Lottery.DataService
                         /*
                         * 如果目标网站接口正常，每次都可以扫到结果，即使没有更新最新期预测数据。所以如果没有扫水结果，说明目标网站接口出错
                         */
-                        if (plans == null || plans.Count < 2 || plans.Any(p => p == null))
+                        if (plans == null)
                         {
                             DataCollectedError?.Invoke(this, new CollectErrorEventArgs(rule, "目标网站扫水接口异常，请尽快检查恢复"));
                             return;
                         }
 
-                        JinMaAnalyzer.Instance.CalcuteScore(plans);
-
                         if (plans.Any(p => p.LastDrawnPeriod + 1 < periodNo)) return;
 
+                        JinMaAnalyzer.Instance.CalcuteScore(plans);
                         DataCollectedSuccess?.Invoke(this,
                             new DataCollectedEventArgs(LotteryType.Pk10, rule, plans));
                         QuartzUtil.DeleteJob(JobName, JobGroup);
-//                       Console.WriteLine($"删除任务:{JobName}\t{System.Threading.Thread.CurrentThread.ManagedThreadId}");
                     }
                 }, "0/5 * * * * ? *");
             }
