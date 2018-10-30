@@ -43,8 +43,8 @@
                 }
             }
 
-            if (chaseOnlyOneTimeCount > 3) {
-                notifyMe(rule, sourceArr['name'] + ' : ' + (chaseOnlyOneTimeCount - 1).toString() + "  +  1 ");
+            if (chaseOnlyOneTimeCount >= 3) {
+                notifyMe(rule, sourceArr['name'] + ' : +' + (chaseOnlyOneTimeCount - 1).toString());
             }
 
             sourceArr['forecastData'].reverse();
