@@ -79,11 +79,6 @@ export class HomePage {
                         let newPeriod = -1;
                         for (let i = 0; i < fcs.length; i++) {
                             let fc = fcs[i];
-                            //处理期号异常数据
-                            fc.LastDrawnPeriod =
-                                fc.LastDrawnPeriod % 1000 >= fc.LastPeriod
-                                    ? Math.floor(fc.LastDrawnPeriod / 1000) * 1000 + fc.LastPeriod - 1
-                                    : fc.LastDrawnPeriod;
                             if (fc.LastDrawnPeriod <= newPeriod)
                                 continue;
 
@@ -117,14 +112,6 @@ export class HomePage {
             let plans: any[] = JSON.parse(message);
             if (!plans || plans.length <= 0) {
                 return;
-            }
-            //处理期号异常数据
-            for (let i = 0; i < plans.length; i++) {
-                let fc = plans[i];
-                fc.LastDrawnPeriod =
-                    fc.LastDrawnPeriod % 1000 >= fc.LastPeriod
-                        ? Math.floor(fc.LastDrawnPeriod / 1000) * 1000 + fc.LastPeriod - 1
-                        : fc.LastDrawnPeriod;
             }
 
             let allFcs = current.forecasts.concat(plans);
