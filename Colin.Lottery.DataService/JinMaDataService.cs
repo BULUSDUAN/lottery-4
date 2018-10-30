@@ -86,8 +86,9 @@ namespace Colin.Lottery.DataService
              * 9-23(GMT+08:00)  =>  1-15(UTC)
             */
 
-            var pk10Trigger = QuartzUtil.CreateTrigger($"{LotteryType.Pk10}_{Guid.NewGuid()}", "JinMaTrigger",
-                $"0 1/5 {ToLocalHour(1)}-{ToLocalHour(15)} * * ?");
+            var pk10Trigger = QuartzUtil.CreateTrigger(prefix, "JinMaTrigger",
+                $"0 1/5 {1.ToLocalHour()}-{15.ToLocalHour()} * * ?");
+
 
             //启动定时扫水
             await QuartzUtil.GetScheduler().ScheduleJob(stewardJob, pk10Trigger);
@@ -97,23 +98,24 @@ namespace Colin.Lottery.DataService
             {
                 var timestamp = DateTime.UtcNow;
                 var periodNo = Pk10Scheduler.Instance.GetPeriodNo(timestamp);
-                var tempJob = $"{prefix}_Scan_{periodNo}";
-                var (JobName, JobGroup, _, _) = tempJob.JobAndTriggerNames();
-                var obj = new Object();
+                var locked = new RulePeriodLocked(rule, periodNo);
 
-                await QuartzUtil.ScheduleSimpleJob(tempJob, () =>
+                var jobTrigger = $"{prefix}_Scan_{periodNo}".ToJobTrigger();
+                var trigger = QuartzUtil.CreateTrigger(jobTrigger.Trigger, "0/5 * * * * ? *");
+                var job = QuartzUtil.CreateSimpleJob(jobTrigger.Job, () =>
                 {
                     //避免第一轮任务执行未完成时第二轮任务开始执行,锁定 同一种玩法同一期 任务
-                    lock (obj)
+                    lock (locked)
                     {
                         //Job废弃
-                        if (!QuartzUtil.CanExecute(JobName, JobGroup))
+                        if (locked.Finished)
                             return;
 
                         //超时自毁
                         if ((DateTime.UtcNow - timestamp).TotalMinutes > 5)
                         {
-                            QuartzUtil.DeleteJob(JobName, JobGroup);
+                            QuartzUtil.TryDestroyJob(jobTrigger).Wait();
+                            locked.Finish();
                             return;
                         }
 
@@ -122,35 +124,47 @@ namespace Colin.Lottery.DataService
                         task.Wait();
                         var plans = task.Result;
                         /*
-                        * 如果目标网站接口正常，每次都可以扫到结果，即使没有更新最新期预测数据。所以如果没有扫水结果，说明目标网站接口出错
+                        * 如果目标网站接口正常，每次都可以扫到结果，即使没有更新最新期预测数据。所以如果没有扫水结果，说明目标网站接口出错或扫到到数据异常
                         */
                         if (plans == null)
                         {
-                            DataCollectedError?.Invoke(this, new CollectErrorEventArgs(rule, "目标网站扫水接口异常，请尽快检查恢复"));
+                            DataCollectedError?.Invoke(this, new CollectErrorEventArgs(rule, "扫水异常或数据数据错误"));
                             return;
                         }
 
-                        if (plans.Any(p => p.LastDrawnPeriod + 1 < periodNo)) return;
+                        //扫到老数据
+                        if (plans.Any(p => p.LastDrawnPeriod + 1 < periodNo))
+                            return;
 
+                        //成功扫到最新数据
                         JinMaAnalyzer.Instance.CalcuteScore(plans);
                         DataCollectedSuccess?.Invoke(this,
                             new DataCollectedEventArgs(LotteryType.Pk10, rule, plans));
-                        QuartzUtil.DeleteJob(JobName, JobGroup);
+
+                        //扫水成功自毁
+                        QuartzUtil.TryDestroyJob(jobTrigger).Wait();
+                        locked.Finish();
                     }
-                }, "0/5 * * * * ? *");
-            }
+                });
 
-            int ToLocalHour(int utcHour)
+                await QuartzUtil.GetScheduler().ScheduleJob(job, trigger);
+            }
+        }
+
+        class RulePeriodLocked
+        {
+            public Pk10Rule Rule { get; }
+            public long PeriodNo { get; }
+            public bool Finished { get; set; }
+
+            public RulePeriodLocked(Pk10Rule rule, long periodNo)
             {
-                var delta = (int) Math.Ceiling((DateTime.Now - DateTime.UtcNow).TotalHours);
-                utcHour += delta;
-                if (utcHour < 0)
-                    utcHour += 24;
-                else if (utcHour >= 24)
-                    utcHour -= 24;
-
-                return utcHour;
+                Rule = rule;
+                PeriodNo = periodNo;
+                Finished = false;
             }
+
+            public void Finish() => Finished = true;
         }
     }
 }

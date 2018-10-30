@@ -4,9 +4,9 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
+using System.Security.Permissions;
 using System.Threading;
 using System.Threading.Tasks;
-
 using Quartz;
 using Quartz.Impl;
 using Quartz.Impl.Matchers;
@@ -18,29 +18,26 @@ namespace Colin.Lottery.Utils
         /// <summary>
         /// 废弃的Job
         /// </summary>
-        public static ConcurrentBag<string> ObsoleteJobs { get; set; }
+        private static ConcurrentBag<JobTrigger> ObsoleteJobs { get; set; }
+
         static QuartzUtil()
         {
-            ObsoleteJobs = new ConcurrentBag<string>();
+            ObsoleteJobs = new ConcurrentBag<JobTrigger>();
 
             async void ClearObsoleteJobs()
             {
                 await ScheduleSimpleJob("ClearObsoleteJobs", async () =>
-                  {
-                      if (!ObsoleteJobs.TryPeek(out string jobKey))
-                          return;
-
-                      bool deleted = await GetScheduler().DeleteJob(jobKey.ToJobKey());
-                      if (deleted)
-                          ObsoleteJobs.TryTake(out string _);
-                  }, "0/5 * * * * ? *");
+                {
+                    if (ObsoleteJobs.TryTake(out var jobTrigger))
+                        await TryDestroyJob(jobTrigger);
+                }, $"0 4/5 {1.ToLocalHour()}-{15.ToLocalHour()} * * ?");
             }
+
             ClearObsoleteJobs();
         }
 
-        public static bool CanExecute(string jobName, string jobGroup) => !QuartzUtil.ObsoleteJobs.Contains(new JobKey(jobName, jobGroup).ToStringName());
         /// <summary>
-        /// 获取全局唯一Scheduler(GlobleScheduler)
+        /// 获取全局唯一Scheduler(GlobalScheduler)
         /// </summary>
         /// <returns></returns>
         public static IScheduler GetScheduler()
@@ -70,35 +67,44 @@ namespace Colin.Lottery.Utils
         /// <summary>
         /// 创建一个通用Job
         /// </summary>
-        /// <param name="name">名称</param>
-        /// <param name="group">分组</param>
+        /// <param name="key">Job名称和组名</param>
         /// <param name="jobDelegate">Job要执行的方法</param>
         /// <returns></returns>
-        public static IJobDetail CreateSimpleJob(string name, string group, Action jobDelegate)
+        public static IJobDetail CreateSimpleJob(JobKey key, Action jobDelegate)
         {
             return JobBuilder.Create<SimpleJob>()
-                 .WithIdentity(name, group)
-                 .UsingJobData(new JobDataMap((IDictionary<string, object>)new Dictionary<string, object> { { "jobDelegate", jobDelegate } }))
-                 .Build();
+                .WithIdentity(key)
+                .UsingJobData(new JobDataMap((IDictionary<string, object>) new Dictionary<string, object>
+                    {{"jobDelegate", jobDelegate}}))
+                .Build();
         }
 
-        ///// <summary>
-        ///// 移除Job
-        ///// </summary>
-        ///// <returns>The job.</returns>
-        ///// <param name="triggerName">Trigger name.</param>
-        ///// <param name="triggerGroup">Trigger group.</param>
-        ///// <param name="jobName">Job name.</param>
-        ///// <param name="jobGroup">Job group.</param>
-        //public static async Task<bool> RemoveJob(string jobName, string jobGroup, string triggerName, string triggerGroup)
-        //{
-        //    var scheduler = GetScheduler();
-        //    var trigger = new TriggerKey(triggerName, triggerGroup);
-        //    await scheduler.PauseTrigger(trigger);
-        //    await scheduler.PauseJob(new JobKey(jobName, jobGroup));
-        //    await scheduler.UnscheduleJob(trigger);
-        //    return await DeleteJob(jobName, jobGroup);
-        //}
+        public static IJobDetail CreateSimpleJob(string name, string group, Action jobDelegate)
+        {
+            return CreateSimpleJob(JobKey.Create(name, group), jobDelegate);
+        }
+
+        /// <summary>
+        /// 尝试销毁Job
+        /// </summary>
+        /// <returns>本次尝试是否成功。若未成功则会定时静默尝试销毁,直到销毁成功</returns>
+        /// <param name="jobTrigger"></param>
+        public static async Task<bool> TryDestroyJob(JobTrigger jobTrigger)
+        {
+            var scheduler = GetScheduler();
+
+
+            await scheduler.PauseTrigger(jobTrigger.Trigger);
+            await scheduler.PauseJob(jobTrigger.Job);
+            var deleted = await scheduler.DeleteJob(jobTrigger.Job);
+            var unscheduled = await scheduler.UnscheduleJob(jobTrigger.Trigger);
+
+            if (deleted && unscheduled)
+                return true;
+
+            ObsoleteJobs.Add(jobTrigger);
+            return false;
+        }
 
         /// <summary>
         /// 删除指定名称Job
@@ -108,17 +114,6 @@ namespace Colin.Lottery.Utils
         public static async Task<bool> DeleteJob(string name)
         {
             return await GetScheduler().DeleteJob(new JobKey(name));
-        }
-
-        /// <summary>
-        /// 删除指定名称和分组的Job
-        /// </summary>
-        /// <param name="name">Job名称</param>
-        /// <param name="group">Job分组名称</param>
-        /// <returns>true if the Job was found and deleted.</returns>
-        public static void DeleteJob(string name, string group)
-        {
-            ObsoleteJobs.Add(new JobKey(name, group).ToStringName());
         }
 
         /// <summary>
@@ -147,35 +142,39 @@ namespace Colin.Lottery.Utils
         /// <summary>
         /// 创建一个触发器
         /// </summary>
-        /// <param name="name">名称</param>
-        /// <param name="group">分组</param>
+        /// <param name="key">Trigger名称和组名</param>
         /// <param name="cron">Cron表达式</param>
-        /// <param name="startTime">开始时间</param>
+        /// <param name="startTimeUtc">开始时间</param>
         /// <returns></returns>
-        public static ITrigger CreateTrigger(string name, string group, string cron, DateTime startTime)
+        public static ITrigger CreateTrigger(TriggerKey key, string cron, DateTime startTimeUtc)
         {
             return TriggerBuilder.Create()
-                .WithIdentity(name, group)
+                .WithIdentity(key)
                 .WithCronSchedule(cron)
-                .StartAt(startTime)
+                .StartAt(startTimeUtc)
                 .Build();
+        }
+
+        public static ITrigger CreateTrigger(TriggerKey key, string cron)
+        {
+            return CreateTrigger(key, cron, DateTime.UtcNow);
         }
 
         public static ITrigger CreateTrigger(string name, string group, string cron)
         {
-            return CreateTrigger(name, group, cron, DateTime.UtcNow);
+            return CreateTrigger(new TriggerKey(name, group), cron);
         }
+
 
         /// <summary>
         /// 创建一个触发器(仅执行一次)
         /// </summary>
-        /// <param name="name">名称</param>
-        /// <param name="group">分组</param>
+        /// <param name="key">名称和分组</param>
         /// <param name="startTime">开始时间</param>
         /// <returns></returns>
-        public static ITrigger CreateTrigger(string name, string group, DateTime startTime)
+        public static ITrigger CreateTrigger(TriggerKey key, DateTime startTime)
         {
-            return TriggerBuilder.Create().WithIdentity(name, group).StartAt(startTime).Build();
+            return TriggerBuilder.Create().WithIdentity(key).StartAt(startTime).Build();
         }
 
         ///// <summary>
@@ -201,14 +200,16 @@ namespace Colin.Lottery.Utils
         /// <param name="nameKeyword">Job名称关键字</param>
         /// <param name="jobDelegate">Job内容</param>
         /// <param name="cron">Trigger Cron表达式</param>
-        public static async Task ScheduleSimpleJob(string nameKeyword, Action jobDelegate, string cron)
+        public static async Task<JobTrigger> ScheduleSimpleJob(string nameKeyword, Action jobDelegate, string cron)
         {
-            (string jobName, string jobGroup, string triggerName, string triggerGroup) = nameKeyword.JobAndTriggerNames();
-            await GetScheduler().DeleteJob(new JobKey(jobName, jobGroup));
+            var jobTrigger = nameKeyword.ToJobTrigger();
+            await GetScheduler().DeleteJob(jobTrigger.Job);
 
-            var job = CreateSimpleJob(jobName, jobGroup, jobDelegate);
-            var trigger = CreateTrigger(triggerName, triggerGroup, cron);
+            var job = CreateSimpleJob(jobTrigger.Job, jobDelegate);
+            var trigger = CreateTrigger(jobTrigger.Trigger, cron);
             await GetScheduler().ScheduleJob(job, trigger);
+
+            return jobTrigger;
         }
 
         /// <summary>
@@ -217,9 +218,10 @@ namespace Colin.Lottery.Utils
         /// </summary>
         /// <param name="keyword">名称关键字</param>
         /// <returns></returns>
-        public static (string JobName, string JobGroup, string TriggerName, string TriggerGroup) JobAndTriggerNames(this string keyword)
+        public static JobTrigger ToJobTrigger(
+            this string keyword)
         {
-            return (
+            return new JobTrigger(
                 $"{keyword}_Job",
                 $"{keyword}_JobGroup",
                 $"{keyword}_Trigger",
@@ -249,43 +251,40 @@ namespace Colin.Lottery.Utils
             return date.ToShortDateString();
         }
 
-        public static async Task ModeifyTriggerTime(string triggerName, string triggerGroupName)
+        public static async Task ModifyTriggerTime(string name, string group)
         {
-            var sched = GetScheduler();
-            var trigger = await sched.GetTrigger(new TriggerKey(triggerName, triggerGroupName));
-            var key = new TriggerKey(triggerName, triggerGroupName);
-            await sched.ResumeTrigger(key);
+            var scheduler = GetScheduler();
+            var trigger = await scheduler.GetTrigger(new TriggerKey(name, group));
+            var key = new TriggerKey(name, group);
+            await scheduler.ResumeTrigger(key);
         }
 
-        public static string ToStringName(this JobKey jobKey) =>
-         $"{jobKey.Name}:{jobKey.Group}";
-
-        public static JobKey ToJobKey(this string jobKeyStr)
-        {
-            if (string.IsNullOrWhiteSpace(jobKeyStr))
-                return null;
-
-            var parts = jobKeyStr.Split(':');
-            return parts.Length < 2 ? null : new JobKey(parts.FirstOrDefault(), parts.LastOrDefault());
-        }
+//        public static JobKey ToJobKey(this string jobKeyStr)
+//        {
+//            if (string.IsNullOrWhiteSpace(jobKeyStr))
+//                return null;
+//
+//            var parts = jobKeyStr.Split(':');
+//            return parts.Length < 2 ? null : new JobKey(parts.FirstOrDefault(), parts.LastOrDefault());
+//        }
     }
 
     /// <summary>
     /// Scheduler单例
     /// </summary>
-    class Scheduler
+    static class Scheduler
     {
         public static IScheduler Singleton;
-        private Scheduler()
-        {
-        }
+
         static Scheduler()
         {
             async void Initialize()
             {
-                Singleton = await new StdSchedulerFactory(QuartzUtil.BuildSchedulerProperties("GlobleSchedulerClient")).GetScheduler();
+                Singleton = await new StdSchedulerFactory(QuartzUtil.BuildSchedulerProperties("GlobalSchedulerClient"))
+                    .GetScheduler();
                 await Singleton.Start();
             }
+
             Initialize();
         }
     }
@@ -299,5 +298,28 @@ namespace Colin.Lottery.Utils
 
             await Task.Run(job);
         }
+    }
+
+    public class JobTrigger
+    {
+        public string JobName { get; }
+
+        public string JobGroup { get; }
+
+        public string TriggerName { get; }
+
+        public string TriggerGroup { get; }
+
+        public JobTrigger(string jobName, string jobGroup, string triggerName, string triggerGroup)
+        {
+            JobName = jobName;
+            JobGroup = jobGroup;
+            TriggerName = triggerName;
+            TriggerGroup = triggerGroup;
+        }
+
+        public JobKey Job => JobKey.Create(JobName, JobGroup);
+
+        public TriggerKey Trigger => new TriggerKey(TriggerName, TriggerGroup);
     }
 }

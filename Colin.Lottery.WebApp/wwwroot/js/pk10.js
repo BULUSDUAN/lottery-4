@@ -71,12 +71,16 @@
 
     //无数据返回
     connection.on("NoResult", () => {
-        $(".tab-pane.active").html($(template('noResultTemplate')()));
+        $(".tab-pane#" + rule).html($(template('noResultTemplate')()));
     });
 
     //切换Tab加载数据
     $(".nav-tabs a").on("click", function () {
+        let oldRule=rule;
         rule = $(this).attr("aria-controls");
+        if(oldRule==rule)
+            return;
+        
         loading(rule);
         connection.invoke('GetForecastData', rule).catch(err => console.error(err.toString()));
         //无刷新更新URL

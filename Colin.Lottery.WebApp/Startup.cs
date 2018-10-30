@@ -44,8 +44,8 @@ namespace Colin.Lottery.WebApp
             services.AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-            services.AddSignalR(hubOptions => hubOptions.KeepAliveInterval = TimeSpan.FromMinutes(15));
-            //services.AddSignalR();
+//            services.AddSignalR(hubOptions => hubOptions.KeepAliveInterval = TimeSpan.FromMinutes(15));
+            services.AddSignalR();
 
             //services.AddScoped<PK10Hub>();
 

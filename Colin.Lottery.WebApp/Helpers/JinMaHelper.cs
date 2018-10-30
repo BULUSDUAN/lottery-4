@@ -17,8 +17,9 @@ namespace Colin.Lottery.WebApp.Helpers
     {
         private static readonly IHubContext<PK10Hub> Pk10Context;
         private static readonly IMemoryCache Cache;
+
         private static readonly int MinKeepGua;
-        private static readonly int MinRepetition;
+//        private static readonly int MinRepetition;
 
         static JinMaHelper()
         {
@@ -26,7 +27,7 @@ namespace Colin.Lottery.WebApp.Helpers
             Cache = Startup.GetService<IMemoryCache>();
 
             MinKeepGua = Convert.ToInt32(ConfigUtil.Configuration["TelegramBot:MinKeepGua"]);
-            MinRepetition = Convert.ToInt32(ConfigUtil.Configuration["TelegramBot:MinRepetition"]);
+//            MinRepetition = Convert.ToInt32(ConfigUtil.Configuration["TelegramBot:MinRepetition"]);
         }
 
         /// <summary>
@@ -55,11 +56,14 @@ namespace Colin.Lottery.WebApp.Helpers
 
         private static void UpdateCache(DataCollectedEventArgs e)
         {
-            if (Cache.TryGetValue(e.Lottery, out ConcurrentDictionary<int, List<IForecastPlanModel>> ps))
-                ps[(int) e.Rule] = e.Plans;
-            else
-                Cache.Set(e.Lottery,
-                    new ConcurrentDictionary<int, List<IForecastPlanModel>>() {[(int) e.Rule] = e.Plans});
+            lock (Cache)
+            {
+                if (Cache.TryGetValue(e.Lottery, out ConcurrentDictionary<int, List<IForecastPlanModel>> ps))
+                    ps[(int) e.Rule] = e.Plans;
+                else
+                    Cache.Set(e.Lottery,
+                        new ConcurrentDictionary<int, List<IForecastPlanModel>>() {[(int) e.Rule] = e.Plans});
+            }
         }
 
         private static async Task PushWebNotification(DataCollectedEventArgs e)
@@ -129,8 +133,8 @@ namespace Colin.Lottery.WebApp.Helpers
             if (repetition.Any())
                 await JPushUtil.PushNotificationAsync("PK10高重提醒", rMsg, new {tag = repetition});
 
-            if (plan.RepetitionScore >= MinRepetition)
-                await TelegramBotUtil.SendMessageAsync(rMsg);
+//            if (plan.RepetitionScore >= MinRepetition)
+//                await TelegramBotUtil.SendMessageAsync(rMsg);
         }
 
 
