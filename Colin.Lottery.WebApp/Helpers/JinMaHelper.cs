@@ -43,14 +43,14 @@ namespace Colin.Lottery.WebApp.Helpers
 
         private static async void Service_DataCollectedSuccess(object sender, DataCollectedEventArgs e)
         {
-            //更新缓存
-            UpdateCache(e);
-
             //推送Web通知
             await PushWebNotification(e);
 
             //推送App消息
             await PushAppNotification(e);
+
+            //更新缓存
+            UpdateCache(e);
         }
 
 
