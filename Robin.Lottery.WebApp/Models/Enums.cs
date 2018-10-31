@@ -3,7 +3,7 @@ using System.ComponentModel;
 namespace Robin.Lottery.WebApp.Models
 {
     /// <summary>
-    /// 北京赛车玩法
+    ///     北京赛车玩法
     /// </summary>
     public enum Pk10Rule
     {
@@ -28,23 +28,33 @@ namespace Robin.Lottery.WebApp.Models
 //        [Description("第四名")] Fourth = 4,
 
         /// <summary>
-        /// 冠军大小
+        ///     冠军大小
         /// </summary>
         [Description("冠军大小")] BigOrSmall = 5,
 
         /// <summary>
-        /// 冠军单双
+        ///     冠军单双
         /// </summary>
         [Description("冠军单双")] OddOrEven = 6,
 
         /// <summary>
-        /// 冠军龙虎
+        ///     冠军龙虎
         /// </summary>
-        [Description("冠军龙虎")] DragonOrTiger = 7,
+        [Description("冠军龙虎")] DragonOrTiger = 7
 
         /// <summary>
         /// 冠亚军和值
         /// </summary>
 //        [Desc("冠亚军和值")] Sum = 8
+    }
+
+    /// <summary>
+    /// 计划员
+    /// </summary>
+    public enum Planner
+    {
+        [Description("计划A")] A = 1,
+
+        [Description("计划B")] B = 2
     }
 }

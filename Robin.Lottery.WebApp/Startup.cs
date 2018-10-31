@@ -1,18 +1,12 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Autofac;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Robin.Lottery.WebApp.Models;
-using NLog;
-using Robin.Lottery.WebApp.Middlewares;
+using Robin.Lottery.WebApp.MQ;
 
 namespace Robin.Lottery.WebApp
 {
@@ -62,12 +56,9 @@ namespace Robin.Lottery.WebApp
 
             app.UseMvc();
 
-            app.UseMiddleware<ErrorMiddleware>();
-
-//            // 启动定时任务
-//            var quartz = new QuartzStartup(serviceProvider);
-//            lifetime.ApplicationStarted.Register(quartz.Start);
-//            lifetime.ApplicationStopping.Register(quartz.Stop);
+            // 开启订阅计划号码
+            var consumer = serviceProvider.GetService<LotteryPlanConsumer>();
+            lifetime.ApplicationStarted.Register(consumer.Subscribe);
         }
     }
 }

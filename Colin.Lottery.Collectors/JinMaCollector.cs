@@ -71,8 +71,10 @@ namespace Colin.Lottery.Collectors
 
         public static async Task<IForecastPlanModel> GetForecastData(LotteryType type, Planner planer, int rule)
         {
-            var response = await HttpUtil.GetAsync(GetForecastUrl(type, planer, rule));
+            var forecastUrl = GetForecastUrl(type, planer, rule);
+            var response = await HttpUtil.GetAsync(forecastUrl);
             try
+
             {
                 if (string.IsNullOrWhiteSpace(response))
                     return null;

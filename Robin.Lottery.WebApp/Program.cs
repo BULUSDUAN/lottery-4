@@ -2,8 +2,9 @@
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json.Linq;
+using NLog;
 using NLog.Web;
+using LogLevel = Microsoft.Extensions.Logging.LogLevel;
 
 namespace Robin.Lottery.WebApp
 {
@@ -14,33 +15,33 @@ namespace Robin.Lottery.WebApp
             var logger = NLogBuilder.ConfigureNLog("NLog.config").GetCurrentClassLogger();
             try
             {
-                logger.Debug("init main");
                 BuildWebHost(args).Run();
             }
             catch (Exception exception)
             {
                 //NLog: catch setup errors
-                logger.Error(exception, "Stopped program because of exception");
+                logger.Error(exception, "Oops! 程序由于异常问题崩溃了.");
                 throw;
             }
             finally
             {
                 // Ensure to flush and stop internal timers/threads before application-exit (Avoid segmentation fault on Linux)
-                NLog.LogManager.Shutdown();
+                LogManager.Shutdown();
             }
-
-            BuildWebHost(args).Run();
         }
 
-        public static IWebHost BuildWebHost(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
+        public static IWebHost BuildWebHost(string[] args)
+        {
+            return WebHost.CreateDefaultBuilder(args)
                 .ConfigureLogging(logging =>
                 {
                     logging.ClearProviders();
                     logging.SetMinimumLevel(LogLevel.Trace);
                 })
                 .UseNLog()
+                .UseUrls("http://localhost:5678")
                 .UseStartup<Startup>()
                 .Build();
+        }
     }
 }
