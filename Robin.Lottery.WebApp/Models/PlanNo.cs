@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+
 namespace Robin.Lottery.WebApp.Models
 {
     /// <summary>
@@ -23,7 +25,7 @@ namespace Robin.Lottery.WebApp.Models
         /// <summary>
         ///     追号次数
         /// </summary>
-        public int Ready { get; set; }
+        public int? Ready { get; set; }
 
         /// <summary>
         ///     结果（中 或 挂）
@@ -33,11 +35,22 @@ namespace Robin.Lottery.WebApp.Models
         /// <summary>
         ///     期号
         /// </summary>
-        public string Qihao { get; set; }
+        public int? Qihao { get; set; }
 
         /// <summary>
         ///     开奖号码
         /// </summary>
         public string Opencode { get; set; }
+
+        #region 统计字段(当前期, 上期开奖号码, 胜率等)
+
+        public int? NowQihao { get; set; }
+
+        //public string A { get; set; }
+        //public string B { get; set; }
+        //public string C { get; set; }
+        //public string L { get; set; }
+
+        #endregion
     }
 }

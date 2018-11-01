@@ -3,8 +3,8 @@ using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Quartz;
 using Quartz.Impl;
+using Robin.Lottery.WebApp.Jobs;
 using Robin.Lottery.WebApp.MQ;
-using Robin.Lottery.WebApp.Quartz;
 using Robin.Lottery.WebApp.Services;
 
 namespace Microsoft.Extensions.DependencyInjection
@@ -19,6 +19,7 @@ namespace Microsoft.Extensions.DependencyInjection
             builder.RegisterType<CollectService>().As<ICollectService>().SingleInstance();
             //builder.RegisterType<BusBuilder>().As<IBusBuilder>().SingleInstance();
             builder.RegisterType<LotteryPlanConsumer>().SingleInstance();
+            builder.RegisterType<LotteryJobListener>().As<IJobListener>();
             builder.RegisterEasyNetQ("host=localhost");
 
             // 注册定时任务
@@ -36,13 +37,13 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             // configure and register Quartz
             builder.Register(x => new StdSchedulerFactory().GetScheduler().Result).As<IScheduler>();
-            builder.RegisterType<LotteryPlanJob>().InstancePerLifetimeScope();
-            builder.RegisterType<JobScheduler>().AsSelf();
+            builder.RegisterType<LotteryJob>().InstancePerLifetimeScope();
+            builder.RegisterType<LotteryJobScheduler>().AsSelf();
         }
 
         private static void ConfigureScheduler(IContainer container)
         {
-            var scheduler = container.Resolve<JobScheduler>();
+            var scheduler = container.Resolve<LotteryJobScheduler>();
             scheduler.Start(container);
         }
     }

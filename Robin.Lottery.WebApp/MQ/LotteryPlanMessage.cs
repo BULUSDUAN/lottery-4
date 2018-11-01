@@ -20,5 +20,13 @@ namespace Robin.Lottery.WebApp.MQ
         public Planner Planner { get; set; }
 
         public IList<PlanNo> ListPlanNo { get; set; }
+
+        public int NextQihao
+        {
+            get
+            {
+                return 0;
+            }
+        }
     }
 }

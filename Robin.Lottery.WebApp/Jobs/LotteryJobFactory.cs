@@ -4,19 +4,19 @@ using Microsoft.Extensions.Logging;
 using Quartz;
 using Quartz.Spi;
 
-namespace Robin.Lottery.WebApp.Quartz
+namespace Robin.Lottery.WebApp.Jobs
 {
-    public class QuartzJobFactory : IJobFactory
+    public class LotteryJobFactory : IJobFactory
     {
         private readonly IContainer _container;
-        private readonly ILogger<QuartzJobFactory> _logger;
+        private readonly ILogger<LotteryJobFactory> _logger;
 
         private IJob _job;
 
-        public QuartzJobFactory(IContainer container)
+        public LotteryJobFactory(IContainer container)
         {
             _container = container;
-            _logger = container.Resolve<ILogger<QuartzJobFactory>>();
+            _logger = container.Resolve<ILogger<LotteryJobFactory>>();
         }
 
         public IJob NewJob(TriggerFiredBundle bundle, IScheduler scheduler)

@@ -2,6 +2,9 @@
 
     <PropertyGroup>
         <TargetFramework>netcoreapp2.1</TargetFramework>
+        <DockerTargetOS>Linux</DockerTargetOS>
+        <UserSecretsId>e1f1a991-5dd9-427e-be6a-eb4447ae5a6f</UserSecretsId>
+        <AssemblyName>lotteryfun</AssemblyName>
     </PropertyGroup>
 
     <ItemGroup>
@@ -14,6 +17,7 @@
         <PackageReference Include="EasyNetQ" Version="3.3.2" />
         <PackageReference Include="EasyNetQ.DI.Autofac" Version="3.3.2" />
         <PackageReference Include="Microsoft.AspNetCore.App" />
+        <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.0.1916590" />
         <PackageReference Include="NLog">
             <Version>4.5.10</Version>
         </PackageReference>
@@ -42,6 +46,15 @@
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </Content>
         <Content Remove="logs\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Update=".dockerignore">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+      <None Update="Dockerfile">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
     </ItemGroup>
     
 
