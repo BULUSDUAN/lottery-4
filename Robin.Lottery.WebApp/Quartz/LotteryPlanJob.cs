@@ -11,7 +11,7 @@ using Robin.Lottery.WebApp.Models;
 using Robin.Lottery.WebApp.MQ;
 using Robin.Lottery.WebApp.Services;
 
-namespace Robin.Lottery.WebApp.Infrastructure
+namespace Robin.Lottery.WebApp.Quartz
 {
     /// <summary>
     ///     采集计划号码 JOB
@@ -34,9 +34,10 @@ namespace Robin.Lottery.WebApp.Infrastructure
         {
             var jobDataMap = context.JobDetail.JobDataMap;
 
-            var ruleValue = jobDataMap.GetString("ruleValue");
+            Pk10Rule rule = (Pk10Rule) jobDataMap.GetIntValue("rule");
+            Planner planner = (Planner) jobDataMap.GetIntValue("planner");
 
-            var parameter = new { RuleValue = ruleValue, Bus = _bus };
+            var parameter = new {Rule = rule, Planner = planner, Bus = _bus};
             return Task.Factory.StartNew(Start, parameter);
         }
 
@@ -46,25 +47,29 @@ namespace Robin.Lottery.WebApp.Infrastructure
         /// <param name="state">需要的参数</param>
         private void Start(object state)
         {
-            var parameter = (dynamic)state;
+            var parameter = (dynamic) state;
 
-            string strRule = parameter.RuleValue;
-            if (!Enum.TryParse(strRule, out Pk10Rule rule))
+            Pk10Rule rule = parameter.Rule;
+            Planner planner = parameter.Planner;
+            IBus bus = parameter.Bus;
+
+            if (!Enum.IsDefined(typeof(Planner), planner))
             {
-                _logger.LogError($"试图将字符串[{strRule}]转换为类型{typeof(Pk10Rule).FullName}时出错, 本次任务终止.");
+                _logger.LogError($"计划{planner}未定义, 本次任务终止.");
                 return;
             }
 
-            IBus bus = parameter.Bus;
+            if (!Enum.IsDefined(typeof(Pk10Rule), rule))
+            {
+                _logger.LogError($"玩法{rule}未定义, 本次任务终止.");
+                return;
+            }
 
             var responseJson = string.Empty;
             try
             {
-                foreach (var planner in (Planner[])Enum.GetValues(typeof(Planner)))
-                {
-                    // 采集计划员发布的号码
-                    CollectPlan(rule, bus, planner, out responseJson);
-                }
+                // 采集计划员发布的号码
+                CollectPlan(rule, bus, planner, out responseJson);
             }
             catch (WebRequestException webEx)
             {
@@ -102,18 +107,18 @@ namespace Robin.Lottery.WebApp.Infrastructure
 
             // 构建计划号码列表
             var listPlanNo = from elem in jsonObj["APICode"]
-                             where string.Equals(elem["apiname"].Value<string>(), "data", StringComparison.OrdinalIgnoreCase) ==
-                                   false
-                             select new PlanNo
-                             {
-                                 Zhouqi = elem["zhouqi"].Value<string>(),
-                                 Apiname = elem["apiname"].Value<string>(),
-                                 Number = elem["number"].Value<string>(),
-                                 Ready = elem["ready"].Value<int>(),
-                                 Resalt = elem["resalt"].Value<string>(),
-                                 Qihao = elem["qihao"].Value<string>(),
-                                 Opencode = elem["opencode"].Value<string>()
-                             };
+                where string.Equals(elem["apiname"].Value<string>(), "data", StringComparison.OrdinalIgnoreCase) ==
+                      false
+                select new PlanNo
+                {
+                    Zhouqi = elem["zhouqi"].Value<string>(),
+                    Apiname = elem["apiname"].Value<string>(),
+                    Number = elem["number"].Value<string>(),
+                    Ready = elem["ready"].Value<int>(),
+                    Resalt = elem["resalt"].Value<string>(),
+                    Qihao = elem["qihao"].Value<string>(),
+                    Opencode = elem["opencode"].Value<string>()
+                };
 
             // 将开奖号码加入队列
             bus.Publish(new LotteryPlanMessage(planner, listPlanNo.ToList(), rule));

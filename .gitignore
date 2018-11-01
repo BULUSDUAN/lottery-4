@@ -10,3 +10,4 @@ Logs
 .vscode
 Thumbs.db
 /Colin.Lottery.BetService.Da2088/Properties/launchSettings.json
+*.log

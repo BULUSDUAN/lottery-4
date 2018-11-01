@@ -3,8 +3,8 @@ using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Quartz;
 using Quartz.Impl;
-using Robin.Lottery.WebApp.Infrastructure;
 using Robin.Lottery.WebApp.MQ;
+using Robin.Lottery.WebApp.Quartz;
 using Robin.Lottery.WebApp.Services;
 
 namespace Microsoft.Extensions.DependencyInjection

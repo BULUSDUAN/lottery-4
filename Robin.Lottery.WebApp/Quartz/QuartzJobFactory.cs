@@ -4,7 +4,7 @@ using Microsoft.Extensions.Logging;
 using Quartz;
 using Quartz.Spi;
 
-namespace Robin.Lottery.WebApp.Infrastructure
+namespace Robin.Lottery.WebApp.Quartz
 {
     public class QuartzJobFactory : IJobFactory
     {

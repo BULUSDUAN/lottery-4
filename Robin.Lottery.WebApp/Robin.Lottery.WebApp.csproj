@@ -43,31 +43,6 @@
         </Content>
         <Content Remove="logs\**" />
     </ItemGroup>
-
-    <ItemGroup>
-        <Compile Remove="logs\**" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <EmbeddedResource Remove="logs\**" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <None Remove="logs\**" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Compile Remove="MQ\Extension.MQ.cs" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <None Include="MQ\Extension.MQ.cs" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Reference Include="System.Text.Encoding.CodePages">
-        <HintPath>C:\Program Files\dotnet\sdk\NuGetFallbackFolder\system.text.encoding.codepages\4.5.0\ref\netstandard2.0\System.Text.Encoding.CodePages.dll</HintPath>
-      </Reference>
-    </ItemGroup>
+    
 
 </Project>

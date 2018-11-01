@@ -6,7 +6,7 @@ namespace Robin.Lottery.WebApp.MQ
     /// <summary>
     ///     计划号码消息
     /// </summary>
-    public class LotteryPlanMessage : PlanNo
+    public class LotteryPlanMessage
     {
         public LotteryPlanMessage(Planner planner, IList<PlanNo> listPlanNo, Pk10Rule pk10Rule)
         {
