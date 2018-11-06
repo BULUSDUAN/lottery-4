@@ -8,16 +8,6 @@ namespace Colin.Lottery.Utils
 {
     public static class HttpUtil
     {
-        private static readonly HttpClient HttpClient;
-
-        static HttpUtil()
-        {
-            var handler = new HttpClientHandler();
-            handler.ServerCertificateCustomValidationCallback += (sender, certificate, chain, sslPolicyErrors) => true;
-            HttpClient = HttpClientFactory.Create(handler);
-        }
-
-
         public static async Task<string> GetAsync(string url)
         {
             return await RequestAsync(url, null, "get");
@@ -30,29 +20,38 @@ namespace Colin.Lottery.Utils
 
         private static async Task<string> RequestAsync(string url, object parameter, string method)
         {
-            try
+            using (var handler = new HttpClientHandler())
             {
-                HttpResponseMessage response;
-                if (string.Equals(method, "get", StringComparison.OrdinalIgnoreCase))
-                    response = await HttpClient.GetAsync(url);
-                else if (string.Equals(method, "post", StringComparison.OrdinalIgnoreCase))
-                {
-                    var content = new StringContent(JsonConvert.SerializeObject(parameter), Encoding.UTF8,
-                        "application/json");
-                    response = await HttpClient.PostAsync(url, content);
-                }
-                else
-                {
-                    throw new ArgumentException($"暂不支持{method}请求方式");
-                }
+                handler.ServerCertificateCustomValidationCallback +=
+                    (sender, certificate, chain, sslPolicyErrors) => true;
 
-                response.EnsureSuccessStatusCode();
-                return await response.Content.ReadAsStringAsync();
-            }
-            catch (Exception ex)
-            {
-                LogUtil.Warn($"网络请求出错{url},错误消息:{ex.Message},堆栈信息:{ex.StackTrace}");
-                return null;
+                using (var http = HttpClientFactory.Create(handler))
+                {
+                    try
+                    {
+                        HttpResponseMessage response;
+                        if (string.Equals(method, "get", StringComparison.OrdinalIgnoreCase))
+                            response = await http.GetAsync(url);
+                        else if (string.Equals(method, "post", StringComparison.OrdinalIgnoreCase))
+                        {
+                            var content = new StringContent(JsonConvert.SerializeObject(parameter), Encoding.UTF8,
+                                "application/json");
+                            response = await http.PostAsync(url, content);
+                        }
+                        else
+                        {
+                            throw new ArgumentException($"暂不支持{method}请求方式");
+                        }
+
+                        response.EnsureSuccessStatusCode();
+                        return await response.Content.ReadAsStringAsync();
+                    }
+                    catch (Exception ex)
+                    {
+                        LogUtil.Warn($"网络请求出错{url},错误消息:{ex.Message},堆栈信息:{ex.StackTrace}");
+                        return null;
+                    }
+                }
             }
         }
     }
