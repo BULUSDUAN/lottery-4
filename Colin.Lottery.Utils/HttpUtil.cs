@@ -14,7 +14,7 @@ namespace Colin.Lottery.Utils
         {
             var handler = new HttpClientHandler();
             handler.ServerCertificateCustomValidationCallback += (sender, certificate, chain, sslPolicyErrors) => true;
-            HttpClient = new HttpClient(handler);
+            HttpClient = HttpClientFactory.Create(handler);
         }
 
 
