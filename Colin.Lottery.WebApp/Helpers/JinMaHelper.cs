@@ -47,7 +47,7 @@ namespace Colin.Lottery.WebApp.Helpers
             await PushWebNotification(e);
 
             //推送App消息
-            await PushAppNotification(e);
+//            await PushAppNotification(e);
 
             //更新缓存
             UpdateCache(e);
@@ -142,7 +142,8 @@ namespace Colin.Lottery.WebApp.Helpers
         {
             await Pk10Context.Clients.Groups(new List<string> {e.Rule.ToString(), "AllRules"})
                 .SendAsync("NoResult", e.Rule.ToStringName());
-            LogUtil.Warn("目标网站扫水接口异常，请尽快检查恢复");
+            
+            ExceptionlessUtil.Warn("目标网站扫水接口异常，请尽快检查恢复");
         }
     }
 }

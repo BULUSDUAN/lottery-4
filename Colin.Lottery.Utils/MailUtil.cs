@@ -55,7 +55,7 @@ namespace Colin.Lottery.Utils
             }
             catch (Exception ex)
             {
-                LogUtil.Warn($"邮件发送失败，请检查配置.错误消息:{ex.Message}\r\n堆栈错误:{ex.StackTrace}");
+                ExceptionlessUtil.Warn(ex,"邮件发送失败，请检查配置");
             }
         }
 
@@ -88,7 +88,7 @@ namespace Colin.Lottery.Utils
             }
             catch (Exception ex)
             {
-                LogUtil.Warn($"邮件发送失败，请检查配置.错误消息:{ex.Message}\r\n堆栈错误:{ex.StackTrace}");
+                ExceptionlessUtil.Warn(ex,"邮件发送失败，请检查配置");
             }
         }
     }

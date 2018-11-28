@@ -1,4 +1,5 @@
 using System;
+using Colin.Lottery.WebApp.Filters;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -7,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Colin.Lottery.WebApp.Hubs;
 using Colin.Lottery.WebApp.Helpers;
+using Exceptionless;
 using Microsoft.AspNetCore.HttpOverrides;
 
 namespace Colin.Lottery.WebApp
@@ -41,7 +43,7 @@ namespace Colin.Lottery.WebApp
             });
 
 
-            services.AddMvc()
+            services.AddMvc(options => options.Filters.Add<GlobalExceptionFilter>())
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
 //            services.AddSignalR(hubOptions => hubOptions.KeepAliveInterval = TimeSpan.FromMinutes(15));
@@ -87,6 +89,11 @@ namespace Colin.Lottery.WebApp
                 routes.MapHub<PK10Hub>("/hubs/pk10");
                 //routes.MapHub<NotifyHub>("/hubs/notify");
             });
+            
+            
+            ExceptionlessClient.Default.Configuration.ApiKey = Configuration.GetSection("Exceptionless:ApiKey").Value;
+            //ExceptionlessClient.Default.Configuration.ServerUrl = Configuration.GetSection("Exceptionless:ServerUrl").Value;
+            app.UseExceptionless();
 
             _provider = app.ApplicationServices;
 

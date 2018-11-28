@@ -154,7 +154,7 @@ namespace Colin.Lottery.Analyzers
 
             if (forecastData.Count < 2)
             {
-                LogUtil.Error("预测历史数据不足,无法进行评估");
+                ExceptionlessUtil.Error("预测历史数据不足,无法进行评估");
                 return 0;
             }
 

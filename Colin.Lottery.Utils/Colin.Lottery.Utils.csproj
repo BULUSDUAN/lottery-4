@@ -1,7 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <None Remove="log4net.config" />
@@ -13,6 +14,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Exceptionless.AspNetCore" Version="4.3.2012" />
     <PackageReference Include="log4net" Version="2.0.8" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.1.1" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.1.1" />
@@ -28,5 +30,10 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Colin.Lottery.Models\Colin.Lottery.Models.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Exceptionless, Version=4.3.2012.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\..\..\.nuget\packages\exceptionless\4.3.2012\lib\netstandard2.0\Exceptionless.dll</HintPath>
+    </Reference>
   </ItemGroup>
 </Project>

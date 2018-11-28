@@ -34,12 +34,12 @@ namespace Colin.Lottery.Utils
                 if (response.OK)
                     return true;
 
-                LogUtil.Warn($"TG消息推送失败。错误消息:{response.Description}");
+                ExceptionlessUtil.Warn(new Exception(response.Description),"TG消息推送失败");
                 return false;
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                LogUtil.Warn($"TG消息推送失败。错误消息:{e.Message}\n堆栈消息{e.StackTrace}");
+                ExceptionlessUtil.Warn(ex,"TG消息推送失败");
                 return false;
             }
         }

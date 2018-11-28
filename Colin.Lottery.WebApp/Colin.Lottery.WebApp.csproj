@@ -12,6 +12,7 @@
         <LangVersion>Latest</LangVersion>
     </PropertyGroup>
     <ItemGroup>
+        <PackageReference Include="Exceptionless.AspNetCore" Version="4.3.2012" />
         <PackageReference Include="Microsoft.AspNetCore.App" Version="2.1.5" />
     </ItemGroup>
     <ItemGroup>

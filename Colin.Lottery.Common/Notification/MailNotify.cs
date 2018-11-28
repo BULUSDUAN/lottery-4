@@ -29,7 +29,7 @@ namespace Colin.Lottery.Common.Notification
                     content = config.Content;
                     break;
                 default:
-                    LogUtil.Error("邮件通知内容格式未知，请检查配置文件");
+                    ExceptionlessUtil.Error("邮件通知内容格式未知，请检查配置文件");
                     return;
             }
 

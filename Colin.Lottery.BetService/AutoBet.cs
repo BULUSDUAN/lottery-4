@@ -34,7 +34,7 @@ namespace Colin.Lottery.BetService
             }
             catch (Exception ex)
             {
-                LogUtil.Fatal($"模拟下注启动失败,错误消息:{ex.Message}\r\n堆栈内容:{ex.StackTrace}");
+                ExceptionlessUtil.Fatal(ex,"模拟下注启动失败",true);
             }
         }
 
