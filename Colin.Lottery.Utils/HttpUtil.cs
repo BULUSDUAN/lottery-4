@@ -48,7 +48,7 @@ namespace Colin.Lottery.Utils
                     }
                     catch (Exception ex)
                     {
-                        LogUtil.Warn($"网络请求出错{url},错误消息:{ex.Message},堆栈信息:{ex.StackTrace}");
+                        ExceptionlessUtil.Warn(ex, $"网络请求出错{url}");
                         return null;
                     }
                 }
