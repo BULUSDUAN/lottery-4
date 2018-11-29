@@ -47,7 +47,7 @@ namespace Colin.Lottery.WebApp.Helpers
             await PushWebNotification(e);
 
             //推送App消息
-//            await PushAppNotification(e);
+            await PushAppNotification(e);
 
             //更新缓存
             UpdateCache(e);
