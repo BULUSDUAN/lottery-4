@@ -1,8 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
-    <LangVersion>latest</LangVersion>
+    <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
     <None Remove="log4net.config" />
@@ -21,9 +20,9 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.1.1" />
     <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="2.1.1" />
     <PackageReference Include="Quartz" Version="3.0.7" />
-    <PackageReference Include="MailKit" Version="2.0.6" />
+    <PackageReference Include="MailKit" Version="2.0.7" />
     <PackageReference Include="RestSharp" Version="106.5.4" />
-    <PackageReference Include="Selenium.WebDriver" Version="3.14.0" />
+    <PackageReference Include="Selenium.WebDriver" Version="3.141.0" />
     <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="2.43.0" />
     <PackageReference Include="Sendgrid" Version="9.10.0" />
     <PackageReference Include="Jiguang.JPush" Version="1.2.2" />
@@ -34,6 +33,11 @@
   <ItemGroup>
     <Reference Include="Exceptionless, Version=4.3.2012.0, Culture=neutral, PublicKeyToken=null">
       <HintPath>..\..\..\.nuget\packages\exceptionless\4.3.2012\lib\netstandard2.0\Exceptionless.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+      <HintPath>..\..\..\..\..\usr\local\share\dotnet\sdk\NuGetFallbackFolder\microsoft.aspnet.webapi.client\5.2.6\lib\netstandard2.0\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
   </ItemGroup>
 </Project>

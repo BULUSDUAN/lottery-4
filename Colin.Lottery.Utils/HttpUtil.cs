@@ -10,44 +10,47 @@ namespace Colin.Lottery.Utils
     {
         public static async Task<string> GetAsync(string url)
         {
-            return await RequestAsync(url, null, "get", TimeSpan.FromMinutes(5));
+            return await RequestAsync(url, null, "get");
         }
 
         public static async Task<string> PostAsync(string url, object parameter)
         {
-            return await RequestAsync(url, parameter, "post", TimeSpan.FromMinutes(1));
+            return await RequestAsync(url, parameter, "post");
         }
 
-        private static async Task<string> RequestAsync(string url, object parameter, string method, TimeSpan? timeout)
+        private static async Task<string> RequestAsync(string url, object parameter, string method)
         {
-            using (var hc = new HttpClient())
+            using (var handler = new HttpClientHandler())
             {
-                if (timeout != null)
-                    hc.Timeout = (TimeSpan)timeout;
+                handler.ServerCertificateCustomValidationCallback +=
+                    (sender, certificate, chain, sslPolicyErrors) => true;
 
-                HttpResponseMessage response;
-                try
+                using (var http = HttpClientFactory.Create(handler))
                 {
-                    if (string.Equals(method, "get", StringComparison.OrdinalIgnoreCase))
-                        response = await hc.GetAsync(url);
-                    else if (string.Equals(method, "post", StringComparison.OrdinalIgnoreCase))
+                    try
                     {
-                        var content = new StringContent(JsonConvert.SerializeObject(parameter), Encoding.UTF8,
-                            "application/json");
-                        response = await hc.PostAsync(url, content);
-                    }
-                    else
-                    {
-                        throw new ArgumentException($"暂不支持{method}请求方式");
-                    }
+                        HttpResponseMessage response;
+                        if (string.Equals(method, "get", StringComparison.OrdinalIgnoreCase))
+                            response = await http.GetAsync(url);
+                        else if (string.Equals(method, "post", StringComparison.OrdinalIgnoreCase))
+                        {
+                            var content = new StringContent(JsonConvert.SerializeObject(parameter), Encoding.UTF8,
+                                "application/json");
+                            response = await http.PostAsync(url, content);
+                        }
+                        else
+                        {
+                            throw new ArgumentException($"暂不支持{method}请求方式");
+                        }
 
-                    response.EnsureSuccessStatusCode();
-                    return await response.Content.ReadAsStringAsync();
-                }
-                catch (Exception ex)
-                {
-                    ExceptionlessUtil.Warn(ex,$"网络请求出错{url}");
-                    return null;
+                        response.EnsureSuccessStatusCode();
+                        return await response.Content.ReadAsStringAsync();
+                    }
+                    catch (Exception ex)
+                    {
+                        LogUtil.Warn($"网络请求出错{url},错误消息:{ex.Message},堆栈信息:{ex.StackTrace}");
+                        return null;
+                    }
                 }
             }
         }
