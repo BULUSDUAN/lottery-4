@@ -1,5 +1,5 @@
 using System.Net;
-using Exceptionless;
+using Colin.Lottery.Utils;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
@@ -13,7 +13,7 @@ namespace Colin.Lottery.WebApp.Filters
         public void OnException(ExceptionContext context)
         {
             //提交异常信息
-            context.Exception.ToExceptionless().Submit();
+            ExceptionlessUtil.TraceException(context.Exception);
 
             //转到错误页面
             context.Result = new RedirectResult("/error");
