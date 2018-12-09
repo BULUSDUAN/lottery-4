@@ -2,11 +2,11 @@ bin
 obj
 packages
 v15
-.vs
+.*
 node_modules
 Logs
 *.user
-.idea
-.vscode
 Thumbs.db
-/Colin.Lottery.BetService.Da2088/Properties/launchSettings.json
+Colin.Lottery.MobileApp/platforms
+Colin.Lottery.MobileApp/plugins
+Colin.Lottery.MobileApp/www
