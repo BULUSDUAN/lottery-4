@@ -69,8 +69,7 @@ namespace Colin.Lottery.WebApp
                 app.UseHsts();
             }
 
-            //TODO: 暂不使用Https
-            //app.UseHttpsRedirection();
+            app.UseHttpsRedirection();
             app.UseForwardedHeaders(new ForwardedHeadersOptions
             {
                 ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
