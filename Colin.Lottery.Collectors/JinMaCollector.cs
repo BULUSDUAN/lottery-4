@@ -62,7 +62,6 @@ namespace Colin.Lottery.Collectors
             }
         }
 
-
         public override async Task<IDrawCollectionModel> GetDrawNoHistory(LotteryType type)
         {
             var response = await HttpUtil.GetAsync(GetHistoryUrl(type));
