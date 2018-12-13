@@ -42,11 +42,16 @@ namespace Colin.Lottery.WebApp
                 options.Cookie.HttpOnly = true;
             });
 
+            services.Configure<ForwardedHeadersOptions>(options =>
+            {
+                options.ForwardedHeaders =
+                    ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+            });
 
             services.AddMvc(options => options.Filters.Add<GlobalExceptionFilter>())
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-//            services.AddSignalR(hubOptions => hubOptions.KeepAliveInterval = TimeSpan.FromMinutes(15));
+            //            services.AddSignalR(hubOptions => hubOptions.KeepAliveInterval = TimeSpan.FromMinutes(15));
             services.AddSignalR();
 
             //services.AddScoped<PK10Hub>();
@@ -79,7 +84,7 @@ namespace Colin.Lottery.WebApp
             app.UseCookiePolicy();
             app.UseSession();
 
-            //app.UseAuthentication();UseAuthentication
+            app.UseAuthentication();
 
             app.UseMvc();
 
@@ -88,8 +93,8 @@ namespace Colin.Lottery.WebApp
                 routes.MapHub<PK10Hub>("/hubs/pk10");
                 //routes.MapHub<NotifyHub>("/hubs/notify");
             });
-            
-            
+
+
             ExceptionlessClient.Default.Configuration.ApiKey = Configuration.GetSection("Exceptionless:ApiKey").Value;
             //ExceptionlessClient.Default.Configuration.ServerUrl = Configuration.GetSection("Exceptionless:ServerUrl").Value;
             app.UseExceptionless();
