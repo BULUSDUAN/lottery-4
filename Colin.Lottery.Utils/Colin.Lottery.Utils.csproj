@@ -32,8 +32,11 @@
     <ProjectReference Include="..\Colin.Lottery.Models\Colin.Lottery.Models.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Lib" />
+  </ItemGroup>
+  <ItemGroup>
     <Reference Include="System.Net.Http.Formatting, Version=5.2.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
-      <HintPath>..\..\..\..\..\usr\local\share\dotnet\sdk\NuGetFallbackFolder\microsoft.aspnet.webapi.client\5.2.6\lib\netstandard2.0\System.Net.Http.Formatting.dll</HintPath>
+      <HintPath>Lib\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
   </ItemGroup>
 </Project>

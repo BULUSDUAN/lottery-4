@@ -1,4 +1,4 @@
-FROM microsoft/dotnet:sdk AS build
+FROM microsoft/dotnet:2.2-sdk AS build
 WORKDIR /app
 
 # copy csproj and restore as distinct layers
@@ -35,7 +35,7 @@ WORKDIR /app/Colin.Lottery.Analyzers.Test
 COPY Colin.Lottery.Analyzers.Test/. .
 ENTRYPOINT ["dotnet", "test", "--logger:trx"]
 
-FROM microsoft/dotnet:runtime AS runtime
+FROM microsoft/dotnet:2.2-aspnetcore-runtime AS runtime
 WORKDIR /app
 COPY --from=build /app/Colin.Lottery.WebApp/out ./
 ENTRYPOINT ["dotnet", "Colin.Lottery.WebApp.dll"]
