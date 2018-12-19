@@ -1,3 +1,4 @@
+using System.Configuration;
 using Xunit;
 using Colin.Lottery.Models;
 

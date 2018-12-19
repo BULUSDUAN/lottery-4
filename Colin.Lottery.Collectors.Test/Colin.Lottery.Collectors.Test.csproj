@@ -18,4 +18,11 @@
     <ProjectReference Include="..\Colin.Lottery.Collectors\Colin.Lottery.Collectors.csproj" />
     <ProjectReference Include="..\Colin.Lottery.Models\Colin.Lottery.Models.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="appsettings.json">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
 </Project>
