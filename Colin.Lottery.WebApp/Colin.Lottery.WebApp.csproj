@@ -28,8 +28,6 @@
     </ItemGroup>
     <ItemGroup>
         <None Include="wwwroot\js\settings.js" />
-        <None Include="wwwroot\lib\signalr\signalr.js" />
-        <None Include="wwwroot\lib\signalr\signalr.min.js" />
         <None Include="wwwroot\favicon.ico" />
         <None Include="wwwroot\images\android_download.png" />
         <None Include="wwwroot\images\logo.png" />
