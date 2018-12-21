@@ -85,7 +85,7 @@ namespace Colin.Lottery.Utils
         /// <param name="traceException">是否追踪异常。true则提交Exception,否则只提交Log</param>
         public static void TraceLog(Exception ex, LogLevel logLevel, string title = null, bool traceException = false)
         {
-            ExceptionlessClient.Default.CreateLog(ex.TargetSite.GetType().FullName,
+            ExceptionlessClient.Default.CreateLog(ex.TargetSite?.GetType()?.FullName,
                     string.IsNullOrWhiteSpace(title) ? string.Empty : $"{title},错误消息:" + ex.Message, logLevel)
                 .AddTags(ex.GetType().FullName).Submit();
 
