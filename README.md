@@ -5,7 +5,7 @@
 
 ### 1.安装Docker
 
-**CentOS 7安装Docker CE**
+**CentOS 7安装Docker CE**
 
 ```sh
 $ yum remove docker
@@ -28,7 +28,7 @@ $ yum install docker-ce
 $ systemctl start docker
 ```
 
-### 2. Asp.net Core Docker
+### 2.Asp.net Core Docker
 ```sh
 # 构建镜像
 $ docker build --pull -t lottery .
@@ -37,7 +37,7 @@ $ docker build --pull -t lottery .
 $ docker run --name lottery -d --restart always lottery
 ```
 
-### 3.Nginx Docker
+### 3.Nginx Docker
 ```sh
 # 获取nginx官方镜像
 docker pull nginx
