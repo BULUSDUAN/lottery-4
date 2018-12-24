@@ -35,10 +35,10 @@ export class SettingsPage {
 
         //默认配置
         this.betPlatform = [
+            {name: '金皇朝3(9.56)', url: 'https://c.jhc3w.com/'},
             {name: '谦喜彩票(9.96)', url: 'https://qxbet.com/wap#/home'},
             {name: '大象彩(9.95)', url: 'https://da8088.com/mobile/#/home/'},
-            {name: '鸿利彩票(9.95)', url: 'http://m.hl3999.com/'},
-            {name: '金皇朝(9.56)', url: 'https://c1.jhc2go.com/'},
+            {name: '鸿利彩票(9.95)', url: 'http://m.hl3999.com/'}
         ];
         if (!this.config)
             this.config = {
