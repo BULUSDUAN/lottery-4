@@ -40,10 +40,10 @@ $ docker run --name lottery -d --restart always lottery
 ### 3.Nginx Docker
 ```sh
 # 获取nginx官方镜像
-docker pull nginx
+$ docker pull nginx
 
 # 启动nginx容器
-sudo docker run \
+$ sudo docker run \
 --name nginx \
 -d \
 -p 8000:80 \
@@ -52,7 +52,7 @@ sudo docker run \
 nginx
 
 # 查看服务日志
-docker logs nginx
+$ docker logs nginx
 ```
 
 >  default.conf
