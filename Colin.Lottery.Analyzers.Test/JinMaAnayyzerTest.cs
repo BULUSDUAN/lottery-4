@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using Xunit;
-
 using Colin.Lottery.Models;
 
 namespace Colin.Lottery.Analyzers.Test
@@ -11,7 +10,7 @@ namespace Colin.Lottery.Analyzers.Test
         [Fact]
         public async void GetForecastDataTest()
         {
-            var plans = await JinMaAnalyzer.Instance.GetForecastData();
+            var plans = await new JinMaAnalyzer().GetForecastData();
             ShowPlan(plans.FirstOrDefault());
             ShowPlan(plans.LastOrDefault());
         }
@@ -20,15 +19,17 @@ namespace Colin.Lottery.Analyzers.Test
         {
             plan.ForecastData.ForEach(i =>
             {
-                Console.WriteLine($"{i.PeriodRange} [{i.ForecastNo}] {i.LastPeriod} {i.DrawNo} {i.ChaseTimes} [{i.IsWin}]");
+                Console.WriteLine(
+                    $"{i.PeriodRange} [{i.ForecastNo}] {i.LastPeriod} {i.DrawNo} {i.ChaseTimes} [{i.IsWin}]");
             });
         }
 
         [Fact]
         public async void CalculateScoreTest()
         {
-            var plans = await JinMaAnalyzer.Instance.GetForecastData();
-            JinMaAnalyzer.Instance.CalcuteScore(plans);
+            var analyzer = new JinMaAnalyzer();
+            var plans = await analyzer.GetForecastData();
+            analyzer.CalcuteScore(plans);
         }
     }
 }

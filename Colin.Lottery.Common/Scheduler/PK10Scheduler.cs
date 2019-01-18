@@ -2,7 +2,7 @@
 
 namespace Colin.Lottery.Common.Scheduler
 {
-    public class Pk10Scheduler : LotteryScheduler<Pk10Scheduler>
+    public class Pk10Scheduler : LotteryScheduler
     {
         //677148期 2018-4-24 9:00:00-9:05:00 
         private static readonly long StartPeriod = 678198;

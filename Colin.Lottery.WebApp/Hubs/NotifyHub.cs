@@ -8,6 +8,13 @@ namespace Colin.Lottery.WebApp.Hubs
 {
     public class NotifyHub : BaseHub<NotifyHub>
     {
+        private readonly IAnalyzer _analyzer;
+
+        public NotifyHub(IAnalyzer analyzer)
+        {
+            _analyzer = analyzer;
+        }
+
         public void GetNotifications(float criticalScore)
         {
             //var notifications = await GetAllNotifications(criticalScore);
@@ -26,14 +33,14 @@ namespace Colin.Lottery.WebApp.Hubs
         {
             var nots = new List<string>();
 
-            await GetNotifications(nots, LotteryType.Pk10, (int)Pk10Rule.Champion, criticalScore);
-            await GetNotifications(nots, LotteryType.Pk10, (int)Pk10Rule.Second, criticalScore);
-            await GetNotifications(nots, LotteryType.Pk10, (int)Pk10Rule.Third, criticalScore);
-            await GetNotifications(nots, LotteryType.Pk10, (int)Pk10Rule.Fourth, criticalScore);
-            await GetNotifications(nots, LotteryType.Pk10, (int)Pk10Rule.BigOrSmall, criticalScore);
-            await GetNotifications(nots, LotteryType.Pk10, (int)Pk10Rule.OddOrEven, criticalScore);
-            await GetNotifications(nots, LotteryType.Pk10, (int)Pk10Rule.DragonOrTiger, criticalScore);
-            await GetNotifications(nots, LotteryType.Pk10, (int)Pk10Rule.Sum, criticalScore);
+            await GetNotifications(nots, LotteryType.Pk10, (int) Pk10Rule.Champion, criticalScore);
+            await GetNotifications(nots, LotteryType.Pk10, (int) Pk10Rule.Second, criticalScore);
+            await GetNotifications(nots, LotteryType.Pk10, (int) Pk10Rule.Third, criticalScore);
+            await GetNotifications(nots, LotteryType.Pk10, (int) Pk10Rule.Fourth, criticalScore);
+            await GetNotifications(nots, LotteryType.Pk10, (int) Pk10Rule.BigOrSmall, criticalScore);
+            await GetNotifications(nots, LotteryType.Pk10, (int) Pk10Rule.OddOrEven, criticalScore);
+            await GetNotifications(nots, LotteryType.Pk10, (int) Pk10Rule.DragonOrTiger, criticalScore);
+            await GetNotifications(nots, LotteryType.Pk10, (int) Pk10Rule.Sum, criticalScore);
 
             return nots;
         }
@@ -46,10 +53,11 @@ namespace Colin.Lottery.WebApp.Hubs
         /// <param name="lottery">Lottery.</param>
         /// <param name="rule">Rule.</param>
         /// <param name="criticalScore">Critical score.</param>
-        private static async Task GetNotifications(ICollection<string> notifications, LotteryType lottery, int rule, float criticalScore)
+        private async Task GetNotifications(ICollection<string> notifications, LotteryType lottery, int rule,
+            float criticalScore)
         {
-            var plans = await JinMaAnalyzer.Instance.GetForecastData(lottery, rule);
-            JinMaAnalyzer.Instance.CalcuteScore(plans);
+            var plans = await _analyzer.GetForecastData(lottery, rule);
+            _analyzer.CalcuteScore(plans);
 
             //plans.ForEach(p =>
             //{
@@ -65,7 +73,10 @@ namespace Colin.Lottery.WebApp.Hubs
         /// <param name="score">预测分数</param>
         public static IReadOnlyList<string> GetConnectionIds(float score)
         {
-            return (from connId in UserSettings.Keys let criticalScore = float.Parse(UserSettings[connId].ToString()) where !(criticalScore > score) select connId).ToList();
+            return (from connId in UserSettings.Keys
+                let criticalScore = float.Parse(UserSettings[connId].ToString())
+                where !(criticalScore > score)
+                select connId).ToList();
         }
     }
 }

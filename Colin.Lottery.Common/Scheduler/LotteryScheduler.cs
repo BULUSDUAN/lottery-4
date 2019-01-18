@@ -3,9 +3,7 @@ using Colin.Lottery.Models;
 
 namespace Colin.Lottery.Common.Scheduler
 {
-    public abstract class LotteryScheduler<T>
-        : Singleton<T>, ILotteryScheduler
-        where T : LotteryScheduler<T>, new()
+    public abstract class LotteryScheduler : ILotteryScheduler
     {
         public abstract long GetPeriodNo();
 

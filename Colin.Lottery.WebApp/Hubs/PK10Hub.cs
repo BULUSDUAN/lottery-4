@@ -12,7 +12,12 @@ namespace Colin.Lottery.WebApp.Hubs
 {
     public class PK10Hub : BaseHub<PK10Hub>
     {
-        private static readonly IMemoryCache Cache = Startup.GetService<IMemoryCache>();
+        private readonly IMemoryCache _cache;
+
+        public PK10Hub(IMemoryCache cache)
+        {
+            _cache = cache;
+        }
 
         /// <summary>
         /// 获取指定玩法预测数据(最近15段)并订阅玩法 Web端详情页调用
@@ -22,7 +27,7 @@ namespace Colin.Lottery.WebApp.Hubs
         public async Task GetForecastData(int rule = 1)
         {
             List<IForecastPlanModel> plans = null;
-            if (Cache.TryGetValue<ConcurrentDictionary<int, List<IForecastPlanModel>>>(LotteryType.Pk10,
+            if (_cache.TryGetValue<ConcurrentDictionary<int, List<IForecastPlanModel>>>(LotteryType.Pk10,
                 out var ps))
                 ps.TryGetValue(rule, out plans);
             if (plans == null)
@@ -42,7 +47,7 @@ namespace Colin.Lottery.WebApp.Hubs
         public async Task GetAllNewForecast()
         {
             var forecasts = new List<IForecastModel>();
-            if (Cache.TryGetValue<ConcurrentDictionary<int, List<IForecastPlanModel>>>(LotteryType.Pk10,
+            if (_cache.TryGetValue<ConcurrentDictionary<int, List<IForecastPlanModel>>>(LotteryType.Pk10,
                 out var ps))
             {
                 for (var i = 1; i <= (int) Pk10Rule.Sum; i++)

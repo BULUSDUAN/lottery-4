@@ -12,7 +12,7 @@ using Colin.Lottery.Utils;
 
 namespace Colin.Lottery.Analyzers
 {
-    public class JinMaAnalyzer : Analyzer<JinMaAnalyzer>
+    public class JinMaAnalyzer : Analyzer
     {
         #region 查询预测数据
 

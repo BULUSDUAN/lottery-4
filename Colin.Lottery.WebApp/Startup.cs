@@ -1,4 +1,7 @@
 using System;
+using Colin.Lottery.Analyzers;
+using Colin.Lottery.Common.Scheduler;
+using Colin.Lottery.DataService;
 using Colin.Lottery.WebApp.Filters;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -10,6 +13,8 @@ using Colin.Lottery.WebApp.Hubs;
 using Colin.Lottery.WebApp.Helpers;
 using Exceptionless;
 using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.AspNetCore.SignalR;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace Colin.Lottery.WebApp
 {
@@ -32,16 +37,6 @@ namespace Colin.Lottery.WebApp
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddDistributedMemoryCache();
-
-            // AddSession 必须在 AddMvc() 之前执行
-            services.AddSession(options =>
-            {
-                // Set a short timeout for easy testing.
-                options.IdleTimeout = TimeSpan.FromMinutes(30);
-                options.Cookie.HttpOnly = true;
-            });
-
             services.Configure<ForwardedHeadersOptions>(options =>
             {
                 options.ForwardedHeaders =
@@ -51,17 +46,17 @@ namespace Colin.Lottery.WebApp
             services.AddMvc(options => options.Filters.Add<GlobalExceptionFilter>())
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-            //            services.AddSignalR(hubOptions => hubOptions.KeepAliveInterval = TimeSpan.FromMinutes(15));
+            services.AddMemoryCache();
             services.AddSignalR();
 
-            //services.AddScoped<PK10Hub>();
-
-            //启用内存缓存
-            services.AddMemoryCache();
+            services.AddSingleton<JinMaHelper>();
+            services.AddSingleton<IDataService, JinMaDataService>();
+            services.AddSingleton<IAnalyzer, JinMaAnalyzer>();
+            services.AddSingleton<ILotteryScheduler, Pk10Scheduler>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public async void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public async void Configure(IApplicationBuilder app, IHostingEnvironment env, JinMaHelper helper)
         {
             if (env.IsDevelopment())
             {
@@ -82,9 +77,6 @@ namespace Colin.Lottery.WebApp
 
             app.UseStaticFiles();
             app.UseCookiePolicy();
-            app.UseSession();
-
-            app.UseAuthentication();
 
             app.UseMvc();
 
@@ -99,18 +91,8 @@ namespace Colin.Lottery.WebApp
             //ExceptionlessClient.Default.Configuration.ServerUrl = Configuration.GetSection("Exceptionless:ServerUrl").Value;
             app.UseExceptionless();
 
-            _provider = app.ApplicationServices;
-
             //启动策略
-            await JinMaHelper.StartService();
-        }
-
-
-        private static IServiceProvider _provider;
-
-        public static T GetService<T>() where T : class
-        {
-            return _provider.GetService(typeof(T)) as T;
+            await helper.StartService();
         }
     }
 }

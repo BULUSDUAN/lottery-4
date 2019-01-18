@@ -11,10 +11,19 @@ using Quartz;
 
 namespace Colin.Lottery.DataService
 {
-    public class JinMaDataService : DataService<JinMaDataService>
+    public class JinMaDataService : DataService
     {
         public override event EventHandler<DataCollectedEventArgs> DataCollectedSuccess;
         public override event EventHandler<CollectErrorEventArgs> DataCollectedError;
+
+        private readonly ILotteryScheduler _scheduler;
+        private readonly IAnalyzer _analyzer;
+
+        public JinMaDataService(ILotteryScheduler scheduler, IAnalyzer analyzer)
+        {
+            _scheduler = scheduler;
+            _analyzer = analyzer;
+        }
 
         public override async Task Start()
         {
@@ -97,7 +106,7 @@ namespace Colin.Lottery.DataService
             async void Scan()
             {
                 var timestamp = DateTime.UtcNow;
-                var periodNo = Pk10Scheduler.Instance.GetPeriodNo(timestamp);
+                var periodNo = _scheduler.GetPeriodNo(timestamp);
                 var locked = new RulePeriodLocked(rule, periodNo);
 
                 var jobTrigger = $"{prefix}_Scan_{periodNo}".ToJobTrigger();
@@ -120,7 +129,7 @@ namespace Colin.Lottery.DataService
                         }
 
                         //扫水
-                        var task = JinMaAnalyzer.Instance.GetForecastData(LotteryType.Pk10, (int) rule);
+                        var task = _analyzer.GetForecastData(LotteryType.Pk10, (int) rule);
                         task.Wait();
                         var plans = task.Result;
                         /*
@@ -137,7 +146,7 @@ namespace Colin.Lottery.DataService
                             return;
 
                         //成功扫到最新数据
-                        JinMaAnalyzer.Instance.CalcuteScore(plans);
+                        _analyzer.CalcuteScore(plans);
                         DataCollectedSuccess?.Invoke(this,
                             new DataCollectedEventArgs(LotteryType.Pk10, rule, plans));
 

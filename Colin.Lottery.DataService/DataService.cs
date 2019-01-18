@@ -5,9 +5,7 @@ using Colin.Lottery.Models;
 
 namespace Colin.Lottery.DataService
 {
-    public abstract class DataService<T>
-        : Singleton<T>, IDataService
-        where T : DataService<T>, new()
+    public abstract class DataService:  IDataService
     {
         public abstract event EventHandler<DataCollectedEventArgs> DataCollectedSuccess;
         public abstract event EventHandler<CollectErrorEventArgs> DataCollectedError;

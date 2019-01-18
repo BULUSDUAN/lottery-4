@@ -12,7 +12,7 @@ namespace Colin.Lottery.Collectors
     /// <summary>
     /// 金马团队分析计划采集器 (https://3530.net)
     /// </summary>
-    public class JinMaCollector : Collector<JinMaCollector>
+    public class JinMaCollector : Collector
     {
         /// <summary>
         /// 异步接口根地址

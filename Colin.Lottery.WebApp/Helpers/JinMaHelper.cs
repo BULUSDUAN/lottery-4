@@ -13,69 +13,70 @@ using Newtonsoft.Json;
 
 namespace Colin.Lottery.WebApp.Helpers
 {
-    public static class JinMaHelper
+    public class JinMaHelper
     {
-        private static readonly IHubContext<PK10Hub> Pk10Context;
-        private static readonly IMemoryCache Cache;
+        private readonly IHubContext<PK10Hub> _pk10Context;
+        private readonly IMemoryCache _cache;
+        private readonly IDataService _service;
 
-        private static readonly int MinKeepGua;
-//        private static readonly int MinRepetition;
+        private readonly int _minKeepGua;
+//        private readonly int MinRepetition;
 
-        static JinMaHelper()
+        public JinMaHelper(IMemoryCache cache, IDataService service, IHubContext<PK10Hub> pk10Context)
         {
-            Pk10Context = Startup.GetService<IHubContext<PK10Hub>>();
-            Cache = Startup.GetService<IMemoryCache>();
+            _pk10Context = pk10Context;
+            _cache = cache;
+            _service = service;
 
-            MinKeepGua = Convert.ToInt32(ConfigUtil.Configuration["TelegramBot:MinKeepGua"]);
+            _minKeepGua = Convert.ToInt32(ConfigUtil.Configuration["TelegramBot:MinKeepGua"]);
 //            MinRepetition = Convert.ToInt32(ConfigUtil.Configuration["TelegramBot:MinRepetition"]);
         }
 
         /// <summary>
         /// 启动 金马自动扫水/通知服务
         /// </summary>
-        public static async Task StartService()
+        public async Task StartService()
         {
-            var service = JinMaDataService.Instance;
-            service.DataCollectedSuccess += Service_DataCollectedSuccess;
-            service.DataCollectedError += Service_DataCollectedError;
-            await service.Start();
+            _service.DataCollectedSuccess += Service_DataCollectedSuccess;
+            _service.DataCollectedError += Service_DataCollectedError;
+            await _service.Start();
         }
 
-        private static async void Service_DataCollectedSuccess(object sender, DataCollectedEventArgs e)
+        private async void Service_DataCollectedSuccess(object sender, DataCollectedEventArgs e)
         {
             //推送Web通知
             await PushWebNotification(e);
 
             //推送App消息
-            await PushAppNotification(e);
+//            await PushAppNotification(e);
 
             //更新缓存
             UpdateCache(e);
         }
 
 
-        private static void UpdateCache(DataCollectedEventArgs e)
+        private void UpdateCache(DataCollectedEventArgs e)
         {
-            lock (Cache)
+            lock (_cache)
             {
-                if (Cache.TryGetValue(e.Lottery, out ConcurrentDictionary<int, List<IForecastPlanModel>> ps))
+                if (_cache.TryGetValue(e.Lottery, out ConcurrentDictionary<int, List<IForecastPlanModel>> ps))
                     ps[(int) e.Rule] = e.Plans;
                 else
-                    Cache.Set(e.Lottery,
+                    _cache.Set(e.Lottery,
                         new ConcurrentDictionary<int, List<IForecastPlanModel>>() {[(int) e.Rule] = e.Plans});
             }
         }
 
-        private static async Task PushWebNotification(DataCollectedEventArgs e)
+        private async Task PushWebNotification(DataCollectedEventArgs e)
         {
             //1.推送完整15期计划
-            await Pk10Context.Clients.Group(e.Rule.ToString()).SendAsync("ShowPlans", e.Plans);
+            await _pk10Context.Clients.Group(e.Rule.ToString()).SendAsync("ShowPlans", e.Plans);
 
             //2.推送最新期计划
-            await Pk10Context.Clients.Group("AllRules").SendAsync("ShowPlans", e.LastForecastData);
+            await _pk10Context.Clients.Group("AllRules").SendAsync("ShowPlans", e.LastForecastData);
         }
 
-        private static async Task PushAppNotification(DataCollectedEventArgs e)
+        private async Task PushAppNotification(DataCollectedEventArgs e)
         {
             if (e.Rule == Pk10Rule.Sum)
                 return;
@@ -110,7 +111,7 @@ namespace Colin.Lottery.WebApp.Helpers
                     await JPushUtil.PushNotificationAsync("PK10连挂提醒", msg, audience);
                 }
 
-                if (p.KeepGuaCnt >= MinKeepGua)
+                if (p.KeepGuaCnt >= _minKeepGua)
                     await TelegramBotUtil.SendMessageAsync(msg);
             });
 
@@ -138,11 +139,11 @@ namespace Colin.Lottery.WebApp.Helpers
         }
 
 
-        private static async void Service_DataCollectedError(object sender, CollectErrorEventArgs e)
+        private async void Service_DataCollectedError(object sender, CollectErrorEventArgs e)
         {
-            await Pk10Context.Clients.Groups(new List<string> {e.Rule.ToString(), "AllRules"})
+            await _pk10Context.Clients.Groups(new List<string> {e.Rule.ToString(), "AllRules"})
                 .SendAsync("NoResult", e.Rule.ToStringName());
-            
+
             ExceptionlessUtil.Warn("目标网站扫水接口异常，请尽快检查恢复");
         }
     }
