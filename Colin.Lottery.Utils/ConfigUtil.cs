@@ -1,8 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Configuration.Json;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
-
 
 
 namespace Colin.Lottery.Utils
@@ -14,11 +12,15 @@ namespace Colin.Lottery.Utils
         /// </summary>
         public static IConfiguration Configuration { get; }
 
+        private static IServiceCollection ServiceCollection { get; }
+
         static ConfigUtil()
         {
             Configuration = new ConfigurationBuilder()
-                .Add(new JsonConfigurationSource { Path = "appsettings.json", ReloadOnChange = true })
+                .AddJsonFile("appsettings.json", true, true)
                 .Build();
+
+            ServiceCollection = new ServiceCollection();
         }
 
         /// <summary>
@@ -28,9 +30,8 @@ namespace Colin.Lottery.Utils
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
         public static T GetAppSettings<T>(string key) where T : class, new()
-        { 
-            return new ServiceCollection()
-                .AddOptions()
+        {
+            return ServiceCollection
                 .Configure<T>(Configuration.GetSection(key))
                 .BuildServiceProvider()
                 .GetService<IOptions<T>>()
